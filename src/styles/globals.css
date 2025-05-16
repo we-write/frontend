@@ -1,1 +1,20 @@
 @import 'tailwindcss';
+
+@layer base {
+  html {
+    font-family: 'Pretendard Variable', system-ui, sans-serif;
+  }
+}
+
+@theme {
+  /* Fonts */
+  --font-hanuman: var(--font-hanuman);
+
+  /* Main Colors */
+  --color-write-main: #008060;
+  --color-write-green-50: #e8fcf1;
+}
+
+.flex-center {
+  @apply flex items-center justify-center;
+}
