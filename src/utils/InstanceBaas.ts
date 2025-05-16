@@ -5,6 +5,6 @@ const instanceBaaS = axios.create({
   timeout: 5000,
 });
 if (!process.env.NEXT_PUBLIC_BAAS_URL) {
-  throw new Error('BaaS URL is not defined');
+  throw new Error('Baas URL is not defined');
 }
 export default instanceBaaS;
