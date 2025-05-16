@@ -1,10 +1,18 @@
 import localFont from 'next/font/local';
+import { Hanuman } from 'next/font/google';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import QueryProviders from '@/providers/queryProviders';
 
-const myFont = localFont({
+const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
+  variable: '--pretendard',
+});
+
+const hanuman = Hanuman({
+  weight: '400',
+  subsets: ['latin'],
+  variable: '--font-hanuman',
 });
 
 export const metadata: Metadata = {
@@ -19,7 +27,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ko">
-      <body className={`${myFont.className} antialiased`}>
+      <body
+        className={`${pretendard.variable} ${hanuman.variable} antialiased`}
+      >
         <QueryProviders>{children}</QueryProviders>
       </body>
     </html>
