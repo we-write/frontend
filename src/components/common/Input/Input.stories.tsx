@@ -18,13 +18,6 @@ export const Default: Story = {
   },
 };
 
-export const WithLabel: Story = {
-  args: {
-    label: '이름',
-    placeholder: '이름을 입력해주세요',
-  },
-};
-
 export const WithSuffixIcon: Story = {
   args: {
     label: 'Password',
@@ -45,15 +38,6 @@ export const WithErrorHelperText: Story = {
   args: {
     label: '이메일',
     placeholder: '이메일을 입력해주세요',
-    helperText: '올바른 이메일 형식이 아닙니다',
     hasError: true,
-  },
-};
-
-export const WithSuccessHelperText: Story = {
-  args: {
-    label: '이메일',
-    placeholder: '이메일을 입력해주세요',
-    helperText: '올바른 이메일 형식입니다',
   },
 };

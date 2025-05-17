@@ -5,13 +5,17 @@ import React, {
 } from 'react';
 import { UseFormRegisterReturn } from 'react-hook-form';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+const ERROR_TEXT_COLOR = 'text-red-600';
+const SUCCESS_TEXT_COLOR = 'text-green-600';
+const ERROR_BORDER_COLOR = 'border-red-600';
+
+export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   name: string;
-  type: HTMLInputTypeAttribute;
+  type?: HTMLInputTypeAttribute;
   label?: ReactNode;
   placeholder?: string;
   hasError?: boolean;
-  helperText?: ReactNode;
+  isSuccess?: boolean;
   register?: UseFormRegisterReturn;
   SuffixIcon?: ReactNode;
 }
@@ -19,54 +23,63 @@ interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
 const Input = ({
   name,
   type = 'text',
-  label,
   placeholder = '',
   hasError = false,
-  helperText,
   register,
   SuffixIcon = null,
   ...rest
 }: InputProps) => {
   const inputStyle = {
-    input: 'relative h-11 w-full rounded-xl bg-gray-50 px-4 py-2.5',
+    default: 'relative h-11 w-full rounded-xl bg-gray-50 px-4 py-2.5',
     suffixIcon: 'absolute top-1/2 right-4 -translate-y-1/2',
-    hasError: 'border border-red-600',
-  };
-
-  const helperTextStyle = {
-    default: 'mt-2 text-sm',
-    errorText: 'text-red-600',
-    successText: 'text-green-600',
+    hasError: `border ${ERROR_BORDER_COLOR}`,
   };
 
   return (
-    <label htmlFor={name}>
-      {label && <p className="mb-2 text-sm font-semibold">{label}</p>}
-
-      <div className="relative">
-        <input
-          type={type}
-          placeholder={placeholder}
-          className={`${inputStyle.input} ${
-            SuffixIcon ? 'pr-10' : ''
-          } ${hasError ? inputStyle.hasError : ''}`}
-          {...register}
-          {...rest}
-        />
-        <div className="absolute top-1/2 right-4 -translate-y-1/2">
-          {SuffixIcon}
-        </div>
+    <div className="relative">
+      <input
+        name={name}
+        type={type}
+        placeholder={placeholder}
+        className={`${inputStyle.default} ${
+          SuffixIcon ? 'pr-10' : ''
+        } ${hasError ? inputStyle.hasError : ''}`}
+        {...register}
+        {...rest}
+      />
+      <div className="absolute top-1/2 right-4 -translate-y-1/2">
+        {SuffixIcon}
       </div>
-
-      {helperText && (
-        <p
-          className={`${helperTextStyle.default} ${hasError ? helperTextStyle.errorText : helperTextStyle.successText}`}
-        >
-          {helperText}
-        </p>
-      )}
-    </label>
+    </div>
   );
 };
 
 export default Input;
+
+export interface HelperTextProps {
+  helperText: ReactNode;
+  hasError?: boolean;
+  isSuccess?: boolean;
+}
+
+export const HelperText = ({
+  helperText,
+  hasError,
+  isSuccess,
+}: HelperTextProps) => {
+  const helperTextStyle = {
+    default: 'mt-2 text-sm text-gray-500',
+    errorText: ERROR_TEXT_COLOR,
+    successText: SUCCESS_TEXT_COLOR,
+  };
+
+  return (
+    <p
+      className={`${helperTextStyle.default} ${
+        hasError ? helperTextStyle.errorText : ''
+      } ${isSuccess ? helperTextStyle.successText : ''}`}
+    >
+      {helperText}
+    </p>
+  );
+};
