@@ -20,7 +20,7 @@ export const Default: Story = {
 
 export const WithSuffixIcon: Story = {
   args: {
-    label: 'Password',
+    name: 'password',
     placeholder: '비밀번호를 입력하세요',
     type: 'password',
     SuffixIcon: (
@@ -36,7 +36,7 @@ export const WithSuffixIcon: Story = {
 
 export const WithErrorHelperText: Story = {
   args: {
-    label: '이메일',
+    name: 'email',
     placeholder: '이메일을 입력해주세요',
     hasError: true,
   },
