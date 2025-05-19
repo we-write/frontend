@@ -1,14 +1,16 @@
 import LoginSectionProps from '@/components/layout/LoginSection/type';
 import Image from 'next/image';
+import { useRouter } from 'next/navigation';
 
 const SIGN_IN_IMAGE = '/assets/images/signin.png';
 
-export default function LoginSection({ isSignIn }: LoginSectionProps) {
+export const LoginSection = ({ isSignIn }: LoginSectionProps) => {
+  const router = useRouter();
   const handleSignIn = () => {
     if (isSignIn) {
-      window.location.href = '/auths/signout';
+      router.push('/auths/signout');
     } else {
-      window.location.href = '/auths/signin';
+      router.push('/auths/signin');
     }
   };
   return (
@@ -20,4 +22,4 @@ export default function LoginSection({ isSignIn }: LoginSectionProps) {
       )}
     </button>
   );
-}
+};

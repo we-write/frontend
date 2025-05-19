@@ -3,9 +3,9 @@
 import HamburgerIcon from '@/components/icons/HamburgerIcon';
 import Link from 'next/link';
 import { useState } from 'react';
-import GNBItem from '../GNBItem/GNBItem';
-import LoginSection from '../LoginSection/LoginSection';
-import SideDrawer from '../SideDrawer/SideDrawer';
+import { GNBItem } from '../GNBItem/GNBItem';
+import { LoginSection } from '../LoginSection/LoginSection';
+import { SideDrawer } from '../SideDrawer/SideDrawer';
 
 // 메뉴 항목
 const MENU_ITEMS = [
@@ -19,7 +19,7 @@ const IMAGES = {
   hamburger: '/assets/icons/Hamburger.svg',
 };
 
-export default function GNB() {
+export const GNB = () => {
   const [isSignIn] = useState(false);
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
@@ -67,4 +67,4 @@ export default function GNB() {
       />
     </nav>
   );
-}
+};

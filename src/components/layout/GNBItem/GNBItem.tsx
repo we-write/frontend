@@ -2,7 +2,7 @@ import GNBItemProps from '@/components/layout/GNBItem/type';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 
-export default function GNBItem({ label, href }: GNBItemProps) {
+export const GNBItem = ({ label, href }: GNBItemProps) => {
   const pathname = usePathname();
   const isActive = pathname === href;
   return (
@@ -12,4 +12,4 @@ export default function GNBItem({ label, href }: GNBItemProps) {
       <Link href={href}>{label}</Link>
     </li>
   );
-}
+};
