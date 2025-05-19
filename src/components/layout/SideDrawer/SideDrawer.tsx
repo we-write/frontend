@@ -1,5 +1,3 @@
-'use client';
-
 import { SideDrawerProps } from '@/components/layout/SideDrawer/type';
 import Image from 'next/image';
 import Link from 'next/link';
