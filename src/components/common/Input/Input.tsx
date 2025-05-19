@@ -1,17 +1,4 @@
-import { InputHTMLAttributes, ReactNode } from 'react';
-import { UseFormRegisterReturn } from 'react-hook-form';
-
-const ERROR_TEXT_COLOR = 'text-red-600';
-const SUCCESS_TEXT_COLOR = 'text-green-600';
-const ERROR_BORDER_COLOR = 'border-red-600';
-
-export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
-  name: string;
-  hasError?: boolean;
-  isSuccess?: boolean;
-  register?: UseFormRegisterReturn;
-  SuffixIcon?: ReactNode;
-}
+import { HelperTextProps, InputProps } from './type';
 
 const Input = ({
   name,
@@ -25,7 +12,7 @@ const Input = ({
   const inputStyle = {
     default: 'relative h-11 w-full rounded-xl bg-gray-50 px-4 py-2.5',
     suffixIcon: 'absolute top-1/2 right-4 -translate-y-1/2',
-    hasError: `border ${ERROR_BORDER_COLOR}`,
+    hasError: 'border border-write-error',
   };
 
   return (
@@ -35,7 +22,7 @@ const Input = ({
         type={type}
         placeholder={placeholder}
         className={`${inputStyle.default} ${SuffixIcon ? 'pr-10' : ''} ${hasError ? inputStyle.hasError : ''}`}
-        {...(register ?? { name })}
+        {...(register || {})}
         {...rest}
       />
       {SuffixIcon && <div className={inputStyle.suffixIcon}>{SuffixIcon}</div>}
@@ -45,12 +32,6 @@ const Input = ({
 
 export default Input;
 
-export interface HelperTextProps {
-  helperText: ReactNode;
-  hasError?: boolean;
-  isSuccess?: boolean;
-}
-
 export const HelperText = ({
   helperText,
   hasError,
@@ -58,8 +39,8 @@ export const HelperText = ({
 }: HelperTextProps) => {
   const helperTextStyle = {
     default: 'mt-2 text-sm text-gray-500',
-    errorText: ERROR_TEXT_COLOR,
-    successText: SUCCESS_TEXT_COLOR,
+    errorText: 'text-write-error',
+    successText: 'text-write-success',
   };
 
   const className = [

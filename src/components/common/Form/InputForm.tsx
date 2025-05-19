@@ -1,11 +1,5 @@
-import { ReactNode } from 'react';
-import Input, { HelperText, InputProps } from '../Input/Input';
-
-interface InputFormProps extends InputProps {
-  label?: ReactNode;
-  helperText?: string;
-  hasError?: boolean;
-}
+import Input, { HelperText } from '../Input/Input';
+import { InputFormProps } from './type';
 
 const InputForm = ({
   name,
