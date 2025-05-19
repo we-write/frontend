@@ -13,6 +13,21 @@
   /* Main Colors */
   --color-write-main: #008060;
   --color-write-green-50: #e8fcf1;
+  --color-write-success: #58a56c;
+  --color-write-error: #dc2626;
+}
+
+@layer utilities {
+  input:-webkit-autofill,
+  input:-webkit-autofill:hover,
+  input:-webkit-autofill:focus,
+  input:-webkit-autofill:active {
+    -webkit-transition: background-color 5000s ease-in-out 0s;
+    transition: background-color 5000s ease-in-out 0s;
+    -webkit-transition: background-color 9999s ease-out;
+    -webkit-box-shadow: 0 0 0px 1000px transparent inset !important;
+    -webkit-text-fill-color: #000 !important;
+  }
 }
 
 .flex-center {
