@@ -59,7 +59,7 @@ export const SideDrawer = ({
           onClick={handleSignIn}
           type="button"
           aria-label="로그인"
-          className="h-full w-full cursor-pointer rounded-md p-4 text-start text-base font-[600] text-gray-500 transition duration-300 hover:bg-gray-200"
+          className="w-full cursor-pointer rounded-md p-4 text-start text-base font-[600] text-gray-500 transition duration-300 hover:bg-gray-200"
         >
           로그인
         </button>
