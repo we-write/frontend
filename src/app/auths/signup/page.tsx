@@ -3,17 +3,13 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
+import { FormData } from '@/types/user';
+import usePostSignup from '@/hooks/usePostSignup';
+import { useRouter } from 'next/navigation';
 
 //TODO: 프라머리 컬러 변경 필요
 const PRIMARY_COLOR = '#008060';
 
-interface FormData {
-  name: string;
-  email: string;
-  password: string;
-  passwordCheck: string;
-  favorite: string;
-}
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordCheck, setShowPasswordCheck] = useState(false);
@@ -22,9 +18,27 @@ const Page = () => {
     handleSubmit,
     formState: { isSubmitting, errors },
     getValues,
+    setError,
   } = useForm<FormData>();
+  const { mutate: postSignup } = usePostSignup();
+  const router = useRouter();
   const onSubmit = (data: FormData) => {
-    console.log(data);
+    const signUpData = {
+      name: data.name,
+      email: data.email,
+      password: data.password,
+      companyName: data.companyName,
+    };
+
+    postSignup(signUpData, {
+      onSuccess: () => router.push('/'),
+      onError: (error: Error) => {
+        setError('email', {
+          type: 'manual',
+          message: error.message,
+        });
+      },
+    });
   };
 
   return (
@@ -38,20 +52,16 @@ const Page = () => {
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
             <label htmlFor="name" className="text-sm font-semibold">
-              닉네임
+              이름
             </label>
             <input
               type="text"
-              placeholder="닉네임을 입력해주세요"
+              placeholder="이름을 입력해주세요"
               className={`rounded-md bg-gray-100 p-2 ${
                 errors.name ? 'border-2 border-red-500' : ''
               }`}
               {...register('name', {
-                required: '닉네임을 입력해주세요',
-                pattern: {
-                  value: /^[가-힣a-zA-Z0-9]{2,12}$/,
-                  message: '2자 이상 12자 이하로 입력해주세요',
-                },
+                required: '이름을 입력해주세요',
               })}
             />
             {errors.name && (
@@ -94,12 +104,10 @@ const Page = () => {
                 placeholder="비밀번호를 입력해주세요"
                 className="rounded-md border-none p-2 focus:outline-none"
                 {...register('password', {
-                  required: '비밀번호를 입력해주세요',
+                  required: '비밀번호가 8자 이상이 되도록 해 주세요',
                   pattern: {
-                    value:
-                      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,20}$/,
-                    message:
-                      '비밀번호는 대소문자, 숫자, 특수문자를 포함해 8~20자로 입력해주세요',
+                    value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
+                    message: '비밀번호가 8자 이상이 되도록 해 주세요',
                   },
                 })}
               />
@@ -161,14 +169,16 @@ const Page = () => {
               type="text"
               placeholder="(ex. 위대한 개츠비,원피스)"
               className={`rounded-md bg-gray-100 p-2 ${
-                errors.favorite ? 'border-2 border-red-500' : ''
+                errors.companyName ? 'border-2 border-red-500' : ''
               }`}
-              {...register('favorite', {
-                required: '좋아하는 작품을 입력해주세요',
+              {...register('companyName', {
+                required: '좋아하는 작품을 1개 이상 입력해 주세요.',
               })}
             />
-            {errors.favorite && (
-              <small className="text-red-500">{errors.favorite.message}</small>
+            {errors.companyName && (
+              <small className="text-red-500">
+                {errors.companyName.message}
+              </small>
             )}
           </div>
 
