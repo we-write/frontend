@@ -7,7 +7,7 @@ export const GNBItem = ({ label, href }: GNBItemProps) => {
   const isActive = pathname === href;
   return (
     <li
-      className={`${isActive ? 'text-write-main' : 'hover:text-write-main/60 text-gray-500'} transition duration-300`}
+      className={`${isActive ? 'text-write-main bg-gray-100' : ''} hover:text-write-main hover:bg-gray-100 text-gray-500  py-1.5 px-2 rounded-xl `}
     >
       <Link href={href}>{label}</Link>
     </li>
