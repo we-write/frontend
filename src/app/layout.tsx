@@ -32,9 +32,7 @@ export default function RootLayout({
         className={`${pretendard.variable} ${hanuman.variable} antialiased`}
       >
         <QueryProviders>
-          <header>
-            <GNB />
-          </header>
+          <GNB />
           <main className="mt-[60px] h-screen w-full bg-gray-100 p-4">
             {children}
           </main>
