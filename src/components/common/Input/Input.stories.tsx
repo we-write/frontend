@@ -23,7 +23,7 @@ export const WithSuffixIcon: Story = {
     name: 'password',
     placeholder: '비밀번호를 입력하세요',
     type: 'password',
-    SuffixIcon: (
+    suffixIcon: (
       <Image
         src="/assets/icons/VisibilityOff.svg"
         alt="search"

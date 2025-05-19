@@ -6,7 +6,7 @@ const Input = ({
   placeholder = '',
   hasError = false,
   register,
-  SuffixIcon = null,
+  suffixIcon = null,
   ...rest
 }: InputProps) => {
   const inputStyle = {
@@ -21,11 +21,11 @@ const Input = ({
         id={name}
         type={type}
         placeholder={placeholder}
-        className={`${inputStyle.default} ${SuffixIcon ? 'pr-10' : ''} ${hasError ? inputStyle.hasError : ''}`}
+        className={`${inputStyle.default} ${suffixIcon ? 'pr-10' : ''} ${hasError ? inputStyle.hasError : ''}`}
         {...(register || {})}
         {...rest}
       />
-      {SuffixIcon && <div className={inputStyle.suffixIcon}>{SuffixIcon}</div>}
+      {suffixIcon && <div className={inputStyle.suffixIcon}>{suffixIcon}</div>}
     </div>
   );
 };
