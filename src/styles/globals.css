@@ -33,3 +33,19 @@
 .flex-center {
   @apply flex items-center justify-center;
 }
+
+.btn-primary {
+  @apply bg-write-main text-white;
+}
+
+.btn-primary-inverted {
+  @apply border-write-main text-write-main bg-white;
+}
+
+.btn-secondary {
+  @apply bg-write-main text-white;
+}
+
+.btn-secondary-inverted {
+  @apply border-write-green-50 bg-white text-black;
+}
