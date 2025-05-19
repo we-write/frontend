@@ -13,6 +13,8 @@
   /* Main Colors */
   --color-write-main: #008060;
   --color-write-green-50: #e8fcf1;
+  --color-write-success: #58a56c;
+  --color-write-error: #dc2626;
 }
 
 @layer utilities {
