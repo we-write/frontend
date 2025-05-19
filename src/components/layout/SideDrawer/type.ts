@@ -6,7 +6,7 @@ interface MenuItemProps {
 export interface SideDrawerProps {
   isOpen: boolean;
   closeDrawer: () => void;
-  isSignIn: boolean;
+  // isSignIn: boolean;
   menuItems: MenuItemProps[];
   signInImageSrc: string;
 }
