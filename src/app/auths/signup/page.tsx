@@ -4,9 +4,12 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormData } from '@/types/user';
-import usePostSignup from '@/hooks/usePostSignup';
+import usePostSignup from '@/hooks/api/users/usePostSignup';
 import { useRouter } from 'next/navigation';
 
+import InputForm from '@/components/common/Form/InputForm';
+import { Visibility, VisibilityOff } from '@/components/icons/Visibility';
+import Input, { HelperText } from '@/components/common/Input/Input';
 //TODO: 프라머리 컬러 변경 필요
 const PRIMARY_COLOR = '#008060';
 
@@ -22,7 +25,9 @@ const Page = () => {
   } = useForm<FormData>();
   const { mutate: postSignup } = usePostSignup();
   const router = useRouter();
+
   const onSubmit = (data: FormData) => {
+    console.log(data);
     const signUpData = {
       name: data.name,
       email: data.email,
@@ -51,135 +56,142 @@ const Page = () => {
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
           <div className="flex flex-col gap-2">
-            <label htmlFor="name" className="text-sm font-semibold">
-              이름
-            </label>
-            <input
-              type="text"
+            <InputForm
+              name="name"
+              hasError={!!errors.name}
+              size={46}
+              label="이름"
               placeholder="이름을 입력해주세요"
-              className={`rounded-md bg-gray-100 p-2 ${
-                errors.name ? 'border-2 border-red-500' : ''
-              }`}
-              {...register('name', {
-                required: '이름을 입력해주세요',
-              })}
+              register={{
+                ...register('name', {
+                  required: '이름을 입력해주세요',
+                }),
+              }}
             />
-            {errors.name && (
-              <small className="text-red-500">{errors.name.message}</small>
-            )}
+            <HelperText
+              helperText={errors.name?.message}
+              hasError={!!errors.name}
+            />
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="email" className="font-bold">
-              이메일
-            </label>
-            <input
-              type="email"
+            <InputForm
+              name="email"
+              size={46}
+              label="이메일"
               placeholder="이메일을 입력해주세요"
-              className={`rounded-md bg-gray-100 p-2 ${
-                errors.email ? 'border-2 border-red-500' : ''
-              }`}
-              {...register('email', {
-                required: '이메일을 입력해주세요',
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: '이메일 형식이 올바르지 않습니다',
-                },
-              })}
+              hasError={!!errors.email}
+              register={{
+                ...register('email', {
+                  required: '이메일을 입력해주세요',
+                  pattern: {
+                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                    message: '이메일 형식이 올바르지 않습니다',
+                  },
+                }),
+              }}
             />
-            {errors.email && (
-              <small className="text-red-500">{errors.email.message}</small>
-            )}
+
+            <HelperText
+              helperText={errors.email?.message}
+              hasError={!!errors.email}
+            />
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="password" className="font-bold">
               비밀번호
             </label>
-            <div
-              className={`relative rounded-md bg-gray-100 ${
-                errors.password ? 'border-2 border-red-500' : ''
-              }`}
-            >
-              <input
+            <div className="flex flex-col gap-2">
+              <Input
+                name="password"
+                suffixIcon={
+                  showPassword ? (
+                    <button onClick={() => setShowPassword(!showPassword)}>
+                      <Visibility />
+                    </button>
+                  ) : (
+                    <button onClick={() => setShowPassword(!showPassword)}>
+                      <VisibilityOff />
+                    </button>
+                  )
+                }
                 type={showPassword ? 'text' : 'password'}
                 placeholder="비밀번호를 입력해주세요"
-                className="rounded-md border-none p-2 focus:outline-none"
-                {...register('password', {
-                  required: '비밀번호가 8자 이상이 되도록 해 주세요',
-                  pattern: {
-                    value: /^(?=.*[a-zA-Z])(?=.*\d)[a-zA-Z\d]{8,}$/,
-                    message: '비밀번호가 8자 이상이 되도록 해 주세요',
-                  },
-                })}
+                register={{
+                  ...register('password', {
+                    required: '비밀번호가 8자 이상이 되도록 해 주세요',
+                    pattern: {
+                      value: /^.{8,}$/,
+                      message: '비밀번호가 8자 이상이 되도록 해 주세요',
+                    },
+                  }),
+                }}
+                hasError={!!errors.password}
               />
-              <button
-                type="button"
-                className="absolute top-1/2 right-2 -translate-y-1/2 text-gray-500"
-                onClick={() => setShowPassword(!showPassword)}
-              >
-                {showPassword ? '숨기기' : '보기'}
-              </button>
             </div>
 
-            {errors.password && (
-              <small className="text-red-500">{errors.password.message}</small>
-            )}
+            <HelperText
+              helperText={errors.password?.message}
+              hasError={!!errors.password}
+            />
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="passwordCheck" className="font-bold">
               비밀번호 확인
             </label>
-            <div
-              className={`relative rounded-md bg-gray-100 ${
-                errors.passwordCheck ? 'border-2 border-red-500' : ''
-              }`}
-            >
-              <input
-                type={showPasswordCheck ? 'text' : 'password'}
-                placeholder="비밀번호를 다시 한 번 입력해주세요"
-                className="rounded-md border-none p-2 focus:outline-none"
-                {...register('passwordCheck', {
+            <Input
+              name="passwordCheck"
+              hasError={!!errors.passwordCheck}
+              suffixIcon={
+                showPasswordCheck ? (
+                  <button
+                    onClick={() => setShowPasswordCheck(!showPasswordCheck)}
+                  >
+                    <Visibility />
+                  </button>
+                ) : (
+                  <button
+                    onClick={() => setShowPasswordCheck(!showPasswordCheck)}
+                  >
+                    <VisibilityOff />
+                  </button>
+                )
+              }
+              type={showPasswordCheck ? 'text' : 'password'}
+              placeholder="비밀번호를 다시 한 번 입력해주세요"
+              className="w-full rounded-md border-none p-2 focus:outline-none"
+              register={{
+                ...register('passwordCheck', {
                   required: '비밀번호를 다시 한 번 입력해주세요',
                   validate: (value) => {
                     if (value !== getValues('password')) {
                       return '비밀번호가 일치하지 않습니다';
                     }
                   },
-                })}
-              />
-              <button
-                type="button"
-                className="absolute top-1/2 right-2 -translate-y-1/2 text-gray-500"
-                onClick={() => setShowPasswordCheck(!showPasswordCheck)}
-              >
-                {showPasswordCheck ? '숨기기' : '보기'}
-              </button>
-            </div>
-
-            {errors.passwordCheck && (
-              <small className="text-red-500">
-                {errors.passwordCheck.message}
-              </small>
-            )}
-          </div>
-          <div className="flex flex-col gap-2">
-            <label htmlFor="favorite" className="font-bold">
-              좋아하는 작품
-            </label>
-            <input
-              type="text"
-              placeholder="(ex. 위대한 개츠비,원피스)"
-              className={`rounded-md bg-gray-100 p-2 ${
-                errors.companyName ? 'border-2 border-red-500' : ''
-              }`}
-              {...register('companyName', {
-                required: '좋아하는 작품을 1개 이상 입력해 주세요.',
-              })}
+                }),
+              }}
             />
-            {errors.companyName && (
-              <small className="text-red-500">
-                {errors.companyName.message}
-              </small>
-            )}
+          </div>
+          <HelperText
+            helperText={errors.passwordCheck?.message}
+            hasError={!!errors.passwordCheck}
+          />
+
+          <div className="flex flex-col gap-2">
+            <InputForm
+              name="companyName"
+              label="좋아하는 작품"
+              placeholder="(ex. 위대한 개츠비,원피스)"
+              hasError={!!errors.companyName}
+              register={{
+                ...register('companyName', {
+                  required: '좋아하는 작품을 1개 이상 입력해 주세요.',
+                }),
+              }}
+            />
+            <HelperText
+              helperText={errors.companyName?.message}
+              hasError={!!errors.companyName}
+            />
           </div>
 
           <button
