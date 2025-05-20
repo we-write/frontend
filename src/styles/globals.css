@@ -30,6 +30,24 @@
   }
 }
 
-.flex-center {
-  @apply flex items-center justify-center;
+@layer components {
+  .flex-center {
+    @apply flex items-center justify-center;
+  }
+
+  .comp-primary {
+    @apply bg-write-main text-white;
+  }
+
+  .comp-primary-inverted {
+    @apply border-write-main text-write-main bg-white;
+  }
+
+  .comp-secondary {
+    @apply bg-write-main text-white;
+  }
+
+  .comp-secondary-inverted {
+    @apply border-write-green-50 bg-white text-black;
+  }
 }
