@@ -27,7 +27,7 @@ export const WhiteInverted: Story = {
   },
 };
 
-export const Custom: Story = {
+export const CustomSize: Story = {
   args: {
     children: 'Button',
     color: 'primary',
@@ -59,5 +59,14 @@ export const Disabled: Story = {
     color: 'primary',
     variant: 'default',
     isDisabled: true,
+  },
+};
+
+export const CustomColor: Story = {
+  args: {
+    children: 'Button',
+    color: 'custom',
+    variant: 'default',
+    className: 'bg-blue-500',
   },
 };
