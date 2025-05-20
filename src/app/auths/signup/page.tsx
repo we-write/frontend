@@ -21,11 +21,15 @@ const Page = () => {
     getValues,
     setError,
   } = useForm<FormData>();
-  const { mutate: postSignup } = usePostSignup();
+
+  const { mutate: postSignup } = usePostSignup(); //회원 가입 요청 hooks 호출
+
   const router = useRouter();
 
+  // 회원가입 제출 함수
   const onSubmit = (data: FormData) => {
     const signUpData = {
+      //form 데이터 중 비밀번호 확인 제외 데이터
       name: data.name,
       email: data.email,
       password: data.password,
@@ -35,6 +39,7 @@ const Page = () => {
     postSignup(signUpData, {
       onSuccess: () => router.push('/'),
       onError: (error: Error) => {
+        // 이메일 중복확인 오류 처리
         setError('email', {
           type: 'manual',
           message: error.message,
@@ -71,7 +76,7 @@ const Page = () => {
           <div className="flex flex-col gap-2">
             <InputForm
               name="email"
-              size={46}
+              size={46} // 입력 필드 너비 지정
               label="이메일"
               placeholder="이메일을 입력해주세요"
               hasError={!!errors.email}
