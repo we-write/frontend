@@ -58,10 +58,10 @@ const GridCard = ({
           {description ? (
             <p className="line-clamp-3 text-sm text-gray-600">{description}</p>
           ) : (
-            <div className="space-y-1">
-              <div className="h-3.5 w-full animate-pulse rounded bg-gray-300" />
-              <div className="h-3.5 w-5/6 animate-pulse rounded bg-gray-300" />
-              <div className="h-3.5 w-2/3 animate-pulse rounded bg-gray-300" />
+            <div className="animate-pulse space-y-1">
+              <div className="h-3.5 w-full rounded bg-gray-300" />
+              <div className="h-3.5 w-5/6 rounded bg-gray-300" />
+              <div className="h-3.5 w-2/3 rounded bg-gray-300" />
             </div>
           )}
         </div>
