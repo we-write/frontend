@@ -10,8 +10,8 @@ const CheckBox = ({
   ...rest
 }: CheckBoxProps) => {
   const labelClasses: Record<LabelPosition, string> = {
-    left: 'flex-row-reverse',
-    right: 'flex-row',
+    left: 'flex-row',
+    right: 'flex-row-reverse',
   };
 
   return (
