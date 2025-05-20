@@ -27,7 +27,6 @@ const Page = () => {
   const router = useRouter();
 
   const onSubmit = (data: FormData) => {
-    console.log(data);
     const signUpData = {
       name: data.name,
       email: data.email,
@@ -49,9 +48,7 @@ const Page = () => {
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
       <div className="flex w-full max-w-md flex-col gap-4 rounded-md border-2 border-gray-300 bg-white p-4">
-        <h1
-          className={`text-center text-xl font-semibold text-[${PRIMARY_COLOR}]`}
-        >
+        <h1 className={`text-write-main text-center text-xl font-bold`}>
           회원가입
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
