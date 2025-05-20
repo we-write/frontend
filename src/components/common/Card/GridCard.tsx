@@ -12,6 +12,7 @@ const GridCard = ({
   title,
   genre,
   description,
+  isCardDataLoading,
 }: GridCardProps) => {
   const { isImageLoaded, isImageLoadError, onLoad, onError } =
     useImageLoadStatus();
@@ -25,7 +26,7 @@ const GridCard = ({
       >
         <figure className="relative h-48">
           {tag && <div className="absolute top-1 right-2 z-10">{tag}</div>}
-          {!isImageLoaded || isImageLoadError ? (
+          {!isImageLoaded || isImageLoadError || isCardDataLoading ? (
             <div className="absolute h-full w-full animate-pulse rounded-xl bg-gray-300" />
           ) : null}
           {imageSrc && (
@@ -42,19 +43,19 @@ const GridCard = ({
         </figure>
         <div className="mt-2 px-2 py-1">
           <div className="mb-1 flex w-78 items-center gap-2.5">
-            {title ? (
+            {!isCardDataLoading ? (
               <h2 className="truncate text-xl font-semibold">{title}</h2>
             ) : (
               <div className="h-6 w-40 animate-pulse rounded bg-gray-300" />
             )}
             <div className="h-5 border border-r-1" />
-            {genre ? (
+            {!isCardDataLoading ? (
               <p className="whitespace-nowrap">{genre}</p>
             ) : (
               <div className="h-5 w-15 animate-pulse rounded bg-gray-300" />
             )}
           </div>
-          {description ? (
+          {!isCardDataLoading ? (
             <p className="line-clamp-3 text-sm text-gray-600">{description}</p>
           ) : (
             <div className="animate-pulse space-y-1">

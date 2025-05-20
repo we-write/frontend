@@ -24,6 +24,7 @@ export const ShortContent: Story = {
     title: '짧은 제목',
     genre: '판타지',
     description: '짧은 설명이 들어가는 description 영역입니다.',
+    isCardDataLoading: false,
   } as GridCardProps,
 };
 
@@ -38,6 +39,7 @@ export const LongContent: Story = {
     genre: '판타지',
     description:
       '이 설명은 지정된 최대 줄 수를 초과하기 때문에 초과된 설명 description을 자르고 line-clamp 스타일을 적용하여 화면에 줄임표(...)로 표시되어야 하는지 확인하기 위한 테스트용 문장입니다.',
+    isCardDataLoading: false,
   } as GridCardProps,
 };
 
@@ -50,5 +52,6 @@ export const SkeletonUI: Story = {
     title: '',
     genre: '',
     description: '',
+    isCardDataLoading: true,
   } as GridCardProps,
 };

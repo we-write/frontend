@@ -8,4 +8,5 @@ export interface GridCardProps {
   title: string | null;
   genre: string | null;
   description: string | null;
+  isCardDataLoading: boolean;
 }
