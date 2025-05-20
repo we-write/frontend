@@ -10,8 +10,6 @@ import { useRouter } from 'next/navigation';
 import InputForm from '@/components/common/Form/InputForm';
 import { Visibility, VisibilityOff } from '@/components/icons/Visibility';
 import Input, { HelperText } from '@/components/common/Input/Input';
-//TODO: 프라머리 컬러 변경 필요
-const PRIMARY_COLOR = '#008060';
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -205,7 +203,7 @@ const Page = () => {
           <Link
             role="navigation"
             href="/auths/signin"
-            className={`font-semibold text-[${PRIMARY_COLOR}] underline`}
+            className="text-write-main font-semibold underline"
           >
             로그인
           </Link>
