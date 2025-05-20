@@ -20,3 +20,9 @@
     @apply flex items-center justify-center;
   }
 }
+
+@layer base {
+  button {
+    @apply cursor-pointer;
+  }
+}
