@@ -10,7 +10,7 @@ export type ButtonSize = keyof typeof BUTTON_SIZE;
 
 export interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   size?: ButtonSize;
-  color: ColorType;
+  color?: ColorType;
   variant?: ColorVariant;
   isDisabled?: boolean;
   isLoading?: boolean;

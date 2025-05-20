@@ -1,5 +1,5 @@
-export type ColorVariant = 'default' | 'inverted';
-export type ColorType = 'primary' | 'secondary';
+export type ColorVariant = 'default' | 'inverted' | 'custom';
+export type ColorType = 'primary' | 'secondary' | 'custom';
 
 /** 안전한 switch exhaustiveness 체크 */
 const assertUnreachable = (x: never): never => {
@@ -12,10 +12,12 @@ export const getColorSystem = (
 ): string => {
   switch (variant) {
     case 'default':
-      return `btn-${color}`;
+      return `comp-${color}`;
     case 'inverted':
-      return `border-2 btn-${color}-inverted`;
+      return `comp-${color}-inverted border-2`;
+    case 'custom':
+      return '';
     default:
-      return assertUnreachable(variant); // 타입 안전성 확보
+      return assertUnreachable(variant);
   }
 };
