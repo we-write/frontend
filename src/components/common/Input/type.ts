@@ -14,3 +14,13 @@ export interface HelperTextProps {
   hasError?: boolean;
   isSuccess?: boolean;
 }
+
+export type LabelPosition = 'left' | 'right';
+
+export interface CheckBoxProps extends InputHTMLAttributes<HTMLInputElement> {
+  checked?: boolean;
+  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  label?: ReactNode;
+  labelPosition?: LabelPosition;
+  className?: string;
+}
