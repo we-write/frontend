@@ -96,6 +96,7 @@ const Page = () => {
               hasError={!!errors.email}
             />
           </div>
+
           <div className="flex flex-col gap-2">
             <label htmlFor="password" className="font-bold">
               비밀번호
@@ -138,38 +139,39 @@ const Page = () => {
             <label htmlFor="passwordCheck" className="font-bold">
               비밀번호 확인
             </label>
-            <Input
-              name="passwordCheck"
-              hasError={!!errors.passwordCheck}
-              suffixIcon={
-                showPasswordCheck ? (
-                  <button
-                    onClick={() => setShowPasswordCheck(!showPasswordCheck)}
-                  >
-                    <Visibility />
-                  </button>
-                ) : (
-                  <button
-                    onClick={() => setShowPasswordCheck(!showPasswordCheck)}
-                  >
-                    <VisibilityOff />
-                  </button>
-                )
-              }
-              type={showPasswordCheck ? 'text' : 'password'}
-              placeholder="비밀번호를 다시 한 번 입력해주세요"
-              className="w-full rounded-md border-none p-2 focus:outline-none"
-              register={{
-                ...register('passwordCheck', {
-                  required: '비밀번호를 다시 한 번 입력해주세요',
-                  validate: (value) => {
-                    if (value !== getValues('password')) {
-                      return '비밀번호가 일치하지 않습니다';
-                    }
-                  },
-                }),
-              }}
-            />
+            <div className="flex flex-col gap-2">
+              <Input
+                name="passwordCheck"
+                hasError={!!errors.passwordCheck}
+                suffixIcon={
+                  showPasswordCheck ? (
+                    <button
+                      onClick={() => setShowPasswordCheck(!showPasswordCheck)}
+                    >
+                      <Visibility />
+                    </button>
+                  ) : (
+                    <button
+                      onClick={() => setShowPasswordCheck(!showPasswordCheck)}
+                    >
+                      <VisibilityOff />
+                    </button>
+                  )
+                }
+                type={showPasswordCheck ? 'text' : 'password'}
+                placeholder="비밀번호를 다시 한 번 입력해주세요"
+                register={{
+                  ...register('passwordCheck', {
+                    required: '비밀번호를 다시 한 번 입력해주세요',
+                    validate: (value) => {
+                      if (value !== getValues('password')) {
+                        return '비밀번호가 일치하지 않습니다';
+                      }
+                    },
+                  }),
+                }}
+              />
+            </div>
           </div>
           <HelperText
             helperText={errors.passwordCheck?.message}
