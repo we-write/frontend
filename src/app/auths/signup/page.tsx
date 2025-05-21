@@ -37,7 +37,7 @@ const Page = () => {
     };
 
     createUser(signUpData, {
-      onSuccess: () => router.push('/'),
+      onSuccess: () => router.push('/social'),
       onError: (error: Error) => {
         // 이메일 중복확인 오류 처리
         setError('email', {
