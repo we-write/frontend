@@ -1,14 +1,14 @@
-import getSignup from '@/api/user/postSignup';
+import createUser from '@/api/user/createUser';
 import { SignUpRequest } from '@/types/user';
 import { useMutation } from '@tanstack/react-query';
 
-const usePostSignup = () => {
+const useCreateUser = () => {
   return useMutation({
-    mutationFn: (data: SignUpRequest) => getSignup(data),
+    mutationFn: (data: SignUpRequest) => createUser(data),
     onError: (error) => {
       console.error(error);
     },
   });
 };
 
-export default usePostSignup;
+export default useCreateUser;

@@ -4,7 +4,7 @@ import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FormData } from '@/types/user';
-import usePostSignup from '@/hooks/api/users/usePostSignup';
+import useCreateUser from '@/hooks/api/users/useCreateUser';
 import { useRouter } from 'next/navigation';
 
 import InputForm from '@/components/common/Form/InputForm';
@@ -22,7 +22,7 @@ const Page = () => {
     setError,
   } = useForm<FormData>();
 
-  const { mutate: postSignup } = usePostSignup(); //회원 가입 요청 hooks 호출
+  const { mutate: createUser } = useCreateUser(); //회원 가입 요청 hooks 호출
 
   const router = useRouter();
 
@@ -36,7 +36,7 @@ const Page = () => {
       companyName: data.companyName,
     };
 
-    postSignup(signUpData, {
+    createUser(signUpData, {
       onSuccess: () => router.push('/'),
       onError: (error: Error) => {
         // 이메일 중복확인 오류 처리

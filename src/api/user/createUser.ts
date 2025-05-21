@@ -2,7 +2,7 @@ import { SignUpRequest } from '@/types/user';
 import instance from '../instance';
 import axios from 'axios';
 
-const getSignup = async (data: SignUpRequest) => {
+const createUser = async (data: SignUpRequest) => {
   try {
     const res = await instance.post('/auths/signup', data);
 
@@ -23,4 +23,4 @@ const getSignup = async (data: SignUpRequest) => {
   }
 };
 
-export default getSignup;
+export default createUser;
