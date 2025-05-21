@@ -6,8 +6,7 @@ import { SideDrawer } from '../SideDrawer/SideDrawer';
 import { LogoButton } from '@/components/layout/GNB/LogoButton';
 import { MenuGroups } from '@/components/layout/GNB/MenuGroups';
 import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
-import { useSignIn } from '@/hooks/useSignIn';
-import { useState } from 'react';
+import useBoolean from '@/hooks/useBoolean';
 
 // 메뉴 항목
 const MENU_ITEMS = [
@@ -19,8 +18,12 @@ const MENU_ITEMS = [
 const SIGN_IN_IMAGE = '/assets/images/signin.png';
 
 export const GNB = () => {
-  const { isSignIn } = useSignIn();
-  const [isDrawerOpen, setIsDrawerOpen] = useState(false);
+  const { value: isSignIn } = useBoolean();
+  const {
+    value: isDrawerOpen,
+    setTrue: setIsDrawerOpen,
+    setFalse: setIsDrawerClose,
+  } = useBoolean();
 
   return (
     <>
@@ -37,7 +40,7 @@ export const GNB = () => {
           {/* 모바일 햄버거 */}
           <button
             className="absolute top-[18px] right-[20px] md:hidden"
-            onClick={() => setIsDrawerOpen(true)}
+            onClick={() => setIsDrawerOpen}
           >
             <HamburgerIcon className="h-6 w-6 text-gray-500" />
           </button>
@@ -47,13 +50,13 @@ export const GNB = () => {
       {isDrawerOpen && (
         <div
           className="fixed inset-0 z-40 bg-black opacity-50 md:hidden"
-          onClick={() => setIsDrawerOpen(false)}
+          onClick={() => setIsDrawerClose}
         />
       )}
       {/* 시아드 드로어 (모바일 화면에 표시) */}
       <SideDrawer
         isOpen={isDrawerOpen}
-        closeDrawer={() => setIsDrawerOpen(false)}
+        closeDrawer={() => setIsDrawerClose}
         isSignIn={isSignIn}
         menuItems={MENU_ITEMS}
         signInImageSrc={SIGN_IN_IMAGE}

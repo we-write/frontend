@@ -5,7 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import { useSignIn } from '@/hooks/useSignIn';
+import useBoolean from '@/hooks/useBoolean';
 
 export const SideDrawer = ({
   isOpen,
@@ -14,7 +14,7 @@ export const SideDrawer = ({
   signInImageSrc,
 }: SideDrawerProps) => {
   const pathname = usePathname();
-  const { isSignIn, toggleSignIn } = useSignIn();
+  const { value: isSignIn, toggle: toggleSignIn } = useBoolean();
 
   const handleSignIn = () => {
     toggleSignIn();
