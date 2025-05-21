@@ -3,7 +3,7 @@
 import Link from 'next/link';
 import React, { useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { FormData } from '@/types/user';
+import { SignUpFormData } from '@/types/user';
 import useCreateUser from '@/hooks/api/users/useCreateUser';
 import { useRouter } from 'next/navigation';
 
@@ -20,14 +20,14 @@ const Page = () => {
     formState: { isSubmitting, errors },
     getValues,
     setError,
-  } = useForm<FormData>();
+  } = useForm<SignUpFormData>();
 
   const { mutate: createUser } = useCreateUser(); //회원 가입 요청 hooks 호출
 
   const router = useRouter();
 
   // 회원가입 제출 함수
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: SignUpFormData) => {
     const signUpData = {
       //form 데이터 중 비밀번호 확인 제외 데이터
       name: data.name,
@@ -99,11 +99,17 @@ const Page = () => {
                 name="password"
                 suffixIcon={
                   showPassword ? (
-                    <button onClick={() => setShowPassword(!showPassword)}>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
                       <Visibility />
                     </button>
                   ) : (
-                    <button onClick={() => setShowPassword(!showPassword)}>
+                    <button
+                      type="button"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
                       <VisibilityOff />
                     </button>
                   )
@@ -134,12 +140,14 @@ const Page = () => {
                 suffixIcon={
                   showPasswordCheck ? (
                     <button
+                      type="button"
                       onClick={() => setShowPasswordCheck(!showPasswordCheck)}
                     >
                       <Visibility />
                     </button>
                   ) : (
                     <button
+                      type="button"
                       onClick={() => setShowPasswordCheck(!showPasswordCheck)}
                     >
                       <VisibilityOff />
