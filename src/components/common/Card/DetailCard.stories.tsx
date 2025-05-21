@@ -192,7 +192,7 @@ export const MobileDeafult: Story = {
     docs: {
       description: {
         story:
-          '모바일 사이즈(414x896)에서 보여지는 UI입니다. 전반적인 padding, margin, gap값을 축소했습니다.',
+          '모바일 사이즈(390×844)에서 보여지는 UI입니다. 전반적인 padding, margin, gap값을 축소했습니다.',
       },
     },
     viewport: {
@@ -224,7 +224,7 @@ export const MobileTruncateTitle: Story = {
     docs: {
       description: {
         story:
-          '모바일 사이즈(414x896)에서는 카드 좌우 폭이 좁아진 만큼 타이틀 영역을 확보하기 위해 2줄까지 텍스트가 출력되고 이후엔 줄임표가 나타납니다.',
+          '모바일 사이즈(390×844)에서는 카드 좌우 폭이 좁아진 만큼 타이틀 영역을 확보하기 위해 2줄까지 텍스트가 출력되고 이후엔 줄임표가 나타납니다.',
       },
     },
     viewport: {
