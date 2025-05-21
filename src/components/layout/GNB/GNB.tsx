@@ -39,8 +39,8 @@ export const GNB = () => {
           <LoginSection isSignIn={isSignIn} />
           {/* 모바일 햄버거 */}
           <button
-            className="absolute top-[18px] right-[20px] md:hidden"
-            onClick={() => setIsDrawerOpen}
+            className="absolute top-5 right-5 md:hidden"
+            onClick={() => setIsDrawerOpen()}
           >
             <HamburgerIcon className="h-6 w-6 text-gray-500" />
           </button>
@@ -50,13 +50,13 @@ export const GNB = () => {
       {isDrawerOpen && (
         <div
           className="fixed inset-0 z-40 bg-black opacity-50 md:hidden"
-          onClick={() => setIsDrawerClose}
+          onClick={() => setIsDrawerClose()}
         />
       )}
       {/* 시아드 드로어 (모바일 화면에 표시) */}
       <SideDrawer
         isOpen={isDrawerOpen}
-        closeDrawer={() => setIsDrawerClose}
+        closeDrawer={() => setIsDrawerClose()}
         isSignIn={isSignIn}
         menuItems={MENU_ITEMS}
         signInImageSrc={SIGN_IN_IMAGE}
