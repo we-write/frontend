@@ -9,7 +9,6 @@ import { useRouter } from 'next/navigation';
 
 import InputForm from '@/components/common/Form/InputForm';
 import { Visibility, VisibilityOff } from '@/components/icons/Visibility';
-import Input, { HelperText } from '@/components/common/Input/Input';
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -58,7 +57,6 @@ const Page = () => {
           <div className="flex flex-col gap-2">
             <InputForm
               name="name"
-              hasError={!!errors.name}
               size={46}
               label="이름"
               placeholder="이름을 입력해주세요"
@@ -67,10 +65,8 @@ const Page = () => {
                   required: '이름을 입력해주세요',
                 }),
               }}
-            />
-            <HelperText
-              helperText={errors.name?.message}
               hasError={!!errors.name}
+              helperText={errors.name?.message}
             />
           </div>
           <div className="flex flex-col gap-2">
@@ -80,6 +76,7 @@ const Page = () => {
               label="이메일"
               placeholder="이메일을 입력해주세요"
               hasError={!!errors.email}
+              helperText={errors.email?.message}
               register={{
                 ...register('email', {
                   required: '이메일을 입력해주세요',
@@ -90,11 +87,6 @@ const Page = () => {
                 }),
               }}
             />
-
-            <HelperText
-              helperText={errors.email?.message}
-              hasError={!!errors.email}
-            />
           </div>
 
           <div className="flex flex-col gap-2">
@@ -102,7 +94,7 @@ const Page = () => {
               비밀번호
             </label>
             <div className="flex flex-col gap-2">
-              <Input
+              <InputForm
                 name="password"
                 suffixIcon={
                   showPassword ? (
@@ -127,22 +119,17 @@ const Page = () => {
                   }),
                 }}
                 hasError={!!errors.password}
+                helperText={errors.password?.message}
               />
             </div>
-
-            <HelperText
-              helperText={errors.password?.message}
-              hasError={!!errors.password}
-            />
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="passwordCheck" className="font-bold">
               비밀번호 확인
             </label>
             <div className="flex flex-col gap-2">
-              <Input
+              <InputForm
                 name="passwordCheck"
-                hasError={!!errors.passwordCheck}
                 suffixIcon={
                   showPasswordCheck ? (
                     <button
@@ -170,29 +157,24 @@ const Page = () => {
                     },
                   }),
                 }}
+                hasError={!!errors.passwordCheck}
+                helperText={errors.passwordCheck?.message}
               />
             </div>
           </div>
-          <HelperText
-            helperText={errors.passwordCheck?.message}
-            hasError={!!errors.passwordCheck}
-          />
 
           <div className="flex flex-col gap-2">
             <InputForm
               name="companyName"
               label="좋아하는 작품"
               placeholder="(ex. 위대한 개츠비,원피스)"
-              hasError={!!errors.companyName}
               register={{
                 ...register('companyName', {
                   required: '좋아하는 작품을 1개 이상 입력해 주세요.',
                 }),
               }}
-            />
-            <HelperText
-              helperText={errors.companyName?.message}
               hasError={!!errors.companyName}
+              helperText={errors.companyName?.message}
             />
           </div>
 
