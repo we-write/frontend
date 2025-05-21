@@ -12,7 +12,7 @@ const Input = ({
   const inputStyle = {
     default: 'relative h-11 w-full rounded-xl bg-gray-50 px-4 py-2.5',
     suffixIcon: 'absolute top-1/2 right-4 -translate-y-1/2',
-    hasError: 'border border-write-error',
+    hasError: 'border border-write-error border-2',
   };
 
   return (
@@ -21,7 +21,7 @@ const Input = ({
         id={name}
         type={type}
         placeholder={placeholder}
-        className={`${inputStyle.default} ${suffixIcon ? 'pr-10' : ''} ${hasError ? inputStyle.hasError : ''}`}
+        className={` ${inputStyle.default} ${suffixIcon ? 'pr-10' : ''} ${hasError ? inputStyle.hasError : ''}`}
         {...(register || {})}
         {...rest}
       />

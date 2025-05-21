@@ -50,7 +50,7 @@ const Page = () => {
 
   return (
     <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
-      <div className="flex w-full max-w-md flex-col gap-4 rounded-md border-2 border-gray-300 bg-white p-4">
+      <div className="h-xl flex w-lg flex-col gap-10 rounded-3xl border-2 border-gray-300 bg-white px-14 py-6">
         <h1 className={`text-write-main text-center text-xl font-bold`}>
           회원가입
         </h1>
@@ -59,11 +59,11 @@ const Page = () => {
             <InputForm
               name="name"
               size={46}
-              label="이름"
-              placeholder="이름을 입력해주세요"
+              label="닉네임"
+              placeholder="닉네임을 입력해주세요"
               register={{
                 ...register('name', {
-                  required: '이름을 입력해주세요',
+                  required: '닉네임을 입력해주세요',
                 }),
               }}
               hasError={!!errors.name}
@@ -91,11 +91,9 @@ const Page = () => {
           </div>
 
           <div className="flex flex-col gap-2">
-            <label htmlFor="password" className="font-bold">
-              비밀번호
-            </label>
             <div className="flex flex-col gap-2">
               <InputForm
+                label="비밀번호"
                 name="password"
                 suffixIcon={
                   showPassword ? (
@@ -131,11 +129,9 @@ const Page = () => {
             </div>
           </div>
           <div className="flex flex-col gap-2">
-            <label htmlFor="passwordCheck" className="font-bold">
-              비밀번호 확인
-            </label>
             <div className="flex flex-col gap-2">
               <InputForm
+                label="비밀번호 확인"
                 name="passwordCheck"
                 suffixIcon={
                   showPasswordCheck ? (
