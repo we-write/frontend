@@ -3,6 +3,7 @@ import { Hanuman } from 'next/font/google';
 import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import QueryProviders from '@/providers/queryProviders';
+import { GNB } from '@/components/layout/GNB/GNB';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -30,7 +31,14 @@ export default function RootLayout({
       <body
         className={`${pretendard.variable} ${hanuman.variable} antialiased`}
       >
-        <QueryProviders>{children}</QueryProviders>
+        <QueryProviders>
+          <header>
+            <GNB />
+          </header>
+          <main className="min-h-screen w-full bg-gray-100 p-4 pt-[60px]">
+            {children}
+          </main>
+        </QueryProviders>
       </body>
     </html>
   );
