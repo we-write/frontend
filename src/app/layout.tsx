@@ -35,7 +35,7 @@ export default function RootLayout({
           <header>
             <GNB />
           </header>
-          <main className="min-h-screen w-full bg-gray-100 p-4 pt-[60px]">
+          <main className="min-h-screen w-full bg-gray-100 p-4 pt-15">
             {children}
           </main>
         </QueryProviders>
