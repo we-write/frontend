@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import React, { useState } from 'react';
-import { useForm } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormData } from '@/types/user';
 import useCreateUser from '@/hooks/api/users/useCreateUser';
 import { useRouter } from 'next/navigation';
@@ -27,7 +27,7 @@ const Page = () => {
   const router = useRouter();
 
   // 회원가입 제출 함수
-  const onSubmit = (data: SignUpFormData) => {
+  const onSubmit: SubmitHandler<SignUpFormData> = (data) => {
     const signUpData = {
       //form 데이터 중 비밀번호 확인 제외 데이터
       name: data.name,
@@ -147,7 +147,6 @@ const Page = () => {
                     </button>
                   ) : (
                     <button
-                      type="button"
                       onClick={() => setShowPasswordCheck(!showPasswordCheck)}
                     >
                       <VisibilityOff />
