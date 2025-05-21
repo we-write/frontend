@@ -1,7 +1,6 @@
 import { DetailCardProps } from '@/components/common/Card/type';
 import { format } from 'date-fns';
 import Button from '@/components/common/Button/Button';
-import useParticipationButton from '@/components/common/Card/hooks/useParticipationButton';
 
 const DetailCard = ({
   teamUserRole,
@@ -12,9 +11,30 @@ const DetailCard = ({
 }: DetailCardProps) => {
   const startDate = duration.startDate ? new Date(duration.startDate) : null;
   const endDate = duration.endDate ? new Date(duration.endDate) : null;
-  const { isButtonActivate, participationButtonLabel } = useParticipationButton(
-    { teamUserRole, textContent }
-  );
+  const isButtonActivate =
+    textContent.capacity !== null && textContent.participantCount !== null
+      ? textContent.capacity > textContent.participantCount
+      : false;
+
+  const getParticipationButtonLabel = (): string => {
+    if (teamUserRole === 'LEADER' || teamUserRole === 'MEMBER') {
+      return '스토리 이어쓰기';
+    }
+
+    if (teamUserRole === 'GUEST' && isButtonActivate) {
+      return '참여하기';
+    }
+
+    if (textContent.participantCount && textContent.capacity) {
+      if (textContent.participantCount >= textContent.capacity) {
+        return '인원이 모두 찼습니다';
+      } else {
+        return '지금은 참여할 수 없습니다';
+      }
+    } else {
+      return '지금은 참여할 수 없습니다';
+    }
+  };
 
   return (
     <div className="flex w-full flex-col gap-1.5 rounded-3xl border-2 border-gray-200 px-6 py-5 sm:gap-3 sm:px-8 sm:py-6">
@@ -55,7 +75,7 @@ const DetailCard = ({
         onClick={buttonClickEvent}
         className="font-semibold"
       >
-        {participationButtonLabel}
+        {getParticipationButtonLabel()}
       </Button>
     </div>
   );
