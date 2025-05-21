@@ -1,4 +1,7 @@
-import { DetailCardProps } from '@/components/common/Card/type';
+import {
+  DetailCardProps,
+  getParticipationButtonLabelParams,
+} from '@/components/common/Card/type';
 import { format } from 'date-fns';
 import Button from '@/components/common/Button/Button';
 
@@ -16,17 +19,22 @@ const DetailCard = ({
       ? textContent.capacity > textContent.participantCount
       : false;
 
-  const getParticipationButtonLabel = (): string => {
-    if (teamUserRole === 'LEADER' || teamUserRole === 'MEMBER') {
+  const getParticipationButtonLabel = ({
+    paramTeamUserRole,
+    paramIsButtonActivate,
+    participantCount,
+    capacity,
+  }: getParticipationButtonLabelParams): string => {
+    if (paramTeamUserRole === 'LEADER' || paramTeamUserRole === 'MEMBER') {
       return '스토리 이어쓰기';
     }
 
-    if (teamUserRole === 'GUEST' && isButtonActivate) {
+    if (paramTeamUserRole === 'GUEST' && paramIsButtonActivate) {
       return '참여하기';
     }
 
-    if (textContent.participantCount && textContent.capacity) {
-      if (textContent.participantCount >= textContent.capacity) {
+    if (participantCount && capacity) {
+      if (participantCount >= capacity) {
         return '인원이 모두 찼습니다';
       } else {
         return '지금은 참여할 수 없습니다';
@@ -75,7 +83,12 @@ const DetailCard = ({
         onClick={buttonClickEvent}
         className="font-semibold"
       >
-        {getParticipationButtonLabel()}
+        {getParticipationButtonLabel({
+          paramTeamUserRole: teamUserRole,
+          paramIsButtonActivate: isButtonActivate,
+          participantCount: textContent.participantCount,
+          capacity: textContent.capacity,
+        })}
       </Button>
     </div>
   );

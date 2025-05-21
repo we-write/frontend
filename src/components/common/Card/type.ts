@@ -40,3 +40,10 @@ export interface DetailCardProps {
   isCardDataLoading: boolean;
   buttonClickEvent: () => void;
 }
+
+export interface getParticipationButtonLabelParams {
+  paramTeamUserRole: TeamUserRole;
+  paramIsButtonActivate: boolean;
+  participantCount: number | null;
+  capacity: number | null;
+}
