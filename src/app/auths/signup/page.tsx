@@ -9,6 +9,7 @@ import { useRouter } from 'next/navigation';
 
 import InputForm from '@/components/common/Form/InputForm';
 import { Visibility, VisibilityOff } from '@/components/icons/Visibility';
+import Button from '@/components/common/Button/Button';
 
 const Page = () => {
   const [showPassword, setShowPassword] = useState(false);
@@ -178,14 +179,14 @@ const Page = () => {
             />
           </div>
 
-          <button
+          <Button
             role="button"
             type="submit"
-            className="mt-4 rounded-md bg-[#9CA3AF] p-2 text-white"
             disabled={isSubmitting}
+            className="bg-write-gray font-bold"
           >
             확인
-          </button>
+          </Button>
         </form>
         <div className="flex items-center justify-center gap-2">
           <span>이미 회원이신가요?</span>
