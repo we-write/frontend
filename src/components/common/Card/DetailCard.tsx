@@ -90,12 +90,14 @@ const DetailCard = ({
         onClick={buttonClickEvent}
         className="font-semibold"
       >
-        {getParticipationButtonLabel({
-          paramTeamUserRole: teamUserRole,
-          paramIsButtonActivate: isButtonActivate,
-          participantCount: textContent.participantCount,
-          capacity: textContent.capacity,
-        })}
+        {isCardDataLoading
+          ? '정보를 불러오는 중입니다.'
+          : getParticipationButtonLabel({
+              paramTeamUserRole: teamUserRole,
+              paramIsButtonActivate: isButtonActivate,
+              participantCount: textContent.participantCount,
+              capacity: textContent.capacity,
+            })}
       </Button>
     </div>
   );
