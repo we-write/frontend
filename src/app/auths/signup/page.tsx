@@ -49,8 +49,8 @@ const Page = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
-      <div className="h-xl flex w-lg flex-col gap-10 rounded-3xl border-2 border-gray-300 bg-white px-14 py-6">
+    <div className="mt-6 flex h-screen w-full items-center justify-center">
+      <div className="flex h-[680px] w-[343px] flex-col gap-10 rounded-3xl bg-white px-4 py-6 md:w-[608px] md:px-16 lg:h-[478px] lg:w-[508px]">
         <h1 className={`text-write-main text-center text-xl font-bold`}>
           회원가입
         </h1>
@@ -74,7 +74,7 @@ const Page = () => {
             <InputForm
               name="email"
               size={46} // 입력 필드 너비 지정
-              label="이메일"
+              label="아이디"
               placeholder="이메일을 입력해주세요"
               hasError={!!errors.email}
               helperText={errors.email?.message}
