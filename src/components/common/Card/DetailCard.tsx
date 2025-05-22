@@ -68,7 +68,14 @@ const DetailCard = ({
       <div className="mt-8 mb-3 sm:mt-24 sm:mb-7">
         {!isCardDataLoading ? (
           <p className="text-sm font-semibold">
-            모집 정원<span className="ml-1.5">{textContent.capacity}</span>명
+            {textContent.capacity ? (
+              <>
+                모집 정원
+                <span className="ml-1.5">{textContent.capacity}</span>명
+              </>
+            ) : (
+              '모집 인원 정보를 불러오지 못했습니다'
+            )}
           </p>
         ) : (
           <div className="flex animate-pulse items-center gap-3">
