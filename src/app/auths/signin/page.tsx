@@ -44,14 +44,11 @@ const Page = () => {
 
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
-      <div className="flex h-[462px] w-[343px] flex-col gap-10 rounded-3xl bg-white px-4 py-6 md:w-[608px] md:px-16 lg:h-[478px] lg:w-[508px]">
+      <div className="flex h-[478px] w-[343px] flex-col gap-10 rounded-3xl bg-white px-4 py-6 md:w-[608px] md:px-16 lg:h-[478px] lg:w-[508px]">
         <h1 className={`text-write-main text-center text-xl font-bold`}>
           로그인
         </h1>
-        <form
-          className="flex flex-col gap-8 lg:gap-10"
-          onSubmit={handleSubmit(onSubmit)}
-        >
+        <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-col gap-2">
             <InputForm
               label="아이디"
@@ -97,16 +94,16 @@ const Page = () => {
           >
             로그인
           </Button>
-          <div className="flex items-center justify-center gap-2">
-            <span>WE WRITE가 처음이신가요?</span>
-            <Link
-              href="/auths/signup"
-              className="text-write-main font-semibold underline"
-            >
-              회원가입
-            </Link>
-          </div>
-        </form>
+        </form>{' '}
+        <div className="flex items-center justify-center gap-2">
+          <span>WE WRITE가 처음이신가요?</span>
+          <Link
+            href="/auths/signup"
+            className="text-write-main font-semibold underline"
+          >
+            회원가입
+          </Link>
+        </div>
       </div>
     </div>
   );
