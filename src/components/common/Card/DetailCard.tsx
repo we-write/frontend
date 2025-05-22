@@ -33,12 +33,12 @@ const DetailCard = ({
       return '참여하기';
     }
 
-    if (participantCount && capacity) {
-      if (participantCount >= capacity) {
-        return '인원이 모두 찼습니다';
-      } else {
-        return '지금은 참여할 수 없습니다';
-      }
+    if (!participantCount || !capacity) {
+      return '지금은 참여할 수 없습니다';
+    }
+
+    if (participantCount >= capacity) {
+      return '인원이 모두 찼습니다';
     }
 
     return '지금은 참여할 수 없습니다';
