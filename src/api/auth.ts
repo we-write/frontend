@@ -1,5 +1,5 @@
 import { SignUpRequest } from '@/types/user';
-import instance from '../instance';
+import instance from './instance';
 import axios from 'axios';
 
 const createUser = async (data: SignUpRequest) => {
