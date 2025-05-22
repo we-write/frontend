@@ -143,6 +143,7 @@ const Page = () => {
                     </button>
                   ) : (
                     <button
+                      type="button"
                       onClick={() => setShowPasswordCheck(!showPasswordCheck)}
                     >
                       <VisibilityOff />
