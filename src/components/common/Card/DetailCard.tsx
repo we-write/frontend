@@ -39,9 +39,9 @@ const DetailCard = ({
       } else {
         return '지금은 참여할 수 없습니다';
       }
-    } else {
-      return '지금은 참여할 수 없습니다';
     }
+
+    return '지금은 참여할 수 없습니다';
   };
 
   return (
