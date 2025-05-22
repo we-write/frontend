@@ -1,7 +1,8 @@
 import React from 'react';
-
+import { redirect } from 'next/navigation';
 const Home = () => {
-  return <div className="text-2xl font-bold">WeWrite</div>;
+  redirect('/social');
+  return <></>;
 };
 
 export default Home;
