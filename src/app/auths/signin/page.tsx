@@ -1,5 +1,6 @@
 'use client';
 import Input from '@/components/common/Input/Input';
+import VisibilityIcon from '@/components/icons/VisibilityIcon';
 
 import Link from 'next/link';
 import React, { useState } from 'react';
@@ -37,7 +38,10 @@ const Page = () => {
                 type="button"
                 onClick={() => setIsShowPassword(!isShowPassword)}
               >
-                보기
+                <VisibilityIcon
+                  isShowed={isShowPassword}
+                  className={`${isShowPassword ? 'fill-write-write-main' : ''}`}
+                />
               </button>
             }
             name="password"
