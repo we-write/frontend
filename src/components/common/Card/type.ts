@@ -38,7 +38,7 @@ export interface DetailCardProps {
   textContent: DetailCardtextContentProps;
   duration: durationProps;
   isCardDataLoading: boolean;
-  buttonClickEvent: () => void;
+  handleButtonClick: () => void;
 }
 
 export interface getParticipationButtonLabelParams {

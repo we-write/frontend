@@ -10,7 +10,7 @@ const DetailCard = ({
   textContent,
   duration,
   isCardDataLoading,
-  buttonClickEvent,
+  handleButtonClick,
 }: DetailCardProps) => {
   const startDate = duration.startDate ? new Date(duration.startDate) : null;
   const endDate = duration.endDate ? new Date(duration.endDate) : null;
@@ -87,7 +87,7 @@ const DetailCard = ({
       <Button
         type="button"
         isDisabled={!isButtonActivate}
-        onClick={buttonClickEvent}
+        onClick={handleButtonClick}
         className="font-semibold"
       >
         {isCardDataLoading

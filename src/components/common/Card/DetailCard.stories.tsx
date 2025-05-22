@@ -27,7 +27,7 @@ export const ContinueStoryButton: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
-    buttonClickEvent: () => {},
+    handleButtonClick: () => {},
   } as DetailCardProps,
 
   parameters: {
@@ -54,7 +54,7 @@ export const ParticipateButton: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
-    buttonClickEvent: () => {},
+    handleButtonClick: () => {},
   } as DetailCardProps,
 
   parameters: {
@@ -80,7 +80,7 @@ export const MemberFullButton: Story = {
       endDate: '2025-05-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
-    buttonClickEvent: () => {},
+    handleButtonClick: () => {},
   } as DetailCardProps,
 
   parameters: {
@@ -107,7 +107,7 @@ export const NotAllowedParticipateButton: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
-    buttonClickEvent: () => {},
+    handleButtonClick: () => {},
   } as DetailCardProps,
 
   parameters: {
@@ -134,7 +134,7 @@ export const TruncateTitle: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
-    buttonClickEvent: () => {},
+    handleButtonClick: () => {},
   } as DetailCardProps,
 
   parameters: {
@@ -185,7 +185,7 @@ export const MobileDeafult: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
-    buttonClickEvent: () => {},
+    handleButtonClick: () => {},
   } as DetailCardProps,
 
   parameters: {
@@ -217,7 +217,7 @@ export const MobileTruncateTitle: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
-    buttonClickEvent: () => {},
+    handleButtonClick: () => {},
   } as DetailCardProps,
 
   parameters: {
