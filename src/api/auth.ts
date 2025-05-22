@@ -28,7 +28,7 @@ export const postSignIn = async (data: SignInFormData) => {
   try {
     const res = await instance.post('/auths/signin', data);
     if (res.status === 200) {
-      await setCookie('accessToken', res.data.token);
+      setCookie('accessToken', res.data.token);
 
       return res.data;
     }

@@ -1,6 +1,6 @@
 //TODO: 병합 후 수정
 import { useMutation } from '@tanstack/react-query';
-import { postSignIn } from '@/api/auths/postSignIn';
+import { postSignIn } from '@/api/auth';
 import { SignInFormData } from '@/types/user';
 import instance from '@/api/instance';
 export const usePostSignin = () => {

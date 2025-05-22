@@ -3,20 +3,43 @@ import Button from '@/components/common/Button/Button';
 import InputForm from '@/components/common/Form/InputForm';
 
 import VisibilityIcon from '@/components/icons/VisibilityIcon';
+import { usePostSignin } from '@/hooks/api/users/usePostSignin';
 import { SignInFormData } from '@/types/user';
 
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import React, { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 const Page = () => {
   const [isShowPassword, setIsShowPassword] = useState(false);
+  const router = useRouter();
   const {
     register,
     handleSubmit,
+    setError,
     formState: { isSubmitting, errors },
   } = useForm<SignInFormData>();
+  const { mutate: signIn } = usePostSignin();
   const onSubmit: SubmitHandler<SignInFormData> = (data) => {
-    console.log(data);
+    signIn(data, {
+      onSuccess: () => {
+        router.push('/social');
+      },
+      onError: (error: Error) => {
+        if (error.message === '존재하지 않는 아이디입니다') {
+          setError('email', {
+            type: 'manual',
+            message: error.message,
+          });
+        }
+        if (error.message === '비밀번호가 아이디와 일치하지 않습니다') {
+          setError('password', {
+            type: 'manual',
+            message: error.message,
+          });
+        }
+      },
+    });
   };
 
   return (
