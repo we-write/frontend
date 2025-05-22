@@ -15,6 +15,7 @@
   --color-write-green-50: #e8fcf1;
   --color-write-success: #58a56c;
   --color-write-error: #dc2626;
+  --color-write-gray: #9ca3af;
 }
 
 @layer utilities {
