@@ -186,10 +186,24 @@ const Page = () => {
           <Button
             role="button"
             type="submit"
-            disabled={isSubmitting}
-            className="bg-write-gray font-bold"
+            color="custom"
+            disabled={
+              isSubmitting ||
+              !!errors.email ||
+              !!errors.password ||
+              !!errors.passwordCheck ||
+              !!errors.companyName
+            }
+            className={`${
+              errors.email ||
+              errors.password ||
+              errors.passwordCheck ||
+              errors.companyName
+                ? 'bg-gray-400'
+                : 'bg-write-main'
+            } font-bold text-white`}
           >
-            확인
+            회원가입
           </Button>
         </form>
         <div className="flex items-center justify-center gap-2">
