@@ -102,8 +102,8 @@ const Page = () => {
             role="button"
             type="submit"
             color="custom"
-            disabled={isSubmitting}
-            className="bg-gray-400 font-bold text-white"
+            disabled={isSubmitting || !!errors.email || !!errors.password}
+            className={`${errors.email || errors.password ? 'bg-gray-400' : 'bg-write-main'} font-bold text-white`}
           >
             로그인
           </Button>
