@@ -1,19 +1,21 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useState } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormData } from '@/types/user';
 import useCreateUser from '@/hooks/api/users/useCreateUser';
 import { useRouter } from 'next/navigation';
 
 import InputForm from '@/components/common/Form/InputForm';
-import { Visibility, VisibilityOff } from '@/components/icons/Visibility';
+import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
 import Button from '@/components/common/Button/Button';
+import useBoolean from '@/hooks/useBoolean';
 
 const Page = () => {
-  const [showPassword, setShowPassword] = useState(false);
-  const [showPasswordCheck, setShowPasswordCheck] = useState(false);
+  const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
+  const { value: showPasswordCheck, toggle: toggleShowPasswordCheck } =
+    useBoolean();
   const {
     register,
     handleSubmit,
@@ -96,21 +98,23 @@ const Page = () => {
                 label="비밀번호"
                 name="password"
                 suffixIcon={
-                  showPassword ? (
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      <Visibility />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      <VisibilityOff />
-                    </button>
-                  )
+                  <button
+                    type="button"
+                    className="flex items-center justify-center"
+                    onClick={toggleShowPassword}
+                  >
+                    {showPassword ? (
+                      <VisibilityOn
+                        aria-label="show password"
+                        fill="currentColor"
+                      />
+                    ) : (
+                      <VisibilityOff
+                        aria-label="hide password"
+                        fill="currentColor"
+                      />
+                    )}
+                  </button>
                 }
                 type={showPassword ? 'text' : 'password'}
                 placeholder="비밀번호를 입력해주세요"
@@ -134,21 +138,23 @@ const Page = () => {
                 label="비밀번호 확인"
                 name="passwordCheck"
                 suffixIcon={
-                  showPasswordCheck ? (
-                    <button
-                      type="button"
-                      onClick={() => setShowPasswordCheck(!showPasswordCheck)}
-                    >
-                      <Visibility />
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      onClick={() => setShowPasswordCheck(!showPasswordCheck)}
-                    >
-                      <VisibilityOff />
-                    </button>
-                  )
+                  <button
+                    type="button"
+                    className="flex items-center justify-center"
+                    onClick={toggleShowPasswordCheck}
+                  >
+                    {showPasswordCheck ? (
+                      <VisibilityOn
+                        aria-label="show password"
+                        fill="currentColor"
+                      />
+                    ) : (
+                      <VisibilityOff
+                        aria-label="hide password"
+                        fill="currentColor"
+                      />
+                    )}
+                  </button>
                 }
                 type={showPasswordCheck ? 'text' : 'password'}
                 placeholder="비밀번호를 다시 한 번 입력해주세요"

@@ -2,16 +2,18 @@
 import Button from '@/components/common/Button/Button';
 import InputForm from '@/components/common/Form/InputForm';
 
-import VisibilityIcon from '@/components/icons/VisibilityIcon';
+import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
 import { usePostSignin } from '@/hooks/api/users/usePostSignin';
 import { SigninRequest } from '@/types/user';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useState } from 'react';
+import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import useBoolean from '@/hooks/useBoolean';
+
 const Page = () => {
-  const [isShowPassword, setIsShowPassword] = useState(false);
+  const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
   const router = useRouter();
   const {
     register,
@@ -45,7 +47,7 @@ const Page = () => {
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
       <div className="flex h-[478px] w-[343px] flex-col gap-10 rounded-3xl bg-white px-4 py-6 md:w-[608px] md:px-16 lg:h-[478px] lg:w-[508px]">
-        <h1 className={`text-write-main text-center text-xl font-bold`}>
+        <h1 className="text-write-main text-center text-xl font-bold">
           로그인
         </h1>
         <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
@@ -77,9 +79,20 @@ const Page = () => {
               suffixIcon={
                 <button
                   type="button"
-                  onClick={() => setIsShowPassword(!isShowPassword)}
+                  className="flex items-center justify-center"
+                  onClick={toggleIsShowPassword}
                 >
-                  <VisibilityIcon isShowed={isShowPassword} />
+                  {isShowPassword ? (
+                    <VisibilityOn
+                      aria-label="show password"
+                      fill="currentColor"
+                    />
+                  ) : (
+                    <VisibilityOff
+                      aria-label="hide password"
+                      fill="currentColor"
+                    />
+                  )}
                 </button>
               }
               type={isShowPassword ? 'text' : 'password'}
@@ -90,11 +103,11 @@ const Page = () => {
             type="submit"
             color="custom"
             disabled={isSubmitting}
-            className="bg-write-gray-400 font-bold text-white"
+            className="bg-gray-400 font-bold text-white"
           >
             로그인
           </Button>
-        </form>{' '}
+        </form>
         <div className="flex items-center justify-center gap-2">
           <span>WE WRITE가 처음이신가요?</span>
           <Link
