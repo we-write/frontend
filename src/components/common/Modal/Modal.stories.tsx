@@ -1,6 +1,7 @@
 import Button from '@/components/common/Button/Button';
 import { Modal, ModalHeader, ModalContent, ModalFooter } from './Modal';
 import type { Meta, StoryObj } from '@storybook/react';
+import InputForm from '@/components/common/Form/InputForm';
 
 const meta: Meta<typeof Modal> = {
   title: 'Common/Modal',
@@ -52,6 +53,24 @@ export const noBackDrop: Story = {
     </Modal>
   ),
 };
+
+export const CloseButtonDark: Story = {
+  render: () => (
+    <Modal isOpen onClose={() => {}} closeButtonDark>
+      <ModalHeader>
+        <h1>모달 헤더</h1>
+      </ModalHeader>
+      <ModalContent>
+        <p>모달 내용</p>
+      </ModalContent>
+      <ModalFooter>
+        <Button>취소</Button>
+        <Button>확인</Button>
+      </ModalFooter>
+    </Modal>
+  ),
+};
+
 export const noCloseButton: Story = {
   render: () => (
     <Modal isOpen onClose={() => {}} noCloseButton>
@@ -80,6 +99,63 @@ export const fullScreen: Story = {
       </ModalContent>
       <ModalFooter>
         <Button>취소</Button>
+        <Button>확인</Button>
+      </ModalFooter>
+    </Modal>
+  ),
+};
+
+export const NoModalHeader: Story = {
+  render: () => (
+    <Modal isOpen onClose={() => {}}>
+      <ModalContent>
+        <p>모달 내용</p>
+      </ModalContent>
+      <ModalFooter>
+        <Button>취소</Button>
+        <Button>확인</Button>
+      </ModalFooter>
+    </Modal>
+  ),
+};
+
+/**  버튼 넓이 지정 필요 */
+export const NoCancelButton: Story = {
+  render: () => (
+    <Modal isOpen onClose={() => {}}>
+      <ModalContent>
+        <p>모달 내용</p>
+      </ModalContent>
+      <ModalFooter>
+        <div className="w-1/2">
+          <Button>확인</Button>
+        </div>
+      </ModalFooter>
+    </Modal>
+  ),
+};
+
+export const ModalContentGroup: Story = {
+  render: () => (
+    <Modal isOpen onClose={() => {}}>
+      <ModalHeader>
+        <h1>모달 헤더</h1>
+      </ModalHeader>
+      <ModalContent group>
+        <InputForm
+          type="email"
+          label="Email"
+          name="email"
+          placeholder="이메일을 입력해줘"
+        />
+        <InputForm
+          type="password"
+          label="Password"
+          name="password"
+          placeholder="비밀번호를 입력해줘"
+        />
+      </ModalContent>
+      <ModalFooter>
         <Button>확인</Button>
       </ModalFooter>
     </Modal>
