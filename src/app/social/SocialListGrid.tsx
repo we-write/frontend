@@ -7,7 +7,7 @@ import { useReducer, useState } from 'react';
 
 const LIMIT = 12;
 
-const WriteListGrid = () => {
+const SocialListGrid = () => {
   const initialFilterState: GetSocialListParams = {
     limit: LIMIT,
     offset: 0,
@@ -87,4 +87,4 @@ const WriteListGrid = () => {
   );
 };
 
-export default WriteListGrid;
+export default SocialListGrid;
