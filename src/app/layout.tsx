@@ -4,6 +4,7 @@ import type { Metadata } from 'next';
 import '@/styles/globals.css';
 import QueryProviders from '@/providers/queryProviders';
 import { GNB } from '@/components/layout/GNB/GNB';
+import LayoutWrapper from '@/components/layout/LayoutWrapper';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -29,14 +30,14 @@ export default function RootLayout({
   return (
     <html lang="ko">
       <body
-        className={`${pretendard.variable} ${hanuman.variable} antialiased`}
+        className={`flex min-h-screen flex-col ${pretendard.variable} ${hanuman.variable} antialiased`}
       >
         <QueryProviders>
           <header>
             <GNB />
           </header>
-          <main className="min-h-screen w-full bg-gray-100 p-4 pt-15">
-            {children}
+          <main className="flex-1 bg-gray-100">
+            <LayoutWrapper>{children}</LayoutWrapper>
           </main>
         </QueryProviders>
       </body>
