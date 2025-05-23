@@ -4,6 +4,9 @@
   html {
     font-family: 'Pretendard Variable', system-ui, sans-serif;
   }
+  button {
+    cursor: pointer;
+  }
 }
 
 @theme {
