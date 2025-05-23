@@ -1,13 +1,19 @@
 'use client';
 
-import { getSocialList, GetSocialListParams } from '@/api/social';
+import { getSocialList } from '@/api/social/api';
+import { GetSocialListParams } from '@/api/social/type';
+import { LOCATION_GENRE_MAP, SocialResponse } from '@/api/social/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
 import { useReducer, useState } from 'react';
 
 const LIMIT = 12;
 
-const SocialListGrid = () => {
+const SocialListGrid = ({
+  initialSocialList,
+}: {
+  initialSocialList: SocialResponse[] | null;
+}) => {
   const initialFilterState: GetSocialListParams = {
     limit: LIMIT,
     offset: 0,
@@ -28,8 +34,11 @@ const SocialListGrid = () => {
     }
   };
 
-  const [state, dispatch] = useReducer(filterReducer, initialFilterState);
-  const [data, setData] = useState([]);
+  const [filterState, filterDispatch] = useReducer(
+    filterReducer,
+    initialFilterState
+  );
+  const [data, setData] = useState<SocialResponse[] | null>(initialSocialList);
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
@@ -37,23 +46,34 @@ const SocialListGrid = () => {
     if (!hasMore) return;
     setIsLoading(true);
 
-    getSocialList(state).then((res) => {
+    getSocialList(filterState).then((res) => {
       if (!res || res.length === 0) {
         setHasMore(false);
         setIsLoading(false);
         return;
       }
 
-      setData((prev) => [...prev, ...res]);
+      setData((prev) => [...(prev || []), ...res]);
       setIsLoading(false);
-      dispatch({
+      filterDispatch({
         type: 'SET_FILTER',
         payload: {
-          offset: (state.offset ?? 0) + LIMIT,
+          offset: (filterState.offset ?? 0) + LIMIT,
         },
       });
     });
   };
+
+  if (!data)
+    return (
+      <div className="flex h-full flex-col items-center justify-center">
+        <span className="text-center text-gray-500">
+          아직 모임이 없어요,
+          <br />
+          지금 바로 모임을 만들어보세요
+        </span>
+      </div>
+    );
 
   return (
     <>
@@ -70,8 +90,8 @@ const SocialListGrid = () => {
             }}
             textContent={{
               title: item.name || '제목 없음',
-              genre: item.genre || '장르 없음',
-              description: item.description || '설명 없음',
+              genre: LOCATION_GENRE_MAP[item.location] || '장르 없음',
+              description: item.type || '미정', //데이터 미정
             }}
             isCardDataLoading={isLoading}
           />
