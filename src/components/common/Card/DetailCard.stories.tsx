@@ -13,6 +13,18 @@ export default meta;
 
 type Story = StoryObj<typeof DetailCard>;
 
+const TEST_AVATAR_IMAGE_URLS = [
+  'https://cdn.pixabay.com/photo/2017/08/08/14/32/adler-2611528_1280.jpg',
+  'https://cdn.pixabay.com/photo/2024/08/05/13/17/dog-8946829_1280.jpg',
+  'https://cdn.pixabay.com/photo/2022/08/12/12/25/vulture-7381642_1280.jpg',
+  'https://cdn.pixabay.com/photo/2019/10/30/16/19/fox-4589927_1280.jpg',
+  'https://cdn.pixabay.com/photo/2017/04/03/00/16/shire-horse-2197214_1280.jpg',
+  'https://cdn.pixabay.com/photo/2023/04/27/10/22/cat-7954262_1280.jpg',
+  'https://cdn.pixabay.com/photo/2017/10/21/22/58/animal-2876068_1280.jpg',
+  'https://cdn.pixabay.com/photo/2018/03/31/06/31/dog-3277417_1280.jpg',
+  'https://cdn.pixabay.com/photo/2018/04/09/09/01/owl-3303542_1280.jpg',
+];
+
 export const ContinueStoryButton: Story = {
   args: {
     teamUserRole: 'MEMBER',
@@ -27,6 +39,7 @@ export const ContinueStoryButton: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     handleButtonClick: () => {},
   } as DetailCardProps,
 
@@ -54,6 +67,7 @@ export const ParticipateButton: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     handleButtonClick: () => {},
   } as DetailCardProps,
 
@@ -80,6 +94,7 @@ export const MemberFullButton: Story = {
       endDate: '2025-05-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     handleButtonClick: () => {},
   } as DetailCardProps,
 
@@ -107,6 +122,7 @@ export const NotAllowedParticipateButton: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     handleButtonClick: () => {},
   } as DetailCardProps,
 
@@ -134,6 +150,7 @@ export const TruncateTitle: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     handleButtonClick: () => {},
   } as DetailCardProps,
 
@@ -159,6 +176,7 @@ export const SkeletonUI: Story = {
       startDate: '2025-05-15T05:21:34.319Z',
       endDate: '2025-06-30T05:21:34.319Z',
     },
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     isCardDataLoading: true,
   } as DetailCardProps,
 
@@ -185,6 +203,7 @@ export const MobileDeafult: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     handleButtonClick: () => {},
   } as DetailCardProps,
 
@@ -217,6 +236,7 @@ export const MobileTruncateTitle: Story = {
       endDate: '2025-06-30T05:21:34.319Z',
     },
     isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
     handleButtonClick: () => {},
   } as DetailCardProps,
 

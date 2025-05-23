@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { TeamUserRole } from '@/types/teamUserRole';
+import { AvatarGroupProps } from '@/components/common/AvatarGroup/type';
 
 interface BaseTextContentProps {
   title: string | null;
@@ -38,6 +39,7 @@ export interface DetailCardProps {
   textContent: DetailCardtextContentProps;
   duration: durationProps;
   isCardDataLoading: boolean;
+  imageUrls: AvatarGroupProps['imageUrls'];
   handleButtonClick: () => void;
 }
 
