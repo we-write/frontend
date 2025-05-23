@@ -47,7 +47,6 @@ export const Default = () => {
             />
           ))}
         </Dropdown.Container>
-        {}
       </Dropdown>
       <div className="text-2xl font-bold">{'selected: ' + selected}</div>
     </>
