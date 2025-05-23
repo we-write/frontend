@@ -1,5 +1,5 @@
 import { SignUpRequest, SigninRequest } from '@/types/user';
-import { setCookie } from './auths/cookies';
+import { setCookie } from './cookies';
 import instance from './instance';
 import axios from 'axios';
 import { API_PATH } from '@/constants/apiPath';
