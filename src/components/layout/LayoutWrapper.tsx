@@ -10,7 +10,7 @@ export default function LayoutWrapper({
 }) {
   const pathname = usePathname();
   const isAuths = pathname.startsWith('/auths');
-  const basicStyle = 'mx-auto w-full max-w-[1200px] px-4 pt-20 min-h-lvh';
+  const basicStyle = 'mx-auto w-full max-w-300 px-4 pt-20 min-h-lvh';
   return (
     <div className={`${basicStyle} ${isAuths ? null : 'bg-gray-50'}`}>
       {children}
