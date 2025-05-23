@@ -24,7 +24,11 @@ export const Default = () => {
   return (
     <>
       <Dropdown
-        trigger={<Button onClick={toggle}>Dropdown</Button>}
+        trigger={
+          <Button size="custom" onClick={toggle}>
+            Dropdown
+          </Button>
+        }
         isOpen={value}
       >
         <Dropdown.Container>
