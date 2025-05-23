@@ -23,13 +23,18 @@ export const DropdownContainer = ({
   children,
   className = '',
 }: DropdownContainerProps) => {
-  const defaultOptionContainerStyle = `overflow-hidden rounded-md bg-white ${className}`;
+  const defaultOptionContainerStyle = `overflow-hidden rounded-md bg-white mt-2 ${className}`;
   return <ul className={defaultOptionContainerStyle}>{children}</ul>;
 };
 
-const Dropdown = ({ trigger, isOpen, children }: DropdownProps) => {
+const Dropdown = ({
+  children,
+  trigger,
+  isOpen,
+  className = '',
+}: DropdownProps) => {
   return (
-    <div className="relative">
+    <div className={className}>
       {trigger}
       {isOpen && children}
     </div>
