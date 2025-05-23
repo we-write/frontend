@@ -1,4 +1,4 @@
-import { SignUpRequest, SignInFormData } from '@/types/user';
+import { SignUpRequest, SigninRequest } from '@/types/user';
 import { setCookie } from './auths/cookies';
 import instance from './instance';
 import axios from 'axios';
@@ -24,7 +24,7 @@ export const createUser = async (data: SignUpRequest) => {
   }
 };
 
-export const postSignIn = async (data: SignInFormData) => {
+export const postSignIn = async (data: SigninRequest) => {
   try {
     const res = await instance.post('/auths/signin', data);
     if (res.status === 200) {

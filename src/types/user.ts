@@ -8,7 +8,7 @@ export interface SignUpFormData {
 export type SignUpRequest = Omit<SignUpFormData, 'passwordCheck'>;
 
 //TODO: 병합 후 수정
-export interface SignInFormData {
+export interface SigninRequest {
   email: string;
   password: string;
 }

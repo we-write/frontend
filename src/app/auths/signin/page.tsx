@@ -4,7 +4,7 @@ import InputForm from '@/components/common/Form/InputForm';
 
 import VisibilityIcon from '@/components/icons/VisibilityIcon';
 import { usePostSignin } from '@/hooks/api/users/usePostSignin';
-import { SignInFormData } from '@/types/user';
+import { SigninRequest } from '@/types/user';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
@@ -18,9 +18,9 @@ const Page = () => {
     handleSubmit,
     setError,
     formState: { isSubmitting, errors },
-  } = useForm<SignInFormData>();
+  } = useForm<SigninRequest>();
   const { mutate: signIn } = usePostSignin();
-  const onSubmit: SubmitHandler<SignInFormData> = (data) => {
+  const onSubmit: SubmitHandler<SigninRequest> = (data) => {
     signIn(data, {
       onSuccess: () => {
         router.push('/social');
