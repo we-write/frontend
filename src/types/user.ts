@@ -12,3 +12,11 @@ export interface SigninRequest {
   email: string;
   password: string;
 }
+export interface UserResponse {
+  id: number;
+  name: string;
+  email: string;
+  companyName: string;
+  createdAt: string;
+  updatedAt: string;
+}
