@@ -1,30 +1,7 @@
-import WriteListGrid from './writeListGrid';
 
-const Page = async () => {
-  // const queryClient = new QueryClient();
+import React from 'react';
 
-  // await queryClient.prefetchQuery({
-  //   queryKey: [QUERY_KEY.SOCIAL],
-  //   queryFn: getSocialList,
-  // });
+export default function social() {
+  return <div className="text-black">소셜 페이지 입니다.</div>;
+}
 
-  return (
-    // <HydrationBoundary state={dehydrate(queryClient)}>
-    <div>
-      {/* <PageHeader/> */}
-
-      <div>
-        <>
-          {/* <CategoryTabBar /> */}
-          {/* <button>모임만들기</button> */}
-        </>
-        {/* <FilterBar /> */}
-      </div>
-
-      <WriteListGrid />
-    </div>
-    // </HydrationBoundary>
-  );
-};
-
-export default Page;
