@@ -16,7 +16,7 @@ export interface CloseButtonProps {
 export interface ModalHeaderProps {
   start?: boolean;
   center?: boolean;
-  children: React.ReactNode;
+  children: string;
   className?: string;
 }
 export interface ModalContentProps {

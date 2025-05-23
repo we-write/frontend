@@ -66,11 +66,11 @@ export const ModalHeader = ({
   className,
 }: ModalHeaderProps) => {
   const modalHeaderStyle =
-    'text-gray-900 text-lg font-semibold flex w-18/19 truncate overflow-x-auto pl-6';
+    'text-gray-900 text-lg font-semibold flex w-18/19 overflow-hidden pl-6';
   const align = start ? 'justify-start' : center ? 'justify-center' : null;
   return (
     <div className={`${modalHeaderStyle} ${align} ${className}`}>
-      {children}
+      <div className="truncate">{children}</div>
     </div>
   );
 };

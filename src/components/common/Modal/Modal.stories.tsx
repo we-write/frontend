@@ -23,9 +23,7 @@ type Story = StoryObj<typeof Modal>;
 export const Default: Story = {
   render: () => (
     <Modal isOpen onClose={() => {}}>
-      <ModalHeader>
-        <h1>모달 헤더</h1>
-      </ModalHeader>
+      <ModalHeader>모달 헤더</ModalHeader>
       <ModalContent>
         <p>모달 내용</p>
       </ModalContent>
@@ -40,9 +38,7 @@ export const Default: Story = {
 export const noBackDrop: Story = {
   render: () => (
     <Modal isOpen onClose={() => {}} noBackdrop>
-      <ModalHeader>
-        <h1>모달 헤더</h1>
-      </ModalHeader>
+      <ModalHeader>모달 헤더</ModalHeader>
       <ModalContent>
         <p>모달 내용</p>
       </ModalContent>
@@ -57,9 +53,7 @@ export const noBackDrop: Story = {
 export const CloseButtonDark: Story = {
   render: () => (
     <Modal isOpen onClose={() => {}} closeButtonDark>
-      <ModalHeader>
-        <h1>모달 헤더</h1>
-      </ModalHeader>
+      <ModalHeader>모달 헤더</ModalHeader>
       <ModalContent>
         <p>모달 내용</p>
       </ModalContent>
@@ -74,9 +68,7 @@ export const CloseButtonDark: Story = {
 export const noCloseButton: Story = {
   render: () => (
     <Modal isOpen onClose={() => {}} noCloseButton>
-      <ModalHeader>
-        <h1>모달 헤더</h1>
-      </ModalHeader>
+      <ModalHeader>모달 헤더</ModalHeader>
       <ModalContent>
         <p>모달 내용</p>
       </ModalContent>
@@ -91,9 +83,7 @@ export const noCloseButton: Story = {
 export const fullScreen: Story = {
   render: () => (
     <Modal isOpen onClose={() => {}} fullScreen>
-      <ModalHeader>
-        <h1>모달 헤더</h1>
-      </ModalHeader>
+      <ModalHeader>111111111111111</ModalHeader>
       <ModalContent fullScreen>
         <p>모달 내용</p>
       </ModalContent>
@@ -138,9 +128,7 @@ export const NoCancelButton: Story = {
 export const ModalContentGroup: Story = {
   render: () => (
     <Modal isOpen onClose={() => {}}>
-      <ModalHeader>
-        <h1>모달 헤더</h1>
-      </ModalHeader>
+      <ModalHeader>모달 헤더의 내용을 string으로 작성해주세요</ModalHeader>
       <ModalContent group>
         <InputForm
           type="email"
