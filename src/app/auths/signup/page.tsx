@@ -51,46 +51,43 @@ const Page = () => {
   };
 
   return (
-    <div className="flex h-screen flex-col items-center justify-center bg-gray-100">
-      <div className="h-xl flex w-lg flex-col gap-10 rounded-3xl border-2 border-gray-300 bg-white px-14 py-6">
+    <div className="mt-6 flex h-screen w-full items-center justify-center">
+      <div className="flex min-h-[680px] w-[343px] flex-col gap-10 rounded-3xl bg-white px-4 py-6 md:w-[608px] md:px-16 lg:min-h-[710px] lg:w-[508px]">
         <h1 className={`text-write-main text-center text-xl font-bold`}>
           회원가입
         </h1>
         <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-          <div className="flex flex-col gap-2">
-            <InputForm
-              name="name"
-              size={46}
-              label="닉네임"
-              placeholder="닉네임을 입력해주세요"
-              register={{
-                ...register('name', {
-                  required: '닉네임을 입력해주세요',
-                }),
-              }}
-              hasError={!!errors.name}
-              helperText={errors.name?.message}
-            />
-          </div>
-          <div className="flex flex-col gap-2">
-            <InputForm
-              name="email"
-              size={46} // 입력 필드 너비 지정
-              label="이메일"
-              placeholder="이메일을 입력해주세요"
-              hasError={!!errors.email}
-              helperText={errors.email?.message}
-              register={{
-                ...register('email', {
-                  required: '이메일을 입력해주세요',
-                  pattern: {
-                    value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                    message: '이메일 형식이 올바르지 않습니다',
-                  },
-                }),
-              }}
-            />
-          </div>
+          <InputForm
+            name="name"
+            size={46}
+            label="닉네임"
+            placeholder="닉네임을 입력해주세요"
+            register={{
+              ...register('name', {
+                required: '닉네임을 입력해주세요',
+              }),
+            }}
+            hasError={!!errors.name}
+            helperText={errors.name?.message}
+          />
+
+          <InputForm
+            name="email"
+            size={46} // 입력 필드 너비 지정
+            label="아이디"
+            placeholder="이메일을 입력해주세요"
+            hasError={!!errors.email}
+            helperText={errors.email?.message}
+            register={{
+              ...register('email', {
+                required: '이메일을 입력해주세요',
+                pattern: {
+                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+                  message: '이메일 형식이 올바르지 않습니다',
+                },
+              }),
+            }}
+          />
 
           <div className="flex flex-col gap-2">
             <div className="flex flex-col gap-2">
@@ -174,40 +171,52 @@ const Page = () => {
             </div>
           </div>
 
-          <div className="flex flex-col gap-2">
-            <InputForm
-              name="companyName"
-              label="좋아하는 작품"
-              placeholder="(ex. 위대한 개츠비,원피스)"
-              register={{
-                ...register('companyName', {
-                  required: '좋아하는 작품을 1개 이상 입력해 주세요.',
-                }),
-              }}
-              hasError={!!errors.companyName}
-              helperText={errors.companyName?.message}
-            />
-          </div>
+          <InputForm
+            name="companyName"
+            label="좋아하는 작품"
+            placeholder="(ex. 위대한 개츠비,원피스)"
+            register={{
+              ...register('companyName', {
+                required: '좋아하는 작품을 1개 이상 입력해 주세요.',
+              }),
+            }}
+            hasError={!!errors.companyName}
+            helperText={errors.companyName?.message}
+          />
 
           <Button
             role="button"
             type="submit"
-            disabled={isSubmitting}
-            className="bg-write-gray font-bold"
+            color="custom"
+            disabled={
+              isSubmitting ||
+              !!errors.email ||
+              !!errors.password ||
+              !!errors.passwordCheck ||
+              !!errors.companyName
+            }
+            className={`${
+              errors.email ||
+              errors.password ||
+              errors.passwordCheck ||
+              errors.companyName
+                ? 'bg-gray-400'
+                : 'bg-write-main'
+            } font-bold text-white`}
           >
-            확인
+            회원가입
           </Button>
+          <div className="flex items-center justify-center gap-2">
+            <span>이미 회원이신가요?</span>
+            <Link
+              role="navigation"
+              href="/auths/signin"
+              className="text-write-main font-semibold underline"
+            >
+              로그인
+            </Link>
+          </div>
         </form>
-        <div className="flex items-center justify-center gap-2">
-          <span>이미 회원이신가요?</span>
-          <Link
-            role="navigation"
-            href="/auths/signin"
-            className="text-write-main font-semibold underline"
-          >
-            로그인
-          </Link>
-        </div>
       </div>
     </div>
   );
