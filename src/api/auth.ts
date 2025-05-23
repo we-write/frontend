@@ -53,3 +53,22 @@ export const postSignIn = async (data: SigninRequest) => {
     throw error;
   }
 };
+
+export const getMyInfo = async () => {
+  try {
+    const res = await instance.get(API_PATH.USER);
+    if (res.status === 200) {
+      return { user: res.data };
+    }
+    if (res.status === 401) {
+      throw new Error('인증이 필요합니다');
+    }
+    if (res.status === 404) {
+      throw new Error('사용자를 찾을 수 없습니다');
+    }
+    throw new Error('유저 정보 조회 실패');
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
