@@ -1,13 +1,5 @@
+import { UserResponse } from '@/types/user';
 import { create } from 'zustand';
-
-interface UserResponse {
-  id: number;
-  name: string;
-  email: string;
-  companyName: string;
-  createdAt: string;
-  updatedAt: string;
-}
 
 interface UserStore {
   user: UserResponse | null;
