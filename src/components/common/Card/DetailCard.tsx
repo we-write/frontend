@@ -4,12 +4,14 @@ import {
 } from '@/components/common/Card/type';
 import { format } from 'date-fns';
 import Button from '@/components/common/Button/Button';
+import AvatarGroup from '@/components/common/AvatarGroup/AvatarGroup';
 
 const DetailCard = ({
   teamUserRole,
   textContent,
   duration,
   isCardDataLoading,
+  imageUrls,
   handleButtonClick,
 }: DetailCardProps) => {
   const startDate = duration.startDate ? new Date(duration.startDate) : null;
@@ -65,18 +67,21 @@ const DetailCard = ({
           <div className="h-3.5 w-7/8 rounded bg-gray-300 sm:w-1/2" />
         </div>
       )}
-      <div className="mt-8 mb-3 sm:mt-24 sm:mb-7">
+      <div className="mt-8 mb-3 flex items-center gap-3 sm:mt-24 sm:mb-7">
         {!isCardDataLoading ? (
-          <p className="text-sm font-semibold">
-            {textContent.capacity ? (
-              <>
-                모집 정원
-                <span className="ml-1.5">{textContent.capacity}</span>명
-              </>
-            ) : (
-              '모집 인원 정보를 불러오지 못했습니다'
-            )}
-          </p>
+          <>
+            <p className="text-sm font-semibold whitespace-nowrap">
+              {textContent.capacity ? (
+                <>
+                  모집 정원
+                  <span className="ml-1.5">{textContent.capacity}</span>명
+                </>
+              ) : (
+                '모집 인원 정보를 불러오지 못했습니다'
+              )}
+            </p>
+            {textContent.capacity && <AvatarGroup imageUrls={imageUrls} />}
+          </>
         ) : (
           <div className="flex animate-pulse items-center gap-3">
             <div className="h-5 w-1/3 rounded bg-gray-300 sm:w-1/6" />
