@@ -53,3 +53,16 @@ export const postSignIn = async (data: SigninRequest) => {
     throw error;
   }
 };
+
+export const postSignOut = async () => {
+  try {
+    const res = await instance.post(API_PATH.SIGN_OUT);
+    if (res.status === 200) {
+      return res.data;
+    }
+    throw new Error('로그아웃 실패');
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
