@@ -5,7 +5,7 @@ import { truncateText } from '@/utils/convertString';
 import { useRef } from 'react';
 import { CreateWriteRequest } from '@/api/social/type';
 
-const ThumbnailUploader = () => {
+const ThumbnailUploadInput = () => {
   const {
     control,
     formState: { errors },
@@ -17,13 +17,9 @@ const ThumbnailUploader = () => {
     name: 'image',
   });
 
-  const handleFileInputClick = () => {
-    fileInputRef.current?.click();
-  };
-
   return (
     <div className="flex flex-col">
-      <label htmlFor={'image'} className="mb-2 text-sm font-semibold">
+      <label htmlFor="image" className="mb-2 text-sm font-semibold">
         썸네일 이미지
       </label>
 
@@ -33,7 +29,7 @@ const ThumbnailUploader = () => {
             name="image"
             type="text"
             placeholder="썸네일 이미지를 선택해주세요."
-            onClick={handleFileInputClick}
+            onClick={() => fileInputRef.current?.click()}
             value={truncateText(imageFileName?.name || '', 35)}
             className="cursor-pointer outline-none"
             readOnly
@@ -51,7 +47,7 @@ const ThumbnailUploader = () => {
           }}
           render={({ field: { onChange, ref } }) => (
             <Input
-              name="image"
+              name="hiddenImage"
               type="file"
               className="hidden"
               onChange={(e) => {
@@ -68,10 +64,10 @@ const ThumbnailUploader = () => {
 
         <div className="w-25">
           <Button
-            onClick={handleFileInputClick}
+            onClick={() => fileInputRef.current?.click()}
             size="custom"
             variant="inverted"
-            className="w-25 border-1"
+            className="w-20 border-1 sm:w-25"
           >
             파일 찾기
           </Button>
@@ -81,4 +77,4 @@ const ThumbnailUploader = () => {
   );
 };
 
-export default ThumbnailUploader;
+export default ThumbnailUploadInput;

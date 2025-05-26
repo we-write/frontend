@@ -14,8 +14,7 @@ export const getLocationByGenre = (genre: GenreType): LocationType => {
 
 export const getGenreByLocation = (location: LocationType): GenreType => {
   return Object.entries(GENRE_LOCATION_MAP).find(
-    /* eslint-disable @typescript-eslint/no-unused-vars */
-    ([_, value]) => value === location
+    (genre) => genre[1] === location
   )?.[0] as GenreType;
 };
 

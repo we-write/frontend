@@ -8,18 +8,14 @@ import Input from '@/components/common/Input/Input';
 import useBoolean from '@/hooks/useBoolean';
 import { useFormContext } from 'react-hook-form';
 
-const SelectGenre = () => {
+const SelectGenreInput = () => {
   const { value: isOpen, toggle, setFalse: onClose } = useBoolean();
   const { setValue, register } = useFormContext<CreateWriteRequest>();
 
-  const handleChangeGenre = (genre: GenreType) => {
-    setValue('location', genre);
-  };
-
   return (
     <div className="flex flex-col">
-      <label htmlFor={'image'} className="mb-2 text-sm font-semibold">
-        썸네일 이미지
+      <label htmlFor="genre" className="mb-2 text-sm font-semibold">
+        장르
       </label>
       <Dropdown
         trigger={
@@ -43,7 +39,7 @@ const SelectGenre = () => {
                 <p className="hover:bg-write-green-50 rounded-md p-2">{key}</p>
               }
               onClick={() => {
-                handleChangeGenre(key as GenreType);
+                setValue('location', key as GenreType);
                 onClose();
               }}
             />
@@ -54,4 +50,4 @@ const SelectGenre = () => {
   );
 };
 
-export default SelectGenre;
+export default SelectGenreInput;
