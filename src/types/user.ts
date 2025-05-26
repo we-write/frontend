@@ -19,4 +19,5 @@ export interface UserResponse {
   companyName: string;
   createdAt: string;
   updatedAt: string;
+  image: string;
 }

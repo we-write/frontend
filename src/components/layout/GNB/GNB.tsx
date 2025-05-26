@@ -7,6 +7,8 @@ import { MenuGroups } from '@/components/layout/GNB/MenuGroups';
 import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
 import useBoolean from '@/hooks/useBoolean';
 import { Hamburger } from '@public/assets/icons';
+import useUserStore from '@/utils/store/useUserStore';
+import { useEffect } from 'react';
 
 // 메뉴 항목
 const MENU_ITEMS = [
@@ -18,13 +20,18 @@ const MENU_ITEMS = [
 const SIGN_IN_IMAGE = '/assets/images/signin.png';
 
 export const GNB = () => {
-  const { value: isSignIn } = useBoolean();
+  const { user } = useUserStore();
+  const { value: isSignIn, setTrue: setIsSignInTrue } = useBoolean();
   const {
     value: isDrawerOpen,
     setTrue: setIsDrawerOpen,
     setFalse: setIsDrawerClose,
   } = useBoolean();
-
+  useEffect(() => {
+    if (user) {
+      setIsSignInTrue();
+    }
+  }, [user, setIsSignInTrue]);
   return (
     <>
       <nav className="fixed top-0 z-50 h-15 w-full bg-white">
@@ -36,7 +43,7 @@ export const GNB = () => {
             <MenuGroups />
           </div>
           {/* 데스크탑 로그인 영역*/}
-          <LoginSection isSignIn={isSignIn} />
+          <LoginSection isSignIn={isSignIn} user={user} />
           {/* 모바일 햄버거 */}
           <button
             className="absolute top-5 right-5 md:hidden"

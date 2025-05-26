@@ -1,22 +1,38 @@
-import { LoginSectionProps } from '@/components/layout/GNB/type';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
+import { UserResponse } from '@/types/user';
+import { DefaultProfileImage } from '@public/assets/icons';
 const SIGN_IN_IMAGE = '/assets/images/signin.png';
 
-export const LoginSection = ({ isSignIn }: LoginSectionProps) => {
+export const LoginSection = ({
+  isSignIn,
+  user,
+}: {
+  isSignIn: boolean;
+  user: UserResponse | null;
+}) => {
   const router = useRouter();
   const handleSignIn = () => {
     if (isSignIn) {
-      router.push(APP_ROUTES.signout);
+      router.push(APP_ROUTES.mypage);
     } else {
       router.push(APP_ROUTES.signin);
     }
   };
   return (
     <button onClick={handleSignIn} className="hidden md:flex">
-      {isSignIn ? (
-        <Image src={SIGN_IN_IMAGE} alt="SIGN_IN_IMAGE" width={40} height={40} />
+      {user ? (
+        user.image ? (
+          <Image
+            src={SIGN_IN_IMAGE}
+            alt="SIGN_IN_IMAGE"
+            width={40}
+            height={40}
+          />
+        ) : (
+          <DefaultProfileImage width={40} height={40} />
+        )
       ) : (
         <span className="text-write-main text-base font-semibold">로그인</span>
       )}
