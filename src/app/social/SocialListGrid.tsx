@@ -66,12 +66,9 @@ const SocialListGrid = ({
 
   if (!data)
     return (
-      <div className="flex h-full flex-col items-center justify-center">
-        <span className="text-center text-gray-500">
-          아직 모임이 없어요,
-          <br />
-          지금 바로 모임을 만들어보세요
-        </span>
+      <div className="space-y-1 text-center text-base text-gray-500">
+        <p>아직 모임이 없어요,</p>
+        <p>지금 바로 모임을 만들어보세요</p>
       </div>
     );
 
