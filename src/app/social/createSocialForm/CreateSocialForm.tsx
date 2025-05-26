@@ -3,16 +3,16 @@
 import { createSocial } from '@/api/social/api';
 import Button from '@/components/common/Button/Button';
 import InputForm from '@/components/common/Form/InputForm';
-import ThumbnailUploader from './ThumbnailUploader';
+import ThumbnailUploadInput from './ThumbnailUploadInput';
 import { FormProvider, useForm } from 'react-hook-form';
 import { CreateWriteRequest } from '@/api/social/type';
-import SelectGenre from './SelectGenre';
+import SelectGenreInput from './SelectGenreInput';
 import {
   validateCapacity,
   validateRegistrationEnd,
 } from '@/utils/validators/social';
 
-const CreateSocialModal = () => {
+const CreateSocialForm = () => {
   const methods = useForm<CreateWriteRequest>({
     mode: 'onChange',
     defaultValues: {
@@ -24,18 +24,22 @@ const CreateSocialModal = () => {
   });
 
   const {
+    handleSubmit,
     register,
     getValues,
     formState: { errors },
   } = methods;
 
-  const handleCreateWrite = async () => {
-    await createSocial(getValues());
+  const handleCreateWrite = async (data: CreateWriteRequest) => {
+    await createSocial(data);
   };
 
   return (
     <FormProvider {...methods}>
-      <div className="flex w-130 flex-col gap-6 rounded-lg bg-white p-6">
+      <form
+        onSubmit={handleSubmit(handleCreateWrite)}
+        className="flex w-full flex-col gap-6"
+      >
         <h2 className="text-lg font-bold">모임 만들기</h2>
 
         <InputForm
@@ -50,14 +54,13 @@ const CreateSocialModal = () => {
           helperText={errors.name?.message}
         />
 
-        <SelectGenre />
-
-        <ThumbnailUploader />
+        <SelectGenreInput />
+        <ThumbnailUploadInput />
 
         {/* 시작날짜와 마감날짜 InputForm */}
         {/* 추후 캘린더 도입 시 분리 예정 */}
-        <div className="flex justify-between gap-[38px]">
-          <div className="w-full">
+        <div className="flex flex-col gap-2 sm:flex-row sm:justify-between sm:gap-[38px]">
+          <div className="w-[217px]">
             <InputForm
               name="dateTime"
               label="시작날짜"
@@ -66,7 +69,7 @@ const CreateSocialModal = () => {
             />
           </div>
 
-          <div className="w-full">
+          <div className="w-[217px]">
             <InputForm
               name="registrationEnd"
               label="마감날짜"
@@ -94,10 +97,10 @@ const CreateSocialModal = () => {
           helperText={errors.capacity?.message}
         />
 
-        <Button onClick={handleCreateWrite}>모임 생성</Button>
-      </div>
+        <Button type="submit">모임 생성</Button>
+      </form>
     </FormProvider>
   );
 };
 
-export default CreateSocialModal;
+export default CreateSocialForm;
