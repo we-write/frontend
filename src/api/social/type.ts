@@ -12,6 +12,13 @@ export const getLocationByGenre = (genre: GenreType): LocationType => {
   return GENRE_LOCATION_MAP[genre];
 };
 
+export const getGenreByLocation = (location: LocationType): GenreType => {
+  return Object.entries(GENRE_LOCATION_MAP).find(
+    /* eslint-disable @typescript-eslint/no-unused-vars */
+    ([_, value]) => value === location
+  )?.[0] as GenreType;
+};
+
 export type SocialType = 'OFFICE_STRETCHING' | 'MINDFULLNESS' | 'WORKATION';
 
 export interface GetSocialListParams {
@@ -44,7 +51,8 @@ export interface CreateWriteResponse {
   updatedAt: string;
 }
 
-export interface SocialResponse extends Omit<CreateWriteRequest, 'image'> {
+export interface SocialResponse
+  extends Omit<CreateWriteRequest, 'image' | 'location'> {
   id: string;
   teamId: string;
   name: string;
@@ -52,4 +60,5 @@ export interface SocialResponse extends Omit<CreateWriteRequest, 'image'> {
   image: string;
   createdBy: number;
   canceledAt: string;
+  location: LocationType;
 }

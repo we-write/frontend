@@ -1,8 +1,11 @@
 'use client';
 
 import { getSocialList } from '@/api/social/api';
-import { GetSocialListParams } from '@/api/social/type';
-import { LOCATION_GENRE_MAP, SocialResponse } from '@/api/social/type';
+import {
+  GetSocialListParams,
+  SocialResponse,
+  getGenreByLocation,
+} from '@/api/social/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
 import { useReducer, useState } from 'react';
@@ -87,7 +90,7 @@ const SocialListGrid = ({
             }}
             textContent={{
               title: item.name || '제목 없음',
-              genre: LOCATION_GENRE_MAP[item.location] || '장르 없음',
+              genre: getGenreByLocation(item.location) || '장르 없음',
               description: item.type || '미정', //데이터 미정
             }}
             isCardDataLoading={isLoading}
