@@ -2,6 +2,7 @@ import { getFilterParams } from '@/utils/getFilterParams';
 import { API_PATH } from '@/constants/apiPath';
 import {
   CreateWriteRequest,
+  getLocationByGenre,
   GetSocialListParams,
   SocialResponse,
 } from './type';
@@ -33,7 +34,10 @@ export const createSocial = async (data: CreateWriteRequest) => {
   try {
     const response = await instance.post(
       API_PATH.SOCIAL,
-      { ...data },
+      {
+        ...data,
+        location: getLocationByGenre(data.location),
+      },
       {
         headers: {
           'Content-Type': 'multipart/form-data',

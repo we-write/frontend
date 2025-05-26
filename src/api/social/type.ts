@@ -1,12 +1,16 @@
-export const LOCATION_GENRE_MAP = {
-  건대입구: '판타지',
-  을지로3가: '로맨스',
-  신림: '스릴러/미스터리',
-  홍대입구: '무협',
+export const GENRE_LOCATION_MAP = {
+  판타지: '건대입구',
+  로맨스: '을지로3가',
+  '스릴러/미스터리': '신림',
+  무협: '홍대입구',
 } as const;
 
-export type LocationType = keyof typeof LOCATION_GENRE_MAP;
-export type GenreType = (typeof LOCATION_GENRE_MAP)[LocationType];
+export type GenreType = keyof typeof GENRE_LOCATION_MAP;
+export type LocationType = (typeof GENRE_LOCATION_MAP)[GenreType];
+
+export const getLocationByGenre = (genre: GenreType): LocationType => {
+  return GENRE_LOCATION_MAP[genre];
+};
 
 export type SocialType = 'OFFICE_STRETCHING' | 'MINDFULLNESS' | 'WORKATION';
 
@@ -23,7 +27,7 @@ export interface GetSocialListParams {
 }
 
 export interface CreateWriteRequest {
-  location: LocationType; //장르
+  location: GenreType; //장르
   name: string; //스토리명
   type: SocialType; //미정
   capacity: number; //모집 정원
