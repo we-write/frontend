@@ -10,7 +10,7 @@ import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
 import { useReducer, useState } from 'react';
 
-const LIMIT = 12;
+const FETCH_GET_ITEM_LIMIT = 12;
 
 const SocialListGrid = ({
   initialSocialList,
@@ -18,7 +18,7 @@ const SocialListGrid = ({
   initialSocialList: SocialResponse[] | null;
 }) => {
   const initialFilterState: GetSocialListParams = {
-    limit: LIMIT,
+    limit: FETCH_GET_ITEM_LIMIT,
     offset: 0,
   };
 
@@ -41,7 +41,9 @@ const SocialListGrid = ({
     filterReducer,
     initialFilterState
   );
-  const [data, setData] = useState<SocialResponse[] | null>(initialSocialList);
+  const [socialList, setSocialList] = useState<SocialResponse[] | null>(
+    initialSocialList
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
@@ -56,18 +58,18 @@ const SocialListGrid = ({
         return;
       }
 
-      setData((prev) => [...(prev || []), ...res]);
+      setSocialList((prev) => [...(prev || []), ...res]);
       setIsLoading(false);
       filterDispatch({
         type: 'SET_FILTER',
         payload: {
-          offset: (filterState.offset ?? 0) + LIMIT,
+          offset: (filterState.offset ?? 0) + FETCH_GET_ITEM_LIMIT,
         },
       });
     });
   };
 
-  if (!data)
+  if (!socialList)
     return (
       <div className="space-y-1 text-center text-base text-gray-500">
         <p>아직 모임이 없어요,</p>
@@ -78,7 +80,7 @@ const SocialListGrid = ({
   return (
     <>
       <div className="grid grid-cols-3 gap-4">
-        {data?.map((item) => (
+        {socialList?.map((item) => (
           <GridCard
             key={item.id}
             pageId={item.id}

@@ -28,9 +28,6 @@ export const getSocialList = async ({
 };
 
 export const createSocial = async (data: CreateWriteRequest) => {
-  const tempToken =
-    'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZWFtSWQiOiI3NyIsInVzZXJJZCI6MTc2OSwiaWF0IjoxNzQ3OTAxMDk3LCJleHAiOjE3NDc5MDQ2OTd9.KWuFWRr6fUqjtaaOI875TiJpHTiDL9TLVJraD5P9Hmk';
-
   try {
     const response = await instance.post(
       API_PATH.SOCIAL,
@@ -41,7 +38,6 @@ export const createSocial = async (data: CreateWriteRequest) => {
       {
         headers: {
           'Content-Type': 'multipart/form-data',
-          Authorization: `Bearer ${tempToken}`,
         },
       }
     );
