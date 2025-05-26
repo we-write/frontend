@@ -25,7 +25,7 @@ interface ImageProps {
   alt: string | null;
 }
 
-interface durationProps {
+interface DurationProps {
   startDate: string | null;
   endDate: string | null;
 }
@@ -41,7 +41,7 @@ export interface GridCardProps {
 export interface DetailCardProps {
   teamUserRole: TeamUserRole;
   textContent: DetailCardTextContentProps;
-  duration: durationProps;
+  duration: DurationProps;
   isCardDataLoading: boolean;
   imageUrls: AvatarGroupProps['imageUrls'];
   handleButtonClick: () => void;
@@ -60,13 +60,13 @@ export interface ListCardProps {
   handleButtonClick: () => void;
 }
 
-export interface getParticipationButtonLabelParams {
+export interface GetDetailCardButtonLabelParams {
   paramTeamUserRole: TeamUserRole;
   paramIsButtonActivate: boolean;
   participantCount: number | null;
   capacity: number | null;
 }
 
-export interface getListCardButtonLabelParams {
+export interface GetListCardButtonLabelParams {
   isCompletedStory: boolean;
 }

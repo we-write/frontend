@@ -1,6 +1,6 @@
 import {
   DetailCardProps,
-  getParticipationButtonLabelParams,
+  GetDetailCardButtonLabelParams,
 } from '@/components/common/Card/type';
 import { format } from 'date-fns';
 import Button from '@/components/common/Button/Button';
@@ -26,7 +26,7 @@ const DetailCard = ({
     paramIsButtonActivate,
     participantCount,
     capacity,
-  }: getParticipationButtonLabelParams): string => {
+  }: GetDetailCardButtonLabelParams): string => {
     if (paramTeamUserRole === 'LEADER' || paramTeamUserRole === 'MEMBER') {
       return '스토리 이어쓰기';
     }

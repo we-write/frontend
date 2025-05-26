@@ -1,6 +1,6 @@
 import {
   ListCardProps,
-  getListCardButtonLabelParams,
+  GetListCardButtonLabelParams,
 } from '@/components/common/Card/type';
 import useImageLoadStatus from '@/hooks/useImageLoadStatus';
 import Image from 'next/image';
@@ -26,7 +26,7 @@ const ListCard = ({
 
   const getListCardButtonLabel = ({
     isCompletedStory,
-  }: getListCardButtonLabelParams): string => {
+  }: GetListCardButtonLabelParams): string => {
     if (isCompletedStory === true) {
       return '스토리 보러가기';
     }
