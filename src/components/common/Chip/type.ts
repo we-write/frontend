@@ -1,7 +1,7 @@
 export interface ChipProps {
   text: string;
-  textColor: string;
-  backgroundColor: string;
-  size: 'small' | 'medium' | 'large';
+  chipType: 'default' | 'rounded' | 'custom';
   className?: string;
+  color?: 'primary' | 'secondary' | 'custom';
+  variant?: 'default' | 'inverted';
 }

@@ -14,56 +14,50 @@ type Story = StoryObj<typeof Chip>;
 export const Default: Story = {
   args: {
     text: 'Chip',
-    textColor: 'text-white',
-    backgroundColor: 'bg-gray-900',
-    size: 'small',
+    chipType: 'default',
+    color: 'primary',
+    variant: 'default',
   },
 };
-export const Small: Story = {
+export const rounded: Story = {
   args: {
     text: '999+',
-    textColor: 'text-white',
-    backgroundColor: 'bg-gray-900',
-    size: 'small',
+    chipType: 'rounded',
+    color: 'primary',
+    variant: 'default',
   },
 };
-export const Medium: Story = {
+export const inverted: Story = {
   args: {
     text: 'Chip',
-    textColor: 'text-white',
-    backgroundColor: 'bg-gray-900',
-    size: 'medium',
+    chipType: 'default',
+    color: 'primary',
+    variant: 'inverted',
   },
 };
-export const Large: Story = {
+export const dateText: Story = {
   args: {
-    text: 'Chip',
-    textColor: 'text-white',
-    backgroundColor: 'bg-gray-900',
-    size: 'large',
-  },
-};
-export const ChangeColor: Story = {
-  args: {
-    text: 'Chip',
-    textColor: 'text-white',
-    backgroundColor: 'bg-blue-500',
-  },
-};
-export const ChangeTextColor: Story = {
-  args: {
-    text: 'Chip',
-    textColor: 'text-blue-500',
-    backgroundColor: 'bg-gray-900',
+    text: '1월 7일',
+    chipType: 'default',
+    color: 'primary',
+    variant: 'default',
   },
 };
 
+export const koreanText: Story = {
+  args: {
+    text: '이용 예정',
+    chipType: 'rounded',
+    color: 'primary',
+    variant: 'default',
+  },
+};
 export const Custom: Story = {
   args: {
     text: 'Custom',
-    textColor: 'text-white',
-    backgroundColor: 'bg-blue-500',
-    size: 'small',
+    color: 'custom',
+    variant: 'default',
+    chipType: 'custom',
     className: 'rounded-full',
   },
 };

@@ -1,23 +1,28 @@
+import { getColorSystem } from '@/utils/getColorSystem';
 import { ChipProps } from './type';
 
 const Chip = ({
   text,
-  textColor,
-  backgroundColor,
-  size = 'medium',
   className = '',
+  color = 'primary',
+  variant = 'default',
+  chipType = 'default',
 }: ChipProps) => {
-  const defaultChipStyle = `text-center w-auto truncate`;
+  const defaultChipStyle = 'flex items-center justify-center text-lg';
   const chipSizeStyle = {
-    small: 'text-xs px-2 py-1 w-fit h-fit rounded-full',
-    medium: 'text-sm px-3 py-1.5 w-fit h-fit rounded-md',
-    large: 'text-base px-4 py-2 w-fit h-fit rounded-md',
+    default: 'px-3 py-1 min-w-[46px] max-w-fit h-fit rounded-md',
+    rounded: 'px-3 py-2 min-w-[46px] max-w-fit h-[32px] rounded-full',
+    custom: `${className} `,
   };
+
   return (
     <div
-      className={`${chipSizeStyle} ${textColor} ${backgroundColor} ${defaultChipStyle} ${chipSizeStyle[size]} ${className}`}
+      className={`${defaultChipStyle} ${chipSizeStyle[chipType]} ${getColorSystem(
+        color,
+        variant
+      )}`}
     >
-      {text}
+      <span className="text-center">{text}</span>
     </div>
   );
 };
