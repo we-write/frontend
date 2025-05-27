@@ -58,7 +58,7 @@ export const getMyInfo = async () => {
   try {
     const res = await instance.get(API_PATH.USER);
     if (res.status === 200) {
-      return { user: res.data };
+      return res.data;
     }
     if (res.status === 401) {
       throw new Error('인증이 필요합니다');
