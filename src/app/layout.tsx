@@ -36,7 +36,7 @@ export default function RootLayout({
           <header>
             <GNB />
           </header>
-          <main className="flex-1 bg-gray-100">
+          <main>
             <LayoutWrapper>{children}</LayoutWrapper>
           </main>
         </QueryProviders>
