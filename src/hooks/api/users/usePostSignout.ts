@@ -7,7 +7,6 @@ export const usePostSignout = () => {
     mutationFn: postSignOut,
     onSuccess: () => {
       deleteCookie('accessToken');
-      localStorage.removeItem('user');
     },
     onError: (error) => {
       console.error(error);
