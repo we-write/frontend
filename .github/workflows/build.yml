@@ -13,7 +13,7 @@ jobs:
         run: npm ci
 
       - name: Build with multiple env variables
-          run: |
-            NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} \
-            NEXT_PUBLIC_BAAS_URL=${{ secrets.NEXT_PUBLIC_API_KEY }} \
-            npm run build
+        run: |
+          NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} \
+          NEXT_PUBLIC_BAAS_URL=${{ secrets.NEXT_PUBLIC_API_KEY }} \
+          npm run build

@@ -15,7 +15,7 @@ const Observer = ({
   useEffect(() => {
     if (!enabled) return;
 
-    const target = observerRef.current; // ✅ 여기에 저장해놓고
+    const target = observerRef.current;
     if (!target) return;
 
     const observer = new IntersectionObserver(
@@ -31,7 +31,7 @@ const Observer = ({
     observer.observe(target);
 
     return () => {
-      observer.unobserve(target); // ✅ 클린업에서도 이 변수 사용
+      observer.unobserve(target);
     };
   }, [enabled, onIntersect, threshold, rootMargin]);
 
