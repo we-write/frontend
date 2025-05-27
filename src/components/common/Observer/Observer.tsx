@@ -15,28 +15,23 @@ const Observer = ({
   useEffect(() => {
     if (!enabled) return;
 
+    const target = observerRef.current; // ✅ 여기에 저장해놓고
+    if (!target) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const first = entries[0];
         if (first.isIntersecting) {
           onIntersect();
-          observer.unobserve(first.target);
         }
       },
       { threshold, rootMargin }
     );
 
-    const currentRef = observerRef.current;
+    observer.observe(target);
 
-    if (currentRef) {
-      observer.observe(currentRef);
-    }
-
-    // 컴포넌트 언마운트 시 정리
     return () => {
-      if (currentRef) {
-        observer.unobserve(currentRef);
-      }
+      observer.unobserve(target); // ✅ 클린업에서도 이 변수 사용
     };
   }, [enabled, onIntersect, threshold, rootMargin]);
 
