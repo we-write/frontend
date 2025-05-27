@@ -1,18 +1,20 @@
+'use client';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
-import { UserResponse } from '@/types/user';
 import { DefaultProfileImage } from '@public/assets/icons';
+import { UserResponse } from '@/types/user';
 const SIGN_IN_IMAGE = '/assets/images/signin.png';
 
 export const LoginSection = ({
   isSignIn,
-  user,
+  userInfo,
 }: {
   isSignIn: boolean;
-  user: UserResponse | null;
+  userInfo: UserResponse | null;
 }) => {
   const router = useRouter();
+
   const handleSignIn = () => {
     if (isSignIn) {
       router.push(APP_ROUTES.mypage);
@@ -22,8 +24,8 @@ export const LoginSection = ({
   };
   return (
     <button onClick={handleSignIn} className="hidden md:flex">
-      {user ? (
-        user.image ? (
+      {userInfo ? (
+        userInfo.image ? (
           <Image
             src={SIGN_IN_IMAGE}
             alt="SIGN_IN_IMAGE"

@@ -5,5 +5,6 @@ export const useGetMyInfo = () => {
   return useQuery({
     queryKey: ['myInfo'],
     queryFn: getMyInfo,
+    retry: false,
   });
 };
