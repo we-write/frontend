@@ -1,15 +1,24 @@
 'use client';
 
-import { getSocialList, GetSocialListParams } from '@/api/social';
+import { getSocialList } from '@/api/social/api';
+import {
+  GetSocialListParams,
+  SocialResponse,
+  getGenreByLocation,
+} from '@/api/social/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
 import { useReducer, useState } from 'react';
 
-const LIMIT = 12;
+const FETCH_GET_ITEM_LIMIT = 12;
 
-const WriteListGrid = () => {
+const SocialListGrid = ({
+  initialSocialList,
+}: {
+  initialSocialList: SocialResponse[] | null;
+}) => {
   const initialFilterState: GetSocialListParams = {
-    limit: LIMIT,
+    limit: FETCH_GET_ITEM_LIMIT,
     offset: 0,
   };
 
@@ -28,8 +37,13 @@ const WriteListGrid = () => {
     }
   };
 
-  const [state, dispatch] = useReducer(filterReducer, initialFilterState);
-  const [data, setData] = useState([]);
+  const [filterState, filterDispatch] = useReducer(
+    filterReducer,
+    initialFilterState
+  );
+  const [socialList, setSocialList] = useState<SocialResponse[] | null>(
+    initialSocialList
+  );
   const [isLoading, setIsLoading] = useState(false);
   const [hasMore, setHasMore] = useState(true);
 
@@ -37,28 +51,36 @@ const WriteListGrid = () => {
     if (!hasMore) return;
     setIsLoading(true);
 
-    getSocialList(state).then((res) => {
+    getSocialList(filterState).then((res) => {
       if (!res || res.length === 0) {
         setHasMore(false);
         setIsLoading(false);
         return;
       }
 
-      setData((prev) => [...prev, ...res]);
+      setSocialList((prev) => [...(prev || []), ...res]);
       setIsLoading(false);
-      dispatch({
+      filterDispatch({
         type: 'SET_FILTER',
         payload: {
-          offset: (state.offset ?? 0) + LIMIT,
+          offset: (filterState.offset ?? 0) + FETCH_GET_ITEM_LIMIT,
         },
       });
     });
   };
 
+  if (!socialList)
+    return (
+      <div className="space-y-1 text-center text-base text-gray-500">
+        <p>아직 모임이 없어요,</p>
+        <p>지금 바로 모임을 만들어보세요</p>
+      </div>
+    );
+
   return (
     <>
       <div className="grid grid-cols-3 gap-4">
-        {data?.map((item) => (
+        {socialList?.map((item) => (
           <GridCard
             key={item.id}
             pageId={item.id}
@@ -70,8 +92,8 @@ const WriteListGrid = () => {
             }}
             textContent={{
               title: item.name || '제목 없음',
-              genre: item.genre || '장르 없음',
-              description: item.description || '설명 없음',
+              genre: getGenreByLocation(item.location) || '장르 없음',
+              description: item.type || '미정', //데이터 미정
             }}
             isCardDataLoading={isLoading}
           />
@@ -87,4 +109,4 @@ const WriteListGrid = () => {
   );
 };
 
-export default WriteListGrid;
+export default SocialListGrid;
