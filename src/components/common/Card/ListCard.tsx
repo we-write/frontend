@@ -27,7 +27,7 @@ const ListCard = ({
   const getListCardButtonLabel = ({
     isCompletedStory,
   }: GetListCardButtonLabelParams): string => {
-    if (isCompletedStory === true) {
+    if (isCompletedStory) {
       return '스토리 보러가기';
     }
     return '모임 탈퇴하기';
