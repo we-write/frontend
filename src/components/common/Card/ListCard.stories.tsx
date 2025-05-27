@@ -20,7 +20,7 @@ export const InProgressStory: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: (
+    chip: (
       <span className="text-write-main rounded-3xl bg-green-50 px-3 py-1.5 text-sm font-semibold">
         진행중인 스토리
       </span>
@@ -46,7 +46,7 @@ export const CompletedStory: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: (
+    chip: (
       <span className="rounded-3xl bg-gray-200 px-3 py-1.5 text-sm font-semibold text-gray-500">
         종료된 스토리
       </span>
@@ -72,7 +72,7 @@ export const LongTitle: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: (
+    chip: (
       <span className="text-write-main rounded-3xl bg-green-50 px-3 py-1.5 text-sm font-semibold">
         진행중인 스토리
       </span>
@@ -99,7 +99,7 @@ export const CanceledStory: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: (
+    chip: (
       <span className="text-write-main rounded-3xl bg-green-50 px-3 py-1.5 text-sm font-semibold">
         진행중인 스토리
       </span>
@@ -125,7 +125,7 @@ export const SkeletonUI: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: undefined,
+    chip: undefined,
     textContent: {
       title: '',
       genre: '',
@@ -147,7 +147,7 @@ export const MobileDeafult: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: (
+    chip: (
       <span className="text-write-main rounded-3xl bg-green-50 px-3 py-1.5 text-sm font-semibold">
         진행중인 스토리
       </span>
@@ -180,7 +180,7 @@ export const MobileLongTitle: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: (
+    chip: (
       <span className="text-write-main rounded-3xl bg-green-50 px-3 py-1.5 text-sm font-semibold">
         진행중인 스토리
       </span>
@@ -214,7 +214,7 @@ export const MobileCancledStory: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: (
+    chip: (
       <span className="text-write-main rounded-3xl bg-green-50 px-3 py-1.5 text-sm font-semibold">
         진행중인 스토리
       </span>
@@ -247,7 +247,7 @@ export const MobileSkeletonUI: Story = {
       src: 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
       alt: '테스트 이미지',
     },
-    badge: undefined,
+    chip: undefined,
     textContent: {
       title: '',
       genre: '',

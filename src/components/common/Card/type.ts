@@ -51,7 +51,7 @@ export interface ListCardProps {
   pageId: string | null;
   teamUserRole: TeamUserRole;
   image: ImageProps;
-  badge: ReactNode;
+  chip: ReactNode;
   textContent: ListCardTextContentProps;
   endDate: string | null;
   isCardDataLoading: boolean;

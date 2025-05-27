@@ -12,7 +12,7 @@ import { Person } from '@public/assets/icons';
 const ListCard = ({
   pageId,
   image,
-  badge,
+  chip,
   textContent,
   endDate,
   isCardDataLoading,
@@ -57,8 +57,8 @@ const ListCard = ({
         )}
       </figure>
       <div className="flex w-full flex-col gap-3 px-1.5 sm:p-0">
-        {!isCardDataLoading && badge ? (
-          <div>{badge}</div>
+        {!isCardDataLoading && chip ? (
+          <div>{chip}</div>
         ) : (
           <div className="h-6 w-32 animate-pulse rounded bg-gray-300" />
         )}
