@@ -15,5 +15,5 @@ jobs:
       - name: Build with multiple env variables
         run: |
           NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} \
-          NEXT_PUBLIC_BAAS_URL=${{ secrets.NEXT_PUBLIC_API_KEY }} \
+          NEXT_PUBLIC_BAAS_URL=${{ secrets.NEXT_PUBLIC_BAAS_URL }} \
           npm run build
