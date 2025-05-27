@@ -20,18 +20,22 @@ const Observer = ({
         const first = entries[0];
         if (first.isIntersecting) {
           onIntersect();
+          observer.unobserve(first.target);
         }
       },
       { threshold, rootMargin }
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
+    const currentRef = observerRef.current;
+
+    if (currentRef) {
+      observer.observe(currentRef);
     }
 
+    // 컴포넌트 언마운트 시 정리
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
+      if (currentRef) {
+        observer.unobserve(currentRef);
       }
     };
   }, [enabled, onIntersect, threshold, rootMargin]);
