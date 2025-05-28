@@ -26,11 +26,11 @@ export const Default: Story = {
   render: () => <TextEditor />,
 };
 
-export const SholtEditor: Story = {
+export const Editor400pxHeight: Story = {
   render: () => <TextEditor editorHeight="400px" />,
 };
 
-export const LongEditor: Story = {
+export const Editor900pxHeight: Story = {
   render: () => <TextEditor editorHeight="900px" />,
 };
 
