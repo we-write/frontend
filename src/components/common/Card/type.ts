@@ -11,17 +11,21 @@ interface GridCardtextContentProps extends BaseTextContentProps {
   description: string | null;
 }
 
-export interface DetailCardtextContentProps extends BaseTextContentProps {
+export interface TextContentWithParticipantsProps extends BaseTextContentProps {
   participantCount: number | null;
   capacity: number | null;
 }
+
+type DetailCardTextContentProps = TextContentWithParticipantsProps;
+
+type ListCardTextContentProps = TextContentWithParticipantsProps;
 
 interface ImageProps {
   src: string | null;
   alt: string | null;
 }
 
-interface durationProps {
+interface DurationProps {
   startDate: string | null;
   endDate: string | null;
 }
@@ -36,16 +40,33 @@ export interface GridCardProps {
 
 export interface DetailCardProps {
   teamUserRole: TeamUserRole;
-  textContent: DetailCardtextContentProps;
-  duration: durationProps;
+  textContent: DetailCardTextContentProps;
+  duration: DurationProps;
   isCardDataLoading: boolean;
   imageUrls: AvatarGroupProps['imageUrls'];
   handleButtonClick: () => void;
 }
 
-export interface getParticipationButtonLabelParams {
+export interface ListCardProps {
+  pageId: string | null;
+  teamUserRole: TeamUserRole;
+  image: ImageProps;
+  chip: ReactNode;
+  textContent: ListCardTextContentProps;
+  endDate: string | null;
+  isCardDataLoading: boolean;
+  isCompletedStory: boolean;
+  isCanceled: boolean;
+  handleButtonClick: () => void;
+}
+
+export interface GetDetailCardButtonLabelParams {
   paramTeamUserRole: TeamUserRole;
   paramIsButtonActivate: boolean;
   participantCount: number | null;
   capacity: number | null;
+}
+
+export interface GetListCardButtonLabelParams {
+  isCompletedStory: boolean;
 }
