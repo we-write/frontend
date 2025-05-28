@@ -8,16 +8,18 @@ const Chip = ({
   variant = 'default',
   chipType = 'default',
 }: ChipProps) => {
-  const defaultChipStyle = 'flex items-center justify-center text-lg';
+  const defaultChipStyle = 'flex-center text-sm';
   const chipSizeStyle = {
-    default: 'px-3 py-1 min-w-[46px] max-w-fit h-fit rounded-md',
-    rounded: 'px-3 py-2 min-w-[46px] max-w-fit h-[32px] rounded-full',
-    custom: `${className} `,
+    default: 'px-3 py-1  rounded-md w-fit h-fit',
+    rounded: 'px-2 py-1 rounded-full w-fit h-fit',
+    badge: 'px-3  w-fit h-fit rounded-full',
+    info: 'px-2 py-1 h-[24px] max-w-fit  rounded-md',
+    state: 'px-3 py-1 w-fit h-[32px] rounded-full',
   };
 
   return (
     <div
-      className={`${defaultChipStyle} ${chipSizeStyle[chipType]} ${getColorSystem(
+      className={`${defaultChipStyle} ${chipType === 'custom' ? className : chipSizeStyle[chipType]} ${getColorSystem(
         color,
         variant
       )}`}

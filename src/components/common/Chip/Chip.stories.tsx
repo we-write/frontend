@@ -21,8 +21,16 @@ export const Default: Story = {
 };
 export const rounded: Story = {
   args: {
-    text: '999+',
+    text: '12',
     chipType: 'rounded',
+    color: 'primary',
+    variant: 'default',
+  },
+};
+export const badge: Story = {
+  args: {
+    text: '999+',
+    chipType: 'badge',
     color: 'primary',
     variant: 'default',
   },
@@ -35,19 +43,19 @@ export const inverted: Story = {
     variant: 'inverted',
   },
 };
-export const dateText: Story = {
+
+export const info: Story = {
   args: {
     text: '1월 7일',
-    chipType: 'default',
+    chipType: 'info',
     color: 'primary',
     variant: 'default',
   },
 };
-
-export const koreanText: Story = {
+export const state: Story = {
   args: {
     text: '이용 예정',
-    chipType: 'rounded',
+    chipType: 'state',
     color: 'primary',
     variant: 'default',
   },
