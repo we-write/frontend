@@ -15,6 +15,9 @@ const Observer = ({
   useEffect(() => {
     if (!enabled) return;
 
+    const target = observerRef.current;
+    if (!target) return;
+
     const observer = new IntersectionObserver(
       (entries) => {
         const first = entries[0];
@@ -25,14 +28,10 @@ const Observer = ({
       { threshold, rootMargin }
     );
 
-    if (observerRef.current) {
-      observer.observe(observerRef.current);
-    }
+    observer.observe(target);
 
     return () => {
-      if (observerRef.current) {
-        observer.unobserve(observerRef.current);
-      }
+      observer.unobserve(target);
     };
   }, [enabled, onIntersect, threshold, rootMargin]);
 

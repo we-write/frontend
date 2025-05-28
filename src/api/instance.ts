@@ -6,7 +6,7 @@ const instance = axios.create({
   timeout: 5000,
 });
 if (!process.env.NEXT_PUBLIC_BASE_URL) {
-  throw new Error('Baas URL is not defined');
+  throw new Error('BASE URL is not defined');
 }
 instance.interceptors.request.use(async (config) => {
   const excludedPaths = [
