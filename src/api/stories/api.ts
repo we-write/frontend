@@ -9,6 +9,18 @@ export const getStories = async () => {
   }
   return data;
 };
+
+export const getStory = async (id: string) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('*')
+    .eq('id', id);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+
 export const createStory = async (story: Story) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
