@@ -85,7 +85,7 @@ const DetailCard = ({
             {textContent.capacity && <AvatarGroup imageUrls={imageUrls} />}
           </>
         ) : (
-          <div className="flex animate-pulse items-center gap-3">
+          <div className="flex w-full animate-pulse items-center gap-3">
             <div className="h-5 w-1/3 rounded bg-gray-300 sm:w-1/6" />
             <div className="h-7 w-1/2 rounded bg-gray-300 sm:w-1/4" />
           </div>
