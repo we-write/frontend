@@ -1,7 +1,36 @@
+import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import SocialList from './SocialList';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { getSocialList } from '@/api/social/api';
+import { createQueryClient } from '@/lib/createQueryClient';
 
-import React from 'react';
+export const FETCH_GET_ITEM_LIMIT = 12;
+export const GET_SOCIAL_LIST_INIT_FILTER = {
+  limit: FETCH_GET_ITEM_LIMIT,
+  offset: 0,
+};
 
-export default function social() {
-  return <div className="text-black">소셜 페이지 입니다.</div>;
-}
+const SocialPage = async () => {
+  const queryClient = createQueryClient();
 
+  await queryClient.prefetchQuery({
+    queryKey: [QUERY_KEY.SOCIAL],
+    queryFn: () => getSocialList(GET_SOCIAL_LIST_INIT_FILTER),
+  });
+
+  return (
+    <HydrationBoundary state={dehydrate(queryClient)}>
+      <h1 className="mb-4 text-4xl leading-tight font-bold md:text-5xl">
+        다른 사람들과 함께 만들어가는
+        <br />
+        <span className="text-write-main">특별한 이야기</span>
+      </h1>
+      <p className="mb-8 text-xl font-medium text-gray-400 md:text-2xl">
+        당신의 상상력으로 이야기를 완성해보세요
+      </p>
+      <SocialList />
+    </HydrationBoundary>
+  );
+};
+
+export default SocialPage;
