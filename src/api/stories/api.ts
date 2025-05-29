@@ -19,3 +19,24 @@ export const createStory = async (story: Story) => {
   }
   return data;
 };
+export const postImage = async (image: File) => {
+  const imageName = `cover/${Date.now()}.${image.name.split('.').pop()}`;
+  const { data, error } = await instanceBaaS.storage
+    .from('imagestore')
+    .upload(imageName, image);
+  if (error) {
+    throw new Error(error.message);
+  }
+
+  return {
+    path: data.path,
+    fullPath: data.fullPath,
+  };
+};
+export const getImage = async (imageName: string) => {
+  const { data } = await instanceBaaS.storage
+    .from('imagestore')
+    .getPublicUrl(imageName);
+
+  return data.publicUrl;
+};

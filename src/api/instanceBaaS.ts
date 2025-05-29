@@ -1,10 +1,13 @@
-import axios from 'axios';
+import { createClient } from '@supabase/supabase-js';
 
-const instanceBaaS = axios.create({
-  baseURL: process.env.NEXT_PUBLIC_BAAS_URL,
-  timeout: 5000,
-});
-if (!process.env.NEXT_PUBLIC_BAAS_URL) {
+const supabaseUrl = process.env.NEXT_PUBLIC_BAAS_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_BAAS_API_KEY;
+if (!supabaseUrl) {
   throw new Error('Baas URL is not defined');
 }
+if (!supabaseKey) {
+  throw new Error('Baas API Key is not defined');
+}
+export const instanceBaaS = createClient(supabaseUrl, supabaseKey);
+
 export default instanceBaaS;
