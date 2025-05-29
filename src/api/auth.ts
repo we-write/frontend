@@ -1,4 +1,4 @@
-import { SignUpRequest, SigninRequest } from '@/types/user';
+import { SignUpRequest, SigninRequest, UserRequest } from '@/types/user';
 import { setCookie } from './cookies';
 import instance from './instance';
 import axios from 'axios';
@@ -67,6 +67,40 @@ export const getMyInfo = async () => {
       throw new Error('사용자를 찾을 수 없습니다');
     }
     throw new Error('유저 정보 조회 실패');
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+export const updateUserInfo = async (updateMyInfo: UserRequest) => {
+  const formData = new FormData();
+  if (updateMyInfo.companyName !== null) {
+    formData.append('companyName', updateMyInfo.companyName);
+  }
+  if (updateMyInfo.image) {
+    formData.append('image', updateMyInfo.image);
+  }
+
+  try {
+    const res = await instance.put(API_PATH.USER, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    if (res.status === 200) {
+      return res.data;
+    }
+    if (res.status === 400) {
+      throw new Error('요청 형식이 올바르지 않습니다');
+    }
+    if (res.status === 401) {
+      throw new Error('인증이 필요합니다');
+    }
+    if (res.status === 404) {
+      throw new Error('사용자를 찾을 수 없습니다');
+    }
+    throw new Error('유저 정보 업데이트 실패');
   } catch (error) {
     console.error(error);
     throw error;
