@@ -14,7 +14,8 @@ export const getStory = async (id: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('*')
-    .eq('id', id);
+    .eq('id', id)
+    .single();
   if (error) {
     throw new Error(error.message);
   }
