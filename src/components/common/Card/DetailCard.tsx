@@ -79,7 +79,9 @@ const DetailCard = ({
                   <span className="ml-1.5">{textContent.capacity}</span>명
                 </>
               ) : (
-                '모집 인원 정보를 불러오지 못했습니다'
+                <span className="text-gray-500">
+                  모집 인원 정보를 불러오지 못했습니다
+                </span>
               )}
             </p>
             {textContent.capacity && <AvatarGroup imageUrls={imageUrls} />}
