@@ -1,8 +1,19 @@
+import { Story } from '@/types/story';
 import instanceBaaS from '../instanceBaaS';
 
 export const getStories = async () => {
   const { data, error } = await instanceBaaS.from('Stories').select('*');
 
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+export const createStory = async (story: Story) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .insert(story)
+    .select();
   if (error) {
     throw new Error(error.message);
   }
