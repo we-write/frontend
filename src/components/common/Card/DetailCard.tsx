@@ -98,7 +98,7 @@ const DetailCard = ({
           type="button"
           isDisabled={!isButtonActivate}
           onClick={handleButtonClick}
-          className="font-semibold"
+          className="flex-1 font-semibold"
         >
           {isCardDataLoading
             ? '정보를 불러오는 중입니다.'
