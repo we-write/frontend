@@ -7,6 +7,7 @@ export interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   isSuccess?: boolean;
   register?: UseFormRegisterReturn;
   suffixIcon?: ReactNode;
+  className?: string;
 }
 
 export interface HelperTextProps {
