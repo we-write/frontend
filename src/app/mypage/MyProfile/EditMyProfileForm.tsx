@@ -1,6 +1,5 @@
 'use client';
 
-import Image from 'next/image';
 import Button from '@/components/common/Button/Button';
 import { useState } from 'react';
 import { UserRequest } from '@/types/user';
@@ -14,15 +13,18 @@ import InputForm from '@/components/common/Form/InputForm';
 import { Controller, useForm } from 'react-hook-form';
 import { useUpdateMyInfo } from '@/hooks/api/users/useUpdateMyInfo';
 import { EditMyProfileFormProps } from '@/app/mypage/MyProfile/type';
+import { BtnEditSmall } from '@public/assets/icons';
+import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 
 const EditMyProfileForm = ({
   isOpen,
   closeModal,
   profileData,
-  profileImage,
-  refetch,
+  currentProfileImageUrl,
 }: EditMyProfileFormProps) => {
-  const [previewImage, setPreviewImage] = useState<string>(profileImage);
+  const [profilePreviewImageUrl, setProfilePreviewImageUrl] = useState<string>(
+    currentProfileImageUrl
+  );
 
   const {
     control,
@@ -35,14 +37,19 @@ const EditMyProfileForm = ({
       image: profileData.image,
     },
   });
-
-  const { mutate: updateMyInfo } = useUpdateMyInfo();
+  const { refetch } = useGetMyInfo();
+  const { mutate: updateMyInfo, isSuccess } = useUpdateMyInfo();
 
   const onSubmit = async (data: UserRequest) => {
     await updateMyInfo(data);
-    refetch();
     closeModal();
-    setPreviewImage('');
+    if (isSuccess) {
+      refetch();
+      setProfilePreviewImageUrl('');
+    } else {
+      setProfilePreviewImageUrl(currentProfileImageUrl);
+      console.error('유저 정보 업데이트 실패');
+    }
   };
 
   return (
@@ -57,31 +64,28 @@ const EditMyProfileForm = ({
               render={({ field }) => (
                 <>
                   <input
-                    id="profileImage"
+                    id="currentProfileImageUrl"
                     type="file"
                     accept="image/*"
                     className="hidden"
-                    onClick={(e) => (e.currentTarget.value = '')}
                     onChange={(e) => {
                       const file = e.target.files?.[0];
                       if (file) {
                         field.onChange(file);
                         const previewUrl = URL.createObjectURL(file);
-                        setPreviewImage(previewUrl);
+                        setProfilePreviewImageUrl(previewUrl);
                       }
                     }}
                   />
                   <label
-                    htmlFor="profileImage"
+                    htmlFor="currentProfileImageUrl"
                     className="relative mb-6 h-[56px] w-[56px] cursor-pointer rounded-full bg-cover bg-center"
                     style={{
-                      backgroundImage: `url(${previewImage || profileImage})`,
+                      backgroundImage: `url(${profilePreviewImageUrl || currentProfileImageUrl})`,
                     }}
                   >
-                    <Image
-                      className="absolute right-0 bottom-0 rounded-full border-2 border-white"
-                      src="/assets/images/BtnEdit.png"
-                      alt="edit"
+                    <BtnEditSmall
+                      className="absolute right-0 bottom-0 rounded-full"
                       width={20}
                       height={20}
                     />
