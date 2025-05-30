@@ -43,10 +43,6 @@ const SocialList = () => {
 
   const socialList = data?.pages.flat() ?? [];
 
-  if (isLoading) {
-    return <div>Loading...</div>;
-  }
-
   return (
     <>
       {/* 필터링 리스트 */}
