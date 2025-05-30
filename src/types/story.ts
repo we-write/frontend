@@ -1,10 +1,9 @@
 export interface Story {
-  id: string;
-  author_id: string;
+  story_id: string;
   title: string;
-  cover_image_url: string;
+  cover_image_url?: string;
   summary: string;
-  genre: string;
-  createdAt: string;
-  updatedAt: string;
+  genre?: string;
+  created_at: string;
+  updated_at: string;
 }
