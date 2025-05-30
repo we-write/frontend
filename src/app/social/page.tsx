@@ -1,17 +1,11 @@
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import SocialList from './SocialList';
 import { QUERY_KEY } from '@/constants/queryKey';
-import { getSocialList } from '@/api/social/api';
-import { createQueryClient } from '@/lib/createQueryClient';
-
-export const FETCH_GET_ITEM_LIMIT = 12;
-export const GET_SOCIAL_LIST_INIT_FILTER = {
-  limit: FETCH_GET_ITEM_LIMIT,
-  offset: 0,
-};
+import { GET_SOCIAL_LIST_INIT_FILTER, getSocialList } from '@/api/social/api';
+import { getQueryClient } from '@/lib/queryClinet';
+import SocialList from './socialList/SocialList';
 
 const SocialPage = async () => {
-  const queryClient = createQueryClient();
+  const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [QUERY_KEY.SOCIAL],
