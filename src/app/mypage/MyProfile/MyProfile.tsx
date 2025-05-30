@@ -3,8 +3,9 @@
 import Image from 'next/image';
 import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 import useBoolean from '@/hooks/useBoolean';
-import Skeleton from '@/app/mypage/MyProfile/Skeleton';
+import MyProfileSkeleton from '@/app/mypage/MyProfile/MyProfileSkeleton';
 import EditMyProfileForm from '@/app/mypage/MyProfile/EditMyProfileForm';
+import { BtnEditLarge } from '@public/assets/icons';
 
 const MyProfile = () => {
   const {
@@ -12,37 +13,31 @@ const MyProfile = () => {
     setTrue: openModal,
     setFalse: closeModal,
   } = useBoolean();
-  const { data: profileData, isLoading, refetch } = useGetMyInfo();
-  const placeholderImage = '/assets/images/Profile.png';
-  const profileImage = profileData?.image ?? placeholderImage;
+  const { data: profileData, isLoading } = useGetMyInfo();
+  const currentProfileImageUrl =
+    profileData?.image ?? '/assets/images/Profile.png';
 
-  if (isLoading) return <Skeleton />;
+  if (isLoading) return <MyProfileSkeleton />;
   return (
     <section className="relative mt-6 h-[172px] w-full overflow-hidden rounded-[22px] border-2 border-gray-200 bg-white">
       <div className="bg-write-green-50 flex h-[66px] items-center justify-between px-6">
         <h2 className="text-lg font-semibold text-gray-900">내 프로필</h2>
         <>
           <button type="button" onClick={openModal}>
-            <Image
-              src="/assets/images/BtnEdit.png"
-              alt="edit"
-              width={32}
-              height={32}
-            />
+            <BtnEditLarge width={32} height={32} />
           </button>
           <EditMyProfileForm
             isOpen={isOpen}
             closeModal={closeModal}
             profileData={profileData}
-            profileImage={profileImage}
-            refetch={refetch}
+            currentProfileImageUrl={currentProfileImageUrl}
           />
         </>
       </div>
       <Image
         className="absolute top-[58px] left-[26px] h-14 w-14 rounded-full object-cover"
-        src={profileImage}
-        alt="profile"
+        src={currentProfileImageUrl}
+        alt="프로필 이미지"
         width={56}
         height={56}
         unoptimized
