@@ -9,14 +9,10 @@ import Button from '@/components/common/Button/Button';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 import useBoolean from '@/hooks/useBoolean';
 import React from 'react';
-import { FilterProps, GenreFilterProps } from './type';
+import { FilterProps } from '../type';
 import { ArrowSort, DownIcon } from '@public/assets/icons';
 
-export const GenreFilter = ({
-  filter,
-  filterDispatch,
-  resetFilteredSocialList,
-}: GenreFilterProps) => {
+export const GenreFilter = ({ filter, filterDispatch }: FilterProps) => {
   const {
     value: genreFilterOpen,
     setFalse: closeGenreFilter,
@@ -28,7 +24,6 @@ export const GenreFilter = ({
       type: 'REMOVE_FILTER',
       payload: 'location',
     });
-    resetFilteredSocialList();
     closeGenreFilter();
   };
 
