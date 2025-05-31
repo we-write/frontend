@@ -6,4 +6,5 @@ export interface Story {
   genre?: string;
   created_at: string;
   updated_at: string;
+  approved_count: number;
 }
