@@ -3,8 +3,8 @@
 import Image from 'next/image';
 import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 import useBoolean from '@/hooks/useBoolean';
-import MyProfileSkeleton from '@/app/mypage/myProfilee/MyProfileSkeleton';
-import EditMyProfileForm from '@/app/mypage/myProfilee/EditMyProfileForm';
+import MyProfileSkeleton from '@/app/mypage/myProfile/MyProfileSkeleton';
+import EditMyProfileForm from '@/app/mypage/myProfile/EditMyProfileForm';
 import { BtnEditLarge } from '@public/assets/icons';
 
 const MyProfile = () => {
