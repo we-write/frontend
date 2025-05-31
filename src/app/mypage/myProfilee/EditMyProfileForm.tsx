@@ -12,7 +12,7 @@ import {
 import InputForm from '@/components/common/Form/InputForm';
 import { Controller, useForm } from 'react-hook-form';
 import { useUpdateMyInfo } from '@/hooks/api/users/useUpdateMyInfo';
-import { EditMyProfileFormProps } from '@/app/mypage/MyProfile/type';
+import { EditMyProfileFormProps } from '@/app/mypage/myProfilee/type';
 import { BtnEditSmall } from '@public/assets/icons';
 import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 
