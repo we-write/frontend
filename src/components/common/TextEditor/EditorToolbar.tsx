@@ -66,7 +66,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
           : editor.isActive({ textAlign: 'right' })
             ? 'right'
             : 'left';
-      const newIsApplied = {
+      const newIsTextStyleApplied = {
         textBlack: editor.getAttributes('textStyle').color === '#000',
         textRed: editor.getAttributes('textStyle').color === '#f00',
         bold: editor.isActive('bold'),
@@ -74,7 +74,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         blockquote: editor.isActive('blockquote'),
       };
       setCurrentFontSize(newFontSize ? newFontSize : '16px');
-      setIsTextStyleApplied(newIsApplied);
+      setIsTextStyleApplied(newIsTextStyleApplied);
       setIsAlignApplied(newIsAlignApplied);
     };
 
