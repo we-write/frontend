@@ -45,6 +45,7 @@ export interface DetailCardProps {
   isCardDataLoading: boolean;
   imageUrls: AvatarGroupProps['imageUrls'];
   handleButtonClick: () => void;
+  handleDeleteButtonClick?: () => void;
 }
 
 export interface ListCardProps {
