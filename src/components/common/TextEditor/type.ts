@@ -1,6 +1,6 @@
 import { Editor } from '@tiptap/react';
 
-export interface EditorToolbarPreps {
+export interface EditorToolbarProps {
   editor: Editor | null;
 }
 

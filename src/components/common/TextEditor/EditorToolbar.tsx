@@ -13,7 +13,7 @@ import Dropdown from '@/components/common/Dropdown/Dropdown';
 import useBoolean from '@/hooks/useBoolean';
 import { useEffect, useState } from 'react';
 import {
-  EditorToolbarPreps,
+  EditorToolbarProps,
   HandleChangeTextAlignParams,
   HandleFontSizeChangeParams,
   HandleMarkChangeParams,
@@ -32,7 +32,7 @@ const FONT_SIZE_OPTIONS = [
 ];
 const TOOLBAR_ICON_SIZE_PX = 18;
 
-const EditorToolbar = ({ editor }: EditorToolbarPreps) => {
+const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   const { value, toggle, setFalse } = useBoolean();
   const [currentFontSize, setCurrentFontSize] = useState('16px');
   const [isApplied, setIsApplied] = useState({
