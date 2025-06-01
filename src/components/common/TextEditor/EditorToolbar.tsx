@@ -49,6 +49,12 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
     'h-full w-full rounded-lg px-4 py-1.5 hover:bg-gray-200';
 
   useEffect(() => {
+    if (editor && editor.isEmpty) {
+      editor.chain().focus().setColor('#000').run();
+    }
+  }, [editor]);
+
+  useEffect(() => {
     if (!editor) return;
 
     const updateMarkStates = () => {
@@ -61,7 +67,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
             ? 'right'
             : 'left';
       const newIsApplied = {
-        textBlack: editor.getAttributes('textStyle').color === '#00',
+        textBlack: editor.getAttributes('textStyle').color === '#000',
         textRed: editor.getAttributes('textStyle').color === '#f00',
         bold: editor.isActive('bold'),
         italic: editor.isActive('italic'),
