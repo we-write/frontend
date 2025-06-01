@@ -15,8 +15,10 @@ export interface HandleFontSizeChangeParams {
   fontSize: string;
 }
 
+export type AlignDirectionType = 'left' | 'center' | 'right';
+
 export interface HandleChangeTextAlignParams {
-  alignDirection: 'left' | 'center' | 'right';
+  alignDirection: AlignDirectionType;
 }
 
 export interface HandleMarkChangeParams {

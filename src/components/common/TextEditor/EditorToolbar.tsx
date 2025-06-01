@@ -13,6 +13,7 @@ import Dropdown from '@/components/common/Dropdown/Dropdown';
 import useBoolean from '@/hooks/useBoolean';
 import { useEffect, useState } from 'react';
 import {
+  AlignDirectionType,
   EditorToolbarProps,
   HandleChangeTextAlignParams,
   HandleFontSizeChangeParams,
@@ -42,9 +43,8 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
     italic: false,
     blockquote: false,
   });
-  const [isAlignApplied, setIsAlignApplied] = useState<
-    'left' | 'center' | 'right'
-  >('left');
+  const [isAlignApplied, setIsAlignApplied] =
+    useState<AlignDirectionType>('left');
   const DropDownContentStyle =
     'h-full w-full rounded-lg px-4 py-1.5 hover:bg-gray-200';
 
