@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
 import { UserResponse } from '@/types/user';
-const SIGN_IN_IMAGE = '/assets/images/signin.png';
 
 export const LoginSection = ({
   isSignIn,
@@ -27,7 +26,7 @@ export const LoginSection = ({
       {userInfo ? (
         userInfo.image ? (
           <Image
-            src={SIGN_IN_IMAGE}
+            src={userInfo.image}
             alt="SIGN_IN_IMAGE"
             width={40}
             height={40}
