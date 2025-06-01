@@ -35,18 +35,16 @@ const TOOLBAR_ICON_SIZE_PX = 18;
 const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   const { value, toggle, setFalse } = useBoolean();
   const [currentFontSize, setCurrentFontSize] = useState('16px');
-  const [isApplied, setIsApplied] = useState({
+  const [isTextStyleApplied, setIsTextStyleApplied] = useState({
     textBlack: true,
     textRed: false,
     bold: false,
     italic: false,
     blockquote: false,
-    align: {
-      left: false,
-      center: false,
-      right: false,
-    },
   });
+  const [isAlignApplied, setIsAlignApplied] = useState<
+    'left' | 'center' | 'right'
+  >('left');
   const DropDownContentStyle =
     'h-full w-full rounded-lg px-4 py-1.5 hover:bg-gray-200';
 
@@ -55,20 +53,23 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
 
     const updateMarkStates = () => {
       const newFontSize = editor.getAttributes('textStyle').fontSize;
+      const newIsAlignApplied = editor.isActive({ textAlign: 'left' })
+        ? 'left'
+        : editor.isActive({ textAlign: 'center' })
+          ? 'center'
+          : editor.isActive({ textAlign: 'right' })
+            ? 'right'
+            : 'left';
       const newIsApplied = {
         textBlack: editor.getAttributes('textStyle').color === '#00',
         textRed: editor.getAttributes('textStyle').color === '#f00',
         bold: editor.isActive('bold'),
         italic: editor.isActive('italic'),
         blockquote: editor.isActive('blockquote'),
-        align: {
-          left: editor.isActive({ textAlign: 'left' }),
-          center: editor.isActive({ textAlign: 'center' }),
-          right: editor.isActive({ textAlign: 'right' }),
-        },
       };
       setCurrentFontSize(newFontSize ? newFontSize : '16px');
-      setIsApplied(newIsApplied);
+      setIsTextStyleApplied(newIsApplied);
+      setIsAlignApplied(newIsAlignApplied);
     };
 
     editor.on('selectionUpdate', updateMarkStates);
@@ -112,21 +113,14 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
 
     chain.run();
 
-    setIsApplied((prev) => ({
-      ...prev,
-      align: {
-        left: editor.isActive({ textAlign: 'left' }),
-        center: editor.isActive({ textAlign: 'center' }),
-        right: editor.isActive({ textAlign: 'right' }),
-      },
-    }));
+    setIsAlignApplied(alignDirection);
 
     setFalse();
   };
 
   const handleMarkChange = ({ mark }: HandleMarkChangeParams) => {
     const chain = editor.chain().focus();
-    setIsApplied((prev) => ({
+    setIsTextStyleApplied((prev) => ({
       ...prev,
       [mark]: !prev[mark],
     }));
@@ -166,46 +160,46 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
       <button
         onClick={() => {
           editor.chain().focus().setColor('#000').run();
-          setIsApplied((prev) => ({
+          setIsTextStyleApplied((prev) => ({
             ...prev,
             textRed: false,
             textBlack: true,
           }));
           setFalse();
         }}
-        className={`rounded p-1.5 ${isApplied.textBlack && 'bg-gray-200'}`}
+        className={`rounded p-1.5 ${isTextStyleApplied.textBlack && 'bg-gray-200'}`}
       >
         <Baseline size={TOOLBAR_ICON_SIZE_PX} />
       </button>
       <button
         onClick={() => {
           editor.chain().focus().setColor('#f00').run();
-          setIsApplied((prev) => ({
+          setIsTextStyleApplied((prev) => ({
             ...prev,
             textBlack: false,
             textRed: true,
           }));
           setFalse();
         }}
-        className={`rounded p-1.5 ${isApplied.textRed && 'bg-gray-200'}`}
+        className={`rounded p-1.5 ${isTextStyleApplied.textRed && 'bg-gray-200'}`}
       >
         <Baseline size={TOOLBAR_ICON_SIZE_PX} className="text-red-600" />
       </button>
       <button
         onClick={() => handleMarkChange({ mark: 'bold' })}
-        className={`rounded p-1.5 ${isApplied.bold && 'bg-gray-200'}`}
+        className={`rounded p-1.5 ${isTextStyleApplied.bold && 'bg-gray-200'}`}
       >
         <Bold size={TOOLBAR_ICON_SIZE_PX} />
       </button>
       <button
         onClick={() => handleMarkChange({ mark: 'italic' })}
-        className={`rounded p-1.5 ${isApplied.italic && 'bg-gray-200'}`}
+        className={`rounded p-1.5 ${isTextStyleApplied.italic && 'bg-gray-200'}`}
       >
         <Italic size={TOOLBAR_ICON_SIZE_PX} />
       </button>
       <button
         onClick={() => handleMarkChange({ mark: 'blockquote' })}
-        className={`rounded p-1.5 ${isApplied.blockquote && 'bg-gray-200'}`}
+        className={`rounded p-1.5 ${isTextStyleApplied.blockquote && 'bg-gray-200'}`}
       >
         <Quote size={TOOLBAR_ICON_SIZE_PX} />
       </button>
@@ -213,7 +207,7 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
         <button
           key={direction}
           onClick={() => handleChangeTextAlign({ alignDirection: direction })}
-          className={`rounded p-1.5 ${isApplied.align[direction] && 'bg-gray-200'}`}
+          className={`rounded p-1.5 ${isAlignApplied === direction && 'bg-gray-200'}`}
         >
           {direction === 'left' && <AlignLeft size={TOOLBAR_ICON_SIZE_PX} />}
           {direction === 'center' && (
