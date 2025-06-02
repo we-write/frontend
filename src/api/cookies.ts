@@ -19,3 +19,8 @@ export const deleteCookie = async (key: string) => {
   const cookieStore = await cookies();
   cookieStore.delete(key);
 };
+
+export const checkToken = async (): Promise<boolean> => {
+  const token = await getCookie('accessToken');
+  return token ? true : false;
+};
