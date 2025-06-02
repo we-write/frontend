@@ -1,0 +1,19 @@
+name: Build We-Write Workflow
+
+on: push
+jobs:
+  build-project:
+    name: Build We-Write Project
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build with multiple env variables
+        run: |
+          NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} \
+          NEXT_PUBLIC_BAAS_URL=${{ secrets.NEXT_PUBLIC_BAAS_URL }} \
+          npm run build

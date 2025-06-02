@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { getCookie } from './auths/cookies';
+import { getCookie } from './cookies';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   timeout: 5000,
 });
 if (!process.env.NEXT_PUBLIC_BASE_URL) {
-  throw new Error('Baas URL is not defined');
+  throw new Error('BASE URL is not defined');
 }
 instance.interceptors.request.use(async (config) => {
   const excludedPaths = [
@@ -17,14 +17,11 @@ instance.interceptors.request.use(async (config) => {
     '/reviews',
     '/reviews/scores',
   ]; // 검증없이 접근 가능한 경로
-
-  const isExcluded = excludedPaths.some((path) => {
-    if (path instanceof RegExp) {
-      return path.test(config.url || ''); //정규식 비교
-    }
-    return path === config.url;
-  });
-
+  const fullUrl = new URL(config.url || '', config.baseURL || '');
+  const path = fullUrl.pathname;
+  const isExcluded = excludedPaths.some((rule) =>
+    rule instanceof RegExp ? rule.test(path) : rule === path
+  );
   if (isExcluded) {
     return config;
   }

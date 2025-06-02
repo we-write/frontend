@@ -1,15 +1,18 @@
 //TODO: 병합 후 수정
-import { useMutation } from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { postSignIn } from '@/api/auth';
 import { SigninRequest } from '@/types/user';
-import instance from '@/api/instance';
+
+import { useRouter } from 'next/navigation';
+
 export const usePostSignin = () => {
+  const queryClient = useQueryClient();
+  const router = useRouter();
   return useMutation({
     mutationFn: (data: SigninRequest) => postSignIn(data),
     onSuccess: async () => {
-      //쿠키 태스트
-      const res = await instance.get('/auths/user');
-      console.log(res.data);
+      await queryClient.prefetchQuery({ queryKey: ['myInfo'] });
+      router.push('/');
     },
     onError: (error) => {
       console.error(error);

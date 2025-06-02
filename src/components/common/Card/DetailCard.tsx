@@ -1,10 +1,11 @@
 import {
   DetailCardProps,
-  getParticipationButtonLabelParams,
+  GetDetailCardButtonLabelParams,
 } from '@/components/common/Card/type';
 import { format } from 'date-fns';
 import Button from '@/components/common/Button/Button';
 import AvatarGroup from '@/components/common/AvatarGroup/AvatarGroup';
+import { TrashCan } from '@public/assets/icons';
 
 const DetailCard = ({
   teamUserRole,
@@ -13,6 +14,7 @@ const DetailCard = ({
   isCardDataLoading,
   imageUrls,
   handleButtonClick,
+  handleDeleteButtonClick,
 }: DetailCardProps) => {
   const startDate = duration.startDate ? new Date(duration.startDate) : null;
   const endDate = duration.endDate ? new Date(duration.endDate) : null;
@@ -26,7 +28,7 @@ const DetailCard = ({
     paramIsButtonActivate,
     participantCount,
     capacity,
-  }: getParticipationButtonLabelParams): string => {
+  }: GetDetailCardButtonLabelParams): string => {
     if (paramTeamUserRole === 'LEADER' || paramTeamUserRole === 'MEMBER') {
       return '스토리 이어쓰기';
     }
@@ -77,33 +79,55 @@ const DetailCard = ({
                   <span className="ml-1.5">{textContent.capacity}</span>명
                 </>
               ) : (
-                '모집 인원 정보를 불러오지 못했습니다'
+                <span className="text-gray-500">
+                  모집 인원 정보를 불러오지 못했습니다
+                </span>
               )}
             </p>
             {textContent.capacity && <AvatarGroup imageUrls={imageUrls} />}
           </>
         ) : (
-          <div className="flex animate-pulse items-center gap-3">
+          <div className="flex w-full animate-pulse items-center gap-3">
             <div className="h-5 w-1/3 rounded bg-gray-300 sm:w-1/6" />
             <div className="h-7 w-1/2 rounded bg-gray-300 sm:w-1/4" />
           </div>
         )}
       </div>
-      <Button
-        type="button"
-        isDisabled={!isButtonActivate}
-        onClick={handleButtonClick}
-        className="font-semibold"
-      >
-        {isCardDataLoading
-          ? '정보를 불러오는 중입니다.'
-          : getParticipationButtonLabel({
-              paramTeamUserRole: teamUserRole,
-              paramIsButtonActivate: isButtonActivate,
-              participantCount: textContent.participantCount,
-              capacity: textContent.capacity,
-            })}
-      </Button>
+      <div className="flex w-full gap-3">
+        <Button
+          type="button"
+          isDisabled={!isButtonActivate}
+          onClick={handleButtonClick}
+          className="flex-1 font-semibold"
+        >
+          {isCardDataLoading
+            ? '정보를 불러오는 중입니다.'
+            : getParticipationButtonLabel({
+                paramTeamUserRole: teamUserRole,
+                paramIsButtonActivate: isButtonActivate,
+                participantCount: textContent.participantCount,
+                capacity: textContent.capacity,
+              })}
+        </Button>
+        {teamUserRole === 'LEADER' && (
+          <Button
+            type="button"
+            color="custom"
+            isDisabled={!isButtonActivate}
+            aria-label="모임 삭제하기"
+            onClick={handleDeleteButtonClick}
+            className="basis-16 bg-gray-200 font-semibold sm:basis-25"
+          >
+            {!isCardDataLoading && (
+              <TrashCan
+                aria-hidden="true"
+                className="text-write-error h-5 w-5 sm:h-6 sm:w-6"
+                fill="currentColor"
+              />
+            )}
+          </Button>
+        )}
+      </div>
     </div>
   );
 };
