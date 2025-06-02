@@ -53,6 +53,34 @@ export const ContinueStoryButton: Story = {
   },
 };
 
+export const ContinueStoryWithDeleteButton: Story = {
+  args: {
+    teamUserRole: 'LEADER',
+    textContent: {
+      title: '스토리 타이틀',
+      genre: '판타지',
+      participantCount: 5,
+      capacity: 10,
+    },
+    duration: {
+      startDate: '2025-05-15T05:21:34.319Z',
+      endDate: '2025-06-30T05:21:34.319Z',
+    },
+    isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
+    handleButtonClick: () => {},
+  } as DetailCardProps,
+
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '사용자가 모임장(Leader)일 경우, 모임 삭제 버튼이 함께 활성화됩니다.',
+      },
+    },
+  },
+};
+
 export const ParticipateButton: Story = {
   args: {
     teamUserRole: 'GUEST',
@@ -245,6 +273,38 @@ export const MobileTruncateTitle: Story = {
       description: {
         story:
           '모바일 사이즈(390×844)에서는 카드 좌우 폭이 좁아진 만큼 타이틀 영역을 확보하기 위해 2줄까지 텍스트가 출력되고 이후엔 줄임표가 나타납니다.',
+      },
+    },
+    viewport: {
+      viewports: INITIAL_VIEWPORTS,
+      defaultViewport: 'iphone12',
+    },
+  },
+};
+
+export const MobileLeaderUI: Story = {
+  args: {
+    teamUserRole: 'LEADER',
+    textContent: {
+      title: '스토리 타이틀',
+      genre: '판타지',
+      participantCount: 5,
+      capacity: 10,
+    },
+    duration: {
+      startDate: '2025-05-15T05:21:34.319Z',
+      endDate: '2025-06-30T05:21:34.319Z',
+    },
+    isCardDataLoading: false,
+    imageUrls: TEST_AVATAR_IMAGE_URLS,
+    handleButtonClick: () => {},
+  } as DetailCardProps,
+
+  parameters: {
+    docs: {
+      description: {
+        story:
+          '모바일 사이즈(390×844)에서 모임장(Leader)에게 보여지는 UI입니다.',
       },
     },
     viewport: {

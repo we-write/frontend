@@ -88,17 +88,16 @@ export const updateUserInfo = async (updateMyInfo: UserRequest) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    if (res.status === 200) {
-      return res.data;
-    }
-    if (res.status === 400) {
-      throw new Error('요청 형식이 올바르지 않습니다');
-    }
-    if (res.status === 401) {
-      throw new Error('인증이 필요합니다');
-    }
-    if (res.status === 404) {
-      throw new Error('사용자를 찾을 수 없습니다');
+    console.log(res);
+    switch (res.status) {
+      case 200:
+        return res.data;
+      case 400:
+        throw new Error('유저 정보 업데이트 실패');
+      case 401:
+        throw new Error('인증이 필요합니다');
+      case 404:
+        throw new Error('사용자를 찾을 수 없습니다');
     }
     throw new Error('유저 정보 업데이트 실패');
   } catch (error) {

@@ -4,7 +4,6 @@ import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
 import { LoginSectionProps } from '@/components/layout/GNB/type';
-const SIGN_IN_IMAGE = '/assets/images/Profile.png';
 
 export const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
   const router = useRouter();
@@ -21,8 +20,8 @@ export const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
       {userInfo ? (
         userInfo.image ? (
           <Image
-            src={SIGN_IN_IMAGE}
-            alt="SIGN_IN_IMAGE"
+            src={userInfo.image}
+            alt="로그인 프로필"
             width={40}
             height={40}
           />
