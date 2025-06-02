@@ -54,28 +54,17 @@ export const getSocialDetail = async ({
   }
 };
 
-export const getSocialParticipants = async ({
-  socialId,
-  limit,
-  offset,
-  sortBy,
-  sortOrder,
-}: GetTeamsParticipantsParams): Promise<GetTeamsParticipantsResponse[]> => {
+export const getSocialParticipants = async (
+  params: GetTeamsParticipantsParams
+): Promise<GetTeamsParticipantsResponse[]> => {
+  const { socialId } = params;
   if (!BASE_URL) {
     throw new Error('BASE_URL을 찾을 수 없습니다');
   }
 
   try {
     const response = await axios.get<GetTeamsParticipantsResponse[]>(
-      `${BASE_URL}/gatherings/${socialId}/participants`,
-      {
-        params: {
-          ...(limit !== undefined && { limit }),
-          ...(offset !== undefined && { offset }),
-          ...(sortBy !== undefined && { sortBy }),
-          ...(sortOrder !== undefined && { sortOrder }),
-        },
-      }
+      `${BASE_URL}/gatherings/${socialId}/participants`
     );
 
     return response.data;
