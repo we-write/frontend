@@ -13,6 +13,7 @@
     "build-storybook": "storybook build"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^2.49.8",
     "@tanstack/react-query": "^5.76.1",
     "@tiptap/extension-color": "^2.12.0",
     "@tiptap/extension-heading": "^2.12.0",
