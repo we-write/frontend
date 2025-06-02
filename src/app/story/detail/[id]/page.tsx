@@ -21,12 +21,12 @@ const StoryDetailPage = () => {
 
   const currentContents = contents?.data || [];
 
-  const PAGE_LIMIT = 5;
-  const totalPage = Math.ceil((contents?.count ?? 0) / (PAGE_LIMIT * 2));
+  const ITEMS_PER_PAGE = 5;
+  const totalPage = Math.ceil((contents?.count ?? 0) / (ITEMS_PER_PAGE * 2));
 
-  const leftPageContents = currentContents.slice(0, PAGE_LIMIT);
+  const leftPageContents = currentContents.slice(0, ITEMS_PER_PAGE);
   const rightPageContents = currentContents.slice(
-    PAGE_LIMIT,
+    ITEMS_PER_PAGE,
     currentContents.length
   );
 
