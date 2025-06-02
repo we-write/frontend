@@ -5,7 +5,7 @@ import useJoinTeam from '@/hooks/api/teams/useJoinTeam';
 import { TeamUserRole } from '@/types/teamUserRole';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';
-import { SocialOverViewProps } from '@/app/social/detail/[storyId]/type';
+import { SocialOverViewProps } from '@/app/social/detail/[socialId]/type';
 import extractUserImages from '@/utils/extractUserImages';
 import useGetSocialDetail from '@/hooks/api/teams/useGetSocialDetail';
 import useGetSocialParticipants, {
@@ -14,16 +14,16 @@ import useGetSocialParticipants, {
 
 const TEST_USER_ROLE = 'GUEST'; // DB로부터 받아올 예정
 
-const SocialOverView = ({ currentStoryId }: SocialOverViewProps) => {
+const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
   const { data: socialDetailData, isLoading: socialDetailDataIsLoading } =
     useGetSocialDetail({
-      storyId: currentStoryId,
+      socialId: currentSocialId,
     });
   const {
     data: socialTeamsParticipantsData,
     isLoading: socialTeamsParticipantsDataIsLoading,
   } = useGetSocialParticipants({
-    storyId: currentStoryId,
+    socialId: currentSocialId,
   }) as {
     data: GetSocialParticipantsResponse[] | undefined;
     isLoading: boolean;
@@ -31,7 +31,7 @@ const SocialOverView = ({ currentStoryId }: SocialOverViewProps) => {
   const isFetchDataLoading =
     socialDetailDataIsLoading || socialTeamsParticipantsDataIsLoading;
   const { mutate: joinTeam } = useJoinTeam({
-    storyId: currentStoryId,
+    socialId: currentSocialId,
   });
   const imagesUrls = extractUserImages(socialTeamsParticipantsData || []);
   const storyGenre =

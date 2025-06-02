@@ -9,7 +9,7 @@ import axios, { AxiosError } from 'axios';
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
 export const getSocialDetail = async ({
-  storyId,
+  socialId,
 }: GetSocialDetailParams): Promise<GetSocialDetailResponse> => {
   if (!BASE_URL) {
     throw new Error('BASE_URL을 찾을 수 없습니다');
@@ -17,7 +17,7 @@ export const getSocialDetail = async ({
 
   try {
     const response = await axios.get<GetSocialDetailResponse>(
-      `${BASE_URL}/gatherings/${storyId}`
+      `${BASE_URL}/gatherings/${socialId}`
     );
     return response.data;
   } catch (error) {
@@ -55,7 +55,7 @@ export const getSocialDetail = async ({
 };
 
 export const getSocialParticipants = async ({
-  storyId,
+  socialId,
   limit,
   offset,
   sortBy,
@@ -67,7 +67,7 @@ export const getSocialParticipants = async ({
 
   try {
     const response = await axios.get<GetTeamsParticipantsResponse[]>(
-      `${BASE_URL}/gatherings/${storyId}/participants`,
+      `${BASE_URL}/gatherings/${socialId}/participants`,
       {
         params: {
           ...(limit !== undefined && { limit }),

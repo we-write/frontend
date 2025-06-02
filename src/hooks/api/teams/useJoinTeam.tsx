@@ -4,7 +4,7 @@ import axios from 'axios';
 import { QUERY_KEY } from '@/constants/queryKey';
 
 interface UseJoinTeamParams {
-  storyId: number;
+  socialId: number;
   limit?: number;
   offset?: number;
   sortBy?: string;
@@ -13,13 +13,13 @@ interface UseJoinTeamParams {
 
 const useJoinTeam = (params: UseJoinTeamParams) => {
   const queryClient = useQueryClient();
-  const { storyId } = params;
+  const { socialId } = params;
   return useMutation({
     mutationFn: async () => {
       try {
         const response = await instance.post(
-          `/gatherings/${storyId}/join`,
-          storyId
+          `/gatherings/${socialId}/join`,
+          socialId
         );
         if (response.status === 201) {
           return response.data;
@@ -47,7 +47,7 @@ const useJoinTeam = (params: UseJoinTeamParams) => {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.SOCIAL_PARTICIPANTS, storyId],
+        queryKey: [QUERY_KEY.SOCIAL_PARTICIPANTS, socialId],
       });
     },
   });

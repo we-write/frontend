@@ -1,7 +1,7 @@
 export interface SocialDetailPageParams {
-  storyId: string;
+  socialId: string;
 }
 
 export interface SocialOverViewProps {
-  currentStoryId: number;
+  currentSocialId: number;
 }

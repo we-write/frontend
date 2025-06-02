@@ -2,8 +2,8 @@ import {
   getSocialDetail,
   getSocialParticipants,
 } from '@/api/social-detail/api';
-import SocialOverView from '@/app/social/detail/[storyId]/SocialOverView';
-import { SocialDetailPageParams } from '@/app/social/detail/[storyId]/type';
+import SocialOverView from '@/app/social/detail/[socialId]/SocialOverView';
+import { SocialDetailPageParams } from '@/app/social/detail/[socialId]/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
@@ -13,27 +13,27 @@ const SocialDetail = async ({
 }: {
   params: Promise<SocialDetailPageParams>;
 }) => {
-  const { storyId } = await params;
-  if (!storyId || isNaN(Number(storyId))) {
+  const { socialId } = await params;
+  if (!socialId || isNaN(Number(socialId))) {
     throw new Error('잘못된 요청입니다.');
   }
-  const numericStoryId = Number(storyId);
+  const numericStoryId = Number(socialId);
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
     queryKey: [QUERY_KEY.SOCIAL_DETAIL, numericStoryId],
-    queryFn: () => getSocialDetail({ storyId: numericStoryId }),
+    queryFn: () => getSocialDetail({ socialId: numericStoryId }),
   });
 
   await queryClient.prefetchQuery({
     queryKey: [QUERY_KEY.SOCIAL_PARTICIPANTS, numericStoryId],
-    queryFn: () => getSocialParticipants({ storyId: numericStoryId }),
+    queryFn: () => getSocialParticipants({ socialId: numericStoryId }),
   });
 
   return (
     <div className="flex justify-center">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <SocialOverView currentStoryId={numericStoryId} />
+        <SocialOverView currentSocialId={numericStoryId} />
       </HydrationBoundary>
     </div>
   );

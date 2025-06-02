@@ -1,7 +1,7 @@
 import { LocationType } from '@/api/social/type';
 
 export interface GetSocialDetailParams {
-  storyId: number;
+  socialId: number;
 }
 
 export interface GetSocialDetailResponse {
@@ -19,7 +19,7 @@ export interface GetSocialDetailResponse {
 }
 
 export interface GetTeamsParticipantsParams {
-  storyId: number;
+  socialId: number;
   limit?: number;
   offset?: number;
   sortBy?: string;

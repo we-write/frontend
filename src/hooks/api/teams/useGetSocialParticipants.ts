@@ -3,7 +3,7 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 export interface UseGetSocialParticipantsParams {
-  storyId: number;
+  socialId: number;
   limit?: number;
   offset?: number;
   sortBy?: string;
@@ -27,11 +27,11 @@ export interface GetSocialParticipantsResponse {
 const useGetSocialParticipants = (
   params: UseGetSocialParticipantsParams
 ): UseQueryResult<GetSocialParticipantsResponse[]> => {
-  const { storyId } = params;
+  const { socialId } = params;
   return useQuery({
-    queryKey: [QUERY_KEY.SOCIAL_PARTICIPANTS, storyId],
-    queryFn: () => getSocialParticipants({ storyId: storyId }),
-    enabled: !!storyId,
+    queryKey: [QUERY_KEY.SOCIAL_PARTICIPANTS, socialId],
+    queryFn: () => getSocialParticipants({ socialId: socialId }),
+    enabled: !!socialId,
   });
 };
 

@@ -4,7 +4,7 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { useQuery, UseQueryResult } from '@tanstack/react-query';
 
 interface UseGetSocialDetailParams {
-  storyId: number;
+  socialId: number;
 }
 
 interface GetSocialDetailResponse {
@@ -22,12 +22,12 @@ interface GetSocialDetailResponse {
 }
 
 const useGetSocialDetail = ({
-  storyId,
+  socialId,
 }: UseGetSocialDetailParams): UseQueryResult<GetSocialDetailResponse> => {
   return useQuery({
-    queryKey: [QUERY_KEY.SOCIAL_DETAIL, storyId],
-    queryFn: () => getSocialDetail({ storyId: storyId }),
-    enabled: !!storyId,
+    queryKey: [QUERY_KEY.SOCIAL_DETAIL, socialId],
+    queryFn: () => getSocialDetail({ socialId: socialId }),
+    enabled: !!socialId,
   });
 };
 
