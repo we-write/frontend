@@ -1,5 +1,5 @@
 import { postSignOut } from '@/api/auth';
-import { deleteCookie } from '@/api/auths/cookies';
+import { deleteCookie } from '@/api/cookies';
 import { useMutation } from '@tanstack/react-query';
 
 export const usePostSignout = () => {
