@@ -25,7 +25,5 @@ export const useGetSocialList = (filter: GetSocialListParams) => {
       if (!lastPage || lastPage.length < FETCH_GET_ITEM_LIMIT) return;
       return allPages.length * FETCH_GET_ITEM_LIMIT;
     },
-    // staleTime: 0,
-    // gcTime: 0,
   });
 };
