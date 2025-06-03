@@ -1,10 +1,13 @@
 import {
   GetSocialDetailParams,
   GetSocialDetailResponse,
+  GetSummaryParams,
   GetTeamsParticipantsParams,
   GetTeamsParticipantsResponse,
+  SaveSummaryParams,
 } from '@/api/social-detail/type';
 import axios, { AxiosError } from 'axios';
+import instanceBaaS from '../instanceBaaS';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -100,4 +103,35 @@ export const getSocialParticipants = async (
 
     throw new Error('요청 중 오류가 발생했습니다.');
   }
+};
+
+export const saveSummary = async ({
+  socialId,
+  summaryHtml,
+}: SaveSummaryParams) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .update([
+      {
+        summary: summaryHtml,
+      },
+    ])
+    .eq('social_id', socialId)
+    .select();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+
+export const getSummary = async ({ socialId }: GetSummaryParams) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('summary')
+    .eq('social_id', socialId)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 };

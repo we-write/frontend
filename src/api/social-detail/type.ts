@@ -39,3 +39,12 @@ export interface GetTeamsParticipantsResponse {
     image: string | null;
   };
 }
+
+export interface SaveSummaryParams {
+  socialId: number;
+  summaryHtml: string;
+}
+
+export interface GetSummaryParams {
+  socialId: number;
+}
