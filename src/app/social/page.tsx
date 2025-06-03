@@ -2,9 +2,9 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { GET_SOCIAL_LIST_INIT_FILTER, getSocialList } from '@/api/social/api';
 import { getQueryClient } from '@/lib/queryClinet';
-import SocialList from './socialList/SocialList';
+import SocialListContainer from './SocialListContainer';
 
-const SocialPage = async () => {
+const Social = async () => {
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
@@ -22,9 +22,9 @@ const SocialPage = async () => {
       <p className="mb-8 text-xl font-medium text-gray-400 md:text-2xl">
         당신의 상상력으로 이야기를 완성해보세요
       </p>
-      <SocialList />
+      <SocialListContainer />
     </HydrationBoundary>
   );
 };
 
-export default SocialPage;
+export default Social;
