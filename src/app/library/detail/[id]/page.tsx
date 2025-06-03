@@ -3,7 +3,7 @@
 import { useGetContent } from '@/hooks/stories/useGetContent';
 import { useGetStory } from '@/hooks/stories/useGetStory';
 import { useParams } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useMemo, useState } from 'react';
 import ContentComponent from '@/components/feature/library/ContentComponent';
 import { PaginationControl } from '@/components/feature/library/PaginationControl';
 export interface Content {
@@ -12,6 +12,7 @@ export interface Content {
 }
 const StoryDetailPage = () => {
   const { id } = useParams();
+  const isMobile = useMemo(() => window.innerWidth < 640, [window.innerWidth]);
   const { data: story } = useGetStory(id as string);
   const [page, setPage] = useState(1);
   const { data: contents } = useGetContent({
@@ -22,18 +23,21 @@ const StoryDetailPage = () => {
 
   const currentContents = contents?.data || [];
 
-  const ITEMS_PER_PAGE = 5;
-  const totalPage = Math.ceil((contents?.count ?? 0) / (ITEMS_PER_PAGE * 2));
-
-  const leftPageContents = currentContents.slice(0, ITEMS_PER_PAGE);
-  const rightPageContents = currentContents.slice(
-    ITEMS_PER_PAGE,
-    currentContents.length
+  const ITEMS_PER_PAGE = isMobile ? 10 : 5;
+  const totalPage = Math.ceil(
+    (contents?.count ?? 0) / (isMobile ? ITEMS_PER_PAGE : ITEMS_PER_PAGE * 2)
   );
+
+  const leftPageContents = isMobile
+    ? currentContents
+    : currentContents.slice(0, ITEMS_PER_PAGE);
+  const rightPageContents = isMobile
+    ? currentContents.slice(1, 2)
+    : currentContents.slice(ITEMS_PER_PAGE, currentContents.length);
 
   return (
     <div className="flex min-h-full w-full flex-col items-center bg-white">
-      <div className="relative flex h-[740px] w-[95%] max-w-[1600px] flex-col">
+      <div className="relative flex h-screen w-[95%] max-w-[1600px] flex-col md:h-[740px]">
         <div className="relative mt-8 flex-1 md:flex">
           <section className="relative h-[700px] w-full overflow-y-auto border-r border-gray-200 px-8 py-8 md:w-1/2">
             <ContentComponent contents={leftPageContents} />
