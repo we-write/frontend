@@ -13,9 +13,14 @@ export interface Content {
 const StoryDetailPage = () => {
   const { id } = useParams();
   const [isMobile, setIsMobile] = useState(false);
+  const handleResize = () => {
+    setIsMobile(window?.innerWidth < 640);
+  };
   useEffect(() => {
-    setIsMobile(window.innerWidth < 640);
-  }, [window.innerWidth]);
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
   const { data: story } = useGetStory(id as string);
   const [page, setPage] = useState(1);
   const { data: contents } = useGetContent({
