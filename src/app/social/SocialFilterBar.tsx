@@ -9,10 +9,10 @@ import Button from '@/components/common/Button/Button';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 import useBoolean from '@/hooks/useBoolean';
 import React from 'react';
-import { FilterProps } from '../type';
+import { FilterProps } from './type';
 import { ArrowSort, DownIcon } from '@public/assets/icons';
 
-export const GenreFilter = ({ filter, filterDispatch }: FilterProps) => {
+const GenreFilter = ({ filter, filterDispatch }: FilterProps) => {
   const {
     value: genreFilterOpen,
     setFalse: closeGenreFilter,
@@ -78,7 +78,7 @@ export const GenreFilter = ({ filter, filterDispatch }: FilterProps) => {
   );
 };
 
-export const DateFilter = () => {
+const DateFilter = () => {
   const { value: dateFilterOpen, toggle: toggleDateFilter } = useBoolean();
 
   return (
@@ -103,10 +103,7 @@ export const DateFilter = () => {
   );
 };
 
-export const SortByCapacityAndRegistrationEnd = ({
-  filter,
-  filterDispatch,
-}: FilterProps) => {
+const SortByCapacityAndEndDate = ({ filter, filterDispatch }: FilterProps) => {
   const { value: sortOpen, toggle: toggleSort } = useBoolean();
 
   const sortList: Record<string, 'registrationEnd' | 'participantCount'> = {
@@ -160,3 +157,24 @@ export const SortByCapacityAndRegistrationEnd = ({
     </Dropdown>
   );
 };
+
+const SocialFilterBar = ({ filter, filterDispatch }: FilterProps) => {
+  return (
+    <div className="flex justify-between">
+      <div className="flex gap-2">
+        {/* 장르 필터 */}
+        <GenreFilter filter={filter} filterDispatch={filterDispatch} />
+        {/* 날짜 필터 추가예정 */}
+        <DateFilter />
+      </div>
+
+      {/* 참여자수, 모집마감순 정렬 필터 */}
+      <SortByCapacityAndEndDate
+        filter={filter}
+        filterDispatch={filterDispatch}
+      />
+    </div>
+  );
+};
+
+export default SocialFilterBar;

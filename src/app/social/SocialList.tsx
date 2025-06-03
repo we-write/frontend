@@ -1,6 +1,9 @@
+import React from 'react';
+import { SocialListGridProps, SocialListProps } from './type';
+import { useGetSocialList } from '@/hooks/api/social';
+import Observer from '@/components/common/Observer/Observer';
 import { getGenreByLocation } from '@/api/social/type';
 import GridCard from '@/components/common/Card/GridCard';
-import { SocialListGridProps } from '../type';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
   if (!isLoading && socialList.length === 0) {
@@ -36,4 +39,25 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
   );
 };
 
-export default SocialListGrid;
+const SocialList = ({ filter }: SocialListProps) => {
+  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
+    useGetSocialList(filter);
+
+  const socialList = data?.pages.flat() ?? [];
+
+  return (
+    <>
+      <SocialListGrid socialList={socialList} isLoading={isLoading} />
+      <Observer
+        enabled={hasNextPage && !!socialList.length}
+        onIntersect={() => {
+          if (hasNextPage && !isFetchingNextPage) {
+            fetchNextPage();
+          }
+        }}
+      />
+    </>
+  );
+};
+
+export default SocialList;

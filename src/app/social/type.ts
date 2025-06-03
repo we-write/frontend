@@ -1,6 +1,10 @@
 import { GetSocialListParams, SocialResponse } from '@/api/social/type';
 import { Dispatch } from 'react';
 
+export interface SocialListProps {
+  filter: GetSocialListParams;
+}
+
 export interface SocialListGridProps {
   socialList: SocialResponse[];
   isLoading: boolean;
