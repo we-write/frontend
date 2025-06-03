@@ -1,12 +1,14 @@
 import {
   getSocialDetail,
   getSocialParticipants,
+  getSummary,
 } from '@/api/social-detail/api';
 import SocialOverView from '@/app/social/detail/[socialId]/SocialOverView';
 import { SocialDetailPageParams } from '@/app/social/detail/[socialId]/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
+import Summary from '@/app/social/detail/[socialId]/Summary';
 
 const SocialDetail = async ({
   params,
@@ -30,10 +32,16 @@ const SocialDetail = async ({
     queryFn: () => getSocialParticipants({ socialId: numericStoryId }),
   });
 
+  await queryClient.prefetchQuery({
+    queryKey: [QUERY_KEY.GET_SUMMARY, numericStoryId],
+    queryFn: () => getSummary({ socialId: numericStoryId }),
+  });
+
   return (
     <div className="flex flex-col">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <SocialOverView currentSocialId={numericStoryId} />
+        <Summary currentSocialId={numericStoryId} />
       </HydrationBoundary>
     </div>
   );
