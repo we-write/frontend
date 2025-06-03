@@ -3,7 +3,7 @@
 import { useGetContent } from '@/hooks/stories/useGetContent';
 import { useGetStory } from '@/hooks/stories/useGetStory';
 import { useParams } from 'next/navigation';
-import React, { useMemo, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import ContentComponent from '@/components/feature/library/ContentComponent';
 import { PaginationControl } from '@/components/feature/library/PaginationControl';
 export interface Content {
@@ -12,7 +12,10 @@ export interface Content {
 }
 const StoryDetailPage = () => {
   const { id } = useParams();
-  const isMobile = useMemo(() => window.innerWidth < 640, [window.innerWidth]);
+  const [isMobile, setIsMobile] = useState(false);
+  useEffect(() => {
+    setIsMobile(window.innerWidth < 640);
+  }, [window.innerWidth]);
   const { data: story } = useGetStory(id as string);
   const [page, setPage] = useState(1);
   const { data: contents } = useGetContent({
@@ -37,9 +40,9 @@ const StoryDetailPage = () => {
 
   return (
     <div className="flex min-h-full w-full flex-col items-center bg-white">
-      <div className="relative flex h-screen w-[95%] max-w-[1600px] flex-col md:h-[740px]">
+      <div className="relative flex h-[80dvh] w-[95%] max-w-[1600px] flex-col md:h-[740px]">
         <div className="relative mt-8 flex-1 md:flex">
-          <section className="relative h-[700px] w-full overflow-y-auto border-r border-gray-200 px-8 py-8 md:w-1/2">
+          <section className="relative h-[700px] w-full overflow-y-auto border-r border-gray-200 px-8 py-8 sm:h-[600px] md:w-1/2">
             <ContentComponent contents={leftPageContents} />
           </section>
 
