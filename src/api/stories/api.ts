@@ -1,5 +1,5 @@
-import { Story } from '@/types/story';
 import instanceBaaS from '../instanceBaaS';
+import { CreateStoryRequest } from './type';
 
 export const getStories = async () => {
   const { data, error } = await instanceBaaS.from('Stories').select('*');
@@ -22,7 +22,7 @@ export const getStory = async (id: string) => {
   return data;
 };
 
-export const createStory = async (story: Story) => {
+export const createStory = async (story: CreateStoryRequest) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .insert(story)
