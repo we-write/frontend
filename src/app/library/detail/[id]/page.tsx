@@ -2,16 +2,18 @@
 
 import { useGetContent } from '@/hooks/stories/useGetContent';
 import { useGetStory } from '@/hooks/stories/useGetStory';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 import ContentComponent from '@/components/feature/library/ContentComponent';
 import { PaginationControl } from '@/components/feature/library/PaginationControl';
 import Image from 'next/image';
+import { ChevronLeft, Heart } from 'lucide-react';
 export interface Content {
   content_id: string;
   content: string;
 }
 const StoryDetailPage = () => {
+  const router = useRouter();
   const { id } = useParams();
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
@@ -43,7 +45,21 @@ const StoryDetailPage = () => {
   return (
     <div className="flex min-h-full w-full flex-col items-center bg-white">
       {page === 0 ? (
-        <div className="flex h-[80dvh] w-[95%] flex-col items-center justify-center">
+        <div className="flex-center h-[80dvh] w-[95%] flex-col">
+          <div className="absolute top-20 left-4 flex flex-row md:top-20 md:left-40 md:flex-col md:gap-4">
+            <button
+              className="flex-center md:border-write-main h-10 w-10 rounded-full border-0 bg-white md:h-12 md:w-12 md:border"
+              onClick={() => router.push('/library')}
+            >
+              <ChevronLeft className="text-write-main h-6 w-6" />
+            </button>
+            <button
+              className="flex-center md:border-write-main h-10 w-10 rounded-full border-0 bg-white md:h-12 md:w-12 md:border"
+              onClick={() => router.push('/library')}
+            >
+              <Heart className="text-write-main h-6 w-6" />
+            </button>
+          </div>
           <div className="relative aspect-square max-h-[50vh] min-h-[200px] w-[80%] max-w-[500px] min-w-[200px]">
             {story?.cover_image_url && (
               <Image
@@ -73,7 +89,7 @@ const StoryDetailPage = () => {
             </section>
           </div>
         </div>
-      )}{' '}
+      )}
       <PaginationControl
         title={story?.title}
         page={page}
