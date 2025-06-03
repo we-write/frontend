@@ -20,7 +20,7 @@ export const Default = () => {
   return (
     <>
       <Modal isOpen={isOpen} onClose={onClose}>
-        <CreateSocialForm />
+        <CreateSocialForm onClose={onClose} />
       </Modal>
       <Button onClick={onOpen}>모임만들기</Button>
     </>
