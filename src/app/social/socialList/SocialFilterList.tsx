@@ -9,14 +9,10 @@ import Button from '@/components/common/Button/Button';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 import useBoolean from '@/hooks/useBoolean';
 import React from 'react';
-import { FilterProps, GenreFilterProps } from './type';
+import { FilterProps } from '../type';
 import { ArrowSort, DownIcon } from '@public/assets/icons';
 
-export const GenreFilter = ({
-  filter,
-  filterDispatch,
-  resetFilteredSocialList,
-}: GenreFilterProps) => {
+export const GenreFilter = ({ filter, filterDispatch }: FilterProps) => {
   const {
     value: genreFilterOpen,
     setFalse: closeGenreFilter,
@@ -28,7 +24,6 @@ export const GenreFilter = ({
       type: 'REMOVE_FILTER',
       payload: 'location',
     });
-    resetFilteredSocialList();
     closeGenreFilter();
   };
 
@@ -58,7 +53,7 @@ export const GenreFilter = ({
         </Button>
       }
     >
-      <Dropdown.Container className="fixed z-10 shadow-md">
+      <Dropdown.Container className="absolute z-10 mt-1 shadow-md">
         <Dropdown.Content
           onClick={handleResetFilteredSocialList}
           contentItem={
@@ -100,7 +95,7 @@ export const DateFilter = () => {
         </Button>
       }
     >
-      <Dropdown.Container className="fixed z-10 shadow-md">
+      <Dropdown.Container className="absolute z-10 mt-1 shadow-md">
         {/* 캘린더 추가 시 캘린더 컴포넌트 추가 */}
         <></>
       </Dropdown.Container>
@@ -149,7 +144,7 @@ export const SortByCapacityAndRegistrationEnd = ({
         </Button>
       }
     >
-      <Dropdown.Container className="fixed z-10 shadow-md">
+      <Dropdown.Container className="absolute z-10 mt-1 shadow-md">
         {Object.entries(sortList).map(([key, value]) => (
           <Dropdown.Content
             key={key}

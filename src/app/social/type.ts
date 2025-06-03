@@ -15,7 +15,3 @@ export interface FilterProps {
   filter: GetSocialListParams;
   filterDispatch: Dispatch<FilterAction>;
 }
-
-export interface GenreFilterProps extends FilterProps {
-  resetFilteredSocialList: () => void;
-}
