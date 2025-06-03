@@ -16,9 +16,6 @@ const MENU_ITEMS = [
   { label: APP_ROUTES_LABEL.library, href: APP_ROUTES.library },
 ];
 
-// 이미지 경로
-const SIGN_IN_IMAGE = '/assets/images/signin.png';
-
 export const GNB = () => {
   const { value: isSignIn, setTrue: setIsLoginTrue } = useBoolean();
   const { data: userInfo, isError } = useGetMyInfo();
@@ -70,10 +67,10 @@ export const GNB = () => {
       {/* 시아드 드로어 (모바일 화면에 표시) */}
       <SideDrawer
         isOpen={isDrawerOpen}
+        userInfo={userInfo}
         closeDrawer={() => setIsDrawerClose()}
         isSignIn={isSignIn}
         menuItems={MENU_ITEMS}
-        signInImageSrc={SIGN_IN_IMAGE}
       />
     </>
   );
