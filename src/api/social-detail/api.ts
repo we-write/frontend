@@ -130,8 +130,8 @@ export const getSummary = async ({ socialId }: GetSummaryParams) => {
     .select('summary')
     .eq('social_id', socialId)
     .single();
-  if (error) {
-    throw new Error(error.message);
-  }
+
+  if (error && error.code === 'PGRST116') return null;
+  if (error) throw new Error(error.message);
   return data;
 };

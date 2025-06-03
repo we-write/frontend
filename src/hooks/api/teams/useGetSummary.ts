@@ -12,10 +12,11 @@ interface GetSummaryResponse {
 
 const useGetSummary = ({
   socialId,
-}: UseGetSummaryParams): UseQueryResult<GetSummaryResponse> => {
+}: UseGetSummaryParams): UseQueryResult<GetSummaryResponse | null> => {
   return useQuery({
     queryKey: [QUERY_KEY.GET_SUMMARY, socialId],
     queryFn: () => getSummary({ socialId: socialId }),
+    retry: false,
     enabled: !!socialId,
   });
 };
