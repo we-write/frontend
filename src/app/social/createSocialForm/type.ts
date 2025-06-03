@@ -1,7 +1,17 @@
-import { GenreType } from '@/api/social/type';
-import { UseFormRegisterReturn } from 'react-hook-form';
+import { CreateWriteRequest } from '@/api/social/type';
+import {
+  Control,
+  FieldErrors,
+  UseFormRegister,
+  UseFormSetValue,
+} from 'react-hook-form';
 
-export interface SelectGenreProps {
-  register: UseFormRegisterReturn<'location'>;
-  handleChangeGenre: (genre: GenreType) => void;
+export interface SelectGenreInputProps {
+  register: UseFormRegister<CreateWriteRequest>;
+  setValue: UseFormSetValue<CreateWriteRequest>;
+}
+
+export interface ThumbnailUploadInputProps {
+  control: Control<CreateWriteRequest>;
+  errors: FieldErrors<CreateWriteRequest>;
 }
