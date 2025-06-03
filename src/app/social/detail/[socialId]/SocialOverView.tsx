@@ -49,7 +49,7 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
   return (
     <>
       {socialDetailData && (
-        <div className="flex h-83 w-full flex-col gap-5 sm:flex-row">
+        <div className="flex h-83 w-full flex-col justify-center gap-5 sm:flex-row">
           <Image
             src={socialDetailData?.image}
             alt=""

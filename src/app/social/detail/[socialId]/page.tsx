@@ -31,7 +31,7 @@ const SocialDetail = async ({
   });
 
   return (
-    <div className="flex justify-center">
+    <div className="flex flex-col">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <SocialOverView currentSocialId={numericStoryId} />
       </HydrationBoundary>
