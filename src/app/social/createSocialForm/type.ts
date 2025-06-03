@@ -3,9 +3,23 @@ import { StoryEntity } from '@/api/stories/type';
 import {
   Control,
   FieldErrors,
+  FieldValues,
+  Path,
+  PathValue,
   UseFormReturn,
   UseFormSetValue,
 } from 'react-hook-form';
+
+export interface DropdownInputProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+  placeholder: string;
+  setValue: UseFormSetValue<T>;
+  control: Control<T>;
+  errors: FieldErrors<T>;
+  options: { value: PathValue<T, Path<T>>; label: string }[];
+  unit: string;
+}
 
 // ------폼컨테이너 타입------
 
