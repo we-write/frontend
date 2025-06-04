@@ -28,7 +28,7 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
   const { mutate: joinTeam } = useJoinTeam({
     socialId: currentSocialId,
   });
-  const imagesUrls = extractUserImages(socialTeamsParticipantsData || []);
+  const imagesUrls = extractUserImages(socialTeamsParticipantsData);
   const storyGenre =
     socialDetailData &&
     socialDetailData.location &&
