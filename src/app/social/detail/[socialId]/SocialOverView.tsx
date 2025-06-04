@@ -44,7 +44,7 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
   return (
     <div className="flex h-83 w-full flex-col justify-center gap-5 sm:flex-row">
       <Image
-        src={socialDetailData?.image}
+        src={socialDetailData.image}
         alt=""
         width={596}
         height={332}
