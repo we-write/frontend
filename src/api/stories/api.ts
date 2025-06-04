@@ -1,12 +1,29 @@
 import { Story } from '@/types/story';
 import instanceBaaS from '../instanceBaaS';
 
-export const getStories = async () => {
-  const { data, error } = await instanceBaaS.from('Stories').select('*');
+export const getStories = async ({
+  keyword,
+  offset,
+  limit,
+}: {
+  keyword: string;
+  offset: number;
+  limit: number;
+}) => {
+  const from = offset * limit;
+  const to = from + limit - 1;
 
-  if (error) {
-    throw new Error(error.message);
+  let query = instanceBaaS.from('Stories').select('*');
+
+  if (keyword.trim() !== '') {
+    query = query.ilike('title', `%${keyword}%`);
   }
+
+  query = query.order('created_at', { ascending: false }).range(from, to);
+
+  const { data, error } = await query;
+
+  if (error) throw new Error(error.message);
   return data;
 };
 
