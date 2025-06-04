@@ -29,10 +29,6 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
     socialId: currentSocialId,
   });
   const imagesUrls = extractUserImages(socialTeamsParticipantsData);
-  const storyGenre =
-    socialDetailData &&
-    socialDetailData.location &&
-    convertLocationToGenre({ location: socialDetailData.location });
 
   const navigateStoryOrJoinTeam = (userRole: TeamUserRole) => {
     if (userRole === 'GUEST') {
@@ -40,39 +36,39 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
     }
   };
 
-  if (isFetchDataLoading) return null;
+  if (isFetchDataLoading || !socialDetailData) return null;
+
+  const storyGenre = convertLocationToGenre({
+    location: socialDetailData.location,
+  });
   return (
-    <>
-      {socialDetailData && (
-        <div className="flex h-83 w-full flex-col justify-center gap-5 sm:flex-row">
-          <Image
-            src={socialDetailData?.image}
-            alt=""
-            width={596}
-            height={332}
-            className="h-55 w-full rounded-3xl border-2 border-gray-200 object-cover sm:h-83 sm:w-1/2 xl:w-149"
-          />
-          <div className="h-full w-full sm:w-1/2 xl:w-[29.375rem]">
-            <DetailCard
-              teamUserRole={TEST_USER_ROLE}
-              textContent={{
-                title: socialDetailData.name,
-                genre: storyGenre ?? null,
-                participantCount: socialDetailData.participantCount,
-                capacity: socialDetailData.capacity,
-              }}
-              duration={{
-                startDate: socialDetailData.registrationEnd,
-                endDate: socialDetailData.dateTime,
-              }}
-              isCardDataLoading={isFetchDataLoading}
-              imageUrls={imagesUrls}
-              handleButtonClick={() => navigateStoryOrJoinTeam(TEST_USER_ROLE)}
-            />
-          </div>
-        </div>
-      )}
-    </>
+    <div className="flex h-83 w-full flex-col justify-center gap-5 sm:flex-row">
+      <Image
+        src={socialDetailData?.image}
+        alt=""
+        width={596}
+        height={332}
+        className="h-55 w-full rounded-3xl border-2 border-gray-200 object-cover sm:h-83 sm:w-1/2 xl:w-149"
+      />
+      <div className="h-full w-full sm:w-1/2 xl:w-[29.375rem]">
+        <DetailCard
+          teamUserRole={TEST_USER_ROLE}
+          textContent={{
+            title: socialDetailData.name,
+            genre: storyGenre ?? null,
+            participantCount: socialDetailData.participantCount,
+            capacity: socialDetailData.capacity,
+          }}
+          duration={{
+            startDate: socialDetailData.registrationEnd,
+            endDate: socialDetailData.dateTime,
+          }}
+          isCardDataLoading={isFetchDataLoading}
+          imageUrls={imagesUrls}
+          handleButtonClick={() => navigateStoryOrJoinTeam(TEST_USER_ROLE)}
+        />
+      </div>
+    </div>
   );
 };
 
