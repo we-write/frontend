@@ -12,14 +12,15 @@ export const LoginSection = () => {
   const [isSignIn, setIsSignIn] = useState(false);
   const { data: userInfo } = useGetMyInfo();
 
-  const localStorageData = localStorage.getItem('isSignIn');
   useEffect(() => {
-    if (localStorageData === 'true') {
-      setIsSignIn(true);
-    } else {
-      setIsSignIn(false);
-    }
-  }, [localStorageData]);
+    const checkSignInStatus = () => {
+      const localStorageData = localStorage.getItem('isSignIn') === 'true';
+      setIsSignIn(localStorageData && !!userInfo);
+    };
+
+    checkSignInStatus();
+  }, [userInfo]);
+
   const handleSignIn = () => {
     if (isSignIn) {
       router.push(APP_ROUTES.mypage);
