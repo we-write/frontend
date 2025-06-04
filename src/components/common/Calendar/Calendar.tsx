@@ -2,6 +2,21 @@ import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CalendarProps } from './type';
 
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const Calendar = ({
   currentDate,
   selectedDate,
@@ -12,21 +27,6 @@ const Calendar = ({
   getFirstDayOfMonth,
   isDateDisabled,
 }: CalendarProps) => {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
-
   /** 달력의 날짜들을 렌더링 */
   const renderCalendarDays = () => {
     const daysInMonth = getDaysInMonth(currentDate);
@@ -135,7 +135,7 @@ const Calendar = ({
           <ChevronLeft size={16} />
         </button>
         <h2 className="font-medium text-gray-900">
-          {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+          {MONTH_NAMES[currentDate.getMonth()]} {currentDate.getFullYear()}
         </h2>
         <button
           onClick={() => navigateMonth('next')}
