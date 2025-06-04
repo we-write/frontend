@@ -1,20 +1,15 @@
-import { LocationType } from '@/api/social/type';
+import { GENRE_LOCATION_MAP, GenreType, LocationType } from '@/api/social/type';
 
 interface ConvertLocationToGenreParams {
   location: LocationType;
 }
 
-const convertLocationToGenre = ({ location }: ConvertLocationToGenreParams) => {
-  switch (location) {
-    case '건대입구':
-      return '판타지';
-    case '을지로3가':
-      return '로맨스';
-    case '신림':
-      return '스릴러/미스터리';
-    case '홍대입구':
-      return '무협';
-  }
+export const convertLocationToGenre = ({
+  location,
+}: ConvertLocationToGenreParams): GenreType => {
+  return Object.entries(GENRE_LOCATION_MAP).find(
+    (genre) => genre[1] === location
+  )?.[0] as GenreType;
 };
 
 export default convertLocationToGenre;
