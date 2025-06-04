@@ -22,10 +22,10 @@ const StoryDetailPage = () => {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
   const { data: story } = useGetStory(id as string);
-  const [page, setPage] = useState(1);
+  const [storyPageNumber, setStoryPageNumber] = useState(1);
   const { data: contents } = useGetContent({
     id: id as string,
-    page: page,
+    page: storyPageNumber,
     limit: 10,
   });
 
@@ -44,23 +44,25 @@ const StoryDetailPage = () => {
     : currentContents.slice(ITEMS_PER_PAGE, currentContents.length);
 
   return (
-    <div className="flex min-h-full w-full flex-col items-center bg-white">
-      <div className="relative flex h-[80dvh] w-[95%] max-w-[1600px] flex-col md:h-[740px]">
-        <div className="relative mt-8 flex-1 md:flex">
-          <section className="relative h-[700px] w-full overflow-y-auto border-r border-gray-200 px-8 py-8 sm:h-[600px] md:w-1/2">
+    <div className="bg-50 flex min-h-full w-full flex-col items-center">
+      <div className="flex h-[80dvh] w-[95%] max-w-[1600px] flex-col md:h-[740px]">
+        <div className="mt-8 flex-1 md:flex">
+          <section className="h-full w-full overflow-y-auto px-8 py-8 md:w-1/2 md:bg-white">
             <ContentComponent contents={leftPageContents} />
           </section>
 
-          <section className="absolute top-0 right-0 hidden h-full w-1/2 overflow-y-auto px-8 py-8 md:block">
+          <div className="hidden w-[1px] bg-gray-200 md:block" />
+
+          <section className="hidden h-full w-1/2 overflow-y-auto bg-white px-8 py-8 md:block">
             <ContentComponent contents={rightPageContents} />
           </section>
         </div>
 
         <PaginationControl
           title={story?.title}
-          page={page}
+          page={storyPageNumber}
           totalPage={totalPage}
-          setPage={setPage}
+          setPage={setStoryPageNumber}
         />
       </div>
     </div>
