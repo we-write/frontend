@@ -6,6 +6,7 @@ import {
 } from '@/api/social-detail/type';
 import { AxiosError } from 'axios';
 import instance from '@/api/instance';
+import { API_PATH } from '@/constants/apiPath';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -18,7 +19,7 @@ export const getSocialDetail = async ({
 
   try {
     const response = await instance.get<GetSocialDetailResponse>(
-      `/gatherings/${socialId}`
+      `${API_PATH.SOCIAL}/${socialId}`
     );
     return response.data;
   } catch (error) {
@@ -65,7 +66,7 @@ export const getSocialParticipants = async (
 
   try {
     const response = await instance.get<GetTeamsParticipantsResponse[]>(
-      `/gatherings/${socialId}/participants`
+      `${API_PATH.SOCIAL}/${socialId}/participants`
     );
 
     return response.data;
