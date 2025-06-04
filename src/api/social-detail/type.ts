@@ -5,8 +5,8 @@ export interface GetSocialDetailParams {
 }
 
 export interface GetSocialDetailResponse {
-  teamId: 0;
-  id: 0;
+  teamId: number;
+  id: number;
   type: string;
   name: string;
   dateTime: string;

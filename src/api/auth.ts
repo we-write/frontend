@@ -1,4 +1,5 @@
-import { SignUpRequest, SigninRequest } from '@/types/user';
+import { SignUpRequest, SigninRequest, UserRequest } from '@/types/user';
+
 import { setCookie } from './cookies';
 import instance from './instance';
 import axios from 'axios';
@@ -54,6 +55,19 @@ export const postSignIn = async (data: SigninRequest) => {
   }
 };
 
+export const postSignOut = async () => {
+  try {
+    const res = await instance.post(API_PATH.SIGN_OUT);
+    if (res.status === 200) {
+      return res.data;
+    }
+    throw new Error('로그아웃 실패');
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getMyInfo = async () => {
   try {
     const res = await instance.get(API_PATH.USER);
@@ -72,13 +86,28 @@ export const getMyInfo = async () => {
     throw error;
   }
 };
-export const postSignOut = async () => {
+
+export const updateUserInfo = async (updateMyInfo: UserRequest) => {
+  const formData = new FormData();
+  if (updateMyInfo.companyName !== null) {
+    formData.append('companyName', updateMyInfo.companyName);
+  }
+  if (updateMyInfo.image) {
+    formData.append('image', updateMyInfo.image);
+  }
+
   try {
-    const res = await instance.post(API_PATH.SIGN_OUT);
-    if (res.status === 200) {
-      return res.data;
+    const res = await instance.put(API_PATH.USER, formData, {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
+    switch (res.status) {
+      case 200:
+        return res.data;
+      default:
+        throw new Error(res.data.message);
     }
-    throw new Error('로그아웃 실패');
   } catch (error) {
     console.error(error);
     throw error;

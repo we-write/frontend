@@ -2,7 +2,7 @@ import React from 'react';
 import { SocialListGridProps, SocialListProps } from './type';
 import { useGetSocialList } from '@/hooks/api/social';
 import Observer from '@/components/common/Observer/Observer';
-import { getGenreByLocation } from '@/api/social/type';
+import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
 import GridCard from '@/components/common/Card/GridCard';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
@@ -29,7 +29,9 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
           }}
           textContent={{
             title: item.name || '제목 없음',
-            genre: getGenreByLocation(item.location) || '장르 없음',
+            genre:
+              convertLocationToGenre({ location: item.location }) ||
+              '장르 없음',
             description: item.type || '미정',
           }}
           isCardDataLoading={isLoading}

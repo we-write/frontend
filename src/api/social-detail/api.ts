@@ -6,8 +6,10 @@ import {
   GetTeamsParticipantsResponse,
   SaveSummaryParams,
 } from '@/api/social-detail/type';
-import axios, { AxiosError } from 'axios';
 import instanceBaaS from '../instanceBaaS';
+import { AxiosError } from 'axios';
+import instance from '@/api/instance';
+import { API_PATH } from '@/constants/apiPath';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -19,8 +21,8 @@ export const getSocialDetail = async ({
   }
 
   try {
-    const response = await axios.get<GetSocialDetailResponse>(
-      `${BASE_URL}/gatherings/${socialId}`
+    const response = await instance.get<GetSocialDetailResponse>(
+      `${API_PATH.SOCIAL}/${socialId}`
     );
     return response.data;
   } catch (error) {
@@ -66,8 +68,8 @@ export const getSocialParticipants = async (
   }
 
   try {
-    const response = await axios.get<GetTeamsParticipantsResponse[]>(
-      `${BASE_URL}/gatherings/${socialId}/participants`
+    const response = await instance.get<GetTeamsParticipantsResponse[]>(
+      `${API_PATH.SOCIAL}/${socialId}/participants`
     );
 
     return response.data;

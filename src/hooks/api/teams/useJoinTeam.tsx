@@ -2,6 +2,7 @@ import instance from '@/api/instance';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { QUERY_KEY } from '@/constants/queryKey';
+import { API_PATH } from '@/constants/apiPath';
 
 interface UseJoinTeamParams {
   socialId: number;
@@ -18,7 +19,7 @@ const useJoinTeam = (params: UseJoinTeamParams) => {
     mutationFn: async () => {
       try {
         const response = await instance.post(
-          `/gatherings/${socialId}/join`,
+          `${API_PATH.SOCIAL}/${socialId}/join`,
           socialId
         );
         if (response.status === 201) {
