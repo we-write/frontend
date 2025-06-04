@@ -55,6 +55,19 @@ export const postSignIn = async (data: SigninRequest) => {
   }
 };
 
+export const postSignOut = async () => {
+  try {
+    const res = await instance.post(API_PATH.SIGN_OUT);
+    if (res.status === 200) {
+      return res.data;
+    }
+    throw new Error('로그아웃 실패');
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
 export const getMyInfo = async () => {
   try {
     const res = await instance.get(API_PATH.USER);
@@ -89,27 +102,12 @@ export const updateUserInfo = async (updateMyInfo: UserRequest) => {
         'Content-Type': 'multipart/form-data',
       },
     });
-    if (res.status === 200) {
-      return res.data;
+    switch (res.status) {
+      case 200:
+        return res.data;
+      default:
+        throw new Error(res.data.message);
     }
-    if (res.status === 400) {
-      throw new Error('요청 형식이 올바르지 않습니다');
-    }
-    if (res.status === 401) {
-      throw new Error('인증이 필요합니다');
-    }
-    if (res.status === 404) {
-      throw new Error('사용자를 찾을 수 없습니다');
-    }
-    throw new Error('유저 정보 업데이트 실패');
-    
-export const postSignOut = async () => {
-  try {
-    const res = await instance.post(API_PATH.SIGN_OUT);
-    if (res.status === 200) {
-      return res.data;
-    }
-    throw new Error('로그아웃 실패');
   } catch (error) {
     console.error(error);
     throw error;

@@ -48,7 +48,6 @@ const EditMyProfileForm = ({
       setProfilePreviewImageUrl('');
     } else {
       setProfilePreviewImageUrl(currentProfileImageUrl);
-      console.error('유저 정보 업데이트 실패');
     }
   };
 
@@ -81,7 +80,7 @@ const EditMyProfileForm = ({
                     htmlFor="currentProfileImageUrl"
                     className="relative mb-6 h-[56px] w-[56px] cursor-pointer rounded-full bg-cover bg-center"
                     style={{
-                      backgroundImage: `url(${profilePreviewImageUrl || currentProfileImageUrl})`,
+                      backgroundImage: `url(${currentProfileImageUrl || profilePreviewImageUrl})`,
                     }}
                   >
                     <BtnEditSmall
