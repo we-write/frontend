@@ -55,7 +55,7 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
           teamUserRole={TEST_USER_ROLE}
           textContent={{
             title: socialDetailData.name,
-            genre: storyGenre ?? null,
+            genre: storyGenre,
             participantCount: socialDetailData.participantCount,
             capacity: socialDetailData.capacity,
           }}
