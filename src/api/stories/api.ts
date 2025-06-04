@@ -1,5 +1,6 @@
-import { DB_Content_Response, DB_Story_Response } from '@/types/dbStory';
+import { DBContentResponse, DBStoryResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
+import { GetContentsProps } from './type';
 
 export const getStories = async () => {
   const { data, error } = await instanceBaaS.from('Stories').select('*');
@@ -22,7 +23,7 @@ export const getStory = async (id: string) => {
   return data;
 };
 
-export const createStory = async (story: DB_Story_Response) => {
+export const createStory = async (story: DBStoryResponse) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .insert(story)
@@ -54,17 +55,12 @@ export const getImage = async (imageName: string) => {
   return data.publicUrl;
 };
 
-export interface GetContentsProps {
-  id: string;
-  page: number;
-  limit: number;
-}
 export const getContents = async ({
   id,
   page,
   limit,
 }: GetContentsProps): Promise<{
-  data: DB_Content_Response[];
+  data: DBContentResponse[];
   count: number;
 }> => {
   const from = (page - 1) * limit;

@@ -1,4 +1,4 @@
-export interface DB_Story_Response {
+export interface DBStoryResponse {
   story_id: string;
   title: string;
   cover_image_url?: string;
@@ -9,7 +9,7 @@ export interface DB_Story_Response {
   approved_count: number;
 }
 
-export interface DB_Content_Response {
+export interface DBContentResponse {
   content_id: string;
   content: string;
   user_id: string;
