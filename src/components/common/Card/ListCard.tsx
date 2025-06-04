@@ -52,7 +52,6 @@ const ListCard = ({
             onError={onError}
             fill
             className={`rounded-3xl object-cover ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
-            unoptimized // next/image의 이미지 도메인 등록 문제 해결 후 삭제
           />
         )}
       </figure>

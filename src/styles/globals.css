@@ -54,3 +54,25 @@
     @apply border-write-green-50 bg-white text-black;
   }
 }
+
+/* TextEditor */
+.ProseMirror {
+  padding: 0.5rem;
+  outline: none;
+  white-space: pre-wrap;
+  cursor: text;
+}
+
+.ProseMirror:after {
+  content: '';
+  display: block;
+  height: 0;
+}
+
+blockquote {
+  border-left: 4px solid #ccc;
+  margin-left: 0;
+  margin-right: 0;
+  padding-left: 1em;
+  color: #666;
+}

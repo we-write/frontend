@@ -1,4 +1,5 @@
 import { SignUpRequest, SigninRequest, UserRequest } from '@/types/user';
+
 import { setCookie } from './cookies';
 import instance from './instance';
 import axios from 'axios';
@@ -101,6 +102,14 @@ export const updateUserInfo = async (updateMyInfo: UserRequest) => {
       throw new Error('사용자를 찾을 수 없습니다');
     }
     throw new Error('유저 정보 업데이트 실패');
+    
+export const postSignOut = async () => {
+  try {
+    const res = await instance.post(API_PATH.SIGN_OUT);
+    if (res.status === 200) {
+      return res.data;
+    }
+    throw new Error('로그아웃 실패');
   } catch (error) {
     console.error(error);
     throw error;

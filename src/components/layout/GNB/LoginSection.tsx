@@ -4,9 +4,17 @@ import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
 import { LoginSectionProps } from '@/components/layout/GNB/type';
-const SIGN_IN_IMAGE = '/assets/images/Profile.png';
 
 export const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
+import { UserResponse } from '@/types/user';
+
+export const LoginSection = ({
+  isSignIn,
+  userInfo,
+}: {
+  isSignIn: boolean;
+  userInfo: UserResponse | null;
+}) => {
   const router = useRouter();
 
   const handleSignIn = () => {
@@ -21,7 +29,7 @@ export const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
       {userInfo ? (
         userInfo.image ? (
           <Image
-            src={SIGN_IN_IMAGE}
+            src={userInfo.image}
             alt="SIGN_IN_IMAGE"
             width={40}
             height={40}
