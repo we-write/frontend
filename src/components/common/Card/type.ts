@@ -44,7 +44,7 @@ export interface DetailCardProps {
   duration: DurationProps;
   isCardDataLoading: boolean;
   imageUrls: AvatarGroupProps['imageUrls'];
-  handleButtonClick: () => void;
+  handleButtonClick: (userRole: TeamUserRole) => void;
   handleDeleteButtonClick?: () => void;
 }
 
