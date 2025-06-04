@@ -21,13 +21,13 @@ const SIGN_IN_IMAGE = '/assets/images/signin.png';
 
 export const GNB = () => {
   const { value: isSignIn, setTrue: setIsLoginTrue } = useBoolean();
-  const { data: userInfo, isError } = useGetMyInfo();
+  const { data: userInfo } = useGetMyInfo();
   const {
     value: isDrawerOpen,
     setTrue: setIsDrawerOpen,
     setFalse: setIsDrawerClose,
   } = useBoolean();
-  const isLogin = !!userInfo && !isError;
+  const isLogin = !!userInfo && localStorage.getItem('isSignIn') === 'true';
 
   useEffect(() => {
     if (isLogin) {
