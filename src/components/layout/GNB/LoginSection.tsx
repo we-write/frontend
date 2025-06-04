@@ -27,6 +27,7 @@ export const LoginSection = () => {
       router.push(APP_ROUTES.signin);
     }
   };
+
   return (
     <button onClick={handleSignIn} className="hidden md:flex">
       {userInfo && isSignIn ? (

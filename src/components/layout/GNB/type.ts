@@ -1,8 +1,6 @@
-export interface MenuGroupsProps {
-  label: string;
-  href: string;
-}
+import { UserResponse } from '@/types/user';
 
 export interface LoginSectionProps {
   isSignIn: boolean;
+  userInfo: UserResponse | null;
 }

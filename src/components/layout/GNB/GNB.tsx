@@ -15,7 +15,7 @@ const MENU_ITEMS = [
 ];
 
 // 이미지 경로
-const SIGN_IN_IMAGE = '/assets/images/signin.png';
+const SIGN_IN_IMAGE = '/assets/images/Profile.png';
 
 export const GNB = () => {
   const { value: isSignIn } = useBoolean();
