@@ -1,9 +1,14 @@
 import { getStories } from '@/api/stories/api';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetStories = () => {
+export const useGetStories = (
+  keyword: string,
+  offset: number,
+  limit: number
+) => {
   return useQuery({
-    queryKey: ['stories'],
-    queryFn: getStories,
+    queryKey: ['stories', keyword, offset, limit],
+    queryFn: () => getStories({ keyword, offset, limit }),
+    enabled: keyword !== null && keyword !== undefined, // 조건부 fetch
   });
 };
