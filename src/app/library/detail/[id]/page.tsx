@@ -7,7 +7,8 @@ import React, { useEffect, useState } from 'react';
 import ContentComponent from '@/components/feature/library/ContentComponent';
 import { PaginationControl } from '@/components/feature/library/PaginationControl';
 import Image from 'next/image';
-import { ChevronLeft, Heart } from 'lucide-react';
+import { ChevronLeft } from 'lucide-react';
+// import { ChevronLeft, Heart } from 'lucide-react';
 export interface Content {
   content_id: string;
   content: string;
@@ -16,9 +17,17 @@ const StoryDetailPage = () => {
   const router = useRouter();
   const { id } = useParams();
   const [isMobile, setIsMobile] = useState(false);
+
   useEffect(() => {
-    setIsMobile(window.innerWidth < 640);
-  }, [window?.innerWidth]);
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
+    handleResize();
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   const { data: story } = useGetStory(id as string);
   console.log(story);
   const [page, setPage] = useState(0);
@@ -53,12 +62,12 @@ const StoryDetailPage = () => {
             >
               <ChevronLeft className="text-write-main h-6 w-6" />
             </button>
-            <button
+            {/* <button
               className="flex-center md:border-write-main h-10 w-10 rounded-full border-0 bg-white md:h-12 md:w-12 md:border"
               onClick={() => router.push('/library')}
             >
               <Heart className="text-write-main h-6 w-6" />
-            </button>
+            </button> */}
           </div>
           <div className="relative aspect-square max-h-[50vh] min-h-[200px] w-[80%] max-w-[500px] min-w-[200px]">
             {story?.cover_image_url && (
