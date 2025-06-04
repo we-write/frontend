@@ -8,7 +8,7 @@ import { SocialDetailPageParams } from '@/app/social/detail/[socialId]/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import Summary from '@/app/social/detail/[socialId]/Summary';
+import StorySummary from '@/app/social/detail/[socialId]/StorySummary';
 
 const SocialDetail = async ({
   params,
@@ -41,7 +41,7 @@ const SocialDetail = async ({
     <div className="flex flex-col">
       <HydrationBoundary state={dehydrate(queryClient)}>
         <SocialOverView currentSocialId={numericStoryId} />
-        <Summary currentSocialId={numericStoryId} />
+        <StorySummary currentSocialId={numericStoryId} />
       </HydrationBoundary>
     </div>
   );

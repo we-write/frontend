@@ -9,7 +9,7 @@ import useGetSummary from '@/hooks/api/teams/useGetSummary';
 
 const TEST_USER_ROLE = 'LEADER'; // DB로부터 받아올 예정
 
-const Summary = ({ currentSocialId }: SummaryProps) => {
+const StorySummary = ({ currentSocialId }: SummaryProps) => {
   const editorContentRef = useRef<{ getHTML: () => string }>(null);
   const [extractionHtml, setExtractionHtml] = useState('');
   const { data: summaryData } = useGetSummary({
@@ -70,4 +70,4 @@ const Summary = ({ currentSocialId }: SummaryProps) => {
   );
 };
 
-export default Summary;
+export default StorySummary;
