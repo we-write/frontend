@@ -8,9 +8,7 @@ import Image from 'next/image';
 import { SocialOverViewProps } from '@/app/social/detail/[socialId]/type';
 import extractUserImages from '@/utils/extractUserImages';
 import useGetSocialDetail from '@/hooks/api/teams/useGetSocialDetail';
-import useGetSocialParticipants, {
-  GetSocialParticipantsResponse,
-} from '@/hooks/api/teams/useGetSocialParticipants';
+import useGetSocialParticipants from '@/hooks/api/teams/useGetSocialParticipants';
 
 const TEST_USER_ROLE = 'GUEST'; // DB로부터 받아올 예정
 
@@ -24,10 +22,7 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
     isLoading: socialTeamsParticipantsDataIsLoading,
   } = useGetSocialParticipants({
     socialId: currentSocialId,
-  }) as {
-    data: GetSocialParticipantsResponse[] | undefined;
-    isLoading: boolean;
-  };
+  });
   const isFetchDataLoading =
     socialDetailDataIsLoading || socialTeamsParticipantsDataIsLoading;
   const { mutate: joinTeam } = useJoinTeam({
