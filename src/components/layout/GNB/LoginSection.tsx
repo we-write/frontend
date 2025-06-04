@@ -10,7 +10,7 @@ import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 export const LoginSection = () => {
   const router = useRouter();
   const [isSignIn, setIsSignIn] = useState(false);
-  const { data: userInfo } = useGetMyInfo();
+  const { data: userInfo } = useGetMyInfo(isSignIn);
 
   useEffect(() => {
     const checkSignInStatus = () => {

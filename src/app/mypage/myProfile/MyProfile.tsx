@@ -13,7 +13,7 @@ const MyProfile = () => {
     setTrue: openModal,
     setFalse: closeModal,
   } = useBoolean();
-  const { data: profileData, isLoading } = useGetMyInfo();
+  const { data: profileData, isLoading } = useGetMyInfo(true);
   const currentProfileImageUrl =
     profileData?.image ?? '/assets/images/Profile.png';
 
