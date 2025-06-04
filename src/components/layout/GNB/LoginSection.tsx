@@ -3,15 +3,9 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
-import { UserResponse } from '@/types/user';
+import { LoginSectionProps } from '@/components/layout/GNB/type';
 
-export const LoginSection = ({
-  isSignIn,
-  userInfo,
-}: {
-  isSignIn: boolean;
-  userInfo: UserResponse | null;
-}) => {
+export const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
   const router = useRouter();
 
   const handleSignIn = () => {
@@ -21,6 +15,7 @@ export const LoginSection = ({
       router.push(APP_ROUTES.signin);
     }
   };
+
   return (
     <button onClick={handleSignIn} className="hidden md:flex">
       {userInfo ? (

@@ -8,16 +8,22 @@ import {
 } from './type';
 import instance from '../instance';
 
+export const FETCH_GET_ITEM_LIMIT = 12;
+export const GET_SOCIAL_LIST_INIT_FILTER = {
+  limit: FETCH_GET_ITEM_LIMIT,
+  offset: 0,
+};
+
 export const getSocialList = async ({
-  limit = 12,
+  limit = FETCH_GET_ITEM_LIMIT,
   offset = 0,
   ...restParams
 }: GetSocialListParams = {}) => {
   try {
     const response = await instance.get<SocialResponse[]>(
       `${API_PATH.SOCIAL}?${getFilterParams({
-        limit,
-        offset,
+        limit, // 한 페이지 크기
+        offset, // 시작 위치
         ...restParams,
       })}`
     );
@@ -27,17 +33,24 @@ export const getSocialList = async ({
   }
 };
 
+/**
+ * 새 소셜 게시물을 만듭니다
+ * 이미지 파일을 포함한 모든 데이터를 서버에 전송합니다
+ *
+ * @param data - 게시물 데이터 (제목, 내용, 위치, 이미지 등)
+ * @returns 생성된 게시물 정보
+ */
 export const createSocial = async (data: CreateWriteRequest) => {
   try {
     const response = await instance.post(
       API_PATH.SOCIAL,
       {
         ...data,
-        location: getLocationByGenre(data.location),
+        location: getLocationByGenre(data.location), // 장르별 위치 변환
       },
       {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          'Content-Type': 'multipart/form-data', // 이미지 업로드용
         },
       }
     );
