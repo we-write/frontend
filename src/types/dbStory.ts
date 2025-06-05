@@ -14,7 +14,7 @@ export interface DBContentResponse {
   content: string;
   user_id: string;
   story_id: string;
-  status: 'PENDING' | 'MERGED';
+  status: 'PENDING' | 'MERGED' | 'WRITING';
   merged_at: string;
   created_at: string;
 }
