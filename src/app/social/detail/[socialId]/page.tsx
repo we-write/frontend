@@ -43,7 +43,7 @@ const SocialDetail = async ({
   });
 
   const userInfo = await getMyInfoOrGuest();
-  if (userInfo.id != 'unauthenticated') {
+  if (userInfo.id !== 'unauthenticated') {
     storyId = await getStoryId({ socialId: numericStoryId });
     await queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.GET_USER_ROLE, socialId],
