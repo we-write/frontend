@@ -1,6 +1,6 @@
 import { saveSummary } from '@/api/social-detail/api';
 import { QUERY_KEY } from '@/constants/queryKey';
-import { Story } from '@/types/story';
+import { DBStoryResponse } from '@/types/dbStory';
 import {
   useMutation,
   UseMutationResult,
@@ -19,7 +19,7 @@ interface UseSaveSummaryResponse {
 const useSaveSummary = ({
   socialId,
 }: UseSaveSummaryParams): UseMutationResult<
-  Story[],
+  DBStoryResponse[],
   Error,
   UseSaveSummaryResponse
 > => {

@@ -17,7 +17,7 @@ export const PaginationControl = ({
     <div className="mt-4 mb-4 flex flex-col items-center justify-center gap-4">
       <div>{title}</div>
       <div className="flex items-center gap-4">
-        <button onClick={() => setPage(page - 1)} disabled={page === 1}>
+        <button onClick={() => setPage(page - 1)} disabled={page < 1}>
           <ChevronLeft className="h-4 w-4" />
         </button>
         <span className="text-sm text-gray-400">
