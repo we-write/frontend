@@ -1,5 +1,4 @@
 import { getContents } from '@/api/stories/api';
-// MEMO : import 빌드 에러나서 호출하는 부분 변경했습니다.
 import { GetContentsProps } from '@/api/stories/type';
 import { useQuery } from '@tanstack/react-query';
 

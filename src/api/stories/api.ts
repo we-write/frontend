@@ -23,6 +23,22 @@ export const getStory = async (id: string) => {
   return data;
 };
 
+export const getLastContent = async (
+  id: string
+): Promise<{ data: DBContentResponse }> => {
+  const { data, error } = await instanceBaaS
+    .from('Contents')
+    .select('*')
+    .eq('story_id', id)
+    .order('merged_at', { ascending: false })
+    .limit(1)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return { data };
+};
+
 export const createStory = async (story: DBStoryResponse) => {
   const { data, error } = await instanceBaaS
     .from('Stories')

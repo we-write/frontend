@@ -9,3 +9,4 @@ export { default as DownIcon } from './DownIcon.svg';
 export { default as ArrowSort } from './ArrowSort.svg';
 export { default as TrashCan } from './TrashCan.svg';
 export { default as ContentWriteIcon } from './ContentWriteIcon.svg';
+export { default as CalendarIcon } from './CalendarIcon.svg';
