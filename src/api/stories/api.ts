@@ -1,5 +1,6 @@
-import { Story } from '@/types/story';
+import { DBContentResponse, DBStoryResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
+import { GetContentsProps } from './type';
 
 export const getStories = async () => {
   const { data, error } = await instanceBaaS.from('Stories').select('*');
@@ -14,7 +15,7 @@ export const getStory = async (id: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('*')
-    .eq('id', id)
+    .eq('story_id', id)
     .single();
   if (error) {
     throw new Error(error.message);
@@ -22,7 +23,23 @@ export const getStory = async (id: string) => {
   return data;
 };
 
-export const createStory = async (story: Story) => {
+export const getLastContent = async (
+  id: string
+): Promise<{ data: DBContentResponse }> => {
+  const { data, error } = await instanceBaaS
+    .from('Contents')
+    .select('*')
+    .eq('story_id', id)
+    .order('merged_at', { ascending: false })
+    .limit(1)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return { data };
+};
+
+export const createStory = async (story: DBStoryResponse) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .insert(story)
@@ -52,4 +69,26 @@ export const getImage = async (imageName: string) => {
     .getPublicUrl(imageName);
 
   return data.publicUrl;
+};
+
+export const getContents = async ({
+  id,
+  page,
+  limit,
+}: GetContentsProps): Promise<{
+  data: DBContentResponse[];
+  count: number;
+}> => {
+  const from = (page - 1) * limit;
+  const to = page * limit - 1;
+  const { data, error, count } = await instanceBaaS
+    .from('Contents')
+    .select('*', { count: 'exact' })
+    .eq('story_id', id)
+    .order('merged_at', { ascending: true })
+    .range(from, to);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return { data, count: count ?? 0 };
 };
