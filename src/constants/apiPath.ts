@@ -6,3 +6,7 @@ export const API_PATH = {
 
   SOCIAL: '/gatherings',
 };
+
+export const DB_PATH = {
+  STORY_COLLABORATORS: 'story_collaborators',
+};
