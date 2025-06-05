@@ -89,6 +89,7 @@ const TextEditor = ({
   editorHeight = '720px',
   isReadOnly = false,
   initialContent,
+  onChange,
 }: TextEditorProps) => {
   const editorContentRef = useRef<HTMLDivElement>(null);
   const editor = useEditor({
@@ -103,6 +104,9 @@ const TextEditor = ({
     ],
     content: initialContent,
     editable: !isReadOnly,
+    onUpdate: ({ editor }) => {
+      onChange?.(editor.getHTML());
+    },
   });
 
   useEffect(() => {
@@ -130,6 +134,7 @@ const TextEditor = ({
         ref={editorContentRef}
         editor={editor}
         className={`mt-2 overflow-y-auto h-[${editorHeight}]`}
+        // MEMO : JIT 특성때문에 해당 이슈는 수정을 해야합니다
       />
     </div>
   );

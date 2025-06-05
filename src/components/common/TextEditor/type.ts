@@ -9,6 +9,7 @@ export interface TextEditorProps {
   editorHeight?: string;
   isReadOnly?: boolean;
   initialContent?: string;
+  onChange?: (content: string) => void;
 }
 
 export interface HandleFontSizeChangeParams {
