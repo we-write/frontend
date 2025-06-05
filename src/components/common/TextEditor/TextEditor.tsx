@@ -10,7 +10,7 @@ import Blockquote from '@tiptap/extension-blockquote';
 import EditorToolbar from '@/components/common/TextEditor/EditorToolbar';
 import { Plugin } from 'prosemirror-state';
 import { TextEditorProps } from '@/components/common/TextEditor/type';
-import { useEffect, useRef } from 'react';
+import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -84,60 +84,74 @@ const FontSize = Extension.create({
   },
 });
 
-const TextEditor = ({
-  className,
-  editorHeight = '720px',
-  isReadOnly = false,
-  initialContent,
-  onChange,
-}: TextEditorProps) => {
-  const editorContentRef = useRef<HTMLDivElement>(null);
-  const editor = useEditor({
-    extensions: [
-      StarterKit.configure({}),
-      Blockquote,
-      TextStyle,
-      FontSize,
-      Color,
-      TextAlign.configure({ types: ['paragraph'] }),
-      CleanPaste,
-    ],
-    content: initialContent,
-    editable: !isReadOnly,
-    onUpdate: ({ editor }) => {
-      onChange?.(editor.getHTML());
-    },
-  });
+const TextEditor = forwardRef(
+  (
+    {
+      className,
+      editorHeight = '720px',
+      isReadOnly = false,
+      initialContent,
+    }: TextEditorProps,
+    ref
+  ) => {
+    const editorContentRef = useRef<HTMLDivElement>(null);
+    const editor = useEditor({
+      extensions: [
+        StarterKit.configure({}),
+        Blockquote,
+        TextStyle,
+        FontSize,
+        Color,
+        TextAlign.configure({ types: ['paragraph'] }),
+        CleanPaste,
+      ],
+      content: initialContent,
+      editable: !isReadOnly,
+    });
 
-  useEffect(() => {
-    const proseMirrorEl = editorContentRef.current?.querySelector(
-      '.ProseMirror'
-    ) as HTMLElement;
-    if (proseMirrorEl) {
-      proseMirrorEl.style.minHeight = editorHeight;
-      proseMirrorEl.style.height = editorHeight;
-    }
-  }, [editorHeight]);
+    useImperativeHandle(
+      ref,
+      () =>
+        editor
+          ? {
+              getHTML: () => editor.getHTML(),
+            }
+          : {
+              getHTML: () => '',
+            },
+      [editor]
+    );
 
-  useEffect(() => {
-    if (editor) {
-      editor.setEditable(!isReadOnly);
-    }
-  }, [editor, isReadOnly]);
+    useEffect(() => {
+      const proseMirrorEl = editorContentRef.current?.querySelector(
+        '.ProseMirror'
+      ) as HTMLElement;
+      if (proseMirrorEl) {
+        proseMirrorEl.style.minHeight = editorHeight;
+        proseMirrorEl.style.height = editorHeight;
+      }
+    }, [editorHeight]);
 
-  return (
-    <div
-      className={`relative w-full rounded-xl border border-gray-400 p-3 ${className} ${isReadOnly ? 'bg-gray-200' : 'bg-white'}`}
-    >
-      {!isReadOnly && <EditorToolbar editor={editor} />}
-      <EditorContent
-        ref={editorContentRef}
-        editor={editor}
-        className={`mt-2 overflow-y-auto h-[${editorHeight}]`}
-        // MEMO : JIT 특성때문에 해당 이슈는 수정을 해야합니다
-      />
-    </div>
-  );
-};
+    useEffect(() => {
+      if (editor) {
+        editor.setEditable(!isReadOnly);
+      }
+    }, [editor, isReadOnly]);
 
+    return (
+      <div
+        className={`relative w-full rounded-xl border border-gray-400 p-3 ${className} ${isReadOnly ? 'bg-gray-200' : 'bg-white'}`}
+      >
+        {!isReadOnly && <EditorToolbar editor={editor} />}
+        <EditorContent
+          ref={editorContentRef}
+          editor={editor}
+          className={`mt-2 overflow-y-auto h-[${editorHeight}]`}
+        />
+      </div>
+    );
+  }
+);
+
+TextEditor.displayName = 'TextEditor';
 export default TextEditor;

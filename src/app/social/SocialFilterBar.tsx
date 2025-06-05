@@ -1,10 +1,7 @@
 'use client';
 
-import {
-  GENRE_LOCATION_MAP,
-  getGenreByLocation,
-  LocationType,
-} from '@/api/social/type';
+import { GENRE_LOCATION_MAP, LocationType } from '@/api/social/type';
+import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Button from '@/components/common/Button/Button';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 import useBoolean from '@/hooks/useBoolean';
@@ -46,7 +43,7 @@ const GenreFilter = ({ filter, filterDispatch }: FilterProps) => {
         >
           <p>
             {filter.location
-              ? getGenreByLocation(filter.location)
+              ? convertLocationToGenre({ location: filter.location })
               : '장르 전체'}
           </p>
           <DownIcon fill="currentColor" />

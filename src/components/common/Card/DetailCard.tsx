@@ -49,9 +49,9 @@ const DetailCard = ({
   };
 
   return (
-    <div className="flex w-full flex-col gap-1.5 rounded-3xl border-2 border-gray-200 px-6 py-5 sm:gap-3 sm:px-8 sm:py-6">
+    <div className="flex h-full w-full flex-col rounded-3xl border-2 border-gray-200 px-6 py-5 sm:px-8 sm:py-6">
       {!isCardDataLoading ? (
-        <>
+        <div className="flex flex-col gap-1.5 sm:gap-3">
           <h1 className="line-clamp-2 w-full text-2xl font-semibold sm:line-clamp-none sm:max-w-[500px] sm:truncate">
             {textContent.title}
           </h1>
@@ -61,7 +61,7 @@ const DetailCard = ({
               {format(startDate, 'yyyy.MM.dd')}~{format(endDate, 'yyyy.MM.dd')}
             </p>
           )}
-        </>
+        </div>
       ) : (
         <div className="animate-pulse space-y-3">
           <div className="h-6 w-5/6 rounded bg-gray-300 sm:w-1/3" />
@@ -69,7 +69,7 @@ const DetailCard = ({
           <div className="h-3.5 w-7/8 rounded bg-gray-300 sm:w-1/2" />
         </div>
       )}
-      <div className="mt-8 mb-3 flex items-center gap-3 sm:mt-24 sm:mb-7">
+      <div className="mt-8 mb-3 flex items-center gap-3 sm:mt-21 sm:mb-7">
         {!isCardDataLoading ? (
           <>
             <p className="text-sm font-semibold whitespace-nowrap">
@@ -97,7 +97,7 @@ const DetailCard = ({
         <Button
           type="button"
           isDisabled={!isButtonActivate}
-          onClick={handleButtonClick}
+          onClick={() => handleButtonClick(teamUserRole)}
           className="flex-1 font-semibold"
         >
           {isCardDataLoading

@@ -37,7 +37,7 @@ const EditMyProfileForm = ({
       image: profileData.image,
     },
   });
-  const { refetch } = useGetMyInfo();
+  const { refetch } = useGetMyInfo(true);
   const { mutate: updateMyInfo, isSuccess } = useUpdateMyInfo();
 
   const onSubmit = async (data: UserRequest) => {
