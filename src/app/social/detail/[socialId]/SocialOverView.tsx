@@ -9,10 +9,14 @@ import { SocialOverViewProps } from '@/app/social/detail/[socialId]/type';
 import extractUserImages from '@/utils/extractUserImages';
 import useGetSocialDetail from '@/hooks/api/teams/useGetSocialDetail';
 import useGetSocialParticipants from '@/hooks/api/teams/useGetSocialParticipants';
+import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
+import { useRouter } from 'next/navigation';
 
-const TEST_USER_ROLE = 'GUEST'; // DB로부터 받아올 예정
-
-const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
+const SocialOverView = ({
+  currentSocialId,
+  currentUserId,
+  currentStoryId,
+}: SocialOverViewProps) => {
   const { data: socialDetailData, isLoading: socialDetailDataIsLoading } =
     useGetSocialDetail({
       socialId: currentSocialId,
@@ -23,24 +27,36 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
   } = useGetSocialParticipants({
     socialId: currentSocialId,
   });
+  const { data: userRoleData } = useGetUserRole({
+    userId: currentUserId,
+    storyId: currentStoryId,
+  });
   const isFetchDataLoading =
     socialDetailDataIsLoading || socialTeamsParticipantsDataIsLoading;
   const { mutate: joinTeam } = useJoinTeam({
     socialId: currentSocialId,
   });
   const imagesUrls = extractUserImages(socialTeamsParticipantsData);
+  const currentUserRole: TeamUserRole = userRoleData
+    ? userRoleData.role
+    : 'GUEST';
+  const router = useRouter();
 
-  const navigateStoryOrJoinTeam = (userRole: TeamUserRole) => {
-    if (userRole === 'GUEST') {
+  const navigateStoryOrJoinTeam = (role: TeamUserRole) => {
+    if (role === 'GUEST') {
       joinTeam();
+    } else if (role === 'MEMBER' || role === 'LEADER') {
+      router.push(`/library/detail/${currentStoryId}`);
     }
   };
 
-  if (isFetchDataLoading || !socialDetailData) return null;
+  if (isFetchDataLoading || !socialDetailData || !userRoleData?.role)
+    return null;
 
   const storyGenre = convertLocationToGenre({
     location: socialDetailData.location,
   });
+
   return (
     <div className="flex h-83 w-full flex-col justify-center gap-5 sm:flex-row">
       <Image
@@ -52,7 +68,7 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
       />
       <div className="h-full w-full sm:w-1/2 xl:w-[29.375rem]">
         <DetailCard
-          teamUserRole={TEST_USER_ROLE}
+          teamUserRole={userRoleData.role}
           textContent={{
             title: socialDetailData.name,
             genre: storyGenre,
@@ -65,7 +81,7 @@ const SocialOverView = ({ currentSocialId }: SocialOverViewProps) => {
           }}
           isCardDataLoading={isFetchDataLoading}
           imageUrls={imagesUrls}
-          handleButtonClick={() => navigateStoryOrJoinTeam(TEST_USER_ROLE)}
+          handleButtonClick={() => navigateStoryOrJoinTeam(currentUserRole)}
         />
       </div>
     </div>
