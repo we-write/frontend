@@ -13,4 +13,9 @@ export interface DBContentResponse {
   content_id: string;
   content: string;
   user_id: string;
+  // MEMO: 응답필드 추가했음
+  merged_at: string;
+  created_at: string;
+  status: string;
+  story_id: string;
 }

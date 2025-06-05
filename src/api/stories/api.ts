@@ -69,7 +69,8 @@ export const getContents = async ({
     .from('Contents')
     .select('*', { count: 'exact' })
     .eq('story_id', id)
-    .order('approved_at', { ascending: true })
+    // MEMO : merged_at으로 변경했습니다.
+    .order('merged_at', { ascending: true })
     .range(from, to);
   if (error) {
     throw new Error(error.message);
