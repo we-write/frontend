@@ -3,13 +3,17 @@
 import { useGetContent } from '@/hooks/stories/useGetContent';
 import { useGetStory } from '@/hooks/stories/useGetStory';
 import { useParams } from 'next/navigation';
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import ContentComponent from '@/components/feature/library/ContentComponent';
 import { PaginationControl } from '@/components/feature/library/PaginationControl';
+import { TeamUserRole } from '@/types/teamUserRole';
+import WritableUserModal from './_components/WritableUserModal';
+
 export interface Content {
   content_id: string;
   content: string;
 }
+
 const StoryDetailPage = () => {
   const { id } = useParams();
   const [isMobile, setIsMobile] = useState(false);
@@ -43,6 +47,27 @@ const StoryDetailPage = () => {
     ? currentContents.slice(1, 2)
     : currentContents.slice(ITEMS_PER_PAGE, currentContents.length);
 
+  // MEMO : 임시 유저 역할
+  const userRole = 'MEMBER';
+
+  const renderWritableUserModalByRole = (role: TeamUserRole) => {
+    switch (role) {
+      case 'GUEST':
+        return null;
+      case 'LEADER':
+      case 'MEMBER':
+        return (
+          <WritableUserModal
+            currentChapter={currentContents?.length ?? 0}
+            approvalPeriod={story?.approval_period ?? 0}
+            approvedCount={story?.approved_count ?? 0}
+          />
+        );
+      default:
+        return null;
+    }
+  };
+
   return (
     <div className="bg-50 flex min-h-full w-full flex-col items-center">
       <div className="flex h-[80dvh] w-[95%] max-w-[1600px] flex-col md:h-[740px]">
@@ -65,6 +90,8 @@ const StoryDetailPage = () => {
           setPage={setStoryPageNumber}
         />
       </div>
+
+      {renderWritableUserModalByRole(userRole)}
     </div>
   );
 };
