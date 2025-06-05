@@ -28,7 +28,7 @@ export const GNB = () => {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 h-15 w-full bg-white">
+      <nav className="fixed top-0 z-50 h-15 w-full border-b border-gray-200 bg-white">
         <div className="flex-center mx-auto h-full w-full max-w-300 px-4 md:justify-between md:pr-6 md:pl-7 lg:px-1">
           {/* Logo */}
           <div className="flex items-center gap-5 truncate lg:gap-10">
