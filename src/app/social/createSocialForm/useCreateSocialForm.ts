@@ -9,6 +9,10 @@ import { createSocial } from '@/api/social/api';
 import { createStory } from '@/api/stories/api';
 import { CreateStoryRequest } from '@/api/stories/type';
 import { SocialFieldsMethods, StorySettingsFieldsMethods } from './type';
+import { createCollaborator } from '@/api/story-collaborators/api';
+import { TEAM_USER_ROLE } from '@/types/teamUserRole';
+import { CreateCollaboratorRequest } from '@/api/story-collaborators/type';
+import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 
 interface SocialResponse {
   id: number;
@@ -67,6 +71,7 @@ const useCreateSocialForm = (onClose: () => void) => {
     },
     delayError: 300,
   });
+  const { data: userInfo } = useGetMyInfo();
 
   const {
     handleSubmit,
@@ -88,6 +93,13 @@ const useCreateSocialForm = (onClose: () => void) => {
     return response;
   };
 
+  const createCollaboratorAsLeader = async (
+    data: CreateCollaboratorRequest
+  ) => {
+    const response = await createCollaborator(data, TEAM_USER_ROLE.LEADER);
+    return response;
+  };
+
   // 소셜 및 스토리 생성 핸들러
   const handleCreateSocial = async (data: SocialFieldsRequest) => {
     if (!isValid) return;
@@ -103,7 +115,13 @@ const useCreateSocialForm = (onClose: () => void) => {
         data.genre
       );
 
-      await createStoryApi(storyData);
+      const storyResponse = await createStoryApi(storyData);
+      await createCollaboratorAsLeader({
+        story_id: storyResponse[0]?.story_id.toString(),
+        user_id: socialResponseData.id,
+        user_name: userInfo?.name,
+        joined_at: new Date().toISOString(),
+      });
       onClose();
     }
   };
