@@ -16,13 +16,16 @@ export interface Content {
 const StoryDetailPage = () => {
   const { id } = useParams();
   const [isMobile, setIsMobile] = useState(false);
-  const handleResize = () => {
-    setIsMobile(window?.innerWidth < 640);
-  };
+
   useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth < 640);
+    };
     handleResize();
     window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
   }, []);
   const { data: story } = useGetStory(id as string);
   const [storyPageNumber, setStoryPageNumber] = useState(0);
