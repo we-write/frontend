@@ -7,8 +7,6 @@ import { MenuGroups } from '@/components/layout/GNB/MenuGroups';
 import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
 import useBoolean from '@/hooks/useBoolean';
 import { Hamburger } from '@public/assets/icons';
-import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
-import { useEffect } from 'react';
 
 // 메뉴 항목
 const MENU_ITEMS = [
@@ -17,23 +15,16 @@ const MENU_ITEMS = [
 ];
 
 // 이미지 경로
-const SIGN_IN_IMAGE = '/assets/images/signin.png';
+const SIGN_IN_IMAGE = '/assets/images/Profile.png';
 
 export const GNB = () => {
-  const { value: isSignIn, setTrue: setIsLoginTrue } = useBoolean();
-  const { data: userInfo, isError } = useGetMyInfo();
+  const { value: isSignIn } = useBoolean();
+
   const {
     value: isDrawerOpen,
     setTrue: setIsDrawerOpen,
     setFalse: setIsDrawerClose,
   } = useBoolean();
-  const isLogin = !!userInfo && !isError;
-
-  useEffect(() => {
-    if (isLogin) {
-      setIsLoginTrue();
-    }
-  }, [isLogin, setIsLoginTrue]);
 
   return (
     <>
@@ -46,7 +37,7 @@ export const GNB = () => {
             <MenuGroups />
           </div>
           {/* 데스크탑 로그인 영역*/}
-          <LoginSection isSignIn={isSignIn} userInfo={userInfo} />
+          <LoginSection />
           {/* 모바일 햄버거 */}
           <button
             className="absolute top-5 right-5 md:hidden"
@@ -63,7 +54,7 @@ export const GNB = () => {
       {/* 오버레이 */}
       {isDrawerOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black opacity-50 md:hidden"
+          className="fixed inset-0 z-50 h-screen bg-black/50 md:hidden"
           onClick={() => setIsDrawerClose()}
         />
       )}

@@ -148,12 +148,12 @@ const EditorToolbar = ({ editor }: EditorToolbarProps) => {
   };
 
   return (
-    <div className="flex flex-wrap items-center gap-x-5 gap-y-4 border-b border-b-gray-300 p-2 pt-0 sm:gap-7">
+    <div className="relative flex flex-wrap items-center gap-x-5 gap-y-4 border-b border-b-gray-300 p-2 pt-0 sm:gap-7">
       <Dropdown
         trigger={<button onClick={toggle}>{currentFontSize}</button>}
         isOpen={value}
       >
-        <Dropdown.Container className="fixed z-10 shadow-md">
+        <Dropdown.Container className="absolute z-10 shadow-md">
           {FONT_SIZE_OPTIONS.map((size) => (
             <Dropdown.Content
               key={size}

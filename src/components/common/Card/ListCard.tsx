@@ -64,7 +64,7 @@ const ListCard = ({
         <div className="flex flex-row items-center gap-2">
           {!isCardDataLoading ? (
             <Link
-              href={`/details/${pageId}`}
+              href={`social/detail/${pageId}`}
               className="flex h-full max-w-66 flex-col sm:max-w-180"
               aria-label={`${textContent.title ? `${textContent.title}상세 페이지로 이동` : '데이터를 불러오는 중입니다'}`}
             >

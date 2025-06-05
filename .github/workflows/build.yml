@@ -16,4 +16,5 @@ jobs:
         run: |
           NEXT_PUBLIC_BASE_URL=${{ secrets.NEXT_PUBLIC_BASE_URL }} \
           NEXT_PUBLIC_BAAS_URL=${{ secrets.NEXT_PUBLIC_BAAS_URL }} \
+          NEXT_PUBLIC_BAAS_API_KEY=${{ secrets.NEXT_PUBLIC_BAAS_API_KEY }} \
           npm run build

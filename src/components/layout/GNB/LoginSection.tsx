@@ -3,16 +3,23 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
-import { UserResponse } from '@/types/user';
 
-export const LoginSection = ({
-  isSignIn,
-  userInfo,
-}: {
-  isSignIn: boolean;
-  userInfo: UserResponse | null;
-}) => {
+import { useEffect, useState } from 'react';
+import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
+
+export const LoginSection = () => {
   const router = useRouter();
+  const [isSignIn, setIsSignIn] = useState(false);
+  const { data: userInfo } = useGetMyInfo(isSignIn);
+
+  useEffect(() => {
+    const checkSignInStatus = () => {
+      const localStorageData = localStorage.getItem('isSignIn') === 'true';
+      setIsSignIn(localStorageData && !!userInfo);
+    };
+
+    checkSignInStatus();
+  }, [userInfo]);
 
   const handleSignIn = () => {
     if (isSignIn) {
@@ -21,9 +28,10 @@ export const LoginSection = ({
       router.push(APP_ROUTES.signin);
     }
   };
+
   return (
     <button onClick={handleSignIn} className="hidden md:flex">
-      {userInfo ? (
+      {userInfo && isSignIn ? (
         userInfo.image ? (
           <Image
             src={userInfo.image}

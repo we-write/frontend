@@ -23,6 +23,8 @@ const nextConfig: NextConfig = {
   images: {
     domains: [
       'sprint-fe-project.s3.ap-northeast-2.amazonaws.com',
+      'inabooth.io',
+      'd19bi7owzxc0m2.cloudfront.net',
       'vrxqxfmkfmhihinihubf.supabase.co',
     ],
   },

@@ -1,6 +1,6 @@
 import localFont from 'next/font/local';
 import { Hanuman } from 'next/font/google';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.css';
 import QueryProviders from '@/providers/queryProviders';
 import { GNB } from '@/components/layout/GNB/GNB';
@@ -20,6 +20,13 @@ const hanuman = Hanuman({
 export const metadata: Metadata = {
   title: 'We Write',
   description: 'We Write',
+};
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+  userScalable: false,
 };
 
 export default function RootLayout({

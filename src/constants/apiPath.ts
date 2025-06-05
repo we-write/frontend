@@ -3,6 +3,5 @@ export const API_PATH = {
   SIGN_UP: 'auths/signup',
   USER: 'auths/user',
   SIGN_OUT: 'auths/signout',
-
   SOCIAL: '/gatherings',
 };
