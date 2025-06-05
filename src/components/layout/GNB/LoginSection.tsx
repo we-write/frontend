@@ -34,6 +34,7 @@ export const LoginSection = () => {
       {userInfo && isSignIn ? (
         userInfo.image ? (
           <Image
+            className="h-14 w-14 rounded-full object-cover"
             src={userInfo.image}
             alt="SIGN_IN_IMAGE"
             width={40}
