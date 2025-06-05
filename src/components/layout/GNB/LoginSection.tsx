@@ -9,13 +9,13 @@ import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 
 export const LoginSection = () => {
   const router = useRouter();
-  const [isSignIn, setIsSignIn] = useState(false);
-  const { data: userInfo } = useGetMyInfo(isSignIn);
+  const [isSignIn, setIsSignIn] = useState<boolean | null>(null);
+  const { data: userInfo } = useGetMyInfo(isSignIn ?? false);
 
   useEffect(() => {
     const checkSignInStatus = () => {
       const localStorageData = localStorage.getItem('isSignIn') === 'true';
-      setIsSignIn(localStorageData && !!userInfo);
+      setIsSignIn(localStorageData);
     };
 
     checkSignInStatus();
