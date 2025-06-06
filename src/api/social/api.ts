@@ -18,7 +18,7 @@ export const getSocialList = async ({
   limit = FETCH_GET_ITEM_LIMIT,
   offset = 0,
   ...restParams
-}: GetSocialListParams = {}) => {
+}: GetSocialListParams) => {
   try {
     const response = await instance.get<SocialResponse[]>(
       `${API_PATH.SOCIAL}?${getFilterParams({
