@@ -1,20 +1,24 @@
 'use client';
 
+import { LibraryListGridProps } from '@/app/library/components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
-import { useInfiniteStories } from '@/hooks/stories/useInfiniteStories';
+import { useInfiniteStories } from '@/hooks/library/useInfiniteStories';
 import htmlToString from '@/utils/htmlToString';
 
 const limit = 12;
-const keyword = '';
-const LibraryListGrid = () => {
+const LibraryListGrid = ({
+  keyword,
+  searchType,
+  genres,
+}: LibraryListGridProps) => {
   const {
     data: stories,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useInfiniteStories(keyword, limit);
+  } = useInfiniteStories(keyword ?? '', searchType, genres, limit);
 
   const flatStories = stories?.pages.flat() || [];
   if (isLoading)
@@ -39,16 +43,21 @@ const LibraryListGrid = () => {
       </div>
     );
 
-  if (!stories || flatStories.length === 0)
+  if (!stories || flatStories.length === 0) {
     return (
       <div className="flex-center text-base text-gray-500">
-        <p>아직 스토리가 없어요</p>
+        {keyword.trim() === '' ? (
+          <p>아직 스토리가 없어요</p>
+        ) : (
+          <p>검색된 스토리가 없어요</p>
+        )}
       </div>
     );
+  }
 
   return (
     <>
-      <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4">
+      <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4 lg:grid-cols-3">
         {flatStories?.map((story) => (
           <GridCard
             key={story.story_id}

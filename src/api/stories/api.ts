@@ -4,10 +4,14 @@ import { GetContentsProps } from './type';
 
 export const getStories = async ({
   keyword,
+  searchType,
+  genres,
   offset,
   limit,
 }: {
   keyword: string;
+  searchType: '제목' | '소개글';
+  genres: string[];
   offset: number;
   limit: number;
 }) => {
@@ -16,14 +20,21 @@ export const getStories = async ({
 
   let query = instanceBaaS.from('Stories').select('*');
 
+  // keyword로 제목, 소개글 검색
   if (keyword.trim() !== '') {
-    query = query.ilike('title', `%${keyword}%`);
+    const column = searchType === '제목' ? 'title' : 'summary';
+    query = query.ilike(column, `%` + keyword + `%`);
+  }
+
+  // '전체' 선택 시 필터 생략, 그렇지 않으면 장르 배열로 필터
+  const validGenres = genres.filter((g) => g !== '전체');
+  if (validGenres.length > 0) {
+    query = query.in('genre', validGenres); // Supabase의 `.in()` 사용
   }
 
   query = query.order('created_at', { ascending: false }).range(from, to);
 
   const { data, error } = await query;
-
   if (error) throw new Error(error.message);
   return data;
 };
