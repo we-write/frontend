@@ -144,7 +144,7 @@ export const getSummary = async ({ socialId }: GetSummaryParams) => {
 
 export const getUserRole = async ({ userId, storyId }: GetUserRoleParams) => {
   const { data, error } = await instanceBaaS
-    .from('User')
+    .from('story_collaborators')
     .select('role')
     .eq('story_id', storyId)
     .eq('user_id', userId)
