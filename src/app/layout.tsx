@@ -5,6 +5,7 @@ import '@/styles/globals.css';
 import QueryProviders from '@/providers/queryProviders';
 import { GNB } from '@/components/layout/GNB/GNB';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
+import { UserInfoProvider } from '@/providers/userInfoProvider';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -40,9 +41,11 @@ export default function RootLayout({
         className={`flex min-h-screen flex-col ${pretendard.variable} ${hanuman.variable} antialiased`}
       >
         <QueryProviders>
-          <header>
-            <GNB />
-          </header>
+          <UserInfoProvider>
+            <header>
+              <GNB />
+            </header>
+          </UserInfoProvider>
           <main>
             <LayoutWrapper>{children}</LayoutWrapper>
           </main>
