@@ -36,7 +36,7 @@ export const LoginSection = () => {
           <Image
             className="h-14 w-14 rounded-full border border-gray-200 object-cover"
             src={userInfo.image}
-            alt="SIGN_IN_IMAGE"
+            alt="로그인 프로필"
             width={40}
             height={40}
           />
