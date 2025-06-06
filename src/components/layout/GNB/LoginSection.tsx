@@ -13,8 +13,7 @@ export const LoginSection = ({
   userInfo: UserResponse | null;
 }) => {
   const router = useRouter();
-  console.log({ userInfo });
-  console.log({ isSignIn });
+
   const handleSignIn = () => {
     if (userInfo) {
       router.push(APP_ROUTES.mypage);
