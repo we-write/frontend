@@ -1,8 +1,8 @@
-import { GENRE_LIST } from '@/api/stories/type';
+import { GENRE_LOCATION_MAP, GenreType } from '@/api/social/type';
 import { BadgeGroupProps } from './type';
 
 const ALL = '전체';
-
+const GENRES = Object.keys(GENRE_LOCATION_MAP) as GenreType[];
 const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
   const toggleGenre = (genre: string) => {
     if (genre === ALL) return setSelectedGenres([ALL]);
@@ -11,7 +11,7 @@ const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
       ? selectedGenres.filter((g) => g !== genre)
       : [...selectedGenres.filter((g) => g !== ALL), genre];
 
-    if (GENRE_LIST.every((g) => next.includes(g)) || next.length === 0) {
+    if (GENRES.every((g) => next.includes(g)) || next.length === 0) {
       next = [ALL];
     }
 
@@ -20,7 +20,7 @@ const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
 
   return (
     <div className="mx-auto flex w-full justify-start gap-2 sm:w-2/3">
-      {[ALL, ...GENRE_LIST].map((genre) => {
+      {[ALL, ...GENRES].map((genre) => {
         const isActive = selectedGenres.includes(genre);
         return (
           <button
