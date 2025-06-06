@@ -4,8 +4,12 @@ export interface SocialDetailPageParams {
 
 export interface SocialOverViewProps {
   currentSocialId: number;
+  currentUserId?: number;
+  currentStoryId?: string;
 }
 
 export interface SummaryProps {
   currentSocialId: number;
+  currentUserId?: number;
+  currentStoryId?: string;
 }

@@ -93,3 +93,48 @@ export const getContents = async ({
   }
   return { data, count: count ?? 0 };
 };
+
+export const updateContentMerge = async (storyId: string): Promise<void> => {
+  try {
+    const { data: story, error } = await instanceBaaS
+      .from('Stories')
+      .select('approved_count')
+      .eq('story_id', storyId)
+      .single();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    const { data: content, error: contentsError } = await instanceBaaS
+      .from('Contents')
+      .select('content_id')
+      .eq('story_id', storyId)
+      .single();
+    if (contentsError) {
+      throw new Error(contentsError.message);
+    }
+
+    const { data: content_approve_count, error: contentApproveError } =
+      await instanceBaaS
+        .from('ContentApproval')
+        .select('*', { count: 'exact' })
+        .eq('content_id', content.content_id);
+    if (contentApproveError) {
+      throw new Error(contentApproveError.message);
+    }
+
+    if (content_approve_count.length >= story.approved_count) {
+      await instanceBaaS
+        .from('Contents')
+        .update({
+          status: 'MERGED',
+        })
+        .eq('story_id', storyId);
+    } else {
+      throw new Error('스토리 승인 기준 미달');
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
+};

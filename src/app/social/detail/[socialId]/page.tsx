@@ -1,7 +1,10 @@
 import {
+  getMyInfoOrGuest,
   getSocialDetail,
   getSocialParticipants,
+  getStoryId,
   getSummary,
+  getUserRole,
 } from '@/api/social-detail/api';
 import SocialOverView from '@/app/social/detail/[socialId]/SocialOverView';
 import { SocialDetailPageParams } from '@/app/social/detail/[socialId]/type';
@@ -9,6 +12,7 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import StorySummary from '@/app/social/detail/[socialId]/StorySummary';
+import { GetStoryIdResponse } from '@/api/social-detail/type';
 
 const SocialDetail = async ({
   params,
@@ -21,6 +25,7 @@ const SocialDetail = async ({
   }
   const numericStoryId = Number(socialId);
   const queryClient = getQueryClient();
+  let storyId: GetStoryIdResponse;
 
   await queryClient.prefetchQuery({
     queryKey: [QUERY_KEY.SOCIAL_DETAIL, numericStoryId],
@@ -37,11 +42,33 @@ const SocialDetail = async ({
     queryFn: () => getSummary({ socialId: numericStoryId }),
   });
 
+  const userInfo = await getMyInfoOrGuest();
+  if (userInfo.id !== 'unauthenticated') {
+    storyId = await getStoryId({ socialId: numericStoryId });
+    await queryClient.prefetchQuery({
+      queryKey: [QUERY_KEY.GET_USER_ROLE, socialId],
+      queryFn: () =>
+        getUserRole({ userId: userInfo.id, storyId: storyId.story_id }),
+    });
+  }
+
   return (
     <div className="flex flex-col">
       <HydrationBoundary state={dehydrate(queryClient)}>
-        <SocialOverView currentSocialId={numericStoryId} />
-        <StorySummary currentSocialId={numericStoryId} />
+        <SocialOverView
+          currentSocialId={numericStoryId}
+          {...(userInfo.id !== 'unauthenticated' && {
+            currentUserId: userInfo.id,
+          })}
+          {...(storyId! && { currentStoryId: storyId.story_id })}
+        />
+        <StorySummary
+          currentSocialId={numericStoryId}
+          {...(userInfo.id !== 'unauthenticated' && {
+            currentUserId: userInfo.id,
+          })}
+          {...(storyId! && { currentStoryId: storyId.story_id })}
+        />
       </HydrationBoundary>
     </div>
   );
