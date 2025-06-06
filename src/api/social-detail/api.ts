@@ -1,15 +1,19 @@
 import {
   GetSocialDetailParams,
   GetSocialDetailResponse,
+  GetStoryIdParams,
+  GetStoryIdResponse,
   GetSummaryParams,
   GetTeamsParticipantsParams,
   GetTeamsParticipantsResponse,
+  GetUserRoleParams,
   SaveSummaryParams,
 } from '@/api/social-detail/type';
 import instanceBaaS from '../instanceBaaS';
 import { AxiosError } from 'axios';
 import instance from '@/api/instance';
 import { API_PATH } from '@/constants/apiPath';
+import { getMyInfo } from '@/api/auth';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -136,4 +140,38 @@ export const getSummary = async ({ socialId }: GetSummaryParams) => {
   if (error && error.code === 'PGRST116') return null;
   if (error) throw new Error(error.message);
   return data;
+};
+
+export const getUserRole = async ({ userId, storyId }: GetUserRoleParams) => {
+  const { data, error } = await instanceBaaS
+    .from('story_collaborators')
+    .select('role')
+    .eq('story_id', storyId)
+    .eq('user_id', userId)
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data;
+};
+
+export const getStoryId = async ({
+  socialId,
+}: GetStoryIdParams): Promise<GetStoryIdResponse> => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('story_id')
+    .eq('social_id', socialId)
+    .single();
+
+  if (error) throw new Error(error.message);
+  return data;
+};
+
+export const getMyInfoOrGuest = async () => {
+  try {
+    return await getMyInfo();
+  } catch (e) {
+    console.warn('회원 정보를 찾을 수 없습니다.', e);
+    return { id: 'unauthenticated' };
+  }
 };
