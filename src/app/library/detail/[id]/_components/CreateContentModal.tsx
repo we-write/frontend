@@ -71,17 +71,17 @@ const CreateContentModal = ({
     }
     const currentContent = editorContentRef.current.getHTML();
     const savedContent = localStorage.getItem('TemporaryContent');
-    if (currentContent !== savedContent) {
-      const contentDeleteConfirmed = window.confirm(
-        '저장하지 않은 내용은 삭제됩니다. 종료하시겠습니까?'
-      );
-      if (contentDeleteConfirmed) {
-        closeModal();
-      } else {
-        return;
-      }
-    } else {
+    if (currentContent === savedContent) {
       closeModal();
+      return;
+    }
+    const contentDeleteConfirmed = window.confirm(
+      '저장하지 않은 내용은 삭제됩니다. 종료하시겠습니까?'
+    );
+    if (contentDeleteConfirmed) {
+      closeModal();
+    } else {
+      return;
     }
   };
 
