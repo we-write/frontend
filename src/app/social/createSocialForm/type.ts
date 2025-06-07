@@ -6,6 +6,7 @@ import {
   FieldValues,
   Path,
   PathValue,
+  UseFormRegister,
   UseFormReturn,
   UseFormSetValue,
 } from 'react-hook-form';
@@ -67,15 +68,9 @@ export type StorySettingsFieldsMethods = Pick<
 >;
 
 export interface PublicCheckboxProps {
-  setValue: UseFormSetValue<StorySettingsFieldsMethods>;
+  register: UseFormRegister<StorySettingsFieldsMethods>;
 }
 
 export interface StorySettingFormProps {
-  methods: {
-    setValue: UseFormSetValue<StorySettingsFieldsMethods>;
-    control: Control<StorySettingsFieldsMethods>;
-    formState: {
-      errors: FieldErrors<StorySettingsFieldsMethods>;
-    };
-  };
+  methods: UseFormReturn<StorySettingsFieldsMethods>;
 }

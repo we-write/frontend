@@ -8,13 +8,13 @@ import {
 import DropdownInput from './DropdownInput';
 import { PublicCheckboxProps, StorySettingFormProps } from './type';
 
-const PublicCheckbox = ({ setValue }: PublicCheckboxProps) => {
+const PublicCheckbox = ({ register }: PublicCheckboxProps) => {
   return (
     <div className="flex items-center gap-2">
       <input
         type="checkbox"
         id="isPublic"
-        onChange={(e) => setValue('is_public', e.target.checked)}
+        {...register('is_public')}
         className="h-4 w-4 rounded border-gray-300"
       />
       <label htmlFor="isPublic" className="text-sm font-semibold">
@@ -27,9 +27,12 @@ const PublicCheckbox = ({ setValue }: PublicCheckboxProps) => {
 const StorySettingForm = ({ methods }: StorySettingFormProps) => {
   const {
     setValue,
+    register,
     control,
     formState: { errors },
   } = methods;
+
+  console.log(methods.watch());
 
   return (
     <div className="flex flex-col gap-4">
@@ -66,7 +69,7 @@ const StorySettingForm = ({ methods }: StorySettingFormProps) => {
         unit="명"
       />
 
-      <PublicCheckbox setValue={setValue} />
+      <PublicCheckbox register={register} />
     </div>
   );
 };
