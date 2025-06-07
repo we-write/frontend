@@ -9,6 +9,12 @@ import { createSocial } from '@/api/social/api';
 import { createStory } from '@/api/stories/api';
 import { CreateStoryRequest } from '@/api/stories/type';
 import { SocialFieldsMethods, StorySettingsFieldsMethods } from './type';
+import {
+  APPROVAL_PERIOD_OPTIONS,
+  APPROVER_COUNT_OPTIONS,
+  FORM_DELAY_ERROR,
+  WORD_LIMIT_OPTIONS,
+} from '@/constants/social/createSocialForm';
 
 interface SocialResponse {
   id: number;
@@ -54,16 +60,16 @@ const useCreateSocialForm = (onClose: () => void) => {
     defaultValues: {
       registrationEnd: '',
     },
-    delayError: 300,
+    delayError: FORM_DELAY_ERROR,
   });
 
   const storySettingMethods = useForm<StorySettingsFieldsMethods>({
     mode: 'onChange',
     defaultValues: {
-      approved_count: 1,
-      max_length: 150,
+      approved_count: APPROVER_COUNT_OPTIONS[0].value,
+      max_length: WORD_LIMIT_OPTIONS[0].value,
       is_public: false,
-      approval_period: 1,
+      approval_period: APPROVAL_PERIOD_OPTIONS[0].value,
     },
     delayError: 300,
   });

@@ -20,3 +20,5 @@ export const APPROVER_COUNT_OPTIONS = [
   { value: 2, label: '2명' },
   { value: 3, label: '3명' },
 ];
+
+export const FORM_DELAY_ERROR = 300;
