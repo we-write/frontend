@@ -8,8 +8,8 @@ export interface TextEditorProps {
   className?: string;
   editorHeight?: string;
   isReadOnly?: boolean;
+  useToolbarMenu: boolean;
   initialContent?: string;
-  onChange?: (content: string) => void;
 }
 
 export interface HandleFontSizeChangeParams {
