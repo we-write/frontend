@@ -15,7 +15,3 @@ export interface CreateStoryModalProps {
   currentUserId?: number;
   lastContentData: DBContentResponse;
 }
-
-export interface RelayStoryContentFormData {
-  content: string;
-}

@@ -1,9 +1,8 @@
 import { Modal } from '@/components/common/Modal/Modal';
 import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { CreateStoryModalProps, RelayStoryContentFormData } from './type';
-import { useEffect, useRef, useState } from 'react';
+import { CreateStoryModalProps } from './type';
+import { useRef, FormEvent } from 'react';
 import usePostContent from '@/hooks/api/stories/usePostContent';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 
@@ -14,21 +13,12 @@ const CreateStoryModal = ({
   lastContentData,
 }: CreateStoryModalProps) => {
   const editorContentRef = useRef<{ getHTML: () => string }>(null);
-  const [temporaryContent, setTemporaryContent] = useState('');
   const { isOpen, closeModal } = useStoryModal();
   const { mutate } = usePostContent({ storyId: currentStoryId });
-
-  const { handleSubmit, reset } = useForm<RelayStoryContentFormData>({
-    defaultValues: { content: '' },
-  });
-
-  useEffect(() => {
-    const savedContent = localStorage.getItem('TemporaryContent');
-    if (savedContent) {
-      reset({ content: savedContent });
-      setTemporaryContent(savedContent);
-    }
-  }, [reset]);
+  const temporaryContent =
+    typeof window !== 'undefined'
+      ? localStorage.getItem('TemporaryContent') || ''
+      : '';
 
   const handleTemporarySave = () => {
     if (!editorContentRef.current) {
@@ -44,9 +34,8 @@ const CreateStoryModal = ({
     alert('임시 저장되었습니다.');
   };
 
-  const handlePostStoryContent: SubmitHandler<
-    RelayStoryContentFormData
-  > = () => {
+  const handlePostStoryContent = (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     if (!editorContentRef.current) {
       console.warn('Editor ref가 존재하지 않습니다.');
       return;
@@ -102,10 +91,7 @@ const CreateStoryModal = ({
       onClose={handleCloseModal}
       className="flex h-full w-full max-w-232 flex-col justify-center md:block md:h-auto md:w-fit"
     >
-      <form
-        onSubmit={handleSubmit(handlePostStoryContent)}
-        className="mb-1 pt-12"
-      >
+      <form onSubmit={handlePostStoryContent} className="mb-1 pt-12">
         <div className="mb-6">
           <h2 className="mb-2 text-xl">이어질 이야기를 작성해주세요</h2>
           <p className="text-2xl font-semibold">
