@@ -99,7 +99,6 @@ const useCreateSocialForm = (onClose: () => void) => {
     if (!isValid) return;
 
     const socialResponseData = await createSocialApi(data);
-    console.log(socialResponseData);
 
     if (socialResponseData) {
       const storySettingsData = storySettingMethods.getValues();
