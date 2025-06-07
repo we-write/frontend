@@ -1,8 +1,8 @@
 'use client';
 
-import BadgeGroup from '@/app/library/components/BadgeGroup';
-import LibraryListGrid from '@/app/library/components/LibraryListGrid';
-import SearchInput from '@/app/library/components/SearchInput';
+import BadgeGroup from '@/app/library/_components/BadgeGroup';
+import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
+import SearchInput from '@/app/library/_components/SearchInput';
 import useSearchReducer from '@/hooks/library/useSearchReducer';
 
 export default function Library() {

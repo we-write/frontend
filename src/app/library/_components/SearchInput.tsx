@@ -1,7 +1,7 @@
 'use client';
 
 import { CircleX, Search } from 'lucide-react';
-import { SearchInputProps } from '@/app/library/components/type';
+import { SearchInputProps } from '@/app/library/_components/type';
 
 const SearchInput = ({ keyword, setKeyword, onSearch }: SearchInputProps) => {
   return (

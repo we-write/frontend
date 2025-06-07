@@ -1,12 +1,12 @@
 'use client';
 
-import { LibraryListGridProps } from '@/app/library/components/type';
+import { LibraryListGridProps } from '@/app/library/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
 import { useInfiniteStories } from '@/hooks/library/useInfiniteStories';
 import htmlToString from '@/utils/htmlToString';
 
-const limit = 12;
+const FETCH_GET_ITEM_LIMIT = 12;
 const LibraryListGrid = ({
   keyword,
   searchType,
@@ -18,7 +18,12 @@ const LibraryListGrid = ({
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useInfiniteStories(keyword ?? '', searchType, genres, limit);
+  } = useInfiniteStories(
+    keyword ?? '',
+    searchType,
+    genres,
+    FETCH_GET_ITEM_LIMIT
+  );
 
   const flatStories = stories?.pages.flat() || [];
   if (isLoading)
