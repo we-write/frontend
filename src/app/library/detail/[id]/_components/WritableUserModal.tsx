@@ -2,7 +2,7 @@ import { Modal } from '@/components/common/Modal/Modal';
 import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
 import { addDays, format } from 'date-fns';
-import CreateStoryContentModal from './CreateStoryContentModal';
+import CreateStoryContentModal from './CreateContentModal';
 import { WritableUserModalProps } from './type';
 import { useEffect, useState } from 'react';
 import useGetApproveUser from '@/hooks/api/content-approvals/useGetApproveUser';

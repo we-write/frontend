@@ -9,7 +9,7 @@ export interface WritableUserModalProps {
   approvedCount: number;
 }
 
-export interface CreateStoryModalProps {
+export interface CreateContentModalProps {
   currentChapter: number;
   currentStoryId: string;
   currentUserId?: number;

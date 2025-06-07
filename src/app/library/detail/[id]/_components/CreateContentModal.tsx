@@ -1,17 +1,17 @@
 import { Modal } from '@/components/common/Modal/Modal';
 import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
-import { CreateStoryModalProps } from './type';
+import { CreateContentModalProps } from '@/app/library/detail/[id]/_components/type';
 import { useRef, FormEvent } from 'react';
 import usePostContent from '@/hooks/api/stories/usePostContent';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 
-const CreateStoryModal = ({
+const CreateContentModal = ({
   currentChapter,
   currentStoryId,
   currentUserId,
   lastContentData,
-}: CreateStoryModalProps) => {
+}: CreateContentModalProps) => {
   const editorContentRef = useRef<{ getHTML: () => string }>(null);
   const { isOpen, closeModal } = useStoryModal();
   const { mutate } = usePostContent({ storyId: currentStoryId });
@@ -131,4 +131,4 @@ const CreateStoryModal = ({
   );
 };
 
-export default CreateStoryModal;
+export default CreateContentModal;
