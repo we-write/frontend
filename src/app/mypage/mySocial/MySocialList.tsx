@@ -1,16 +1,12 @@
 'use client';
-import { getJoinedSocialList } from '@/api/mypage/api';
-import { getSocialList } from '@/api/social/api';
 import LoadingListCards from '@/app/mypage/mySocial/LoadingListCard';
 import SocialListCards from '@/app/mypage/mySocial/SocialListCards';
 import TabMenu from '@/app/mypage/mySocial/TabMenu';
 import { TabType } from '@/app/mypage/mySocial/type';
 import Observer from '@/components/common/Observer/Observer';
 import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
-import { useInfiniteQuery } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
-
-const FETCH_LIMIT = 12;
+import { useState } from 'react';
+import { useMySocialList } from '@/hooks/mypage/useMySocialList';
 
 const MySocialList = () => {
   const [activeTab, setActiveTab] = useState<TabType>('joined');
@@ -24,26 +20,7 @@ const MySocialList = () => {
     isFetching,
     isLoading: isSocialListLoading,
     refetch,
-  } = useInfiniteQuery({
-    queryKey: ['mySocialList', activeTab, userId],
-    enabled: !!userId,
-    queryFn: async ({ pageParam = 0 }) => {
-      const filter = {
-        limit: FETCH_LIMIT,
-        offset: pageParam,
-        ...(activeTab === 'created' && { createdBy: userId }),
-      };
-
-      return activeTab === 'joined'
-        ? await getJoinedSocialList(filter)
-        : await getSocialList(filter);
-    },
-    getNextPageParam: (lastPage, allPages) =>
-      lastPage.length === FETCH_LIMIT
-        ? allPages.length * FETCH_LIMIT
-        : undefined,
-    initialPageParam: 0,
-  });
+  } = useMySocialList(activeTab, userId);
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
@@ -52,10 +29,6 @@ const MySocialList = () => {
   const flattenedList = data?.pages.flat() || [];
 
   const isLoading = isMyInfoLoading || isSocialListLoading;
-
-  useEffect(() => {
-    console.log(flattenedList);
-  }, []);
 
   return (
     <div className="mt-[30px] w-full border-t-2 border-gray-900 p-6">
