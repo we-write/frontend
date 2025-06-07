@@ -6,23 +6,7 @@ import {
   WORD_LIMIT_OPTIONS,
 } from '@/constants/social/createSocialForm';
 import DropdownInput from './DropdownInput';
-import { PublicCheckboxProps, StorySettingFormProps } from './type';
-
-const PublicCheckbox = ({ register }: PublicCheckboxProps) => {
-  return (
-    <div className="flex items-center gap-2">
-      <input
-        type="checkbox"
-        id="isPublic"
-        {...register('is_public')}
-        className="h-4 w-4 rounded border-gray-300"
-      />
-      <label htmlFor="isPublic" className="text-sm font-semibold">
-        스토리 외부 공개
-      </label>
-    </div>
-  );
-};
+import { StorySettingFormProps } from './type';
 
 const StorySettingForm = ({ methods }: StorySettingFormProps) => {
   const {
@@ -31,8 +15,6 @@ const StorySettingForm = ({ methods }: StorySettingFormProps) => {
     control,
     formState: { errors },
   } = methods;
-
-  console.log(methods.watch());
 
   return (
     <div className="flex flex-col gap-4">
@@ -69,7 +51,17 @@ const StorySettingForm = ({ methods }: StorySettingFormProps) => {
         unit="명"
       />
 
-      <PublicCheckbox register={register} />
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          id="isPublic"
+          {...register('is_public')}
+          className="h-4 w-4 rounded border-gray-300"
+        />
+        <label htmlFor="isPublic" className="text-sm font-semibold">
+          스토리 외부 공개
+        </label>
+      </div>
     </div>
   );
 };
