@@ -50,8 +50,7 @@ const SocialOverView = ({
     }
   };
 
-  if (isFetchDataLoading || !socialDetailData || !userRoleData?.role)
-    return null;
+  if (isFetchDataLoading || !socialDetailData) return null;
 
   const storyGenre = convertLocationToGenre({
     location: socialDetailData.location,
@@ -68,7 +67,7 @@ const SocialOverView = ({
       />
       <div className="h-full w-full sm:w-1/2 xl:w-[29.375rem]">
         <DetailCard
-          teamUserRole={userRoleData.role}
+          teamUserRole={currentUserRole}
           textContent={{
             title: socialDetailData.name,
             genre: storyGenre,
