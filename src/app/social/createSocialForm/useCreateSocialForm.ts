@@ -84,6 +84,7 @@ const useCreateSocialForm = (onClose: () => void) => {
 
     const convertedData = convertToSocialData(data);
     const response = await createSocial(convertedData);
+    // TODO: 응답값 개선 하기(#150 PR)
     return response;
   };
 
@@ -97,6 +98,7 @@ const useCreateSocialForm = (onClose: () => void) => {
     data: CreateCollaboratorRequest
   ) => {
     const response = await createCollaborator(data, TEAM_USER_ROLE.LEADER);
+    // TODO: 응답값 개선 하기(#150 PR)
     return response;
   };
 
@@ -105,7 +107,6 @@ const useCreateSocialForm = (onClose: () => void) => {
     if (!isValid) return;
 
     const socialResponseData = await createSocialApi(data);
-    console.log(socialResponseData);
 
     if (socialResponseData) {
       const storySettingsData = storySettingMethods.getValues();
