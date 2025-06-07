@@ -17,12 +17,15 @@ const StoryDetailPage = () => {
   const { id } = useParams();
   const storyId = id as string;
   const [isMobile, setIsMobile] = useState(false);
-  const [isSignIn, setIsSignIn] = useState(false);
+  const isLoginUser =
+    typeof window !== 'undefined'
+      ? localStorage.getItem('isSignIn') === 'true'
+      : false;
   const [storyPageNumber, setStoryPageNumber] = useState(1);
   const handleResize = () => {
     setIsMobile(window?.innerWidth < 640);
   };
-  const { data: userInfo } = useGetMyInfo(isSignIn);
+  const { data: userInfo } = useGetMyInfo(isLoginUser);
   const { data: userRoleData } = useGetUserRole({
     userId: userInfo?.id,
     storyId: storyId,
@@ -41,15 +44,6 @@ const StoryDetailPage = () => {
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-
-  useEffect(() => {
-    const checkSignInStatus = () => {
-      const localStorageData = localStorage.getItem('isSignIn') === 'true';
-      setIsSignIn(localStorageData && !!userInfo);
-    };
-
-    checkSignInStatus();
-  }, [userInfo]);
 
   const currentContents = contents?.data || [];
 
