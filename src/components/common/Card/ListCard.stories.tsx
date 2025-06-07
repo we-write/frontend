@@ -26,7 +26,7 @@ export const InProgressStory: Story = {
       </span>
     ),
     textContent: {
-      title: '해리포터와 마법사의 돌 해리포터와 마법사의 돌',
+      title: '해리포터와 마법사의 돌',
       genre: '판타지',
       participantCount: 5,
       capacity: 10,

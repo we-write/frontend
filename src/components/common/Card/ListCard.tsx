@@ -65,14 +65,10 @@ const ListCard = ({
           {!isCardDataLoading ? (
             <Link
               href={`/details/${pageId}`}
-              // className="flex h-full max-w-66 flex-col sm:max-w-180"
               className="flex h-full max-w-50 flex-col lg:max-w-110 xl:max-w-180"
               aria-label={`${textContent.title ? `${textContent.title}상세 페이지로 이동` : '데이터를 불러오는 중입니다'}`}
             >
               <h2 className="truncate text-xl font-semibold text-gray-900 hover:underline">
-                {/* {textContent.title
-                  ? truncateText(textContent.title, MAX_TITLE_LENGTH)
-                  : '비어있는 제목'} */}
                 {textContent.title}
               </h2>
             </Link>
