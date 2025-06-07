@@ -8,3 +8,8 @@ export interface CalendarProps {
   getFirstDayOfMonth: (date: Date) => number;
   isDateDisabled?: (date: Date) => boolean;
 }
+
+export interface UseCalendarProps {
+  initialDate?: Date;
+  minDate?: Date;
+}

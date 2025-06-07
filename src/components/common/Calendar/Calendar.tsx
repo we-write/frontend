@@ -2,6 +2,23 @@ import React from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { CalendarProps } from './type';
 
+const WEEKDAYS = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+
+const MONTH_NAMES = [
+  'January',
+  'February',
+  'March',
+  'April',
+  'May',
+  'June',
+  'July',
+  'August',
+  'September',
+  'October',
+  'November',
+  'December',
+];
+
 const Calendar = ({
   currentDate,
   selectedDate,
@@ -12,20 +29,32 @@ const Calendar = ({
   getFirstDayOfMonth,
   isDateDisabled,
 }: CalendarProps) => {
-  const monthNames = [
-    'January',
-    'February',
-    'March',
-    'April',
-    'May',
-    'June',
-    'July',
-    'August',
-    'September',
-    'October',
-    'November',
-    'December',
-  ];
+  const getCalendarButtonStyle = ({
+    isSelected,
+    isToday,
+    isDisabled,
+  }: {
+    isSelected: boolean;
+    isToday: boolean;
+    isDisabled?: boolean;
+  }) => {
+    const selectCalendarButtonBase =
+      'h-8 w-8 rounded text-sm font-medium transition-colors';
+
+    if (isSelected) {
+      return `${selectCalendarButtonBase} bg-write-main text-white`;
+    }
+
+    if (isToday) {
+      return `${selectCalendarButtonBase} text-write-main`;
+    }
+
+    if (isDisabled) {
+      return `${selectCalendarButtonBase} cursor-not-allowed text-gray-300`;
+    }
+
+    return `${selectCalendarButtonBase} text-gray-900 hover:bg-gray-100`;
+  };
 
   /** 달력의 날짜들을 렌더링 */
   const renderCalendarDays = () => {
@@ -74,15 +103,11 @@ const Calendar = ({
       days.push(
         <button
           key={day}
-          className={`h-8 w-8 rounded text-sm font-medium transition-colors ${
-            isSelected
-              ? 'bg-write-main text-white'
-              : isToday
-                ? 'text-write-main'
-                : isDisabled
-                  ? 'cursor-not-allowed text-gray-300'
-                  : 'text-gray-900 hover:bg-gray-100'
-          }`}
+          className={getCalendarButtonStyle({
+            isSelected,
+            isToday,
+            isDisabled,
+          })}
           onClick={() => !isDisabled && handleDateSelect(day)}
           disabled={isDisabled}
         >
@@ -135,7 +160,7 @@ const Calendar = ({
           <ChevronLeft size={16} />
         </button>
         <h2 className="font-medium text-gray-900">
-          {monthNames[currentDate.getMonth()]} {currentDate.getFullYear()}
+          {MONTH_NAMES[currentDate.getMonth()]} {currentDate.getFullYear()}
         </h2>
         <button
           onClick={() => navigateMonth('next')}
@@ -148,7 +173,7 @@ const Calendar = ({
       {/* Calendar Grid */}
       <div className="mb-4">
         <div className="mb-2 grid grid-cols-7 gap-1">
-          {['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'].map((day) => (
+          {WEEKDAYS.map((day) => (
             <div
               key={day}
               className="py-1 text-center text-xs font-medium text-gray-500"

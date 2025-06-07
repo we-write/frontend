@@ -16,3 +16,10 @@ export type CreateStoryRequest = Omit<
   StoryEntity,
   'summary' | 'created_at' | 'updated_at'
 >;
+
+export interface GetContentsProps {
+  id: string;
+  page: number;
+  limit: number;
+}
+

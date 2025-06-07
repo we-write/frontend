@@ -10,7 +10,7 @@ const AvatarGroup = ({ imageUrls }: AvatarGroupProps) => {
   return (
     <div className="flex w-full -space-x-2" aria-hidden="true">
       {imageUrls.slice(0, 4).map((url, index) => (
-        <div key={index} className="relative h-7.5 w-7.5 gap-[-1rem]">
+        <div key={index} className="relative h-7 w-7 gap-[-1rem]">
           {url && !errorIndexes.includes(index) ? (
             <Image
               src={url}
