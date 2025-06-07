@@ -35,7 +35,6 @@ const WritableUserModal = ({
     storyId: currentStoryId,
     contentId: lastContentData?.content_id,
   });
-  console.log(lastContentData?.content_id);
   useEffect(() => {
     if (approveUserData?.length) {
       setTempApprovedCount(approveUserData?.length);
