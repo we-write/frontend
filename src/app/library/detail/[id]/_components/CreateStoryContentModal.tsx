@@ -1,80 +1,147 @@
 import { Modal } from '@/components/common/Modal/Modal';
-import { ContentWriteIcon } from '@public/assets/icons';
 import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
-import useBoolean from '@/hooks/useBoolean';
-import { useForm, Controller } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { CreateStoryModalProps, RelayStoryContentFormData } from './type';
+import { useEffect, useRef, useState } from 'react';
+import usePostContent from '@/hooks/api/stories/usePostContent';
+import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 
-const CreateStoryModal = ({ currentChapter }: CreateStoryModalProps) => {
-  const {
-    value: isOpen,
-    setTrue: openModal,
-    setFalse: closeModal,
-  } = useBoolean();
+const CreateStoryModal = ({
+  currentChapter,
+  currentStoryId,
+  currentUserId,
+  lastContentData,
+}: CreateStoryModalProps) => {
+  const editorContentRef = useRef<{ getHTML: () => string }>(null);
+  const [temporaryContent, setTemporaryContent] = useState('');
+  const { isOpen, closeModal } = useStoryModal();
+  const { mutate } = usePostContent({ storyId: currentStoryId });
 
-  const { control, handleSubmit } = useForm<RelayStoryContentFormData>({
-    defaultValues: {
-      content: '',
-    },
+  const { handleSubmit, reset } = useForm<RelayStoryContentFormData>({
+    defaultValues: { content: '' },
   });
 
+  useEffect(() => {
+    const savedContent = localStorage.getItem('TemporaryContent');
+    if (savedContent) {
+      reset({ content: savedContent });
+      setTemporaryContent(savedContent);
+    }
+  }, [reset]);
+
   const handleTemporarySave = () => {
-    //MEMO : 로직 추가해주세요
+    if (!editorContentRef.current) {
+      console.warn('Editor ref가 존재하지 않습니다.');
+      return;
+    }
+    const newExtractionHtml = editorContentRef.current.getHTML();
+    if (newExtractionHtml == '<p></p>') {
+      alert('내용을 작성해주세요.');
+      return;
+    }
+    localStorage.setItem('TemporaryContent', newExtractionHtml);
+    alert('임시 저장되었습니다.');
   };
 
-  const onSubmit = () => {
-    //MEMO : 로직 추가해주세요
+  const handlePostStoryContent: SubmitHandler<
+    RelayStoryContentFormData
+  > = () => {
+    if (!editorContentRef.current) {
+      console.warn('Editor ref가 존재하지 않습니다.');
+      return;
+    }
+    if (!currentUserId) {
+      console.warn('유저 정보가 존재하지 않습니다.');
+      return;
+    }
+    if (lastContentData.status === 'PENDING') {
+      alert('승인 대기 중인 글이 존재하여 등록할 수 없습니다.');
+      return;
+    }
+    const newExtractionHtml = editorContentRef.current.getHTML();
+    const postStoryConfirmed = window.confirm(
+      '등록된 후엔 수정할 수 없습니다. 등록하시겠습니까?'
+    );
+    if (postStoryConfirmed) {
+      mutate({
+        storyId: currentStoryId,
+        content: newExtractionHtml,
+        userId: currentUserId,
+      });
+      localStorage.removeItem('TemporaryContent');
+    } else {
+      return;
+    }
+  };
+
+  const handleCloseModal = () => {
+    if (!editorContentRef.current) {
+      console.warn('Editor ref가 존재하지 않습니다.');
+      return;
+    }
+    const currentContent = editorContentRef.current.getHTML();
+    const savedContent = localStorage.getItem('TemporaryContent');
+    if (currentContent !== savedContent) {
+      const contentDeleteConfirmed = window.confirm(
+        '저장하지 않은 내용은 삭제됩니다. 종료하시겠습니까?'
+      );
+      if (contentDeleteConfirmed) {
+        closeModal();
+      } else {
+        return;
+      }
+    } else {
+      closeModal();
+    }
   };
 
   return (
-    <>
-      <button onClick={openModal} className="fixed right-10 bottom-10">
-        <ContentWriteIcon />
-      </button>
-
-      <Modal isOpen={isOpen} onClose={closeModal} className="w-fit">
-        <form onSubmit={handleSubmit(onSubmit)}>
-          <div className="mb-6">
-            <h2 className="mb-2 text-3xl">이어질 이야기를 작성해주세요</h2>
-            <p className="text-3xl font-bold">현재 챕터 {currentChapter}</p>
-          </div>
-
-          <Controller
-            name="content"
-            control={control}
-            render={({ field: { onChange, value } }) => (
-              <TextEditor
-                editorHeight="500px"
-                initialContent={value}
-                onChange={onChange}
-              />
-            )}
-          />
-
-          <div className="mt-6 flex justify-end gap-2">
-            <Button
-              type="button"
-              onClick={handleTemporarySave}
-              color="secondary"
-              variant="inverted"
-              size="custom"
-              className="w-24"
-            >
-              임시저장
-            </Button>
-            <Button
-              type="submit"
-              color="secondary"
-              size="custom"
-              className="w-24"
-            >
-              등록하기
-            </Button>
-          </div>
-        </form>
-      </Modal>
-    </>
+    <Modal
+      isOpen={isOpen}
+      onClose={handleCloseModal}
+      className="flex h-full w-full max-w-232 flex-col justify-center md:block md:h-auto md:w-fit"
+    >
+      <form
+        onSubmit={handleSubmit(handlePostStoryContent)}
+        className="mb-1 pt-12"
+      >
+        <div className="mb-6">
+          <h2 className="mb-2 text-xl">이어질 이야기를 작성해주세요</h2>
+          <p className="text-2xl font-semibold">
+            현재 챕터 <span className="font-extrabold">{currentChapter}</span>
+          </p>
+        </div>
+        <TextEditor
+          ref={editorContentRef}
+          editorHeight="500px"
+          initialContent={temporaryContent}
+          useToolbarMenu={false}
+          className="min-h-110 md:min-w-180 lg:min-h-125 lg:min-w-220"
+        />
+        <div className="mt-6 flex justify-end gap-2">
+          <Button
+            type="button"
+            onClick={handleTemporarySave}
+            color="secondary"
+            variant="inverted"
+            size="custom"
+            className="w-24 border-gray-500"
+          >
+            임시저장
+          </Button>
+          <Button
+            type="submit"
+            color="custom"
+            size="custom"
+            className="bg-write-success w-24 text-white"
+            onClick={() => handlePostStoryContent}
+          >
+            등록하기
+          </Button>
+        </div>
+      </form>
+    </Modal>
   );
 };
 

@@ -8,30 +8,48 @@ import ContentComponent from '@/components/feature/library/ContentComponent';
 import { PaginationControl } from '@/components/feature/library/PaginationControl';
 import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
-
-export interface Content {
-  content_id: string;
-  content: string;
-}
+import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
+import { StoryWriteOrApproveModalProviders } from '@/providers/StoryWriteOrApproveModalProviders';
+import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/ModalTriggerButton';
+import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
 
 const StoryDetailPage = () => {
   const { id } = useParams();
+  const storyId = id as string;
   const [isMobile, setIsMobile] = useState(false);
+  const [isSignIn, setIsSignIn] = useState(false);
+  const [storyPageNumber, setStoryPageNumber] = useState(1);
   const handleResize = () => {
     setIsMobile(window?.innerWidth < 640);
   };
+  const { data: userInfo } = useGetMyInfo(isSignIn);
+  const { data: userRoleData } = useGetUserRole({
+    userId: userInfo?.id,
+    storyId: storyId,
+  });
+  const { data: story } = useGetStory(storyId);
+  const { data: contents } = useGetContent({
+    id: storyId,
+    page: storyPageNumber,
+    limit: 10,
+  });
+
+  const currentUserRole = userRoleData ? userRoleData.role : 'GUEST';
+
   useEffect(() => {
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
-  const { data: story } = useGetStory(id as string);
-  const [storyPageNumber, setStoryPageNumber] = useState(1);
-  const { data: contents } = useGetContent({
-    id: id as string,
-    page: storyPageNumber,
-    limit: 10,
-  });
+
+  useEffect(() => {
+    const checkSignInStatus = () => {
+      const localStorageData = localStorage.getItem('isSignIn') === 'true';
+      setIsSignIn(localStorageData && !!userInfo);
+    };
+
+    checkSignInStatus();
+  }, [userInfo]);
 
   const currentContents = contents?.data || [];
 
@@ -47,9 +65,6 @@ const StoryDetailPage = () => {
     ? currentContents.slice(1, 2)
     : currentContents.slice(ITEMS_PER_PAGE, currentContents.length);
 
-  // MEMO : 임시 유저 역할
-  const userRole = 'MEMBER';
-
   const renderWritableUserModalByRole = (role: TeamUserRole) => {
     switch (role) {
       case 'GUEST':
@@ -57,11 +72,16 @@ const StoryDetailPage = () => {
       case 'LEADER':
       case 'MEMBER':
         return (
-          <WritableUserModal
-            currentChapter={currentContents?.length ?? 0}
-            approvalPeriod={story?.approval_period ?? 0}
-            approvedCount={story?.approved_count ?? 0}
-          />
+          <>
+            <StoryModalTriggerButton />
+            <WritableUserModal
+              currentChapter={currentContents?.length ?? 0}
+              currentStoryId={storyId}
+              {...(userInfo && { currentUserId: userInfo.id })}
+              approvalPeriod={story?.approval_period ?? 0}
+              approvedCount={story?.approved_count ?? 0}
+            />
+          </>
         );
       default:
         return null;
@@ -91,7 +111,9 @@ const StoryDetailPage = () => {
         />
       </div>
 
-      {renderWritableUserModalByRole(userRole)}
+      <StoryWriteOrApproveModalProviders>
+        {renderWritableUserModalByRole(currentUserRole)}
+      </StoryWriteOrApproveModalProviders>
     </div>
   );
 };

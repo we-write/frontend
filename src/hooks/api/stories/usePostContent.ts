@@ -1,0 +1,37 @@
+import { postContent } from '@/api/stories/api';
+import { PostContentParams } from '@/api/stories/type';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { DBContentResponse } from '@/types/dbStory';
+import {
+  useMutation,
+  UseMutationResult,
+  useQueryClient,
+} from '@tanstack/react-query';
+
+interface usePostContentParams {
+  storyId: string;
+}
+
+const usePostContent = ({
+  storyId,
+}: usePostContentParams): UseMutationResult<
+  DBContentResponse[],
+  Error,
+  PostContentParams
+> => {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: postContent,
+    onError: (error) => {
+      console.error(error);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.GET_LAST_CONTENT, storyId],
+      });
+      setTimeout(() => alert('등록되었습니다.'), 0);
+    },
+  });
+};
+
+export default usePostContent;
