@@ -1,5 +1,6 @@
-import { Story } from '@/types/story';
+import { DBContentResponse, DBStoryResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
+import { GetContentsProps } from './type';
 
 export const getStories = async () => {
   const { data, error } = await instanceBaaS.from('Stories').select('*');
@@ -14,7 +15,7 @@ export const getStory = async (id: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('*')
-    .eq('id', id)
+    .eq('story_id', id)
     .single();
   if (error) {
     throw new Error(error.message);
@@ -22,7 +23,23 @@ export const getStory = async (id: string) => {
   return data;
 };
 
-export const createStory = async (story: Story) => {
+export const getLastContent = async (
+  id: string
+): Promise<{ data: DBContentResponse }> => {
+  const { data, error } = await instanceBaaS
+    .from('Contents')
+    .select('*')
+    .eq('story_id', id)
+    .order('merged_at', { ascending: false })
+    .limit(1)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return { data };
+};
+
+export const createStory = async (story: DBStoryResponse) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .insert(story)
@@ -52,4 +69,71 @@ export const getImage = async (imageName: string) => {
     .getPublicUrl(imageName);
 
   return data.publicUrl;
+};
+
+export const getContents = async ({
+  id,
+  page,
+  limit,
+}: GetContentsProps): Promise<{
+  data: DBContentResponse[];
+  count: number;
+}> => {
+  const from = (page - 1) * limit;
+  const to = page * limit - 1;
+  const { data, error, count } = await instanceBaaS
+    .from('Contents')
+    .select('*', { count: 'exact' })
+    .eq('story_id', id)
+    .order('merged_at', { ascending: true })
+    .range(from, to);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return { data, count: count ?? 0 };
+};
+
+export const updateContentMerge = async (storyId: string): Promise<void> => {
+  try {
+    const { data: story, error } = await instanceBaaS
+      .from('Stories')
+      .select('approved_count')
+      .eq('story_id', storyId)
+      .single();
+
+    if (error) {
+      throw new Error(error.message);
+    }
+
+    const { data: content, error: contentsError } = await instanceBaaS
+      .from('Contents')
+      .select('content_id')
+      .eq('story_id', storyId)
+      .single();
+    if (contentsError) {
+      throw new Error(contentsError.message);
+    }
+
+    const { data: content_approve_count, error: contentApproveError } =
+      await instanceBaaS
+        .from('ContentApproval')
+        .select('*', { count: 'exact' })
+        .eq('content_id', content.content_id);
+    if (contentApproveError) {
+      throw new Error(contentApproveError.message);
+    }
+
+    if (content_approve_count.length >= story.approved_count) {
+      await instanceBaaS
+        .from('Contents')
+        .update({
+          status: 'MERGED',
+        })
+        .eq('story_id', storyId);
+    } else {
+      throw new Error('스토리 승인 기준 미달');
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
 };

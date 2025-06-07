@@ -48,3 +48,16 @@ export interface SaveSummaryParams {
 export interface GetSummaryParams {
   socialId: number;
 }
+
+export interface GetUserRoleParams {
+  userId: number;
+  storyId: string;
+}
+
+export interface GetStoryIdParams {
+  socialId: number;
+}
+
+export interface GetStoryIdResponse {
+  story_id: string;
+}

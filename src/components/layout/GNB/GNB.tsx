@@ -54,7 +54,7 @@ export const GNB = () => {
       {/* 오버레이 */}
       {isDrawerOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black opacity-50 md:hidden"
+          className="fixed inset-0 z-50 h-screen bg-black/50 md:hidden"
           onClick={() => setIsDrawerClose()}
         />
       )}
