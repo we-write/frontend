@@ -1,5 +1,5 @@
 import useBoolean from '@/hooks/useBoolean';
-import { createContext, useContext, ReactNode } from 'react';
+import { createContext, useContext, PropsWithChildren } from 'react';
 
 interface ModalContextType {
   isOpen: boolean;
@@ -7,9 +7,7 @@ interface ModalContextType {
   closeModal: () => void;
 }
 
-interface StoryWriteOrApproveModalProvidersProps {
-  children: ReactNode;
-}
+type StoryWriteOrApproveModalProvidersProps = PropsWithChildren;
 
 const ModalContext = createContext<ModalContextType | undefined>(undefined);
 
