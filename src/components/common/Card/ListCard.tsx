@@ -40,7 +40,7 @@ const ListCard = ({
           <p className="text-sm font-medium text-white">삭제된 스토리입니다.</p>
         </div>
       )}
-      <figure className="relative h-48 w-full sm:h-39 sm:w-70">
+      <figure className="relative h-48 w-full max-w-50 flex-shrink-0 sm:h-39 sm:w-70">
         {!isImageLoaded || isImageLoadError || isCardDataLoading ? (
           <div className="absolute h-full w-full animate-pulse rounded-xl bg-gray-300" />
         ) : null}
@@ -65,7 +65,7 @@ const ListCard = ({
           {!isCardDataLoading ? (
             <Link
               href={`social/detail/${pageId}`}
-              className="flex h-full max-w-66 flex-col sm:max-w-180"
+              className="flex h-full max-w-50 flex-col lg:max-w-110 xl:max-w-180"
               aria-label={`${textContent.title ? `${textContent.title}상세 페이지로 이동` : '데이터를 불러오는 중입니다'}`}
             >
               <h2 className="truncate text-xl font-semibold text-gray-900 hover:underline">
