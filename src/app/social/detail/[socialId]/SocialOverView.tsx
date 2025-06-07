@@ -50,7 +50,10 @@ const SocialOverView = ({
     }
   };
 
-  if (isFetchDataLoading || !socialDetailData) return null;
+  // TODO: 현재 API 호출로 인한 JSX 렌더링 지연이 발생하므로 로딩 개선 및 스켈레톤UI 필요
+  if (isFetchDataLoading || !socialDetailData) {
+    return <div className="h-83 w-full" />;
+  }
 
   const storyGenre = convertLocationToGenre({
     location: socialDetailData.location,
