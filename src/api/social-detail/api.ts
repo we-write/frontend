@@ -148,8 +148,9 @@ export const getUserRole = async ({ userId, storyId }: GetUserRoleParams) => {
     .select('role')
     .eq('story_id', storyId)
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
+  if (error && error.code === 'PGRST116') return null;
   if (error) throw new Error(error.message);
   return data;
 };
