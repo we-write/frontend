@@ -121,7 +121,6 @@ const CreateContentModal = ({
             color="custom"
             size="custom"
             className="bg-write-success w-24 text-white"
-            onClick={() => handlePostStoryContent}
           >
             등록하기
           </Button>
