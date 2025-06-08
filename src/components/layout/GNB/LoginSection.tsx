@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
-import { UserResponse } from '@/types/user';
 import useBoolean from '@/hooks/useBoolean';
 import { RefObject, useEffect, useRef } from 'react';
 import { useClickOutside } from '@/hooks/useClickOutside';
@@ -14,14 +13,9 @@ import {
   HydrationBoundary,
   useQueryClient,
 } from '@tanstack/react-query';
+import { LoginSectionProps } from '@/components/layout/GNB/type';
 
-export const LoginSection = ({
-  isSignIn,
-  userInfo,
-}: {
-  isSignIn: boolean;
-  userInfo: UserResponse | null;
-}) => {
+export const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutate: signOut } = usePostSignout();
