@@ -8,13 +8,19 @@ import UserDropdown from '@/components/layout/GNB/UserDropdown';
 import useBoolean from '@/hooks/useBoolean';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { usePostSignout } from '@/hooks/api/users/usePostSignout';
+import { useRouter } from 'next/navigation';
 
 export const LoginSection = () => {
   const [isSignIn, setIsSignIn] = useState(false);
   const { data: userInfo } = useGetMyInfo(isSignIn);
-  const { value: isDropdownOpen, setTrue: openDropdown, setFalse: closeDropdown } = useBoolean();
+  const {
+    value: isDropdownOpen,
+    setTrue: openDropdown,
+    setFalse: closeDropdown,
+  } = useBoolean();
   const { mutate: signout } = usePostSignout();
 
+  const router = useRouter();
   const containerRef = useRef<HTMLDivElement | null>(null);
   useClickOutside(containerRef as RefObject<HTMLElement>, closeDropdown);
 
@@ -26,6 +32,8 @@ export const LoginSection = () => {
   const handleSignIn = () => {
     if (isSignIn) {
       openDropdown();
+    } else {
+      router.push('/auths/signin');
     }
   };
 
@@ -50,7 +58,9 @@ export const LoginSection = () => {
             <DefaultProfileImage width={40} height={40} />
           )
         ) : (
-          <span className="text-write-main text-base font-semibold">로그인</span>
+          <span className="text-write-main text-base font-semibold">
+            로그인
+          </span>
         )}
       </button>
 
