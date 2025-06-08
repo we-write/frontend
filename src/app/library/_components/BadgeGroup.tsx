@@ -5,17 +5,11 @@ const ALL = '전체';
 const GENRES = Object.keys(GENRE_LOCATION_MAP) as GenreType[];
 const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
   const toggleGenre = (genre: string) => {
-    if (genre === ALL) return setSelectedGenres([ALL]);
-
-    let next = selectedGenres.includes(genre)
-      ? selectedGenres.filter((g) => g !== genre)
-      : [...selectedGenres.filter((g) => g !== ALL), genre];
-
-    if (GENRES.every((g) => next.includes(g)) || next.length === 0) {
-      next = [ALL];
+    if (genre === ALL) {
+      setSelectedGenres([ALL]);
+    } else {
+      setSelectedGenres([genre]);
     }
-
-    setSelectedGenres(next);
   };
 
   return (
@@ -26,7 +20,9 @@ const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
           <button
             key={genre}
             onClick={() => toggleGenre(genre)}
-            className={`flex-center h-fit w-fit rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'}`}
+            className={`flex-center h-fit w-fit rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${
+              isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'
+            }`}
           >
             {genre}
           </button>
