@@ -4,8 +4,25 @@ import { useGetSocialList } from '@/hooks/api/social';
 import Observer from '@/components/common/Observer/Observer';
 import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
 import GridCard from '@/components/common/Card/GridCard';
+import { useQuery } from '@tanstack/react-query';
+import htmlToString from '@/utils/htmlToString';
+import { getSocialSummary } from '@/api/stories/api';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
+  const { data: summaryData } = useQuery({
+    queryKey: ['socialSummary', socialList.map((item) => item.id)],
+    queryFn: async () => {
+      const summaries = await Promise.all(
+        socialList.map(async (item) => {
+          const summary = await getSocialSummary(item.id);
+          return summary;
+        })
+      );
+      return summaries;
+    },
+    enabled: !!socialList.length,
+  });
+
   if (!isLoading && socialList.length === 0) {
     return (
       <div className="space-y-1 text-center text-base text-gray-500">
@@ -17,7 +34,7 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {socialList.map((item) => (
+      {socialList.map((item, index) => (
         <GridCard
           key={item.id}
           pageId={item.id}
@@ -32,7 +49,9 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
             genre:
               convertLocationToGenre({ location: item.location }) ||
               '장르 없음',
-            description: item.type || '미정',
+            description:
+              htmlToString(summaryData?.[index]) ||
+              '모임장이 소개글을 작성하고 있어요!',
           }}
           isCardDataLoading={isLoading}
         />
