@@ -6,6 +6,6 @@ export const useGetMyInfo = (enabled: boolean) => {
   return useQuery({
     queryKey: ['myInfo'],
     queryFn: getMyInfo,
-    enabled: enabled,
+    enabled: !!enabled,
   });
 };
