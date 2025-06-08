@@ -4,3 +4,7 @@ export interface LoginSectionProps {
   isSignIn: boolean;
   userInfo: UserResponse | null;
 }
+export interface UserDropdownProps {
+  onSignOut: () => void;
+  onClose: () => void;
+}
