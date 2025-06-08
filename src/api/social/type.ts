@@ -12,12 +12,6 @@ export const getLocationByGenre = (genre: GenreType): LocationType => {
   return GENRE_LOCATION_MAP[genre];
 };
 
-export const getGenreByLocation = (location: LocationType): GenreType => {
-  return Object.entries(GENRE_LOCATION_MAP).find(
-    (genre) => genre[1] === location
-  )?.[0] as GenreType;
-};
-
 export type SocialType = 'OFFICE_STRETCHING' | 'MINDFULLNESS' | 'WORKATION';
 
 export interface GetSocialListParams {

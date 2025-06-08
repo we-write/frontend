@@ -11,6 +11,7 @@ export const usePostSignin = () => {
   return useMutation({
     mutationFn: (data: SigninRequest) => postSignIn(data),
     onSuccess: async () => {
+      localStorage.setItem('isSignIn', 'true');
       await queryClient.prefetchQuery({ queryKey: ['myInfo'] });
       router.push('/');
     },

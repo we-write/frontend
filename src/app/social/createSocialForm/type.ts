@@ -66,16 +66,6 @@ export type StorySettingsFieldsMethods = Pick<
   'approved_count' | 'max_length' | 'is_public' | 'approval_period'
 >;
 
-export interface PublicCheckboxProps {
-  setValue: UseFormSetValue<StorySettingsFieldsMethods>;
-}
-
 export interface StorySettingFormProps {
-  methods: {
-    setValue: UseFormSetValue<StorySettingsFieldsMethods>;
-    control: Control<StorySettingsFieldsMethods>;
-    formState: {
-      errors: FieldErrors<StorySettingsFieldsMethods>;
-    };
-  };
+  methods: UseFormReturn<StorySettingsFieldsMethods>;
 }

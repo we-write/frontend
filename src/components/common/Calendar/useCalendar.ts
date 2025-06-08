@@ -1,27 +1,11 @@
 import { useState } from 'react';
-
-interface UseCalendarProps {
-  initialDate?: Date;
-  minDate?: Date;
-}
-
-interface UseCalendarReturn {
-  currentDate: Date;
-  selectedDate: Date;
-  navigateMonth: (direction: 'prev' | 'next') => void;
-  handleDateSelect: (day: number) => void;
-  isSameDay: (date1: Date, date2: Date) => boolean;
-  getDaysInMonth: (date: Date) => number;
-  getFirstDayOfMonth: (date: Date) => number;
-  isDateDisabled: (date: Date) => boolean;
-  setSelectedDate: (date: Date) => void;
-}
+import { UseCalendarProps } from './type';
 
 /** 달력의 상태와 핵심 기능을 관리하는 훅 */
 export const useCalendar = ({
   initialDate = new Date(),
   minDate,
-}: UseCalendarProps = {}): UseCalendarReturn => {
+}: UseCalendarProps = {}) => {
   const [currentDate, setCurrentDate] = useState(initialDate);
   const [selectedDate, setSelectedDate] = useState(initialDate);
 

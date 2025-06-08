@@ -24,8 +24,8 @@ const CreateSocialForm = ({ onClose }: CreateSocialFormProps) => {
       <SocialForm methods={socialMethods} />
       <StorySettingForm methods={storySettingMethods} />
 
-      <Button type="submit" className="h-11">
-        <p className="font-semibold">모임 생성</p>
+      <Button type="submit" className="h-11 font-semibold">
+        모임생성
       </Button>
     </form>
   );

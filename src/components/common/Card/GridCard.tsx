@@ -17,7 +17,7 @@ const GridCard = ({
   return (
     <article className="h-80 w-90 rounded-2xl p-2 hover:bg-gray-100">
       <Link
-        href={`/details/${pageId}`}
+        href={`social/detail/${pageId}`}
         className="flex h-full flex-col"
         aria-label={`${textContent.title ? `${textContent.title}상세 페이지로 이동` : '데이터를 불러오는 중입니다'}`}
       >
