@@ -1,24 +1,12 @@
 import { postContent } from '@/api/stories/api';
-import { PostContentParams } from '@/api/stories/type';
 import { QUERY_KEY } from '@/constants/queryKey';
-import { DBContentResponse } from '@/types/dbStory';
-import {
-  useMutation,
-  UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface usePostContentParams {
   storyId: string;
 }
 
-const usePostContent = ({
-  storyId,
-}: usePostContentParams): UseMutationResult<
-  DBContentResponse[],
-  Error,
-  PostContentParams
-> => {
+const usePostContent = ({ storyId }: usePostContentParams) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: postContent,
