@@ -1,14 +1,17 @@
 'use client';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { UserDropdownProps } from './type';
 
 const UserDropdown = ({ onSignOut, onClose }: UserDropdownProps) => {
   const router = useRouter();
-  const handleSignOut = () => {
-    onSignOut();
+  const pathname = usePathname();
+  const handleSignOut = async () => {
+    await onSignOut();
     onClose();
-    router.push(APP_ROUTES.social);
+    if (pathname === APP_ROUTES.mypage) {
+      await router.push(APP_ROUTES.signin);
+    }
   };
   const gotoMyPage = () => {
     router.push(APP_ROUTES.mypage);
