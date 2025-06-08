@@ -48,7 +48,7 @@ const StorySummary = ({
   };
 
   return (
-    <div className="mt-24 px-10">
+    <div className="mt-32 sm:mt-24 xl:px-10">
       <h2 className="mx-1 mb-4 text-2xl font-semibold">스토리 소개글</h2>
       {userRoleData?.role === 'LEADER' && !summaryData?.summary ? (
         <div className="flex h-240 w-full flex-col">
