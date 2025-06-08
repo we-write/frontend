@@ -5,7 +5,7 @@ import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
 import SearchInput from '@/app/library/_components/SearchInput';
 import useSearchReducer from '@/hooks/library/useSearchReducer';
 
-export default function Library() {
+const Library = () => {
   const [state, dispatch] = useSearchReducer();
 
   const handleSearch = () => {
@@ -41,3 +41,4 @@ export default function Library() {
     </>
   );
 }
+export default Library

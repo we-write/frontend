@@ -1,3 +1,7 @@
+export interface FormValues {
+  search: string;
+}
+
 export interface SearchInputProps {
   keyword: string;
   setKeyword: (value: string) => void;
