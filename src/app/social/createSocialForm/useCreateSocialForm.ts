@@ -9,6 +9,10 @@ import { createSocial } from '@/api/social/api';
 import { createStory } from '@/api/stories/api';
 import { CreateStoryRequest } from '@/api/stories/type';
 import { SocialFieldsMethods, StorySettingsFieldsMethods } from './type';
+import { createCollaborator } from '@/api/story-collaborators/api';
+import { TEAM_USER_ROLE } from '@/types/teamUserRole';
+import { CreateCollaboratorRequest } from '@/api/story-collaborators/type';
+import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 import {
   APPROVAL_PERIOD_OPTIONS,
   APPROVER_COUNT_OPTIONS,
@@ -73,6 +77,7 @@ const useCreateSocialForm = (onClose: () => void) => {
     },
     delayError: 300,
   });
+  const { data: userInfo } = useGetMyInfo();
 
   const {
     handleSubmit,
@@ -85,12 +90,21 @@ const useCreateSocialForm = (onClose: () => void) => {
 
     const convertedData = convertToSocialData(data);
     const response = await createSocial(convertedData);
+    // TODO: 응답값 개선 하기(#150 PR)
     return response;
   };
 
   // 스토리 생성 API 호출
   const createStoryApi = async (data: CreateStoryRequest) => {
     const response = await createStory(data);
+    return response;
+  };
+
+  const createCollaboratorAsLeader = async (
+    data: CreateCollaboratorRequest
+  ) => {
+    const response = await createCollaborator(data, TEAM_USER_ROLE.LEADER);
+    // TODO: 응답값 개선 하기(#150 PR)
     return response;
   };
 
@@ -108,7 +122,13 @@ const useCreateSocialForm = (onClose: () => void) => {
         data.genre
       );
 
-      await createStoryApi(storyData);
+      const storyResponse = await createStoryApi(storyData);
+      await createCollaboratorAsLeader({
+        story_id: storyResponse[0]?.story_id.toString(),
+        user_id: socialResponseData.id,
+        user_name: userInfo?.name,
+        joined_at: new Date().toISOString(),
+      });
       onClose();
     }
   };

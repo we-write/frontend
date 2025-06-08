@@ -5,3 +5,7 @@ export const API_PATH = {
   SIGN_OUT: 'auths/signout',
   SOCIAL: '/gatherings',
 };
+
+export const DB_PATH = {
+  STORY_COLLABORATORS: 'story_collaborators',
+};
