@@ -5,6 +5,10 @@ interface MenuItemProps {
   href: string;
 }
 
+export interface LogoButtonProps {
+  onClick?: () => void;
+}
+
 export interface LoginSectionProps {
   isSignIn: boolean;
   userInfo: UserResponse | null;
@@ -14,6 +18,6 @@ export interface SideDrawerProps {
   isOpen: boolean;
   closeDrawer: () => void;
   isSignIn: boolean;
+  userInfo: UserResponse | null;
   menuItems: MenuItemProps[];
-  signInImageSrc: string;
 }

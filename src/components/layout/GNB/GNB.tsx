@@ -11,12 +11,10 @@ import { useAuth } from '@/utils/authContext';
 
 // 메뉴 항목
 const MENU_ITEMS = [
+  { label: APP_ROUTES_LABEL.mypage, href: APP_ROUTES.mypage },
   { label: APP_ROUTES_LABEL.social, href: APP_ROUTES.social },
   { label: APP_ROUTES_LABEL.library, href: APP_ROUTES.library },
 ];
-
-// 이미지 경로
-const SIGN_IN_IMAGE = '/assets/images/Profile.png';
 
 export const GNB = () => {
   const { isSignIn, userInfo } = useAuth();
@@ -63,8 +61,8 @@ export const GNB = () => {
         isOpen={isDrawerOpen}
         closeDrawer={() => setIsDrawerClose()}
         isSignIn={isSignIn}
+        userInfo={userInfo}
         menuItems={MENU_ITEMS}
-        signInImageSrc={SIGN_IN_IMAGE}
       />
     </>
   );
