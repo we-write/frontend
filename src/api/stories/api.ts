@@ -1,6 +1,6 @@
-import { DBContentResponse, DBStoryResponse } from '@/types/dbStory';
+import { DBContentResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
-import { GetContentsProps, GetStoriesParams,CreateStoryRequest } from './type';
+import { GetContentsProps, GetStoriesParams, CreateStoryRequest } from './type';
 
 export const getStories = async ({
   keyword,

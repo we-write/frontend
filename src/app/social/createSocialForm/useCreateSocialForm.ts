@@ -77,7 +77,7 @@ const useCreateSocialForm = (onClose: () => void) => {
     },
     delayError: 300,
   });
-  const { data: userInfo } = useGetMyInfo();
+  const { data: userInfo } = useGetMyInfo(true);
 
   const {
     handleSubmit,
