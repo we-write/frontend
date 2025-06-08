@@ -4,7 +4,6 @@ import { UserResponse } from '@/types/user';
 import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 interface AuthContextValue {
   userInfo: UserResponse | null;
-  isLoading: boolean;
   isSignIn: boolean;
 }
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
@@ -17,9 +16,9 @@ export const AuthProvider = ({
   hasToken: boolean | undefined;
 }) => {
   const isSignIn = !!hasToken;
-  const { data: userInfo, isLoading } = useGetMyInfo(!!isSignIn);
+  const { data: userInfo } = useGetMyInfo(!!isSignIn);
   return (
-    <AuthContext.Provider value={{ userInfo, isLoading, isSignIn }}>
+    <AuthContext.Provider value={{ userInfo, isSignIn }}>
       {children}
     </AuthContext.Provider>
   );
@@ -28,7 +27,7 @@ export const AuthProvider = ({
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('로그인 후 이용해주세요.');
+    throw new Error('AuthContext not found');
   }
   return context;
 };

@@ -45,10 +45,11 @@ export default function RootLayout({
             <header>
               <GNB />
             </header>
+
+            <main>
+              <LayoutWrapper>{children}</LayoutWrapper>
+            </main>
           </UserInfoProvider>
-          <main>
-            <LayoutWrapper>{children}</LayoutWrapper>
-          </main>
         </QueryProviders>
       </body>
     </html>
