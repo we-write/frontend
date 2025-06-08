@@ -148,22 +148,26 @@ export const getUserRole = async ({ userId, storyId }: GetUserRoleParams) => {
     .select('role')
     .eq('story_id', storyId)
     .eq('user_id', userId)
-    .single();
+    .maybeSingle();
 
+  if (error && error.code === 'PGRST116') return null;
   if (error) throw new Error(error.message);
   return data;
 };
 
 export const getStoryId = async ({
   socialId,
-}: GetStoryIdParams): Promise<GetStoryIdResponse> => {
+}: GetStoryIdParams): Promise<GetStoryIdResponse | 'not-found'> => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('story_id')
     .eq('social_id', socialId)
-    .single();
+    .maybeSingle();
 
   if (error) throw new Error(error.message);
+  if (!data) {
+    return 'not-found';
+  }
   return data;
 };
 
