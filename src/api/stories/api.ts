@@ -1,6 +1,6 @@
-import { DBContentResponse, DBStoryResponse } from '@/types/dbStory';
+import { DBContentResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
-import { GetContentsProps, GetStoriesParams } from './type';
+import { GetContentsProps, GetStoriesParams, CreateStoryRequest } from './type';
 
 export const getStories = async ({
   keyword,
@@ -61,7 +61,7 @@ export const getLastContent = async (
   return { data };
 };
 
-export const createStory = async (story: DBStoryResponse) => {
+export const createStory = async (story: CreateStoryRequest) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .insert(story)
