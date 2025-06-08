@@ -8,6 +8,7 @@ export interface TextEditorProps {
   className?: string;
   editorHeight?: string;
   isReadOnly?: boolean;
+  useToolbarMenu?: boolean;
   initialContent?: string;
 }
 

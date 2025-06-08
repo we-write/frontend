@@ -23,6 +23,21 @@ export interface GetContentsProps {
   limit: number;
 }
 
+export interface PostContentParams {
+  userId: number;
+  storyId: string;
+  content: string;
+}
+
+export interface GetApproveUserParams {
+  contentId: string;
+}
+
+export interface ApproveContentParams {
+  userId: number;
+  contentId: string;
+}
+
 export interface GetStoriesParams {
   keyword: string;
   searchType: '제목' | '소개글';
@@ -30,4 +45,3 @@ export interface GetStoriesParams {
   offset: number;
   limit: number;
 }
-

@@ -1,6 +1,13 @@
-import { DBContentResponse } from '@/types/dbStory';
+import { DBContentApprovalResponse, DBContentResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
-import { GetContentsProps, GetStoriesParams, CreateStoryRequest } from './type';
+import {
+  GetContentsProps,
+  PostContentParams,
+  GetApproveUserParams,
+  ApproveContentParams,
+  GetStoriesParams,
+  CreateStoryRequest,
+} from './type';
 
 export const getStories = async ({
   keyword,
@@ -47,7 +54,7 @@ export const getStory = async (id: string) => {
 
 export const getLastContent = async (
   id: string
-): Promise<{ data: DBContentResponse }> => {
+): Promise<DBContentResponse> => {
   const { data, error } = await instanceBaaS
     .from('Contents')
     .select('*')
@@ -58,7 +65,7 @@ export const getLastContent = async (
   if (error) {
     throw new Error(error.message);
   }
-  return { data };
+  return data;
 };
 
 export const createStory = async (story: CreateStoryRequest) => {
@@ -107,6 +114,7 @@ export const getContents = async ({
     .from('Contents')
     .select('*', { count: 'exact' })
     .eq('story_id', id)
+    // MEMO : merged_at으로 변경했습니다.
     .order('merged_at', { ascending: true })
     .range(from, to);
   if (error) {
@@ -158,4 +166,64 @@ export const updateContentMerge = async (storyId: string): Promise<void> => {
   } catch (error) {
     throw new Error(error as string);
   }
+};
+
+export const postContent = async ({
+  content,
+  storyId,
+  userId,
+}: PostContentParams) => {
+  const { error } = await instanceBaaS.from('Contents').insert([
+    {
+      story_id: storyId,
+      user_id: userId,
+      content: content,
+    },
+  ]);
+
+  if (error) {
+    throw new Error(error.message);
+  }
+};
+
+export const getApproveUser = async ({ contentId }: GetApproveUserParams) => {
+  const { data, error } = await instanceBaaS
+    .from('ContentApproval')
+    .select('*')
+    .eq('content_id', contentId);
+
+  if (error && error.code === 'PGRST116') return null;
+  if (error) throw new Error(error.message);
+  return data;
+};
+
+export const approveContent = async ({
+  userId,
+  contentId,
+}: ApproveContentParams): Promise<DBContentApprovalResponse[]> => {
+  const { data, error } = await instanceBaaS
+    .from('ContentApproval')
+    .insert([
+      {
+        content_id: contentId,
+        user_id: userId,
+      },
+    ])
+    .select();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+
+export const getSocialParticipantsByDb = async (userId: number) => {
+  const { data, error } = await instanceBaaS
+    .from('story_collaborators')
+    .select('user_name')
+    .eq('user_id', userId)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
 };

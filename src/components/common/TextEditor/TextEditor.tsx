@@ -90,6 +90,7 @@ const TextEditor = forwardRef(
       className,
       editorHeight = '720px',
       isReadOnly = false,
+      useToolbarMenu = true,
       initialContent,
     }: TextEditorProps,
     ref
@@ -142,11 +143,17 @@ const TextEditor = forwardRef(
       <div
         className={`relative w-full rounded-xl border border-gray-400 p-3 ${className} ${isReadOnly ? 'bg-gray-200' : 'bg-white'}`}
       >
-        {!isReadOnly && <EditorToolbar editor={editor} />}
+        {!isReadOnly && useToolbarMenu && <EditorToolbar editor={editor} />}
         <EditorContent
           ref={editorContentRef}
           editor={editor}
-          className={`mt-2 overflow-y-auto h-[${editorHeight}]`}
+          className={`mt-2 overflow-y-auto`}
+          style={{
+            height:
+              !isReadOnly && useToolbarMenu
+                ? `calc(${editorHeight} - 20px)`
+                : editorHeight,
+          }}
         />
       </div>
     );
