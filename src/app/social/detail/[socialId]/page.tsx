@@ -13,6 +13,7 @@ import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import StorySummary from '@/app/social/detail/[socialId]/StorySummary';
 import { GetStoryIdResponse } from '@/api/social-detail/type';
+import NotFoundRedirect from '@/app/social/detail/[socialId]/NotFoundRedirect';
 
 const SocialDetail = async ({
   params,
@@ -25,8 +26,10 @@ const SocialDetail = async ({
   }
   const numericStoryId = Number(socialId);
   const queryClient = getQueryClient();
-  let storyId: GetStoryIdResponse;
-
+  const storyId = await getStoryId({ socialId: numericStoryId });
+  if (storyId === 'not-found') {
+    return <NotFoundRedirect />;
+  }
   await queryClient.prefetchQuery({
     queryKey: [QUERY_KEY.SOCIAL_DETAIL, numericStoryId],
     queryFn: () => getSocialDetail({ socialId: numericStoryId }),
@@ -44,11 +47,13 @@ const SocialDetail = async ({
 
   const userInfo = await getMyInfoOrGuest();
   if (userInfo.id !== 'unauthenticated') {
-    storyId = await getStoryId({ socialId: numericStoryId });
     await queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.GET_USER_ROLE, socialId],
       queryFn: () =>
-        getUserRole({ userId: userInfo.id, storyId: storyId.story_id }),
+        getUserRole({
+          userId: userInfo.id,
+          storyId: (storyId as GetStoryIdResponse).story_id,
+        }),
     });
   }
 

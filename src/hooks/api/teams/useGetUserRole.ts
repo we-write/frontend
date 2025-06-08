@@ -15,7 +15,7 @@ interface GetUserRoleResponse {
 const useGetUserRole = ({
   userId,
   storyId,
-}: UseGetUserRoleParams): UseQueryResult<GetUserRoleResponse> => {
+}: UseGetUserRoleParams): UseQueryResult<GetUserRoleResponse | null> => {
   return useQuery({
     queryKey: [QUERY_KEY.GET_USER_ROLE, storyId],
     queryFn: () => getUserRole({ userId: userId!, storyId: storyId! }),
