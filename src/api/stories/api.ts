@@ -153,20 +153,17 @@ export const postContent = async ({
   storyId,
   userId,
 }: PostContentParams) => {
-  const { data, error } = await instanceBaaS
-    .from('Contents')
-    .insert([
-      {
-        story_id: storyId,
-        user_id: userId,
-        content: content,
-      },
-    ])
-    .select();
+  const { error } = await instanceBaaS.from('Contents').insert([
+    {
+      story_id: storyId,
+      user_id: userId,
+      content: content,
+    },
+  ]);
+
   if (error) {
     throw new Error(error.message);
   }
-  return data;
 };
 
 export const getApproveUser = async ({ contentId }: GetApproveUserParams) => {
