@@ -26,26 +26,43 @@ export interface GetSocialListParams {
   offset?: number;
 }
 
-export interface CreateWriteRequest {
-  location: GenreType; //장르
-  name: string; //스토리명
-  type: SocialType; //미정
-  capacity: number; //모집 정원
-  image: File | null; //이미지
-  dateTime: string; //시작날짜
-  registrationEnd: string; //마감날짜
+// 코드잇에서 제공하는 모임 필드 타입
+export interface CodeitSocialFields {
+  name: string;
+  type: SocialType;
+  location: LocationType;
+  capacity: number;
+  image: File | null;
+  dateTime: string;
+  registrationEnd: string;
 }
 
-export interface CreateWriteResponse {
-  id: string;
+// we-write가 사용하는 모임 필드 타입
+export interface SocialFieldsRequest {
   title: string;
-  content: string;
-  createdAt: string;
-  updatedAt: string;
+  genre: GenreType;
+  capacity: number;
+  image: File | null;
+  registrationEnd: string;
+}
+
+// 전체 요청 타입
+export interface CreateSocialResponse {
+  canceledAt: null;
+  capacity: number;
+  createdBy: number;
+  dateTime: string;
+  id: number;
+  image: string;
+  location: LocationType;
+  name: string;
+  participantCount: number;
+  registrationEnd: string;
+  teamId: string;
 }
 
 export interface SocialResponse
-  extends Omit<CreateWriteRequest, 'image' | 'location'> {
+  extends Omit<CodeitSocialFields, 'image' | 'location'> {
   id: string;
   teamId: string;
   name: string;

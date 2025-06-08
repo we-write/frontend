@@ -1,22 +1,42 @@
-import {
-  DBContentApprovalResponse,
-  DBContentResponse,
-  DBStoryResponse,
-} from '@/types/dbStory';
+import { DBContentApprovalResponse, DBContentResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
 import {
   GetContentsProps,
   PostContentParams,
   GetApproveUserParams,
   ApproveContentParams,
+  GetStoriesParams,
+  CreateStoryRequest,
 } from './type';
 
-export const getStories = async () => {
-  const { data, error } = await instanceBaaS.from('Stories').select('*');
+export const getStories = async ({
+  keyword,
+  searchType,
+  genres,
+  offset,
+  limit,
+}: GetStoriesParams) => {
+  const from = offset * limit;
+  const to = from + limit - 1;
 
-  if (error) {
-    throw new Error(error.message);
+  const column = searchType === '제목' ? 'title' : 'summary';
+  const validGenres = genres.filter((g) => g !== '전체');
+
+  let query = instanceBaaS.from('Stories').select('*');
+
+  if (keyword.trim()) {
+    query = query.ilike(column, `%${keyword}%`);
   }
+
+  if (validGenres.length > 0) {
+    query = query.in('genre', validGenres);
+  }
+
+  const { data, error } = await query
+    .order('created_at', { ascending: false })
+    .range(from, to);
+
+  if (error) throw new Error(error.message);
   return data;
 };
 
@@ -48,7 +68,7 @@ export const getLastContent = async (
   return data;
 };
 
-export const createStory = async (story: DBStoryResponse) => {
+export const createStory = async (story: CreateStoryRequest) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .insert(story)

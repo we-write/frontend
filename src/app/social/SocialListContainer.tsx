@@ -21,8 +21,12 @@ const CreateSocialModalButton = () => {
         모임만들기
       </Button>
 
-      <Modal isOpen={isOpen} onClose={close}>
-        <CreateSocialForm />
+      <Modal
+        isOpen={isOpen}
+        onClose={close}
+        className="max-h-[70vh] overflow-scroll"
+      >
+        <CreateSocialForm onClose={close} />
       </Modal>
     </>
   );

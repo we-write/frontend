@@ -7,6 +7,7 @@ import { MenuGroups } from '@/components/layout/GNB/MenuGroups';
 import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
 import useBoolean from '@/hooks/useBoolean';
 import { Hamburger } from '@public/assets/icons';
+import { useAuth } from '@/utils/authContext';
 
 // 메뉴 항목
 const MENU_ITEMS = [
@@ -18,8 +19,7 @@ const MENU_ITEMS = [
 const SIGN_IN_IMAGE = '/assets/images/Profile.png';
 
 export const GNB = () => {
-  const { value: isSignIn } = useBoolean();
-
+  const { isSignIn, userInfo } = useAuth();
   const {
     value: isDrawerOpen,
     setTrue: setIsDrawerOpen,
@@ -28,7 +28,7 @@ export const GNB = () => {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 h-15 w-full bg-white">
+      <nav className="fixed top-0 z-50 h-15 w-full border-b border-gray-200 bg-white">
         <div className="flex-center mx-auto h-full w-full max-w-300 px-4 md:justify-between md:pr-6 md:pl-7 lg:px-1">
           {/* Logo */}
           <div className="flex items-center gap-5 truncate lg:gap-10">
@@ -37,7 +37,7 @@ export const GNB = () => {
             <MenuGroups />
           </div>
           {/* 데스크탑 로그인 영역*/}
-          <LoginSection />
+          <LoginSection isSignIn={isSignIn} userInfo={userInfo} />
           {/* 모바일 햄버거 */}
           <button
             className="absolute top-5 right-5 md:hidden"

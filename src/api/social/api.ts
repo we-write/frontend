@@ -1,8 +1,8 @@
 import { getFilterParams } from '@/utils/getFilterParams';
 import { API_PATH } from '@/constants/apiPath';
 import {
-  CreateWriteRequest,
-  getLocationByGenre,
+  CodeitSocialFields,
+  CreateSocialResponse,
   GetSocialListParams,
   SocialResponse,
 } from './type';
@@ -40,14 +40,11 @@ export const getSocialList = async ({
  * @param data - 게시물 데이터 (제목, 내용, 위치, 이미지 등)
  * @returns 생성된 게시물 정보
  */
-export const createSocial = async (data: CreateWriteRequest) => {
+export const createSocial = async (data: CodeitSocialFields) => {
   try {
-    const response = await instance.post(
+    const response = await instance.post<CreateSocialResponse>(
       API_PATH.SOCIAL,
-      {
-        ...data,
-        location: getLocationByGenre(data.location), // 장르별 위치 변환
-      },
+      data,
       {
         headers: {
           'Content-Type': 'multipart/form-data', // 이미지 업로드용
