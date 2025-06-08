@@ -148,6 +148,12 @@ const TextEditor = forwardRef(
           ref={editorContentRef}
           editor={editor}
           className={`mt-2 overflow-y-auto h-[${editorHeight}]`}
+          style={{
+            height:
+              !isReadOnly && useToolbarMenu
+                ? `calc(${editorHeight} - 20px)`
+                : editorHeight,
+          }}
         />
       </div>
     );
