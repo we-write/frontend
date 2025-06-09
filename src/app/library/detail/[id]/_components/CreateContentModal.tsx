@@ -29,12 +29,12 @@ const CreateContentModal = ({
       console.warn('Editor ref가 존재하지 않습니다.');
       return;
     }
-    const newExtractionHtml = editorContentRef.current.getHTML();
-    if (newExtractionHtml == '<p></p>') {
+    const newExtractionPureString = editorContentRef.current.getText();
+    if (!newExtractionPureString) {
       alert('내용을 작성해주세요.');
       return;
     }
-    localStorage.setItem('TemporaryContent', newExtractionHtml);
+    localStorage.setItem('TemporaryContent', newExtractionPureString);
     alert('임시 저장되었습니다.');
   };
 
@@ -59,7 +59,7 @@ const CreateContentModal = ({
     if (postStoryConfirmed) {
       mutate({
         storyId: currentStoryId,
-        content: validateResult.newExtractionHtml,
+        content: validateResult.newExtractionPureString,
         userId: currentUserId,
       });
       localStorage.removeItem('TemporaryContent');
