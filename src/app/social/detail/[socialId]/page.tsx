@@ -65,6 +65,9 @@ const SocialDetail = async ({
           {...(userInfo.id !== 'unauthenticated' && {
             currentUserId: userInfo.id,
           })}
+          {...(userInfo.id !== 'unauthenticated' && {
+            currentUserName: userInfo.name,
+          })}
           {...(storyId! && { currentStoryId: storyId.story_id })}
         />
         <StorySummary

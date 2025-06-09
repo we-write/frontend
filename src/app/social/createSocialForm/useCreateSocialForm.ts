@@ -104,7 +104,10 @@ const useCreateSocialForm = (onClose: () => void) => {
   const createCollaboratorAsLeader = async (
     data: CreateCollaboratorRequest
   ) => {
-    const response = await createCollaborator(data, TEAM_USER_ROLE.LEADER);
+    const response = await createCollaborator({
+      data: data,
+      role: TEAM_USER_ROLE.LEADER,
+    });
     // TODO: 응답값 개선 하기(#150 PR)
     return response;
   };
