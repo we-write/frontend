@@ -14,11 +14,12 @@ export const Modal = ({
   closeButtonDark,
   noCloseButton,
   fullScreen,
+  backdropNoScroll = false,
   children,
   className,
 }: ModalProps) => {
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && backdropNoScroll) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
@@ -28,7 +29,7 @@ export const Modal = ({
     return () => {
       document.body.style.overflow = '';
     };
-  }, [isOpen]);
+  }, [isOpen, backdropNoScroll]);
   if (!isOpen) return null;
   const backdropStyle =
     'fixed inset-0 z-50 flex items-center justify-center visible opacity-100"';
