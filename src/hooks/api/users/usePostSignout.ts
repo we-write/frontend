@@ -1,12 +1,15 @@
 import { postSignOut } from '@/api/auth';
 import { deleteCookie } from '@/api/cookies';
-import { useMutation } from '@tanstack/react-query';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export const usePostSignout = () => {
+  const queryClient = useQueryClient();
   return useMutation({
     mutationFn: postSignOut,
     onSuccess: () => {
       deleteCookie('accessToken');
+      queryClient.removeQueries({ queryKey: [QUERY_KEY.MY_INFO] });
     },
     onError: (error) => {
       console.error(error);
