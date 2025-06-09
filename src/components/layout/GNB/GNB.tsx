@@ -1,9 +1,9 @@
 'use client';
 
-import { LoginSection } from './LoginSection';
-import { SideDrawer } from '../SideDrawer/SideDrawer';
-import { LogoButton } from '@/components/layout/GNB/LogoButton';
-import { MenuGroups } from '@/components/layout/GNB/MenuGroups';
+import LoginSection from './LoginSection';
+import SideDrawer from '../SideDrawer/SideDrawer';
+import LogoButton from '@/components/layout/GNB/LogoButton';
+import MenuGroups from '@/components/layout/GNB/MenuGroups';
 import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
 import useBoolean from '@/hooks/useBoolean';
 import { Hamburger } from '@public/assets/icons';
@@ -60,8 +60,6 @@ export const GNB = () => {
       <SideDrawer
         isOpen={isDrawerOpen}
         closeDrawer={() => setIsDrawerClose()}
-        isSignIn={isSignIn}
-        userInfo={userInfo}
         menuItems={MENU_ITEMS}
       />
     </>
