@@ -46,6 +46,7 @@ const SocialOverView = ({
     if (role === 'GUEST') {
       if (currentUserId) {
         joinTeam();
+        return;
       }
       alert('로그인이 필요한 서비스입니다.');
       router.push('/auths/signin');
