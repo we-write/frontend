@@ -17,6 +17,7 @@ export const Modal = ({
   children,
   className,
 }: ModalProps) => {
+  if (isOpen) document.body.style.overflow = 'hidden';
   if (!isOpen) return null;
   const backdropStyle =
     'fixed inset-0 z-50 flex items-center justify-center visible opacity-100"';
