@@ -75,8 +75,9 @@ const useCreateSocialForm = (onClose: () => void) => {
       is_public: false,
       approval_period: APPROVAL_PERIOD_OPTIONS[0].value,
     },
-    delayError: 300,
+    delayError: FORM_DELAY_ERROR,
   });
+
   const { data: userInfo } = useGetMyInfo(true);
 
   const {
