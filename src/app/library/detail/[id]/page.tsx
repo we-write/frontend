@@ -12,16 +12,18 @@ import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 import { StoryWriteOrApproveModalProviders } from '@/providers/StoryWriteOrApproveModalProviders';
 import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/ModalTriggerButton';
 import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
+import CoverPage from './_components/CoverPage';
 
 const StoryDetailPage = () => {
   const { id } = useParams();
   const storyId = id as string;
-  const [isMobile, setIsMobile] = useState(false);
+
   const isLoginUser =
     typeof window !== 'undefined'
       ? localStorage.getItem('isSignIn') === 'true'
       : false;
-  const [storyPageNumber, setStoryPageNumber] = useState(1);
+  const [storyPageNumber, setStoryPageNumber] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const handleResize = () => {
     setIsMobile(window?.innerWidth < 640);
   };
@@ -85,17 +87,21 @@ const StoryDetailPage = () => {
   return (
     <div className="bg-50 flex min-h-full w-full flex-col items-center">
       <div className="flex h-[80dvh] w-[95%] max-w-[1600px] flex-col md:h-[740px]">
-        <div className="mt-8 flex-1 md:flex">
-          <section className="h-full w-full overflow-y-auto px-8 py-8 md:w-1/2 md:bg-white">
-            <ContentComponent contents={leftPageContents} />
-          </section>
+        {storyPageNumber === 0 ? (
+          <CoverPage story={story} />
+        ) : (
+          <div className="mt-8 flex-1 md:flex">
+            <section className="h-full w-full overflow-y-auto px-8 py-8 md:w-1/2 md:bg-white">
+              <ContentComponent contents={leftPageContents} />
+            </section>
 
-          <div className="hidden w-[1px] bg-gray-200 md:block" />
+            <div className="hidden w-[1px] bg-gray-200 md:block" />
 
-          <section className="hidden h-full w-1/2 overflow-y-auto bg-white px-8 py-8 md:block">
-            <ContentComponent contents={rightPageContents} />
-          </section>
-        </div>
+            <section className="hidden h-full w-1/2 overflow-y-auto bg-white px-8 py-8 md:block">
+              <ContentComponent contents={rightPageContents} />
+            </section>
+          </div>
+        )}
 
         <PaginationControl
           title={story?.title}
