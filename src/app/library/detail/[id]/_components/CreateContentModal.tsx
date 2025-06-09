@@ -5,6 +5,10 @@ import { CreateContentModalProps } from '@/app/library/detail/[id]/_components/t
 import { useRef, FormEvent } from 'react';
 import usePostContent from '@/hooks/api/stories/usePostContent';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
+import { TextEditorRef } from '@/types/textEditor';
+import validateEditorContent from '@/utils/validators/validateEditorContent';
+
+const CONTENT_MIN_LENGTH = 20;
 
 const CreateContentModal = ({
   currentChapter,
@@ -12,7 +16,7 @@ const CreateContentModal = ({
   currentUserId,
   lastContentData,
 }: CreateContentModalProps) => {
-  const editorContentRef = useRef<{ getHTML: () => string }>(null);
+  const editorContentRef = useRef<TextEditorRef>(null);
   const { isOpen, closeModal } = useStoryModal();
   const { mutate } = usePostContent({ storyId: currentStoryId });
   const temporaryContent =
@@ -36,10 +40,6 @@ const CreateContentModal = ({
 
   const handlePostStoryContent = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!editorContentRef.current) {
-      console.warn('Editor ref가 존재하지 않습니다.');
-      return;
-    }
     if (!currentUserId) {
       console.warn('유저 정보가 존재하지 않습니다.');
       return;
@@ -48,14 +48,18 @@ const CreateContentModal = ({
       alert('승인 대기 중인 글이 존재하여 등록할 수 없습니다.');
       return;
     }
-    const newExtractionHtml = editorContentRef.current.getHTML();
+    const validateResult = validateEditorContent({
+      ref: editorContentRef,
+      minLength: CONTENT_MIN_LENGTH,
+    });
+    if (!validateResult) return;
     const postStoryConfirmed = window.confirm(
       '등록된 후엔 수정할 수 없습니다. 등록하시겠습니까?'
     );
     if (postStoryConfirmed) {
       mutate({
         storyId: currentStoryId,
-        content: newExtractionHtml,
+        content: validateResult.newExtractionHtml,
         userId: currentUserId,
       });
       localStorage.removeItem('TemporaryContent');
