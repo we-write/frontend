@@ -8,7 +8,8 @@ import htmlToString from '@/utils/htmlToString';
 import useGetSocialSummary from '@/hooks/api/stories/useGetSocialSummary';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
-  const { data: summaryData } = useGetSocialSummary(socialList);
+  const { data: summaryData, isLoading: isSummaryLoading } =
+    useGetSocialSummary(socialList);
 
   if (!isLoading && socialList.length === 0) {
     return (
@@ -41,7 +42,7 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
                 ? htmlToString(summaryData[index])
                 : '모임장이 소개글을 작성하고 있어요!',
           }}
-          isCardDataLoading={isLoading || !summaryData}
+          isCardDataLoading={isLoading || isSummaryLoading}
         />
       ))}
     </div>
