@@ -7,6 +7,7 @@ import {
   SocialResponse,
 } from './type';
 import instance from '../instance';
+import { getCookie } from '../cookies';
 
 export const FETCH_GET_ITEM_LIMIT = 12;
 export const GET_SOCIAL_LIST_INIT_FILTER = {
@@ -33,14 +34,13 @@ export const getSocialList = async ({
   }
 };
 
-/**
- * 새 소셜 게시물을 만듭니다
- * 이미지 파일을 포함한 모든 데이터를 서버에 전송합니다
- *
- * @param data - 게시물 데이터 (제목, 내용, 위치, 이미지 등)
- * @returns 생성된 게시물 정보
- */
 export const createSocial = async (data: CodeitSocialFields) => {
+  const accessToken = await getCookie('accessToken');
+
+  if (!accessToken) {
+    throw new Error('accessToken이 없습니다.');
+  }
+
   try {
     const response = await instance.post<CreateSocialResponse>(
       API_PATH.SOCIAL,
@@ -48,6 +48,7 @@ export const createSocial = async (data: CodeitSocialFields) => {
       {
         headers: {
           'Content-Type': 'multipart/form-data', // 이미지 업로드용
+          Authorization: `Bearer ${accessToken}`,
         },
       }
     );

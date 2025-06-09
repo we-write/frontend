@@ -30,6 +30,7 @@ instance.interceptors.request.use(async (config) => {
   if (!accessToken) {
     throw new Error('accessToken이 없습니다.');
   }
+
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
