@@ -70,6 +70,12 @@
   height: 0;
 }
 
+.rendered-html p:empty::after {
+  content: '\A';
+  white-space: pre;
+  display: block;
+}
+
 blockquote {
   border-left: 4px solid #ccc;
   margin-left: 0;

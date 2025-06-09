@@ -154,6 +154,7 @@ export const updateContentMerge = async (storyId: string): Promise<void> => {
       .from('Contents')
       .select('content_id')
       .eq('story_id', storyId)
+      .eq('status', 'PENDING')
       .single();
     if (contentsError) {
       throw new Error(contentsError.message);
@@ -175,8 +176,6 @@ export const updateContentMerge = async (storyId: string): Promise<void> => {
           status: 'MERGED',
         })
         .eq('story_id', storyId);
-    } else {
-      throw new Error('스토리 승인 기준 미달');
     }
   } catch (error) {
     throw new Error(error as string);

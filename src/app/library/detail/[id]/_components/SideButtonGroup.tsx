@@ -3,7 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import Link from 'next/link';
 import React from 'react';
 
-export const SideButtonGroup = () => {
+const SideButtonGroup = () => {
   return (
     <div className="flex flex-row md:top-20 md:left-40 md:flex-col md:gap-4">
       <Link
@@ -21,3 +21,4 @@ export const SideButtonGroup = () => {
     </div>
   );
 };
+export default SideButtonGroup;

@@ -44,7 +44,7 @@ const CreateContentModal = ({
       console.warn('유저 정보가 존재하지 않습니다.');
       return;
     }
-    if (lastContentData.status === 'PENDING') {
+    if (lastContentData?.status === 'PENDING') {
       alert('승인 대기 중인 글이 존재하여 등록할 수 없습니다.');
       return;
     }

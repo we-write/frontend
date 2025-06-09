@@ -6,5 +6,9 @@ export const useGetContent = ({ id, page, limit }: GetContentsProps) => {
   return useQuery({
     queryKey: ['contents', id, page],
     queryFn: () => getContents({ id, page, limit }),
+    select: (response) => ({
+      count: response.count,
+      data: response.data.filter((item) => item.status === 'MERGED'),
+    }),
   });
 };
