@@ -28,27 +28,20 @@ const Page = () => {
         router.push('/social');
       },
       onError: (error: Error) => {
-        try {
-          const errorData = JSON.parse(error.message);
-          if (
-            errorData.code === 'VALIDATION_ERROR' ||
-            errorData.code === 'USER_NOT_FOUND'
-          ) {
-            setError('email', {
-              type: 'manual',
-              message: errorData.message,
-            });
-          }
-          if (errorData.code === 'INVALID_CREDENTIALS') {
-            setError('password', {
-              type: 'manual',
-              message: errorData.message,
-            });
-          }
-        } catch {
+        const errorData = JSON.parse(error.message);
+        if (
+          errorData.code === 'VALIDATION_ERROR' ||
+          errorData.code === 'USER_NOT_FOUND'
+        ) {
           setError('email', {
             type: 'manual',
-            message: error.message,
+            message: errorData.message,
+          });
+        }
+        if (errorData.code === 'INVALID_CREDENTIALS') {
+          setError('password', {
+            type: 'manual',
+            message: errorData.message,
           });
         }
       },

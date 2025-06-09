@@ -53,7 +53,7 @@ export const postSignIn = async (data: SigninRequest) => {
         throw new Error(JSON.stringify({ code, message }));
       }
     }
-    console.error(error);
+
     throw error;
   }
 };
