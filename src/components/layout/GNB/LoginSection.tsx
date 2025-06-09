@@ -38,7 +38,7 @@ export const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div ref={containerRef} className="hidden md:flex">
+      <div ref={containerRef} className="relative hidden md:flex">
         {userInfo && isSignIn ? (
           <button
             onClick={openDropdown}
