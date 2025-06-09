@@ -73,6 +73,7 @@ const Calendar = ({
       const isDisabled = isDateDisabled?.(prevDate);
       days.push(
         <button
+          type="button"
           key={`prev-${daysInPrevMonth - i}`}
           className={`h-8 w-8 rounded text-sm ${
             isDisabled
@@ -102,6 +103,7 @@ const Calendar = ({
 
       days.push(
         <button
+          type="button"
           key={day}
           className={getCalendarButtonStyle({
             isSelected,
@@ -127,6 +129,7 @@ const Calendar = ({
       const isDisabled = isDateDisabled?.(nextDate);
       days.push(
         <button
+          type="button"
           key={`next-${day}`}
           className={`h-8 w-8 rounded text-sm ${
             isDisabled
@@ -154,6 +157,7 @@ const Calendar = ({
       {/* Calendar Header */}
       <div className="mb-4 flex items-center justify-between">
         <button
+          type="button"
           onClick={() => navigateMonth('prev')}
           className="rounded p-1 hover:bg-gray-100"
         >
@@ -163,6 +167,7 @@ const Calendar = ({
           {MONTH_NAMES[currentDate.getMonth()]} {currentDate.getFullYear()}
         </h2>
         <button
+          type="button"
           onClick={() => navigateMonth('next')}
           className="rounded p-1 hover:bg-gray-100"
         >

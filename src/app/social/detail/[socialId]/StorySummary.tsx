@@ -7,13 +7,17 @@ import { useEffect, useRef, useState } from 'react';
 import { SummaryProps } from '@/app/social/detail/[socialId]/type';
 import useGetSummary from '@/hooks/api/teams/useGetSummary';
 import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
+import { TextEditorRef } from '@/types/textEditor';
+import validateEditorContent from '@/utils/validators/validateEditorContent';
+
+const SUMMARY_MIN_LENGTH = 10;
 
 const StorySummary = ({
   currentSocialId,
   currentUserId,
   currentStoryId,
 }: SummaryProps) => {
-  const editorContentRef = useRef<{ getHTML: () => string }>(null);
+  const editorContentRef = useRef<TextEditorRef>(null);
   const [extractionHtml, setExtractionHtml] = useState('');
   const { data: summaryData } = useGetSummary({
     socialId: currentSocialId,
@@ -35,16 +39,16 @@ const StorySummary = ({
   }, [summaryData?.summary]);
 
   const handleStoryIntroductionSubmit = () => {
-    if (!editorContentRef.current) {
-      console.warn('Editor ref가 존재하지 않습니다.');
-      return;
-    }
-    const newExtractionHtml = editorContentRef.current.getHTML();
+    const validateResult = validateEditorContent({
+      ref: editorContentRef,
+      minLength: SUMMARY_MIN_LENGTH,
+    });
+    if (!validateResult) return;
     mutate({
       socialId: currentSocialId,
-      summaryHtml: newExtractionHtml,
+      summaryHtml: validateResult.newExtractionHtml,
     });
-    setExtractionHtml(newExtractionHtml);
+    setExtractionHtml(validateResult.newExtractionHtml);
   };
 
   return (

@@ -2,7 +2,7 @@
 
 import DetailCard from '@/components/common/Card/DetailCard';
 import useJoinTeam from '@/hooks/api/teams/useJoinTeam';
-import { TeamUserRole } from '@/types/teamUserRole';
+import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';
 import { SocialOverViewProps } from '@/app/social/detail/[socialId]/type';
@@ -11,10 +11,12 @@ import useGetSocialDetail from '@/hooks/api/teams/useGetSocialDetail';
 import useGetSocialParticipants from '@/hooks/api/teams/useGetSocialParticipants';
 import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
 import { useRouter } from 'next/navigation';
+import useParticipateCollaborator from '@/hooks/api/teams/useParticipateCollaborator';
 
 const SocialOverView = ({
   currentSocialId,
   currentUserId,
+  currentUserName,
   currentStoryId,
 }: SocialOverViewProps) => {
   const { data: socialDetailData, isLoading: socialDetailDataIsLoading } =
@@ -36,6 +38,9 @@ const SocialOverView = ({
   const { mutate: joinTeam } = useJoinTeam({
     socialId: currentSocialId,
   });
+  const { mutate: insertNewCollaborator } = useParticipateCollaborator({
+    socialId: currentSocialId,
+  });
   const imagesUrls = extractUserImages(socialTeamsParticipantsData);
   const currentUserRole: TeamUserRole = userRoleData
     ? userRoleData.role
@@ -43,8 +48,26 @@ const SocialOverView = ({
   const router = useRouter();
 
   const navigateStoryOrJoinTeam = (role: TeamUserRole) => {
+    if (!currentStoryId) {
+      alert('스토리 정보를 불러오지 못했습니다. 잠시 후에 다시 시도해주세요.');
+      return;
+    }
     if (role === 'GUEST') {
-      joinTeam();
+      if (currentUserId && currentUserName) {
+        joinTeam();
+        insertNewCollaborator({
+          data: {
+            story_id: currentStoryId,
+            user_id: currentUserId,
+            user_name: currentUserName,
+            joined_at: new Date().toISOString(),
+          },
+          role: TEAM_USER_ROLE.MEMBER,
+        });
+        return;
+      }
+      alert('로그인이 필요한 서비스입니다.');
+      router.push('/auths/signin');
     } else if (role === 'MEMBER' || role === 'LEADER') {
       router.push(`/library/detail/${currentStoryId}`);
     }

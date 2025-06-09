@@ -1,9 +1,9 @@
 'use client';
 
-import { LoginSection } from './LoginSection';
-import { SideDrawer } from '../SideDrawer/SideDrawer';
-import { LogoButton } from '@/components/layout/GNB/LogoButton';
-import { MenuGroups } from '@/components/layout/GNB/MenuGroups';
+import LoginSection from './LoginSection';
+import SideDrawer from '../SideDrawer/SideDrawer';
+import LogoButton from '@/components/layout/GNB/LogoButton';
+import MenuGroups from '@/components/layout/GNB/MenuGroups';
 import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
 import useBoolean from '@/hooks/useBoolean';
 import { Hamburger } from '@public/assets/icons';
@@ -11,12 +11,10 @@ import { useAuth } from '@/utils/authContext';
 
 // 메뉴 항목
 const MENU_ITEMS = [
+  { label: APP_ROUTES_LABEL.mypage, href: APP_ROUTES.mypage },
   { label: APP_ROUTES_LABEL.social, href: APP_ROUTES.social },
   { label: APP_ROUTES_LABEL.library, href: APP_ROUTES.library },
 ];
-
-// 이미지 경로
-const SIGN_IN_IMAGE = '/assets/images/Profile.png';
 
 export const GNB = () => {
   const { isSignIn, userInfo } = useAuth();
@@ -62,9 +60,7 @@ export const GNB = () => {
       <SideDrawer
         isOpen={isDrawerOpen}
         closeDrawer={() => setIsDrawerClose()}
-        isSignIn={isSignIn}
         menuItems={MENU_ITEMS}
-        signInImageSrc={SIGN_IN_IMAGE}
       />
     </>
   );

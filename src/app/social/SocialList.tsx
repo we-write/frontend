@@ -6,6 +6,7 @@ import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
 import GridCard from '@/components/common/Card/GridCard';
 import htmlToString from '@/utils/htmlToString';
 import useGetSocialSummary from '@/hooks/api/stories/useGetSocialSummary';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
   const { data: summaryData, isLoading: isSummaryLoading } =
@@ -24,8 +25,8 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {socialList.map((item, index) => (
         <GridCard
+          href={`${APP_ROUTES.social}/detail/${item.id}`}
           key={item.id}
-          pageId={item.id}
           image={{
             src:
               item.image ||

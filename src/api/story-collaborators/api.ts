@@ -1,12 +1,9 @@
-import { TeamUserRole } from '@/types/teamUserRole';
 import instanceBaaS from '../instanceBaaS';
-import { CreateCollaboratorRequest } from './type';
 import { DB_PATH } from '@/constants/apiPath';
+import { CreateCollaboratorParams } from './type';
 
-export const createCollaborator = async (
-  data: CreateCollaboratorRequest,
-  role: TeamUserRole
-) => {
+export const createCollaborator = async (params: CreateCollaboratorParams) => {
+  const { data, role } = params;
   const response = await instanceBaaS.from(DB_PATH.STORY_COLLABORATORS).insert({
     ...data,
     role,

@@ -31,11 +31,11 @@ interface DurationProps {
 }
 
 export interface GridCardProps {
-  pageId: string | null;
   tag?: ReactNode;
   image: ImageProps;
   textContent: GridCardtextContentProps;
   isCardDataLoading: boolean;
+  href: string;
 }
 
 export interface DetailCardProps {
