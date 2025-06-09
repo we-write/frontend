@@ -9,7 +9,8 @@ const SearchInput = ({ keyword, setKeyword, onSearch }: SearchInputProps) => {
   const { register, handleSubmit, setValue, watch } = useForm<FormValues>({
     defaultValues: { search: keyword },
   });
-  const debouncedKeyword = useDebounce(watch('search'), 300);
+  const SEARCH_DEBOUNCE_DELAY = 300;
+  const debouncedKeyword = useDebounce(watch('search'), SEARCH_DEBOUNCE_DELAY);
 
   useEffect(() => {
     if (debouncedKeyword === '') {
