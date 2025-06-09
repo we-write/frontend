@@ -7,4 +7,5 @@ export const QUERY_KEY = {
   GET_APPROVE_USER: 'get-approve-user',
   GET_LAST_CONTENT: 'get-last-content',
   SOCIAL: 'social',
+  SOCIAL_SUMMARY: 'social-summary',
 } as const;

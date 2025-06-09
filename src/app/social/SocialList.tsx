@@ -4,24 +4,11 @@ import { useGetSocialList } from '@/hooks/api/social';
 import Observer from '@/components/common/Observer/Observer';
 import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
 import GridCard from '@/components/common/Card/GridCard';
-import { useQuery } from '@tanstack/react-query';
 import htmlToString from '@/utils/htmlToString';
-import { getSocialSummary } from '@/api/stories/api';
+import useGetSocialSummary from '@/hooks/api/stories/useGetSocialSummary';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
-  const { data: summaryData } = useQuery({
-    queryKey: ['socialSummary', socialList.map((item) => item.id)],
-    queryFn: async () => {
-      const summaries = await Promise.all(
-        socialList.map(async (item) => {
-          const summary = await getSocialSummary(item.id);
-          return summary;
-        })
-      );
-      return summaries;
-    },
-    enabled: !!socialList.length,
-  });
+  const { data: summaryData } = useGetSocialSummary(socialList);
 
   if (!isLoading && socialList.length === 0) {
     return (
