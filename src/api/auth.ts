@@ -20,6 +20,9 @@ export const createUser = async (data: SignUpRequest) => {
       if (code === 'EMAIL_EXISTS') {
         throw new Error(message);
       }
+      if (code === 'VALIDATION_ERROR') {
+        throw new Error(message);
+      }
     }
     console.error(error);
     throw error;
