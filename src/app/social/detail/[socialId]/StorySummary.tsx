@@ -73,7 +73,7 @@ const StorySummary = ({
         </div>
       ) : (
         <div
-          className="prose max-w-none"
+          className="prose rendered-html max-w-none"
           dangerouslySetInnerHTML={{ __html: extractionHtml }}
         />
       )}
