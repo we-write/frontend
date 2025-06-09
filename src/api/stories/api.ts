@@ -40,6 +40,21 @@ export const getStories = async ({
   return data;
 };
 
+export const getSocialSummary = async (id: string) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('*')
+    .eq('social_id', id)
+    .single();
+
+  if (error) {
+    console.error('Error fetching summary:', error);
+    return '모임장이 소개글을 작성하고 있어요!';
+  }
+
+  return data?.summary || '모임장이 소개글을 작성하고 있어요!';
+};
+
 export const getStory = async (id: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')

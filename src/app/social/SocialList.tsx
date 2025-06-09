@@ -4,9 +4,14 @@ import { useGetSocialList } from '@/hooks/api/social';
 import Observer from '@/components/common/Observer/Observer';
 import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
 import GridCard from '@/components/common/Card/GridCard';
+import htmlToString from '@/utils/htmlToString';
+import useGetSocialSummary from '@/hooks/api/stories/useGetSocialSummary';
 import { APP_ROUTES } from '@/constants/appRoutes';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
+  const { data: summaryData, isLoading: isSummaryLoading } =
+    useGetSocialSummary(socialList);
+
   if (!isLoading && socialList.length === 0) {
     return (
       <div className="space-y-1 text-center text-base text-gray-500">
@@ -18,7 +23,7 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
 
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
-      {socialList.map((item) => (
+      {socialList.map((item, index) => (
         <GridCard
           href={`${APP_ROUTES.social}/detail/${item.id}`}
           key={item.id}
@@ -33,9 +38,12 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
             genre:
               convertLocationToGenre({ location: item.location }) ||
               '장르 없음',
-            description: item.type || '미정',
+            description:
+              summaryData && summaryData[index]
+                ? htmlToString(summaryData[index])
+                : '모임장이 소개글을 작성하고 있어요!',
           }}
-          isCardDataLoading={isLoading}
+          isCardDataLoading={isLoading || isSummaryLoading}
         />
       ))}
     </div>
