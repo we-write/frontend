@@ -13,5 +13,5 @@ export interface CreateContentModalProps {
   currentChapter: number;
   currentStoryId: string;
   currentUserId?: number;
-  lastContentData: DBContentResponse;
+  lastContentData?: DBContentResponse;
 }
