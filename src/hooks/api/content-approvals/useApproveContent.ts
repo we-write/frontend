@@ -1,4 +1,4 @@
-import { approveContent } from '@/api/stories/api';
+import { approveContent, updateContentMerge } from '@/api/stories/api';
 import { ApproveContentParams } from '@/api/stories/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { DBContentApprovalResponse } from '@/types/dbStory';
@@ -28,6 +28,7 @@ const useApproveContent = ({
       console.error(error);
     },
     onSuccess: () => {
+      updateContentMerge(storyId);
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.GET_LAST_CONTENT, storyId],
       });

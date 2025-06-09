@@ -139,6 +139,7 @@ export const updateContentMerge = async (storyId: string): Promise<void> => {
       .from('Contents')
       .select('content_id')
       .eq('story_id', storyId)
+      .eq('status', 'PENDING')
       .single();
     if (contentsError) {
       throw new Error(contentsError.message);
