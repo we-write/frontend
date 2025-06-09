@@ -3,6 +3,7 @@
 import { LibraryListGridProps } from '@/app/library/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
+import { APP_ROUTES } from '@/constants/appRoutes';
 import { useInfiniteStories } from '@/hooks/library/useInfiniteStories';
 import htmlToString from '@/utils/htmlToString';
 
@@ -31,9 +32,8 @@ const LibraryListGrid = ({
       <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4">
         {Array.from({ length: 4 }).map((_, index) => (
           <GridCard
-            href=""
+            href={''}
             key={index}
-            pageId="1"
             image={{
               src: '',
               alt: '',
@@ -66,9 +66,8 @@ const LibraryListGrid = ({
       <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4 lg:grid-cols-3">
         {flatStories?.map((story) => (
           <GridCard
-            href="library"
+            href={`${APP_ROUTES.library}/detail/${story.story_id}`}
             key={story.story_id}
-            pageId={story.story_id}
             image={{
               src:
                 story.cover_image_url ||
