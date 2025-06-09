@@ -11,6 +11,7 @@ import EditorToolbar from '@/components/common/TextEditor/EditorToolbar';
 import { Plugin } from 'prosemirror-state';
 import { TextEditorProps } from '@/components/common/TextEditor/type';
 import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import getTextWithLineBreaks from '@/utils/getTextWithLineBreaks';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -116,7 +117,8 @@ const TextEditor = forwardRef(
         editor
           ? {
               getHTML: () => editor.getHTML(),
-              getText: () => editor.getText(),
+              getText: () =>
+                getTextWithLineBreaks({ htmlString: editor.getHTML() }),
             }
           : {
               getHTML: () => '',
