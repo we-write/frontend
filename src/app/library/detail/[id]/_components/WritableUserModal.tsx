@@ -47,13 +47,15 @@ const WritableUserModal = ({
     }
   }, [approveUserData, currentUserId]);
 
-  if (lastContentData?.status === 'MERGED') {
+  if (!lastContentData || lastContentData?.status === 'MERGED') {
     return (
       <CreateStoryContentModal
         currentChapter={currentChapter}
         currentStoryId={currentStoryId}
         currentUserId={currentUserId}
-        lastContentData={lastContentData}
+        {...(lastContentData && {
+          lastContentData: lastContentData,
+        })}
       />
     );
   }
