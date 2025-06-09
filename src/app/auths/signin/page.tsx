@@ -8,11 +8,12 @@ import { SigninRequest } from '@/types/user';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
+import { useState } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useBoolean from '@/hooks/useBoolean';
 
 const Page = () => {
+  const [isClicked, setIsClicked] = useState(false);
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
   const router = useRouter();
   const {
@@ -23,23 +24,21 @@ const Page = () => {
   } = useForm<SigninRequest>();
   const { mutate: signIn } = usePostSignin();
   const onSubmit: SubmitHandler<SigninRequest> = (data) => {
+    if (isClicked) return;
+
+    setIsClicked(true);
     signIn(data, {
       onSuccess: () => {
         router.push('/social');
       },
       onError: (error: Error) => {
         if (error.message === '존재하지 않는 아이디입니다') {
-          setError('email', {
-            type: 'manual',
-            message: error.message,
-          });
+          setError('email', { type: 'manual', message: error.message });
         }
         if (error.message === '비밀번호가 아이디와 일치하지 않습니다') {
-          setError('password', {
-            type: 'manual',
-            message: error.message,
-          });
+          setError('password', { type: 'manual', message: error.message });
         }
+        setIsClicked(false);
       },
     });
   };
@@ -102,7 +101,9 @@ const Page = () => {
             role="button"
             type="submit"
             color="custom"
-            disabled={isSubmitting || !!errors.email || !!errors.password}
+            disabled={
+              isClicked || isSubmitting || !!errors.email || !!errors.password
+            }
             className={`${errors.email || errors.password ? 'bg-gray-400' : 'bg-write-main'} font-bold text-white`}
           >
             로그인
