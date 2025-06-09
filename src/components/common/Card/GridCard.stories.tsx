@@ -14,6 +14,7 @@ type Story = StoryObj<typeof GridCard>;
 
 export const ShortContent: Story = {
   args: {
+    href: 'social',
     pageId: '1',
     tag: (
       <span className="bg-write-success rounded px-2 py-1 text-xs">New</span>
@@ -33,6 +34,7 @@ export const ShortContent: Story = {
 
 export const LongContent: Story = {
   args: {
+    href: 'social',
     pageId: '3',
     tag: <span className="rounded bg-yellow-200 px-2 py-1 text-xs">Top</span>,
     image: {
@@ -51,6 +53,7 @@ export const LongContent: Story = {
 
 export const SkeletonUI: Story = {
   args: {
+    href: 'social',
     pageId: '1',
     tag: undefined,
     image: {
