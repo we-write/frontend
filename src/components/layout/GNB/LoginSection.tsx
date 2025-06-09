@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
 import useBoolean from '@/hooks/useBoolean';
-import { RefObject, useEffect, useRef } from 'react';
 import { useClickOutside } from '@/hooks/useClickOutside';
 import { usePostSignout } from '@/hooks/api/users/usePostSignout';
 import UserDropdown from '@/components/layout/GNB/UserDropdown';
@@ -20,17 +19,13 @@ const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
   const router = useRouter();
   const queryClient = useQueryClient();
   const { mutate: signOut } = usePostSignout();
-  const containerRef = useRef<HTMLDivElement | null>(null);
+
   const {
     value: isDropdownOpen,
     setTrue: openDropdown,
     setFalse: closeDropdown,
   } = useBoolean();
-  useClickOutside(containerRef as RefObject<HTMLElement>, closeDropdown);
-
-  useEffect(() => {
-    if (!containerRef.current) return;
-  }, [closeDropdown]);
+  const ref = useClickOutside(closeDropdown);
 
   const handleSignOut = () => {
     signOut();
@@ -39,11 +34,11 @@ const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <div ref={containerRef} className="hidden md:flex">
+      <div ref={ref} className="relative hidden md:flex">
         {userInfo && isSignIn ? (
           <button
             onClick={openDropdown}
-            className="hidden items-center justify-center md:flex"
+            className="items-center justify-center"
             aria-label="유저 메뉴 열기"
           >
             {userInfo.image ? (
@@ -61,18 +56,19 @@ const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
         ) : (
           <button
             onClick={() => router.push(APP_ROUTES.signin)}
-            className="hidden md:flex"
+            className="text-write-main text-base font-semibold"
           >
-            <span className="text-write-main text-base font-semibold">
-              로그인
-            </span>
+            로그인
           </button>
         )}
         {isDropdownOpen && (
-          <UserDropdown onSignOut={handleSignOut} onClose={closeDropdown} />
+          <div className="absolute top-full right-0 z-10">
+            <UserDropdown onSignOut={handleSignOut} onClose={closeDropdown} />
+          </div>
         )}
       </div>
     </HydrationBoundary>
   );
 };
+
 export default LoginSection;

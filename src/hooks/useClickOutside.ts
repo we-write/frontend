@@ -1,9 +1,8 @@
-import { RefObject, useEffect } from 'react';
+import { useEffect, useRef } from 'react';
 
-export const useClickOutside = (
-  ref: RefObject<HTMLElement>,
-  handler: () => void
-) => {
+export const useClickOutside = (handler: () => void) => {
+  const ref = useRef<HTMLDivElement | null>(null);
+
   useEffect(() => {
     const listener = (event: MouseEvent) => {
       if (!ref.current || ref.current.contains(event.target as Node)) return;
@@ -14,5 +13,7 @@ export const useClickOutside = (
     return () => {
       document.removeEventListener('mousedown', listener);
     };
-  }, [ref, handler]);
+  }, [handler]);
+
+  return ref;
 };
