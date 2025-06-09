@@ -1,19 +1,15 @@
 'use client';
 
-import { SideDrawerProps } from '@/components/layout/SideDrawer/type';
+import LogoButton from '@/components/layout/GNB/LogoButton';
 import Link from 'next/link';
+import { SideDrawerProps } from '@/components/layout/SideDrawer/type';
 import { usePathname, useRouter } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { usePostSignout } from '@/hooks/api/users/usePostSignout';
-import { LogoButton } from '@/components/layout/GNB/LogoButton';
+import { useAuth } from '@/utils/authContext';
 
-export const SideDrawer = ({
-  isOpen,
-  closeDrawer,
-  isSignIn,
-  userInfo,
-  menuItems,
-}: SideDrawerProps) => {
+const SideDrawer = ({ isOpen, closeDrawer, menuItems }: SideDrawerProps) => {
+  const { isSignIn, userInfo } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const { mutate: signOut } = usePostSignout();
@@ -86,3 +82,4 @@ export const SideDrawer = ({
     </div>
   );
 };
+export default SideDrawer;

@@ -17,7 +17,7 @@ export interface LoginSectionProps {
 export interface SideDrawerProps {
   isOpen: boolean;
   closeDrawer: () => void;
-  isSignIn: boolean;
-  userInfo: UserResponse | null;
+  // isSignIn: boolean;
+  // userInfo: UserResponse | null;
   menuItems: MenuItemProps[];
 }
