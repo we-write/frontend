@@ -5,6 +5,7 @@ export interface ModalProps {
   closeButtonDark?: boolean;
   noCloseButton?: boolean;
   fullScreen?: boolean;
+  backdropNoScroll?: boolean;
   children: React.ReactNode;
   className?: string;
 }
