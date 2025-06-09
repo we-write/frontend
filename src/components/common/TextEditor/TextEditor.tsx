@@ -116,9 +116,11 @@ const TextEditor = forwardRef(
         editor
           ? {
               getHTML: () => editor.getHTML(),
+              getText: () => editor.getText(),
             }
           : {
               getHTML: () => '',
+              getText: () => '',
             },
       [editor]
     );
