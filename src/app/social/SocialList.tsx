@@ -39,9 +39,7 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
             description:
               summaryData && summaryData[index]
                 ? htmlToString(summaryData[index])
-                : isLoading
-                  ? '로딩 중...'
-                  : '모임장이 소개글을 작성하고 있어요!',
+                : '모임장이 소개글을 작성하고 있어요!',
           }}
           isCardDataLoading={isLoading || !summaryData}
         />
