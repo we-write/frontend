@@ -19,6 +19,7 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {socialList.map((item) => (
         <GridCard
+          href="social"
           key={item.id}
           pageId={item.id}
           image={{

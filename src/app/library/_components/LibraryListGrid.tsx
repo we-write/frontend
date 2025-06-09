@@ -31,6 +31,7 @@ const LibraryListGrid = ({
       <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4">
         {Array.from({ length: 4 }).map((_, index) => (
           <GridCard
+            href=""
             key={index}
             pageId="1"
             image={{
@@ -65,6 +66,7 @@ const LibraryListGrid = ({
       <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4 lg:grid-cols-3">
         {flatStories?.map((story) => (
           <GridCard
+            href="library"
             key={story.story_id}
             pageId={story.story_id}
             image={{

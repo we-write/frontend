@@ -36,6 +36,7 @@ export interface GridCardProps {
   image: ImageProps;
   textContent: GridCardtextContentProps;
   isCardDataLoading: boolean;
+  href: 'library' | 'social' | '';
 }
 
 export interface DetailCardProps {
