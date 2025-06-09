@@ -129,7 +129,7 @@ const useCreateSocialForm = (onClose: () => void) => {
       const storyResponse = await createStoryApi(storyData);
       await createCollaboratorAsLeader({
         story_id: storyResponse[0]?.story_id.toString(),
-        user_id: socialResponseData.id,
+        user_id: userInfo?.id,
         user_name: userInfo?.name,
         joined_at: new Date().toISOString(),
       });
