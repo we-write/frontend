@@ -8,7 +8,7 @@ const MENU_ITEMS = [
   { label: APP_ROUTES_LABEL.library, href: APP_ROUTES.library },
 ];
 
-export const MenuGroups = () => {
+const MenuGroups = () => {
   const pathname = usePathname();
 
   return (
@@ -30,3 +30,5 @@ export const MenuGroups = () => {
     </ul>
   );
 };
+
+export default MenuGroups;
