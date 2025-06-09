@@ -119,7 +119,7 @@ const Page = () => {
                   ...register('password', {
                     required: '비밀번호가 8자 이상이 되도록 해 주세요',
                     pattern: {
-                      value: /^.{8,}$/,
+                      value: /^[^\s]{8,}$/,
                       message: '비밀번호가 8자 이상이 되도록 해 주세요',
                     },
                   }),

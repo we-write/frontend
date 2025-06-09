@@ -75,8 +75,9 @@ const useCreateSocialForm = (onClose: () => void) => {
       is_public: false,
       approval_period: APPROVAL_PERIOD_OPTIONS[0].value,
     },
-    delayError: 300,
+    delayError: FORM_DELAY_ERROR,
   });
+
   const { data: userInfo } = useGetMyInfo(true);
 
   const {
@@ -103,7 +104,10 @@ const useCreateSocialForm = (onClose: () => void) => {
   const createCollaboratorAsLeader = async (
     data: CreateCollaboratorRequest
   ) => {
-    const response = await createCollaborator(data, TEAM_USER_ROLE.LEADER);
+    const response = await createCollaborator({
+      data: data,
+      role: TEAM_USER_ROLE.LEADER,
+    });
     // TODO: 응답값 개선 하기(#150 PR)
     return response;
   };

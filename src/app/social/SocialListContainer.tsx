@@ -9,15 +9,28 @@ import useBoolean from '@/hooks/useBoolean';
 import { GET_SOCIAL_LIST_INIT_FILTER } from '@/api/social/api';
 import SocialList from './SocialList';
 import SocialFilterBar from './SocialFilterBar';
+import { useAuth } from '@/utils/authContext';
+import { useRouter } from 'next/navigation';
 
 const CreateSocialModalButton = () => {
   const { value: isOpen, setFalse: close, setTrue: open } = useBoolean();
+  const { isSignIn } = useAuth();
+  const router = useRouter();
+
+  const handleModalClick = () => {
+    if (isSignIn) {
+      open();
+    } else {
+      alert('로그인 후 이용해주세요.');
+      router.push('/auths/signin');
+    }
+  };
 
   return (
     <>
       {/* 모임만들기 버튼 */}
       {/* 버튼사이즈는 버튼 리팩토링 이후 삭제예정 */}
-      <Button size="custom" className="w-[115px]" onClick={open}>
+      <Button size="custom" className="w-[115px]" onClick={handleModalClick}>
         모임만들기
       </Button>
 
