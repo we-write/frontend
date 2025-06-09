@@ -44,7 +44,12 @@ const SocialOverView = ({
 
   const navigateStoryOrJoinTeam = (role: TeamUserRole) => {
     if (role === 'GUEST') {
-      joinTeam();
+      if (currentUserId) {
+        joinTeam();
+        return;
+      }
+      alert('로그인이 필요한 서비스입니다.');
+      router.push('/auths/signin');
     } else if (role === 'MEMBER' || role === 'LEADER') {
       router.push(`/library/detail/${currentStoryId}`);
     }
