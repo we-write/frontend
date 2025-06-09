@@ -12,7 +12,7 @@ instance.interceptors.request.use(async (config) => {
   const excludedPaths = [
     '/auths/signup',
     '/auths/signin',
-    // '/gatherings',
+    '/gatherings',
     /^\/gatherings\/\d+$/, // 숫자로 이루어진 ID를 가진 gatherings 엔드포인트
     '/reviews',
     '/reviews/scores',
@@ -31,7 +31,6 @@ instance.interceptors.request.use(async (config) => {
     throw new Error('accessToken이 없습니다.');
   }
 
-  console.log(accessToken);
   if (accessToken) {
     config.headers.Authorization = `Bearer ${accessToken}`;
   }
