@@ -50,10 +50,13 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
               convertLocationToGenre({ location: item.location }) ||
               '장르 없음',
             description:
-              htmlToString(summaryData?.[index]) ||
-              '모임장이 소개글을 작성하고 있어요!',
+              summaryData && summaryData[index]
+                ? htmlToString(summaryData[index])
+                : isLoading
+                  ? '로딩 중...'
+                  : '모임장이 소개글을 작성하고 있어요!',
           }}
-          isCardDataLoading={isLoading}
+          isCardDataLoading={isLoading || !summaryData}
         />
       ))}
     </div>
