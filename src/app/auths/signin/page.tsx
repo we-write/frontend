@@ -28,16 +28,20 @@ const Page = () => {
         router.push('/social');
       },
       onError: (error: Error) => {
-        if (error.message === '존재하지 않는 아이디입니다') {
+        const errorData = JSON.parse(error.message);
+        if (
+          errorData.code === 'VALIDATION_ERROR' ||
+          errorData.code === 'USER_NOT_FOUND'
+        ) {
           setError('email', {
             type: 'manual',
-            message: error.message,
+            message: errorData.message,
           });
         }
-        if (error.message === '비밀번호가 아이디와 일치하지 않습니다') {
+        if (errorData.code === 'INVALID_CREDENTIALS') {
           setError('password', {
             type: 'manual',
-            message: error.message,
+            message: errorData.message,
           });
         }
       },
