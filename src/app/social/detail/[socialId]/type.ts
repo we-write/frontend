@@ -5,6 +5,7 @@ export interface SocialDetailPageParams {
 export interface SocialOverViewProps {
   currentSocialId: number;
   currentUserId?: number;
+  currentUserName?: string;
   currentStoryId?: string;
 }
 
