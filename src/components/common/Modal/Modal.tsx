@@ -5,7 +5,7 @@ import {
   ModalFooterProps,
   CloseButtonProps,
 } from './type';
-import React from 'react';
+import React, { useEffect } from 'react';
 
 export const Modal = ({
   isOpen,
@@ -17,7 +17,18 @@ export const Modal = ({
   children,
   className,
 }: ModalProps) => {
-  if (isOpen) document.body.style.overflow = 'hidden';
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    // 언마운트 시 원상 복구
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [isOpen]);
   if (!isOpen) return null;
   const backdropStyle =
     'fixed inset-0 z-50 flex items-center justify-center visible opacity-100"';
