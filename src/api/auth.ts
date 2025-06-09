@@ -41,13 +41,16 @@ export const postSignIn = async (data: SigninRequest) => {
       const message = error.response?.data.message;
       const code = error.response?.data.code;
       if (code === 'INVALID_CREDENTIALS') {
-        throw new Error(message);
+        throw new Error(JSON.stringify({ code, message }));
       }
       if (code === 'USER_NOT_FOUND') {
-        throw new Error(message);
+        throw new Error(JSON.stringify({ code, message }));
       }
       if (code === 'SERVER_ERROR') {
-        throw new Error(message);
+        throw new Error(JSON.stringify({ code, message }));
+      }
+      if (code === 'VALIDATION_ERROR') {
+        throw new Error(JSON.stringify({ code, message }));
       }
     }
     console.error(error);
