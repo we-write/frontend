@@ -3,13 +3,20 @@
 import { useForm } from 'react-hook-form';
 import { CircleX, Search } from 'lucide-react';
 import { FormValues, SearchInputProps } from '@/app/library/_components/type';
-
+import useDebounce from '@/hooks/useDebounce';
+import { useEffect } from 'react';
 const SearchInput = ({ keyword, setKeyword, onSearch }: SearchInputProps) => {
   const { register, handleSubmit, setValue, watch } = useForm<FormValues>({
     defaultValues: { search: keyword },
   });
+  const SEARCH_DEBOUNCE_DELAY = 300;
+  const debouncedKeyword = useDebounce(watch('search'), SEARCH_DEBOUNCE_DELAY);
 
-  const currentKeyword = watch('search');
+  useEffect(() => {
+    if (debouncedKeyword === '') {
+      onSearch();
+    }
+  }, [debouncedKeyword]);
 
   return (
     <form
@@ -28,7 +35,7 @@ const SearchInput = ({ keyword, setKeyword, onSearch }: SearchInputProps) => {
           }}
           className="w-full pl-4 outline-none placeholder:text-base placeholder:font-semibold"
         />
-        {currentKeyword && (
+        {debouncedKeyword && (
           <button
             type="button"
             onClick={() => {
