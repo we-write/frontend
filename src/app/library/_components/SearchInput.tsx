@@ -12,7 +12,9 @@ const SearchInput = ({ keyword, setKeyword, onSearch }: SearchInputProps) => {
   const debouncedKeyword = useDebounce(watch('search'), 300);
 
   useEffect(() => {
-    onSearch();
+    if (debouncedKeyword === '') {
+      onSearch();
+    }
   }, [debouncedKeyword]);
 
   return (
