@@ -27,8 +27,8 @@ const useApproveContent = ({
     onError: (error) => {
       console.error(error);
     },
-    onSuccess: () => {
-      updateContentMerge(storyId);
+    onSuccess: async () => {
+      await updateContentMerge(storyId);
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.GET_LAST_CONTENT, storyId],
       });
