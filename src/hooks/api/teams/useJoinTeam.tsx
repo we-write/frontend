@@ -3,6 +3,8 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import axios from 'axios';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { API_PATH } from '@/constants/apiPath';
+import { useRouter } from 'next/navigation';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 interface UseJoinTeamParams {
   socialId: number;
@@ -15,6 +17,7 @@ interface UseJoinTeamParams {
 const useJoinTeam = (params: UseJoinTeamParams) => {
   const queryClient = useQueryClient();
   const { socialId } = params;
+  const router = useRouter();
   return useMutation({
     mutationFn: async () => {
       try {
@@ -28,6 +31,13 @@ const useJoinTeam = (params: UseJoinTeamParams) => {
       } catch (error) {
         if (axios.isAxiosError(error)) {
           const responseCode = error.response?.data.code;
+
+          if (error.response?.data.message === '모집이 마감된 모임입니다') {
+            alert('모집이 마감된 모임입니다.');
+            router.push(APP_ROUTES.social);
+            return;
+          }
+
           switch (responseCode) {
             case 400:
               throw new Error('취소된 모임입니다');
