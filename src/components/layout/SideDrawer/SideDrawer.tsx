@@ -6,10 +6,10 @@ import { SideDrawerProps } from '@/components/layout/SideDrawer/type';
 import { usePathname, useRouter } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { usePostSignout } from '@/hooks/api/users/usePostSignout';
-import { useAuth } from '@/utils/authContext';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
 const SideDrawer = ({ isOpen, closeDrawer, menuItems }: SideDrawerProps) => {
-  const { isSignIn, userInfo } = useAuth();
+  const { isSignIn, myInfo } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const { mutate: signOut } = usePostSignout();
@@ -60,7 +60,7 @@ const SideDrawer = ({ isOpen, closeDrawer, menuItems }: SideDrawerProps) => {
             {item.label}
           </Link>
         ))}
-      {isSignIn && userInfo ? (
+      {isSignIn && myInfo ? (
         <Link
           href={APP_ROUTES.mypage}
           onClick={closeDrawer}

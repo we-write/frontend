@@ -12,13 +12,13 @@ import { SocialFieldsMethods, StorySettingsFieldsMethods } from './type';
 import { createCollaborator } from '@/api/story-collaborators/api';
 import { TEAM_USER_ROLE } from '@/types/teamUserRole';
 import { CreateCollaboratorRequest } from '@/api/story-collaborators/type';
-import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 import {
   APPROVAL_PERIOD_OPTIONS,
   APPROVER_COUNT_OPTIONS,
   FORM_DELAY_ERROR,
   WORD_LIMIT_OPTIONS,
 } from '@/constants/social/createSocialForm';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
 interface SocialResponse {
   id: number;
@@ -78,7 +78,7 @@ const useCreateSocialForm = (onClose: () => void) => {
     delayError: FORM_DELAY_ERROR,
   });
 
-  const { data: userInfo } = useGetMyInfo(true);
+  const { myInfo } = useAuth();
 
   const {
     handleSubmit,
@@ -115,6 +115,7 @@ const useCreateSocialForm = (onClose: () => void) => {
   // 소셜 및 스토리 생성 핸들러
   const handleCreateSocial = async (data: SocialFieldsRequest) => {
     if (!isValid) return;
+    if (!myInfo) return;
 
     const socialResponseData = await createSocialApi(data);
 
@@ -129,8 +130,8 @@ const useCreateSocialForm = (onClose: () => void) => {
       const storyResponse = await createStoryApi(storyData);
       await createCollaboratorAsLeader({
         story_id: storyResponse[0]?.story_id.toString(),
-        user_id: userInfo?.id,
-        user_name: userInfo?.name,
+        user_id: myInfo?.id,
+        user_name: myInfo?.name,
         joined_at: new Date().toISOString(),
       });
       onClose();

@@ -9,8 +9,8 @@ import useBoolean from '@/hooks/useBoolean';
 import { GET_SOCIAL_LIST_INIT_FILTER } from '@/api/social/api';
 import SocialList from './SocialList';
 import SocialFilterBar from './SocialFilterBar';
-import { useAuth } from '@/utils/authContext';
 import { useRouter } from 'next/navigation';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
 const CreateSocialModalButton = () => {
   const { value: isOpen, setFalse: close, setTrue: open } = useBoolean();

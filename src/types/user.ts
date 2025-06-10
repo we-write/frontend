@@ -12,7 +12,7 @@ export interface SigninRequest {
   email: string;
   password: string;
 }
-export interface UserResponse {
+export interface MyInfoResponse {
   id: number;
   name: string;
   email: string;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getCookie } from './cookies';
+import { deleteCookie, getCookie } from './cookies';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -36,5 +36,18 @@ instance.interceptors.request.use(async (config) => {
   }
   return config;
 });
+
+instance.interceptors.response.use(
+  (response) => {
+    return response;
+  },
+  async (error) => {
+    if (error.status === 401) {
+      await deleteCookie('refreshToken');
+    }
+
+    return Promise.reject(error);
+  }
+);
 
 export default instance;
