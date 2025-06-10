@@ -7,10 +7,8 @@ interface UseGetSocialParticipantsByDbParams {
   userId?: number;
 }
 
-type UseGetSocialParticipantsByDbResponse = Pick<
-  DBStoryCollaboratorsResponse,
-  'user_name'
->;
+type UseGetSocialParticipantsByDbResponse =
+  DBStoryCollaboratorsResponse['user_name'];
 
 const useGetSocialParticipantsByDb = ({
   userId,

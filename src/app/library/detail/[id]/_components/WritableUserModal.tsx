@@ -101,9 +101,7 @@ const WritableUserModal = ({
       <div className="mb-1 pt-12">
         {lastContentWroteUserName && (
           <h2 className="mb-2 text-3xl">
-            <span className="text-write-main">
-              {lastContentWroteUserName?.user_name}
-            </span>
+            <span className="text-write-main">{lastContentWroteUserName}</span>
             님이
             <br />
             등록한 글이 승인 대기 중입니다.

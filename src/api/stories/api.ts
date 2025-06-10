@@ -234,10 +234,10 @@ export const getSocialParticipantsByDb = async (userId: number) => {
   const { data, error } = await instanceBaaS
     .from('story_collaborators')
     .select('user_name')
-    .eq('user_id', userId)
-    .single();
+    .eq('user_id', userId);
+
   if (error) {
     throw new Error(error.message);
   }
-  return data;
+  return data[0].user_name;
 };
