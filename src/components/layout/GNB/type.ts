@@ -1,8 +1,8 @@
-import { UserResponse } from '@/types/user';
+import { MyInfoResponse } from '@/types/user';
 
 export interface LoginSectionProps {
   isSignIn: boolean;
-  userInfo: UserResponse | null;
+  myInfo: MyInfoResponse | null;
 }
 export interface UserDropdownProps {
   onSignOut: () => void;

@@ -93,7 +93,7 @@ export const getMyInfo = async () => {
   }
 };
 
-export const updateUserInfo = async (updateMyInfo: UserRequest) => {
+export const updateMyInfo = async (updateMyInfo: UserRequest) => {
   const formData = new FormData();
   if (updateMyInfo.companyName !== null) {
     formData.append('companyName', updateMyInfo.companyName);

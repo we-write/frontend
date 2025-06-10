@@ -7,7 +7,6 @@ import MenuGroups from '@/components/layout/GNB/MenuGroups';
 import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
 import useBoolean from '@/hooks/useBoolean';
 import { Hamburger } from '@public/assets/icons';
-import { useAuth } from '@/utils/authContext';
 
 // 메뉴 항목
 const MENU_ITEMS = [
@@ -17,7 +16,6 @@ const MENU_ITEMS = [
 ];
 
 export const GNB = () => {
-  const { isSignIn, userInfo } = useAuth();
   const {
     value: isDrawerOpen,
     setTrue: setIsDrawerOpen,
@@ -35,7 +33,7 @@ export const GNB = () => {
             <MenuGroups />
           </div>
           {/* 데스크탑 로그인 영역*/}
-          <LoginSection isSignIn={isSignIn} userInfo={userInfo} />
+          <LoginSection />
           {/* 모바일 햄버거 */}
           <button
             className="absolute top-5 right-5 md:hidden"

@@ -14,12 +14,11 @@ import { Controller, useForm } from 'react-hook-form';
 import { useUpdateMyInfo } from '@/hooks/api/users/useUpdateMyInfo';
 import { EditMyProfileFormProps } from '@/app/mypage/myProfile/type';
 import { BtnEditSmall } from '@public/assets/icons';
-import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 
 const EditMyProfileForm = ({
   isOpen,
   closeModal,
-  profileData,
+  companyName,
   currentProfileImageUrl,
 }: EditMyProfileFormProps) => {
   const [profilePreviewImageUrl, setProfilePreviewImageUrl] = useState<string>(
@@ -33,18 +32,18 @@ const EditMyProfileForm = ({
     formState: { errors },
   } = useForm<UserRequest>({
     defaultValues: {
-      companyName: profileData.companyName,
-      image: profileData.image,
+      companyName: companyName,
     },
   });
-  const { refetch } = useGetMyInfo(true);
+
   const { mutate: updateMyInfo, isSuccess } = useUpdateMyInfo();
 
   const onSubmit = async (data: UserRequest) => {
     await updateMyInfo(data);
     closeModal();
     if (isSuccess) {
-      refetch();
+      //TODO: 추후 refresh를 하지 않고 고쳐보기
+      // queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_INFO] });
       setProfilePreviewImageUrl('');
     } else {
       setProfilePreviewImageUrl(currentProfileImageUrl);

@@ -8,28 +8,23 @@ import ContentComponent from '@/components/feature/library/ContentComponent';
 import { PaginationControl } from '@/components/feature/library/PaginationControl';
 import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
-import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
 import { StoryWriteOrApproveModalProviders } from '@/providers/StoryWriteOrApproveModalProviders';
 import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/ModalTriggerButton';
 import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
 import CoverPage from './_components/CoverPage';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
 const StoryDetailPage = () => {
   const { id } = useParams();
   const storyId = id as string;
-
-  const isLoginUser =
-    typeof window !== 'undefined'
-      ? localStorage.getItem('isSignIn') === 'true'
-      : false;
   const [storyPageNumber, setStoryPageNumber] = useState(0);
   const [isMobile, setIsMobile] = useState(false);
   const handleResize = () => {
     setIsMobile(window?.innerWidth < 640);
   };
-  const { data: userInfo } = useGetMyInfo(isLoginUser);
+  const { myInfo } = useAuth();
   const { data: userRoleData } = useGetUserRole({
-    userId: userInfo?.id,
+    userId: myInfo?.id,
     storyId: storyId,
   });
   const { data: story } = useGetStory(storyId);
@@ -73,7 +68,7 @@ const StoryDetailPage = () => {
             <WritableUserModal
               currentChapter={currentContents?.length ?? 0}
               currentStoryId={storyId}
-              {...(userInfo && { currentUserId: userInfo.id })}
+              {...(myInfo && { currentUserId: myInfo.id })}
               approvalPeriod={story?.approval_period ?? 0}
               approvedCount={story?.approved_count ?? 0}
             />

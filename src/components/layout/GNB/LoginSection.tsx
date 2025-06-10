@@ -7,11 +7,12 @@ import useBoolean from '@/hooks/useBoolean';
 import useClickOutside from '@/hooks/useClickOutside';
 import { usePostSignout } from '@/hooks/api/users/usePostSignout';
 import UserDropdown from '@/components/layout/GNB/UserDropdown';
-import { LoginSectionProps } from '@/components/layout/GNB/type';
 import Link from 'next/link';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
-const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
+const LoginSection = () => {
   const { mutate: signOut } = usePostSignout();
+  const { isSignIn, myInfo } = useAuth();
 
   const {
     value: isDropdownOpen,
@@ -27,16 +28,16 @@ const LoginSection = ({ isSignIn, userInfo }: LoginSectionProps) => {
 
   return (
     <div ref={ref} className="relative hidden md:flex">
-      {userInfo && isSignIn ? (
+      {myInfo && isSignIn ? (
         <button
           onClick={openDropdown}
           className="items-center justify-center"
           aria-label="유저 메뉴 열기"
         >
-          {userInfo.image ? (
+          {myInfo.image ? (
             <Image
               className="h-14 w-14 rounded-full border border-gray-200 object-cover"
-              src={userInfo.image}
+              src={myInfo.image}
               alt="프로필 이미지"
               width={40}
               height={40}

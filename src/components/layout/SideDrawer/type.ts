@@ -1,4 +1,4 @@
-import { UserResponse } from '@/types/user';
+import { MyInfoResponse } from '@/types/user';
 
 interface MenuItemProps {
   label: string;
@@ -11,13 +11,11 @@ export interface LogoButtonProps {
 
 export interface LoginSectionProps {
   isSignIn: boolean;
-  userInfo: UserResponse | null;
+  myInfo: MyInfoResponse | null;
 }
 
 export interface SideDrawerProps {
   isOpen: boolean;
   closeDrawer: () => void;
-  // isSignIn: boolean;
-  // userInfo: UserResponse | null;
   menuItems: MenuItemProps[];
 }

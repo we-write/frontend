@@ -1,31 +1,47 @@
 'use client';
 
-import { UserResponse } from '@/types/user';
-import { createContext } from 'react';
+import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
+import { MyInfoResponse } from '@/types/user';
+import { UseQueryResult } from '@tanstack/react-query';
+import { createContext, useContext } from 'react';
 
 interface AuthContextValue {
-  userInfo: UserResponse | null;
+  myInfo: MyInfoResponse | null;
   isSignIn: boolean;
+  queryMethods: UseQueryResult<MyInfoResponse, Error>;
 }
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 interface AuthProviderClientProps {
   children: React.ReactNode;
-  userInfo: UserResponse | null;
+  myInfo: MyInfoResponse | null;
   isSignIn: boolean;
+  accessToken: string;
 }
 
 const AuthProviderClient = ({
   children,
-  userInfo,
+  myInfo,
   isSignIn,
+  accessToken,
 }: AuthProviderClientProps) => {
+  const queryMethods = useGetMyInfo(accessToken);
+
   return (
-    <AuthContext.Provider value={{ userInfo, isSignIn }}>
+    <AuthContext.Provider value={{ myInfo, isSignIn, queryMethods }}>
       {children}
     </AuthContext.Provider>
   );
+};
+
+export const useAuth = () => {
+  const context = useContext(AuthContext);
+
+  if (!context) {
+    throw new Error('AuthContext not found');
+  }
+  return context;
 };
 
 export default AuthProviderClient;

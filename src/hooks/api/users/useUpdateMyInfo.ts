@@ -1,15 +1,21 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { updateUserInfo } from '@/api/auth';
+'use client';
+
+import { useMutation } from '@tanstack/react-query';
+import { updateMyInfo } from '@/api/auth';
 import { UserRequest } from '@/types/user';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { useRouter } from 'next/navigation';
 
 export const useUpdateMyInfo = () => {
-  const queryClient = useQueryClient();
+  // const queryClient = useQueryClient();
+  const router = useRouter();
 
   return useMutation({
-    mutationKey: ['myInfo'],
-    mutationFn: (data: UserRequest) => updateUserInfo(data),
+    mutationKey: [QUERY_KEY.MY_INFO],
+    mutationFn: (data: UserRequest) => updateMyInfo(data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['myInfo'] });
+      router.refresh();
+      // queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_INFO] });
     },
   });
 };

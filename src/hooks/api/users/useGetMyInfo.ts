@@ -1,12 +1,13 @@
 'use client';
-import { getMyInfo } from '@/api/auth';
+
 import { QUERY_KEY } from '@/constants/queryKey';
+import { fetchMyInfo } from '@/providers/auth-provider/auth-utils';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetMyInfo = (enabled: boolean) => {
+export const useGetMyInfo = (accessToken: string) => {
   return useQuery({
     queryKey: [QUERY_KEY.MY_INFO],
-    queryFn: getMyInfo,
-    enabled: !!enabled,
+    queryFn: () => fetchMyInfo(accessToken),
+    enabled: !!accessToken,
   });
 };

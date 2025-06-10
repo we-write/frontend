@@ -16,7 +16,7 @@ const SearchInput = ({ keyword, setKeyword, onSearch }: SearchInputProps) => {
     if (debouncedKeyword === '') {
       onSearch();
     }
-  }, [debouncedKeyword]);
+  }, [debouncedKeyword, onSearch]);
 
   return (
     <form

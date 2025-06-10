@@ -45,13 +45,13 @@ const SocialDetail = async ({
     queryFn: () => getSummary({ socialId: numericStoryId }),
   });
 
-  const userInfo = await getMyInfoOrGuest();
-  if (userInfo.id !== 'unauthenticated') {
+  const myInfo = await getMyInfoOrGuest();
+  if (myInfo.id !== 'unauthenticated') {
     await queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.GET_USER_ROLE, socialId],
       queryFn: () =>
         getUserRole({
-          userId: userInfo.id,
+          userId: myInfo.id,
           storyId: (storyId as GetStoryIdResponse).story_id,
         }),
     });
@@ -62,18 +62,18 @@ const SocialDetail = async ({
       <HydrationBoundary state={dehydrate(queryClient)}>
         <SocialOverView
           currentSocialId={numericStoryId}
-          {...(userInfo.id !== 'unauthenticated' && {
-            currentUserId: userInfo.id,
+          {...(myInfo.id !== 'unauthenticated' && {
+            currentUserId: myInfo.id,
           })}
-          {...(userInfo.id !== 'unauthenticated' && {
-            currentUserName: userInfo.name,
+          {...(myInfo.id !== 'unauthenticated' && {
+            currentUserName: myInfo.name,
           })}
           {...(storyId! && { currentStoryId: storyId.story_id })}
         />
         <StorySummary
           currentSocialId={numericStoryId}
-          {...(userInfo.id !== 'unauthenticated' && {
-            currentUserId: userInfo.id,
+          {...(myInfo.id !== 'unauthenticated' && {
+            currentUserId: myInfo.id,
           })}
           {...(storyId! && { currentStoryId: storyId.story_id })}
         />
