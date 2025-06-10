@@ -23,6 +23,7 @@ const SocialOverView = ({
     useGetSocialDetail({
       socialId: currentSocialId,
     });
+
   const {
     data: socialTeamsParticipantsData,
     isLoading: socialTeamsParticipantsDataIsLoading,
