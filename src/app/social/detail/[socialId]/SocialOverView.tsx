@@ -23,6 +23,7 @@ const SocialOverView = ({
     useGetSocialDetail({
       socialId: currentSocialId,
     });
+
   const {
     data: socialTeamsParticipantsData,
     isLoading: socialTeamsParticipantsDataIsLoading,
@@ -35,7 +36,7 @@ const SocialOverView = ({
   });
   const isFetchDataLoading =
     socialDetailDataIsLoading || socialTeamsParticipantsDataIsLoading;
-  const { mutate: joinTeam } = useJoinTeam({
+  const { mutate: joinTeam, isSuccess: isJoinTeamSuccess } = useJoinTeam({
     socialId: currentSocialId,
   });
   const { mutate: insertNewCollaborator } = useParticipateCollaborator({
@@ -55,15 +56,17 @@ const SocialOverView = ({
     if (role === 'GUEST') {
       if (currentUserId && currentUserName) {
         joinTeam();
-        insertNewCollaborator({
-          data: {
-            story_id: currentStoryId,
-            user_id: currentUserId,
-            user_name: currentUserName,
-            joined_at: new Date().toISOString(),
-          },
-          role: TEAM_USER_ROLE.MEMBER,
-        });
+        if (isJoinTeamSuccess) {
+          insertNewCollaborator({
+            data: {
+              story_id: currentStoryId,
+              user_id: currentUserId,
+              user_name: currentUserName,
+              joined_at: new Date().toISOString(),
+            },
+            role: TEAM_USER_ROLE.MEMBER,
+          });
+        }
         return;
       }
       alert('로그인이 필요한 서비스입니다.');
