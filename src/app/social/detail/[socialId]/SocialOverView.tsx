@@ -35,11 +35,12 @@ const SocialOverView = ({
   });
   const isFetchDataLoading =
     socialDetailDataIsLoading || socialTeamsParticipantsDataIsLoading;
-  const { mutate: joinTeam } = useJoinTeam({
+  const { mutateAsync: joinTeam } = useJoinTeam({
     socialId: currentSocialId,
   });
-  const { mutate: insertNewCollaborator } = useParticipateCollaborator({
+  const { mutateAsync: insertNewCollaborator } = useParticipateCollaborator({
     socialId: currentSocialId,
+    storyId: currentStoryId,
   });
   const imagesUrls = extractUserImages(socialTeamsParticipantsData);
   const currentUserRole: TeamUserRole = userRoleData
@@ -47,29 +48,41 @@ const SocialOverView = ({
     : 'GUEST';
   const router = useRouter();
 
-  const navigateStoryOrJoinTeam = (role: TeamUserRole) => {
+  const navigateStoryOrJoinTeam = async (role: TeamUserRole) => {
     if (!currentStoryId) {
       alert('스토리 정보를 불러오지 못했습니다. 잠시 후에 다시 시도해주세요.');
       return;
     }
-    if (role === 'GUEST') {
-      if (currentUserId && currentUserName) {
-        joinTeam();
-        insertNewCollaborator({
-          data: {
-            story_id: currentStoryId,
-            user_id: currentUserId,
-            user_name: currentUserName,
-            joined_at: new Date().toISOString(),
-          },
-          role: TEAM_USER_ROLE.MEMBER,
-        });
-        return;
-      }
+
+    if (role === 'MEMBER' || role === 'LEADER') {
+      router.push(`/library/detail/${currentStoryId}`);
+      return;
+    }
+
+    if (!currentUserId || !currentUserName) {
       alert('로그인이 필요한 서비스입니다.');
       router.push('/auths/signin');
-    } else if (role === 'MEMBER' || role === 'LEADER') {
-      router.push(`/library/detail/${currentStoryId}`);
+    }
+
+    const joinTeamConfirmed = window.confirm('모임에 참여하시겠습니까?');
+    if (!joinTeamConfirmed) return;
+
+    try {
+      await joinTeam();
+
+      await insertNewCollaborator({
+        data: {
+          story_id: currentStoryId,
+          user_id: currentUserId!,
+          user_name: currentUserName!,
+          joined_at: new Date().toISOString(),
+        },
+        role: TEAM_USER_ROLE.MEMBER,
+      });
+    } catch (error) {
+      console.error('모임 참여 실패 : ', error);
+      alert('오류가 발생하여 모임 참여에 실패하였습니다.');
+      router.refresh();
     }
   };
 
