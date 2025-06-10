@@ -1,6 +1,6 @@
 import React, { PropsWithChildren } from 'react';
 import AuthProviderClient from './AuthProvider.client';
-import { getAuthOnServer } from './auth-utils';
+import { getAuthOnServer } from './authProviderUtil';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const AuthProvider = async ({ children }: PropsWithChildren) => {
