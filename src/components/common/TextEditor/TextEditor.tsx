@@ -10,7 +10,13 @@ import Blockquote from '@tiptap/extension-blockquote';
 import EditorToolbar from '@/components/common/TextEditor/EditorToolbar';
 import { Plugin } from 'prosemirror-state';
 import { TextEditorProps } from '@/components/common/TextEditor/type';
-import { forwardRef, useEffect, useImperativeHandle, useRef } from 'react';
+import {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
 import getTextWithLineBreaks from '@/utils/getTextWithLineBreaks';
 
 declare module '@tiptap/core' {
@@ -85,6 +91,34 @@ const FontSize = Extension.create({
   },
 });
 
+const StringLimit = Extension.create({
+  name: 'stringLimit',
+
+  addOptions() {
+    return {
+      limit: 5000,
+    };
+  },
+
+  addProseMirrorPlugins() {
+    return [
+      new Plugin({
+        filterTransaction: (transaction) => {
+          const newText = transaction.doc.textContent;
+
+          const limit = this.options.limit;
+
+          if (newText.length > limit) {
+            return false;
+          }
+
+          return true;
+        },
+      }),
+    ];
+  },
+});
+
 const TextEditor = forwardRef(
   (
     {
@@ -93,9 +127,11 @@ const TextEditor = forwardRef(
       isReadOnly = false,
       useToolbarMenu = true,
       initialContent,
+      maxContentLength = 2000,
     }: TextEditorProps,
     ref
   ) => {
+    const [hasReachedLimit, setHasReachedLimit] = useState(false);
     const editorContentRef = useRef<HTMLDivElement>(null);
     const editor = useEditor({
       extensions: [
@@ -106,9 +142,14 @@ const TextEditor = forwardRef(
         Color,
         TextAlign.configure({ types: ['paragraph'] }),
         CleanPaste,
+        StringLimit.configure({ limit: maxContentLength }),
       ],
       content: initialContent,
       editable: !isReadOnly,
+      onUpdate: ({ editor }) => {
+        const textLength = editor.state.doc.textContent.length;
+        setHasReachedLimit(textLength >= maxContentLength);
+      },
     });
 
     useImperativeHandle(
@@ -159,6 +200,9 @@ const TextEditor = forwardRef(
                 : editorHeight,
           }}
         />
+        {hasReachedLimit && (
+          <p className="pr-4 text-gray-500">최대 글자 수에 도달하였습니다.</p>
+        )}
       </div>
     );
   }

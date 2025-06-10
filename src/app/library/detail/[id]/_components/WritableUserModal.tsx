@@ -18,6 +18,7 @@ const WritableUserModal = ({
   currentUserId,
   approvalPeriod,
   approvedCount,
+  maxContentLength,
 }: WritableUserModalProps) => {
   const { isOpen, closeModal } = useStoryModal();
   const [isUserApproved, setIsUserApproved] = useState(false);
@@ -56,6 +57,7 @@ const WritableUserModal = ({
         {...(lastContentData && {
           lastContentData: lastContentData,
         })}
+        maxContentLength={maxContentLength}
       />
     );
   }
