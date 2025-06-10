@@ -40,14 +40,25 @@ const EditMyProfileForm = ({
   const { refetch } = useGetMyInfo(true);
   const { mutate: updateMyInfo, isSuccess } = useUpdateMyInfo();
 
+  const handleProfileImageChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    onChange: (file: File) => void,
+    setPreviewUrl: (url: string) => void
+  ) => {
+    const file = e.target.files?.[0];
+    if (file) {
+      onChange(file);
+      const previewUrl = URL.createObjectURL(file);
+      setPreviewUrl(previewUrl);
+    }
+  };
+
   const onSubmit = async (data: UserRequest) => {
     await updateMyInfo(data);
     closeModal();
     if (isSuccess) {
       refetch();
       setProfilePreviewImageUrl('');
-    } else {
-      setProfilePreviewImageUrl(currentProfileImageUrl);
     }
   };
 
@@ -68,19 +79,18 @@ const EditMyProfileForm = ({
                     accept="image/*"
                     className="hidden"
                     onChange={(e) => {
-                      const file = e.target.files?.[0];
-                      if (file) {
-                        field.onChange(file);
-                        const previewUrl = URL.createObjectURL(file);
-                        setProfilePreviewImageUrl(previewUrl);
-                      }
+                      handleProfileImageChange(
+                        e,
+                        field.onChange,
+                        setProfilePreviewImageUrl
+                      );
                     }}
                   />
                   <label
                     htmlFor="currentProfileImageUrl"
                     className="relative mb-6 h-[56px] w-[56px] cursor-pointer rounded-full bg-cover bg-center"
                     style={{
-                      backgroundImage: `url(${currentProfileImageUrl || profilePreviewImageUrl})`,
+                      backgroundImage: `url(${profilePreviewImageUrl || currentProfileImageUrl})`,
                     }}
                   >
                     <BtnEditSmall
