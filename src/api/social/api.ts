@@ -4,7 +4,7 @@ import {
   CodeitSocialFieldsRequest,
   CreateSocialResponse,
   GetSocialListParams,
-  SocialResponse,
+  GetSocialResponse,
 } from './type';
 import instance from '../instance';
 import { getCookie } from '../cookies';
@@ -21,7 +21,7 @@ export const getSocialList = async ({
   ...restParams
 }: GetSocialListParams = {}) => {
   try {
-    const response = await instance.get<SocialResponse[]>(
+    const response = await instance.get<GetSocialResponse[]>(
       `${API_PATH.SOCIAL}?${getFilterParams({
         limit, // 한 페이지 크기
         offset, // 시작 위치

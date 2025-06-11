@@ -61,7 +61,7 @@ export interface CreateSocialResponse {
   teamId: string;
 }
 
-export interface SocialResponse
+export interface GetSocialResponse
   extends Omit<CodeitSocialFieldsRequest, 'image' | 'location'> {
   id: string;
   teamId: string;
