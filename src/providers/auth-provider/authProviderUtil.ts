@@ -8,21 +8,30 @@ import { QUERY_KEY } from '@/constants/queryKey';
 export const fetchMyInfo = async (accessToken: string) => {
   if (!accessToken) return;
 
-  const res = await fetch(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH.USER}`,
-    {
-      headers: {
-        Authorization: `Bearer ${accessToken}`,
-      },
+  try {
+    const res = await fetch(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/${API_PATH.USER}`,
+      {
+        headers: {
+          Authorization: `Bearer ${accessToken}`,
+        },
+      }
+    );
+
+    if (!res.ok) {
+      throw new Error('Failed to fetch user info');
     }
-  );
-  return res.json();
+
+    return res.json();
+  } catch (error) {
+    throw error;
+  }
 };
 
-export async function getAuthOnServer() {
+export const getMyInfoOnServer = async () => {
   const queryClient = getQueryClient();
   const accessToken = await getCookie('accessToken');
-  let myInfo: MyInfoResponse | null = null;
+  let myInfo: MyInfoResponse | undefined = undefined;
   let isSignIn = false;
 
   try {
@@ -30,14 +39,15 @@ export async function getAuthOnServer() {
       const data = await queryClient.fetchQuery({
         queryKey: [QUERY_KEY.MY_INFO],
         queryFn: () => fetchMyInfo(accessToken),
+        retry: false,
       });
       myInfo = data;
       isSignIn = true;
     }
   } catch (error) {
-    console.error('Failed to fetch user info:', error);
+    console.error(error);
     isSignIn = false;
-    myInfo = null;
+    myInfo = undefined;
   }
 
   return {
@@ -46,4 +56,4 @@ export async function getAuthOnServer() {
     accessToken,
     queryClient,
   };
-}
+};
