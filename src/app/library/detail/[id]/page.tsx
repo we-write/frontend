@@ -7,7 +7,7 @@ import { PaginationControl } from '@/app/library/detail/[id]/_components/Paginat
 import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
 import { StoryWriteOrApproveModalProviders } from '@/providers/StoryWriteOrApproveModalProviders';
-import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/ModalTriggerButton';
+import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/StoryModalTriggerButton';
 import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
 import ContentCover from './_components/ContentCover';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
