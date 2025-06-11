@@ -1,5 +1,5 @@
 import { approveContent, updateContentMerge } from '@/api/stories/api';
-import { ApproveContentParams } from '@/api/stories/type';
+import { ApproveContentRequest } from '@/api/stories/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { DBContentApprovalResponse } from '@/types/dbStory';
 import {
@@ -8,7 +8,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-interface UseApproveContentParams {
+interface UseApproveContentRequest {
   storyId: string;
   contentId?: string;
 }
@@ -16,10 +16,10 @@ interface UseApproveContentParams {
 const useApproveContent = ({
   storyId,
   contentId,
-}: UseApproveContentParams): UseMutationResult<
+}: UseApproveContentRequest): UseMutationResult<
   DBContentApprovalResponse[],
   Error,
-  ApproveContentParams
+  ApproveContentRequest
 > => {
   const queryClient = useQueryClient();
   return useMutation({

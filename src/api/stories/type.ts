@@ -33,7 +33,7 @@ export interface GetApproveUserParams {
   contentId: string;
 }
 
-export interface ApproveContentParams {
+export interface ApproveContentRequest {
   userId: number;
   contentId: string;
 }

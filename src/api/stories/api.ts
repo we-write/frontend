@@ -4,7 +4,7 @@ import {
   GetContentsParams,
   PostContentRequest,
   GetApproveUserParams,
-  ApproveContentParams,
+  ApproveContentRequest,
   GetStoriesParams,
   CreateStoryRequest,
 } from './type';
@@ -214,7 +214,7 @@ export const getApproveUser = async ({ contentId }: GetApproveUserParams) => {
 export const approveContent = async ({
   userId,
   contentId,
-}: ApproveContentParams): Promise<DBContentApprovalResponse[]> => {
+}: ApproveContentRequest): Promise<DBContentApprovalResponse[]> => {
   const { data, error } = await instanceBaaS
     .from('ContentApproval')
     .insert([
