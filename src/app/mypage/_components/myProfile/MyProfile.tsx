@@ -2,10 +2,10 @@
 
 import Image from 'next/image';
 import useBoolean from '@/hooks/useBoolean';
-import MyProfileSkeleton from '@/app/mypage/myProfile/MyProfileSkeleton';
 import { BtnEditLarge } from '@public/assets/icons';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import EditMyProfileForm from './EditMyProfileForm';
+import MyProfileSkeleton from './MyProfileSkeleton';
 
 const MyProfile = () => {
   const {

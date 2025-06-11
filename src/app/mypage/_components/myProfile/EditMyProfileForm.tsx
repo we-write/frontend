@@ -12,8 +12,8 @@ import {
 import InputForm from '@/components/common/Form/InputForm';
 import { Controller, useForm } from 'react-hook-form';
 import { useUpdateMyInfo } from '@/hooks/api/users/useUpdateMyInfo';
-import { EditMyProfileFormProps } from '@/app/mypage/myProfile/type';
 import { BtnEditSmall } from '@public/assets/icons';
+import { EditMyProfileFormProps } from './type';
 
 const EditMyProfileForm = ({
   isOpen,

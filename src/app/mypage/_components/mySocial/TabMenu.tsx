@@ -1,4 +1,4 @@
-import { TabMenuProps } from '@/app/mypage/mySocial/type';
+import { TabMenuProps } from './type';
 
 const TabMenu = ({ activeTab, onTabChange }: TabMenuProps) => (
   <ul className="flex gap-3 font-semibold text-gray-900">

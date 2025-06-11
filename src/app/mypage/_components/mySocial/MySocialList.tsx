@@ -1,13 +1,13 @@
 'use client';
 
-import LoadingListCards from '@/app/mypage/mySocial/LoadingListCard';
-import SocialListCards from '@/app/mypage/mySocial/SocialListCards';
-import TabMenu from '@/app/mypage/mySocial/TabMenu';
-import { TabType } from '@/app/mypage/mySocial/type';
 import Observer from '@/components/common/Observer/Observer';
 import { useState } from 'react';
 import { useMySocialList } from '@/hooks/mypage/useMySocialList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import { TabType } from './type';
+import TabMenu from './TabMenu';
+import LoadingListCards from './LoadingListCard';
+import SocialListCards from './SocialListCards';
 
 const MySocialList = () => {
   const [activeTab, setActiveTab] = useState<TabType>('joined');

@@ -1,7 +1,7 @@
 import { cancelJoinSocial, leaveJoinSocial } from '@/api/mypage/api';
 import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
-import { SocialListCardsProps } from '@/app/mypage/mySocial/type';
 import ListCard from '@/components/common/Card/ListCard';
+import { SocialListCardsProps } from './type';
 
 const SocialListCards = ({
   list,

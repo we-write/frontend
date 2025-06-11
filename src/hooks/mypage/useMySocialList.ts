@@ -1,6 +1,6 @@
 import { getJoinedSocialList } from '@/api/mypage/api';
 import { getSocialList } from '@/api/social/api';
-import { TabType } from '@/app/mypage/mySocial/type';
+import { TabType } from '@/app/mypage/_components/mySocial/type';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
 const FETCH_LIMIT = 12;

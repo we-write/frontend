@@ -1,7 +1,5 @@
 'use client';
 
-import { useGetContent } from '@/hooks/stories/useGetContent';
-import { useGetStory } from '@/hooks/stories/useGetStory';
 import { useParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import ContentComponent from '@/app/library/detail/[id]/_components/ContentComponent';
@@ -13,6 +11,8 @@ import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/Modal
 import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
 import CoverPage from './_components/CoverPage';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import { useGetStory } from '@/hooks/stories/useGetStory';
+import { useGetContent } from '@/hooks/stories/useGetContent';
 
 const StoryDetailPage = () => {
   const { id } = useParams();
