@@ -4,7 +4,7 @@ import { GetSocialListParams } from '@/api/social/type';
 import { SocialResponse } from '@/api/social/type';
 import { FETCH_GET_ITEM_LIMIT, getSocialList } from '@/api/social/api';
 
-export const useGetSocialList = (filter: GetSocialListParams) => {
+const useGetSocialList = (filter: GetSocialListParams) => {
   return useInfiniteQuery<SocialResponse[]>({
     queryKey: [QUERY_KEY.SOCIAL, filter],
     queryFn: async ({ pageParam }) => {
@@ -27,3 +27,5 @@ export const useGetSocialList = (filter: GetSocialListParams) => {
     },
   });
 };
+
+export default useGetSocialList;
