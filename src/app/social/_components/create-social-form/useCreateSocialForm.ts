@@ -11,7 +11,7 @@ import { CreateStoryRequest } from '@/api/stories/type';
 import { SocialFieldsMethods, StorySettingsFieldsMethods } from './type';
 import { createCollaborator } from '@/api/story-collaborators/api';
 import { TEAM_USER_ROLE } from '@/types/teamUserRole';
-import { CreateCollaboratorRequest } from '@/api/story-collaborators/type';
+import { CollaboratorRequest } from '@/api/story-collaborators/type';
 import {
   APPROVAL_PERIOD_OPTIONS,
   APPROVER_COUNT_OPTIONS,
@@ -103,9 +103,7 @@ const useCreateSocialForm = (onClose: () => void) => {
     return response;
   };
 
-  const createCollaboratorAsLeader = async (
-    data: CreateCollaboratorRequest
-  ) => {
+  const createCollaboratorAsLeader = async (data: CollaboratorRequest) => {
     const response = await createCollaborator({
       data: data,
       role: TEAM_USER_ROLE.LEADER,

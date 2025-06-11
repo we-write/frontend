@@ -1,6 +1,6 @@
 import { TeamUserRole } from '@/types/teamUserRole';
 
-export interface CreateCollaboratorRequest {
+export interface CollaboratorRequest {
   story_id: string;
   user_id: number;
   user_name: string;
@@ -8,6 +8,6 @@ export interface CreateCollaboratorRequest {
 }
 
 export interface CreateCollaboratorParams {
-  data: CreateCollaboratorRequest;
+  data: CollaboratorRequest;
   role: TeamUserRole;
 }
