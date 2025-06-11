@@ -1,7 +1,7 @@
 import { DBContentApprovalResponse, DBContentResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
 import {
-  GetContentsProps,
+  GetContentsParams,
   PostContentParams,
   GetApproveUserParams,
   ApproveContentParams,
@@ -119,7 +119,7 @@ export const getContents = async ({
   id,
   page,
   limit,
-}: GetContentsProps): Promise<{
+}: GetContentsParams): Promise<{
   data: DBContentResponse[];
   count: number;
 }> => {

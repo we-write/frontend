@@ -17,7 +17,7 @@ export type CreateStoryRequest = Omit<
   'summary' | 'created_at' | 'updated_at'
 >;
 
-export interface GetContentsProps {
+export interface GetContentsParams {
   id: string;
   page: number;
   limit: number;
