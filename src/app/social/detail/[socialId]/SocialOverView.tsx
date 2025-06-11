@@ -5,7 +5,7 @@ import useJoinTeam from '@/hooks/api/teams/useJoinTeam';
 import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';
-import { SocialOverViewProps } from '@/app/social/_components/detail/[socialId]/type';
+import { SocialOverViewProps } from './type';
 import extractUserImages from '@/utils/extractUserImages';
 import useGetSocialDetail from '@/hooks/api/teams/useGetSocialDetail';
 import useGetSocialParticipants from '@/hooks/api/teams/useGetSocialParticipants';
