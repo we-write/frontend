@@ -28,9 +28,7 @@ const MySocialList = () => {
   };
 
   const flattenedList = data?.pages.flat() || [];
-
   const filteredList = flattenedList.filter((item) => item.canceledAt === null);
-
   const isLoading = queryMethods.isLoading || isSocialListLoading;
 
   return (

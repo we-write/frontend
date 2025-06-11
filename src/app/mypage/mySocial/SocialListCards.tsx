@@ -44,7 +44,7 @@ const SocialListCards = ({
             endDate={item.registrationEnd || ''}
             isCardDataLoading={false}
             isCompletedStory={false}
-            isCanceled={item.canceledAt !== null}
+            isCanceled={false}
             handleButtonClick={() => {
               handleQuitSocial(item.id);
             }}
