@@ -1,4 +1,4 @@
-import useGetSocialSummary from '@/hooks/api/stories/useGetSocialSummary';
+import useGetSocialSummary from '@/hooks/api/supabase/stories/useGetSocialSummary';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import htmlToString from '@/utils/htmlToString';
 import { SocialListGridProps } from '@/app/social/_components/type';

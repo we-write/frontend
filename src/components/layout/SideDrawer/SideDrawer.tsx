@@ -5,7 +5,7 @@ import Link from 'next/link';
 import { SideDrawerProps } from '@/components/layout/SideDrawer/type';
 import { usePathname, useRouter } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import { usePostSignout } from '@/hooks/api/users/usePostSignout';
+import { usePostSignout } from '@/hooks/api/supabase/users/usePostSignout';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
 const SideDrawer = ({ isOpen, closeDrawer, menuItems }: SideDrawerProps) => {

@@ -1,6 +1,6 @@
 'use client';
 
-import { useGetMyInfo } from '@/hooks/api/users/useGetMyInfo';
+import { useGetMyInfo } from '@/hooks/api/supabase/users/useGetMyInfo';
 import { MyInfoResponse } from '@/types/user';
 import { UseQueryResult } from '@tanstack/react-query';
 import { createContext, useContext } from 'react';

@@ -8,11 +8,11 @@ import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
 import { StoryWriteOrApproveModalProviders } from '@/providers/StoryWriteOrApproveModalProviders';
 import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/ModalTriggerButton';
-import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
+import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
 import CoverPage from './_components/CoverPage';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
-import { useGetStory } from '@/hooks/stories/useGetStory';
-import { useGetContent } from '@/hooks/stories/useGetContent';
+import { useGetStory } from '@/hooks/api/supabase/stories/useGetStory';
+import { useGetContent } from '@/hooks/api/supabase/contents/useGetContent';
 
 const StoryDetailPage = () => {
   const { id } = useParams();

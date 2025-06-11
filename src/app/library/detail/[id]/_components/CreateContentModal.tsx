@@ -3,7 +3,7 @@ import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
 import { CreateContentModalProps } from '@/app/library/detail/[id]/_components/type';
 import { useRef, FormEvent } from 'react';
-import usePostContent from '@/hooks/api/stories/usePostContent';
+import usePostContent from '@/hooks/api/supabase/stories/usePostContent';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 import { TextEditorRef } from '@/types/textEditor';
 import validateEditorContent from '@/utils/validators/validateEditorContent';

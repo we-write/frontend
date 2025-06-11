@@ -3,7 +3,7 @@
 import BadgeGroup from '@/app/library/_components/BadgeGroup';
 import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
 import SearchInput from '@/app/library/_components/SearchInput';
-import useSearchReducer from '@/hooks/library/useSearchReducer';
+import useSearchReducer from '@/hooks/api/library/useSearchReducer';
 
 const Library = () => {
   const [state, dispatch] = useSearchReducer();

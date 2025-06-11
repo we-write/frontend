@@ -1,17 +1,17 @@
 'use client';
 
 import DetailCard from '@/components/common/Card/DetailCard';
-import useJoinTeam from '@/hooks/api/teams/useJoinTeam';
+import useJoinTeam from '@/hooks/api/supabase/story-collaborators/useJoinTeam';
 import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';
 import { SocialOverViewProps } from './type';
 import extractUserImages from '@/utils/extractUserImages';
-import useGetSocialDetail from '@/hooks/api/teams/useGetSocialDetail';
-import useGetSocialParticipants from '@/hooks/api/teams/useGetSocialParticipants';
-import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
+import useGetSocialDetail from '@/hooks/api/supabase/story-collaborators/useGetSocialDetail';
+import useGetSocialParticipants from '@/hooks/api/supabase/story-collaborators/useGetSocialParticipants';
+import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
 import { useRouter } from 'next/navigation';
-import useParticipateCollaborator from '@/hooks/api/teams/useParticipateCollaborator';
+import useParticipateCollaborator from '@/hooks/api/supabase/story-collaborators/useParticipateCollaborator';
 
 const SocialOverView = ({
   currentSocialId,

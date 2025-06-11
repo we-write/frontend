@@ -2,7 +2,7 @@
 
 import Observer from '@/components/common/Observer/Observer';
 import { useState } from 'react';
-import { useMySocialList } from '@/hooks/mypage/useMySocialList';
+import { useMySocialList } from '@/hooks/api/mypage/useMySocialList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { TabType } from './type';
 import TabMenu from './TabMenu';
