@@ -12,7 +12,7 @@ import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
 import Button from '@/components/common/Button/Button';
 import useBoolean from '@/hooks/useBoolean';
 
-const Page = () => {
+const SignUp = () => {
   const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
   const { value: showPasswordCheck, toggle: toggleShowPasswordCheck } =
     useBoolean();
@@ -221,4 +221,4 @@ const Page = () => {
     </div>
   );
 };
-export default Page;
+export default SignUp;

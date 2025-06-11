@@ -12,7 +12,7 @@ import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useBoolean from '@/hooks/useBoolean';
 
-const Page = () => {
+const SignIn = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
   const router = useRouter();
   const {
@@ -126,4 +126,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default SignIn;

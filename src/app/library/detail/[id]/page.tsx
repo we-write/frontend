@@ -14,7 +14,7 @@ import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { useGetStory } from '@/hooks/api/supabase/stories/useGetStory';
 import { useGetContent } from '@/hooks/api/supabase/contents/useGetContent';
 
-const StoryDetailPage = () => {
+const StoryDetail = () => {
   const { id } = useParams();
   const storyId = id as string;
   const [storyPageNumber, setStoryPageNumber] = useState(0);
@@ -113,4 +113,4 @@ const StoryDetailPage = () => {
   );
 };
 
-export default StoryDetailPage;
+export default StoryDetail;
