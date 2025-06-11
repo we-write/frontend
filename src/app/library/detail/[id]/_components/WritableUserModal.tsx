@@ -35,15 +35,17 @@ const WritableUserModal = ({
     storyId: currentStoryId,
     contentId: lastContentData?.content_id,
   });
+
   useEffect(() => {
-    if (approveUserData?.length) {
-      setTempApprovedCount(approveUserData?.length);
-    }
-    if (approveUserData && currentUserId) {
-      const hasApproved = approveUserData.some(
-        (item) => item.user_id === currentUserId
-      );
-      setIsUserApproved(hasApproved);
+    if (Array.isArray(approveUserData)) {
+      setTempApprovedCount(approveUserData.length);
+
+      if (currentUserId) {
+        const hasApproved = approveUserData.some(
+          (item) => item.user_id === currentUserId
+        );
+        setIsUserApproved(hasApproved);
+      }
     }
   }, [approveUserData, currentUserId]);
 
