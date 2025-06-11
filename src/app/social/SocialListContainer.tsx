@@ -8,7 +8,7 @@ import CreateSocialForm from './create-social-form/CreateSocialForm';
 import useBoolean from '@/hooks/useBoolean';
 import { GET_SOCIAL_LIST_INIT_FILTER } from '@/api/social/api';
 import SocialList from './SocialList';
-import SocialFilterBar from './SocialFilterBar';
+import SocialFilterBar from './social-filter-bar';
 import { useRouter } from 'next/navigation';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
