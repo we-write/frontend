@@ -17,12 +17,17 @@ const DropdownInput = <T extends FieldValues>({
   options,
   unit,
 }: DropdownInputProps<T>) => {
-  const { value: isOpen, toggle } = useBoolean();
+  const { value: isOpen, toggle, setFalse: closeDropdown } = useBoolean();
   const currentValue = useWatch({ control, name });
+
+  const handleClose = () => {
+    closeDropdown();
+  };
 
   return (
     <Dropdown
       isOpen={isOpen}
+      onClose={handleClose}
       trigger={
         <InputForm
           name={name}
@@ -48,7 +53,7 @@ const DropdownInput = <T extends FieldValues>({
             }
             onClick={() => {
               setValue(name, value, { shouldValidate: true });
-              toggle();
+              handleClose();
             }}
           />
         ))}
