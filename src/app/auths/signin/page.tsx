@@ -8,7 +8,6 @@ import { SigninRequest } from '@/api/auth/type';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useBoolean from '@/hooks/useBoolean';
 

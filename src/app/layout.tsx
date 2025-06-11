@@ -6,6 +6,7 @@ import QueryProviders from '@/providers/queryProviders';
 import { GNB } from '@/components/layout/GNB/GNB';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import AuthProvider from '@/providers/auth-provider/AuthProvider';
+import { ReactNode } from 'react';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',

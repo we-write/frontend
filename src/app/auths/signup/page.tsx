@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormData } from '@/api/auth/type';
 import useCreateUser from '@/hooks/api/auth/useCreateUser';

@@ -1,6 +1,5 @@
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import React from 'react';
 import { PaginationControlProps } from './type';
 
 export const PaginationControl = ({
