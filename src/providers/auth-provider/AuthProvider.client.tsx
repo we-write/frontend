@@ -6,7 +6,7 @@ import { UseQueryResult } from '@tanstack/react-query';
 import { createContext, useContext } from 'react';
 
 interface AuthContextValue {
-  myInfo: MyInfoResponse | null;
+  myInfo: MyInfoResponse | undefined;
   isSignIn: boolean;
   queryMethods: UseQueryResult<MyInfoResponse, Error>;
 }
@@ -15,7 +15,7 @@ const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 interface AuthProviderClientProps {
   children: React.ReactNode;
-  myInfo: MyInfoResponse | null;
+  myInfo: MyInfoResponse | undefined;
   isSignIn: boolean;
   accessToken: string;
 }
