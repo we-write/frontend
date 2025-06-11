@@ -35,6 +35,8 @@ function reducer(state: State, action: Action): State {
   }
 }
 
-export default function useSearchReducer() {
+const useSearchReducer = () => {
   return useReducer(reducer, initialState);
-}
+};
+
+export default useSearchReducer;
