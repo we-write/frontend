@@ -3,6 +3,7 @@ import {
   SocialFieldsRequest,
   getLocationByGenre,
   GenreType,
+  CreateSocialResponse,
 } from '@/api/social/type';
 import { useForm } from 'react-hook-form';
 import { createSocial } from '@/api/social/api';
@@ -19,12 +20,6 @@ import {
   WORD_LIMIT_OPTIONS,
 } from '@/constants/social/createSocialForm';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
-
-interface SocialResponse {
-  id: number;
-  name: string;
-  image: string;
-}
 
 // 소셜 데이터 변환 함수
 const convertToSocialData = (
@@ -47,7 +42,7 @@ const convertToSocialData = (
 
 // 스토리 데이터 변환 함수
 const convertToStoryData = (
-  socialResponse: SocialResponse,
+  socialResponse: CreateSocialResponse,
   storySettings: StorySettingsFieldsMethods,
   genre: GenreType
 ): CreateStoryRequest => {
