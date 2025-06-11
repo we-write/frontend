@@ -1,4 +1,4 @@
-import { MyInfoResponse } from '@/types/user';
+import { MyInfoResponse } from '@/api/auth/type';
 
 export interface LoginSectionProps {
   isSignIn: boolean;

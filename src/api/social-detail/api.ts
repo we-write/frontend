@@ -13,7 +13,7 @@ import instanceBaaS from '../instanceBaaS';
 import { AxiosError } from 'axios';
 import instance from '@/api/instance';
 import { API_PATH } from '@/constants/apiPath';
-import { getMyInfo } from '@/api/auth';
+import { getMyInfo } from '@/api/auth/api';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 

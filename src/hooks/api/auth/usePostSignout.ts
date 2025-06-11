@@ -1,4 +1,4 @@
-import { postSignOut } from '@/api/auth';
+import { postSignOut } from '@/api/auth/api';
 import { deleteCookie } from '@/api/cookies';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';

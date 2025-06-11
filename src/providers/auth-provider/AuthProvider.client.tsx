@@ -1,7 +1,7 @@
 'use client';
 
 import { useGetMyInfo } from '@/hooks/api/auth/useGetMyInfo';
-import { MyInfoResponse } from '@/types/user';
+import { MyInfoResponse } from '@/api/auth/type';
 import { UseQueryResult } from '@tanstack/react-query';
 import { createContext, useContext } from 'react';
 

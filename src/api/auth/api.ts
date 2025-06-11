@@ -1,7 +1,6 @@
-import { SignUpRequest, SigninRequest, UserRequest } from '@/types/user';
-
-import { setCookie } from './cookies';
-import instance from './instance';
+import { SignUpRequest, SigninRequest, UserRequest } from './type';
+import { setCookie } from '../cookies';
+import instance from '../instance';
 import axios from 'axios';
 import { API_PATH } from '@/constants/apiPath';
 

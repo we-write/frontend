@@ -1,7 +1,7 @@
 //TODO: 병합 후 수정
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { postSignIn } from '@/api/auth';
-import { SigninRequest } from '@/types/user';
+import { postSignIn } from '@/api/auth/api';
+import { SigninRequest } from '@/api/auth/type';
 
 import { useRouter } from 'next/navigation';
 

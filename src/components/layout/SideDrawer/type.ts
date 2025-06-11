@@ -1,4 +1,4 @@
-import { MyInfoResponse } from '@/types/user';
+import { MyInfoResponse } from '@/api/auth/type';
 
 interface MenuItemProps {
   label: string;

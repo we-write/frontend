@@ -4,7 +4,7 @@ import InputForm from '@/components/common/Form/InputForm';
 
 import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
 import { usePostSignin } from '@/hooks/api/auth/usePostSignin';
-import { SigninRequest } from '@/types/user';
+import { SigninRequest } from '@/api/auth/type';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';

@@ -2,7 +2,7 @@
 
 import Button from '@/components/common/Button/Button';
 import { useState } from 'react';
-import { UserRequest } from '@/types/user';
+import { UserRequest } from '@/api/auth/type';
 import {
   Modal,
   ModalContent,

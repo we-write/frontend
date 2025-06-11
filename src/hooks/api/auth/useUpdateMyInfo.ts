@@ -1,8 +1,8 @@
 'use client';
 
 import { useMutation } from '@tanstack/react-query';
-import { updateMyInfo } from '@/api/auth';
-import { UserRequest } from '@/types/user';
+import { updateMyInfo } from '@/api/auth/api';
+import { UserRequest } from '@/api/auth/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useRouter } from 'next/navigation';
 
