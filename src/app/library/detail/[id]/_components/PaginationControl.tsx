@@ -1,12 +1,8 @@
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
 import React from 'react';
-interface PaginationControlProps {
-  title: string;
-  page: number;
-  totalPage: number;
-  setPage: (page: number) => void;
-}
+import { PaginationControlProps } from './type';
+
 export const PaginationControl = ({
   title,
   page,
