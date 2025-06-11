@@ -3,7 +3,7 @@
 import { useGetMyInfo } from '@/hooks/api/auth/useGetMyInfo';
 import { MyInfoResponse } from '@/api/auth/type';
 import { UseQueryResult } from '@tanstack/react-query';
-import { createContext, useContext } from 'react';
+import { createContext, ReactNode, useContext } from 'react';
 
 interface AuthContextValue {
   myInfo: MyInfoResponse | undefined;
@@ -14,7 +14,7 @@ interface AuthContextValue {
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 interface AuthProviderClientProps {
-  children: React.ReactNode;
+  children: ReactNode;
   myInfo: MyInfoResponse | undefined;
   isSignIn: boolean;
   accessToken: string;
