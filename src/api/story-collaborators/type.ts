@@ -7,7 +7,7 @@ export interface CollaboratorRequest {
   joined_at: string;
 }
 
-export interface CreateCollaboratorParams {
+export interface CreateCollaboratorRequest {
   data: CollaboratorRequest;
   role: TeamUserRole;
 }
