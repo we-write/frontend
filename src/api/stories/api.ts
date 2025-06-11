@@ -2,7 +2,7 @@ import { DBContentApprovalResponse, DBContentResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
 import {
   GetContentsParams,
-  PostContentParams,
+  PostContentRequest,
   GetApproveUserParams,
   ApproveContentParams,
   GetStoriesParams,
@@ -186,7 +186,7 @@ export const postContent = async ({
   content,
   storyId,
   userId,
-}: PostContentParams) => {
+}: PostContentRequest) => {
   const { error } = await instanceBaaS.from('Contents').insert([
     {
       story_id: storyId,

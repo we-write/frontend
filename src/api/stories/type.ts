@@ -23,7 +23,7 @@ export interface GetContentsParams {
   limit: number;
 }
 
-export interface PostContentParams {
+export interface PostContentRequest {
   userId: number;
   storyId: string;
   content: string;
