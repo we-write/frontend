@@ -4,7 +4,7 @@ import { GetSocialListParams } from '@/api/social/type';
 import useFilterApiParams from '@/hooks/useFilterApiParams';
 import Button from '@/components/common/Button/Button';
 import { Modal } from '@/components/common/Modal/Modal';
-import CreateSocialForm from './createSocialForm/CreateSocialForm';
+import CreateSocialForm from './create-social-form/CreateSocialForm';
 import useBoolean from '@/hooks/useBoolean';
 import { GET_SOCIAL_LIST_INIT_FILTER } from '@/api/social/api';
 import SocialList from './SocialList';
