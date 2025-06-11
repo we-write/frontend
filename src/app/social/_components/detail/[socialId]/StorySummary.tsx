@@ -4,7 +4,7 @@ import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
 import useSaveSummary from '@/hooks/api/teams/useSaveSummary';
 import { useEffect, useRef, useState } from 'react';
-import { SummaryProps } from '@/app/social/detail/[socialId]/type';
+import { SummaryProps } from '@/app/social/_components/detail/[socialId]/type';
 import useGetSummary from '@/hooks/api/teams/useGetSummary';
 import useGetUserRole from '@/hooks/api/teams/useGetUserRole';
 import { TextEditorRef } from '@/types/textEditor';

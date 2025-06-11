@@ -1,10 +1,10 @@
 'use client';
 
 import Button from '@/components/common/Button/Button';
-import SocialForm from '../create-social-form/SocialForm';
-import StorySettingForm from '../create-social-form/StorySettingForm';
-import { CreateSocialFormProps } from '../create-social-form/type';
-import useCreateSocialForm from '../create-social-form/useCreateSocialForm';
+import SocialForm from './SocialForm';
+import StorySettingForm from './StorySettingForm';
+import { CreateSocialFormProps } from './type';
+import useCreateSocialForm from './useCreateSocialForm';
 
 const CreateSocialForm = ({ onClose }: CreateSocialFormProps) => {
   const {

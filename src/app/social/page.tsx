@@ -2,7 +2,7 @@ import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { GET_SOCIAL_LIST_INIT_FILTER, getSocialList } from '@/api/social/api';
 import { getQueryClient } from '@/lib/queryClinet';
-import SocialListContainer from './SocialListContainer';
+import SocialListContainer from './_components/SocialListContainer';
 import { BookOpen } from 'lucide-react';
 
 const Social = async () => {

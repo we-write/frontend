@@ -6,14 +6,14 @@ import {
   getSummary,
   getUserRole,
 } from '@/api/social-detail/api';
-import SocialOverView from '@/app/social/detail/[socialId]/SocialOverView';
-import { SocialDetailPageParams } from '@/app/social/detail/[socialId]/type';
+import SocialOverView from '@/app/social/_components/detail/[socialId]/SocialOverView';
+import { SocialDetailPageParams } from '@/app/social/_components/detail/[socialId]/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import StorySummary from '@/app/social/detail/[socialId]/StorySummary';
+import StorySummary from '@/app/social/_components/detail/[socialId]/StorySummary';
 import { GetStoryIdResponse } from '@/api/social-detail/type';
-import NotFoundRedirect from '@/app/social/detail/[socialId]/NotFoundRedirect';
+import NotFoundRedirect from '@/app/social/_components/detail/[socialId]/NotFoundRedirect';
 
 const SocialDetail = async ({
   params,

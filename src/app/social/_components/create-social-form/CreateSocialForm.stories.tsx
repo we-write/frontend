@@ -1,5 +1,5 @@
 import { Meta } from '@storybook/react';
-import CreateSocialForm from '../create-social-form/CreateSocialForm';
+import CreateSocialForm from './CreateSocialForm';
 import useBoolean from '@/hooks/useBoolean';
 import { Modal } from '@/components/common/Modal/Modal';
 import Button from '@/components/common/Button/Button';

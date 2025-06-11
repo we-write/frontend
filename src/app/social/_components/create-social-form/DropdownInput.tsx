@@ -5,7 +5,7 @@ import { FieldValues } from 'react-hook-form';
 import InputForm from '@/components/common/Form/InputForm';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 import useBoolean from '@/hooks/useBoolean';
-import { DropdownInputProps } from '../create-social-form/type';
+import { DropdownInputProps } from './type';
 
 const DropdownInput = <T extends FieldValues>({
   name,

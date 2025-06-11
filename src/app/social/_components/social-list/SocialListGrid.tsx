@@ -1,11 +1,8 @@
-import React from 'react';
-import { SocialListGridProps, SocialListProps } from './type';
-import { useGetSocialList } from '@/hooks/api/social';
-import Observer from '@/components/common/Observer/Observer';
-import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
-import GridCard from '@/components/common/Card/GridCard';
-import htmlToString from '@/utils/htmlToString';
 import useGetSocialSummary from '@/hooks/api/stories/useGetSocialSummary';
+import convertLocationToGenre from '@/utils/convertLocationToGenre';
+import htmlToString from '@/utils/htmlToString';
+import { SocialListGridProps } from '@/app/social/_components/type';
+import GridCard from '@/components/common/Card/GridCard';
 import { APP_ROUTES } from '@/constants/appRoutes';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
@@ -50,25 +47,4 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
   );
 };
 
-const SocialList = ({ filter }: SocialListProps) => {
-  const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
-    useGetSocialList(filter);
-
-  const socialList = data?.pages.flat() ?? [];
-
-  return (
-    <>
-      <SocialListGrid socialList={socialList} isLoading={isLoading} />
-      <Observer
-        enabled={hasNextPage && !!socialList.length}
-        onIntersect={() => {
-          if (hasNextPage && !isFetchingNextPage) {
-            fetchNextPage();
-          }
-        }}
-      />
-    </>
-  );
-};
-
-export default SocialList;
+export default SocialListGrid;

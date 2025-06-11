@@ -19,8 +19,8 @@ import {
   ThumbnailUploadInputProps,
   RegistrationDeadlineInputProps,
   SocialFormProps,
-} from '../create-social-form/type';
-import DropdownInput from '../create-social-form/DropdownInput';
+} from './type';
+import DropdownInput from './DropdownInput';
 
 const SelectGenreInput = ({
   setValue,
