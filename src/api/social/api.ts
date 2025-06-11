@@ -1,7 +1,7 @@
 import { getFilterParams } from '@/utils/getFilterParams';
 import { API_PATH } from '@/constants/apiPath';
 import {
-  CodeitSocialFields,
+  CodeitSocialFieldsRequest,
   CreateSocialResponse,
   GetSocialListParams,
   SocialResponse,
@@ -34,7 +34,7 @@ export const getSocialList = async ({
   }
 };
 
-export const createSocial = async (data: CodeitSocialFields) => {
+export const createSocial = async (data: CodeitSocialFieldsRequest) => {
   const accessToken = await getCookie('accessToken');
 
   if (!accessToken) {

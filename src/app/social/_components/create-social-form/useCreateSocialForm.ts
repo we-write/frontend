@@ -1,5 +1,5 @@
 import {
-  CodeitSocialFields,
+  CodeitSocialFieldsRequest,
   SocialFieldsRequest,
   getLocationByGenre,
   GenreType,
@@ -27,7 +27,9 @@ interface SocialResponse {
 }
 
 // 소셜 데이터 변환 함수
-const convertToSocialData = (data: SocialFieldsRequest): CodeitSocialFields => {
+const convertToSocialData = (
+  data: SocialFieldsRequest
+): CodeitSocialFieldsRequest => {
   const registrationEndDate = new Date(data.registrationEnd);
   const dateTime = new Date(registrationEndDate);
   dateTime.setDate(dateTime.getDate() + 1);

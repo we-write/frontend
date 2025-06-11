@@ -27,7 +27,7 @@ export interface GetSocialListParams {
 }
 
 // 코드잇에서 제공하는 모임 필드 타입
-export interface CodeitSocialFields {
+export interface CodeitSocialFieldsRequest {
   name: string;
   type: SocialType;
   location: LocationType;
@@ -62,7 +62,7 @@ export interface CreateSocialResponse {
 }
 
 export interface SocialResponse
-  extends Omit<CodeitSocialFields, 'image' | 'location'> {
+  extends Omit<CodeitSocialFieldsRequest, 'image' | 'location'> {
   id: string;
   teamId: string;
   name: string;
