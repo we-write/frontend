@@ -1,4 +1,5 @@
 import { LocationType } from '@/api/social/type';
+import { useDeleteSocialByDbParams } from '@/hooks/api/teams/useDeleteSocialByDb';
 
 export interface GetSocialDetailParams {
   socialId: number;
@@ -61,3 +62,5 @@ export interface GetStoryIdParams {
 export interface GetStoryIdResponse {
   story_id: string;
 }
+
+export type DeleteSocialByDbParams = useDeleteSocialByDbParams;
