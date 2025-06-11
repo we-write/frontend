@@ -11,7 +11,7 @@ import {
 } from '@/components/common/Modal/Modal';
 import InputForm from '@/components/common/Form/InputForm';
 import { Controller, useForm } from 'react-hook-form';
-import { useUpdateMyInfo } from '@/hooks/api/supabase/users/useUpdateMyInfo';
+import { useUpdateMyInfo } from '@/hooks/api/auth/useUpdateMyInfo';
 import { BtnEditSmall } from '@public/assets/icons';
 import { EditMyProfileFormProps } from './type';
 

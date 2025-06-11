@@ -5,7 +5,7 @@ import { APP_ROUTES } from '../../../constants/appRoutes';
 import { DefaultProfileImage } from '@public/assets/icons';
 import useBoolean from '@/hooks/useBoolean';
 import useClickOutside from '@/hooks/useClickOutside';
-import { usePostSignout } from '@/hooks/api/supabase/users/usePostSignout';
+import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
 import UserDropdown from '@/components/layout/GNB/UserDropdown';
 import Link from 'next/link';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';

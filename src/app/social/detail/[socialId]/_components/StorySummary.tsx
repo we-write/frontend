@@ -4,7 +4,7 @@ import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
 import useSaveSummary from '@/hooks/api/supabase/story-collaborators/useSaveSummary';
 import { useEffect, useRef, useState } from 'react';
-import { SummaryProps } from './type';
+import { SummaryProps } from '../type';
 import useGetSummary from '@/hooks/api/supabase/story-collaborators/useGetSummary';
 import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
 import { TextEditorRef } from '@/types/textEditor';

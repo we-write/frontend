@@ -11,9 +11,9 @@ import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 import { GetStoryIdResponse } from '@/api/social-detail/type';
 import { SocialDetailPageParams } from './type';
-import NotFoundRedirect from './NotFoundRedirect';
-import SocialOverView from './SocialOverView';
-import StorySummary from './StorySummary';
+import NotFoundRedirect from './_components/NotFoundRedirect';
+import SocialOverView from './_components/SocialOverView';
+import StorySummary from './_components/StorySummary';
 
 const SocialDetail = async ({
   params,

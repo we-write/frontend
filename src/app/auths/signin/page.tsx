@@ -3,7 +3,7 @@ import Button from '@/components/common/Button/Button';
 import InputForm from '@/components/common/Form/InputForm';
 
 import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
-import { usePostSignin } from '@/hooks/api/supabase/users/usePostSignin';
+import { usePostSignin } from '@/hooks/api/auth/usePostSignin';
 import { SigninRequest } from '@/types/user';
 
 import Link from 'next/link';

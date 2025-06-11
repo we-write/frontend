@@ -5,7 +5,7 @@ import useJoinTeam from '@/hooks/api/supabase/story-collaborators/useJoinTeam';
 import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';
-import { SocialOverViewProps } from './type';
+import { SocialOverViewProps } from '../type';
 import extractUserImages from '@/utils/extractUserImages';
 import useGetSocialDetail from '@/hooks/api/supabase/story-collaborators/useGetSocialDetail';
 import useGetSocialParticipants from '@/hooks/api/supabase/story-collaborators/useGetSocialParticipants';
