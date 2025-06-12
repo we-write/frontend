@@ -34,13 +34,13 @@ const Dropdown = ({
   className = '',
   onClose,
 }: DropdownProps) => {
-  const ref = useClickOutside(() => {
+  const outSideRef = useClickOutside(() => {
     if (isOpen && onClose) {
       onClose();
     }
   });
   return (
-    <div ref={ref} className={className}>
+    <div ref={outSideRef} className={className}>
       {trigger}
       {isOpen && children}
     </div>
