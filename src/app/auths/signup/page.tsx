@@ -11,6 +11,7 @@ import InputForm from '@/components/common/Form/InputForm';
 import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
 import Button from '@/components/common/Button/Button';
 import useBoolean from '@/hooks/useBoolean';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const Page = () => {
   const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
@@ -39,7 +40,7 @@ const Page = () => {
     };
 
     createUser(signUpData, {
-      onSuccess: () => router.push('/social'),
+      onSuccess: () => router.push(`${APP_ROUTES.signin}`),
       onError: (error: Error) => {
         // 이메일 중복확인 오류 처리
         setError('email', {
