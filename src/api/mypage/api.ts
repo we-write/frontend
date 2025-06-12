@@ -6,6 +6,7 @@ import {
 } from './type';
 import instance from '@/api/instance';
 import { getFilterParams } from '@/utils/getFilterParams';
+import instanceBaaS from '@/api/instanceBaaS';
 
 export const getJoinedSocialList = async ({
   limit = 12,
@@ -24,6 +25,27 @@ export const getJoinedSocialList = async ({
   } catch (error) {
     throw error;
   }
+};
+
+export const getStoryBySocialId = async (socialId: string) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('*')
+    .eq('social_id', socialId)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  if (!data) return;
+  return data.story_id;
+};
+
+export const getCollaboratorsByStoryId = async (storyId: string) => {
+  const { data, error } = await instanceBaaS
+    .from('story_collaborators')
+    .select('*')
+    .eq('story_id', storyId);
+
+  if (error) throw new Error(error.message);
+  return data;
 };
 
 export const leaveJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
