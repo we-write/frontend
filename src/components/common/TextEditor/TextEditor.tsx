@@ -19,6 +19,8 @@ import {
 } from 'react';
 import getTextWithLineBreaks from '@/utils/getTextWithLineBreaks';
 
+const DEFAULT_STRING_MAX_LENGHT = 2000;
+
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
     fontSize: {
@@ -96,7 +98,7 @@ const StringLimit = Extension.create({
 
   addOptions() {
     return {
-      limit: 5000,
+      limit: DEFAULT_STRING_MAX_LENGHT,
     };
   },
 
@@ -127,7 +129,7 @@ const TextEditor = forwardRef(
       isReadOnly = false,
       useToolbarMenu = true,
       initialContent,
-      maxContentLength = 2000,
+      maxContentLength = DEFAULT_STRING_MAX_LENGHT,
     }: TextEditorProps,
     ref
   ) => {
