@@ -5,6 +5,7 @@ import { convertLocationToGenre } from '@/utils/convertLocationToGenre';
 import { SocialListCardsProps } from '@/app/mypage/mySocial/type';
 import ListCard from '@/components/common/Card/ListCard';
 import { useRouter } from 'next/navigation';
+import { SOCIAL_ACTION_MESSAGES } from '@/constants/messages';
 
 const SocialListCards = ({
   list,
@@ -21,13 +22,12 @@ const SocialListCards = ({
 
     const messages = {
       confirm: isJoined
-        ? '정말 모임을 나가시겠습니까?'
-        : '정말 모임을 삭제 하시겠습니까?',
+        ? SOCIAL_ACTION_MESSAGES.confirm.exit
+        : SOCIAL_ACTION_MESSAGES.confirm.delete,
       success: isJoined
-        ? '모임 나가기가 완료되었습니다.'
-        : '모임 삭제가 완료되었습니다.',
+        ? SOCIAL_ACTION_MESSAGES.success.exit
+        : SOCIAL_ACTION_MESSAGES.success.delete,
     };
-
     const action = isJoined ? leaveJoinSocial : cancelJoinSocial;
 
     try {
@@ -43,6 +43,19 @@ const SocialListCards = ({
     }
   };
 
+  const handleCardButtonClick = ({
+    id,
+    registrationEnd,
+  }: {
+    id: string;
+    registrationEnd: string;
+  }) => {
+    if (isStoryCompleted(registrationEnd)) {
+      router.push(`/social/detail/${id}`);
+    }
+    handleQuitSocial(id);
+  };
+
   return (
     <>
       {list.map((item) => {
@@ -50,29 +63,31 @@ const SocialListCards = ({
           <div key={`${activeTab}-${item.id}`} className="truncate py-6">
             <ListCard
               teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
-              pageId={item.id || ''}
+              pageId={item.id}
               image={{
-                src: item.image || '',
+                src:
+                  item.image ||
+                  'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
                 alt: item.name || '섬네일 이미지',
               }}
               chip
               textContent={{
-                title: item.name || '',
+                title: item.name || '제목 없음',
                 genre:
                   convertLocationToGenre({ location: item.location }) ||
                   '장르 없음',
                 participantCount: item.participantCount || 0,
                 capacity: item.capacity || 0,
               }}
-              endDate={item.registrationEnd || ''}
+              endDate={item.registrationEnd}
               isCardDataLoading={false}
               isCompletedStory={isStoryCompleted(item.registrationEnd)}
               isCanceled={false}
               handleButtonClick={() => {
-                if (isStoryCompleted(item.registrationEnd)) {
-                  router.push(`/social/detail/${item.id}`);
-                }
-                handleQuitSocial(item.id);
+                handleCardButtonClick({
+                  id: item.id,
+                  registrationEnd: item.registrationEnd,
+                });
               }}
             />
           </div>
