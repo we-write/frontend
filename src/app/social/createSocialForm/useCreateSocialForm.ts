@@ -26,39 +26,7 @@ interface SocialResponse {
   image: string;
 }
 
-// 소셜 데이터 변환 함수
-const convertToSocialData = (data: SocialFieldsRequest): CodeitSocialFields => {
-  const registrationEndDate = new Date(data.registrationEnd);
-  const dateTime = new Date(registrationEndDate);
-  dateTime.setDate(dateTime.getDate() + 1);
-
-  return {
-    name: data.title,
-    type: 'OFFICE_STRETCHING',
-    location: getLocationByGenre(data.genre),
-    capacity: data.capacity,
-    image: data.image,
-    dateTime: dateTime.toISOString(),
-    registrationEnd: data.registrationEnd,
-  };
-};
-
-// 스토리 데이터 변환 함수
-const convertToStoryData = (
-  socialResponse: SocialResponse,
-  storySettings: StorySettingsFieldsMethods,
-  genre: GenreType
-): CreateStoryRequest => {
-  return {
-    ...storySettings,
-    social_id: socialResponse.id.toString(),
-    title: socialResponse.name,
-    cover_image_url: socialResponse.image,
-    genre,
-  };
-};
-
-const useCreateSocialForm = (onClose: () => void) => {
+const useCreateSocialForm = () => {
   const socialMethods = useForm<SocialFieldsMethods>({
     mode: 'onChange',
     defaultValues: {
@@ -85,8 +53,43 @@ const useCreateSocialForm = (onClose: () => void) => {
     formState: { isValid },
   } = socialMethods;
 
+  // 소셜 데이터 변환 함수
+  const convertToSocialData = (
+    data: SocialFieldsRequest
+  ): CodeitSocialFields => {
+    const registrationEndDate = new Date(data.registrationEnd);
+    const dateTime = new Date(registrationEndDate);
+    dateTime.setDate(dateTime.getDate() + 1);
+
+    return {
+      name: data.title,
+      type: 'OFFICE_STRETCHING',
+      location: getLocationByGenre(data.genre),
+      capacity: data.capacity,
+      image: data.image,
+      dateTime: dateTime.toISOString(),
+      registrationEnd: data.registrationEnd,
+    };
+  };
+
+  // 스토리 데이터 변환 함수
+  const convertToStoryData = (
+    socialResponse: SocialResponse,
+    genre: GenreType
+  ): CreateStoryRequest => {
+    const storySettingsData = storySettingMethods.getValues();
+
+    return {
+      ...storySettingsData,
+      social_id: socialResponse.id.toString(),
+      title: socialResponse.name,
+      cover_image_url: socialResponse.image,
+      genre,
+    };
+  };
+
   // 소셜 생성 API 호출
-  const createSocialApi = async (data: SocialFieldsRequest) => {
+  const createSocialPost = async (data: SocialFieldsRequest) => {
     if (!isValid) return;
 
     const convertedData = convertToSocialData(data);
@@ -96,7 +99,7 @@ const useCreateSocialForm = (onClose: () => void) => {
   };
 
   // 스토리 생성 API 호출
-  const createStoryApi = async (data: CreateStoryRequest) => {
+  const createStoryPost = async (data: CreateStoryRequest) => {
     const response = await createStory(data);
     return response;
   };
@@ -108,41 +111,49 @@ const useCreateSocialForm = (onClose: () => void) => {
       data: data,
       role: TEAM_USER_ROLE.LEADER,
     });
+
     // TODO: 응답값 개선 하기(#150 PR)
     return response;
   };
 
   // 소셜 및 스토리 생성 핸들러
-  const handleCreateSocial = async (data: SocialFieldsRequest) => {
-    if (!isValid) return;
-    if (!myInfo) return;
+  const createSocialSequentially = async (data: SocialFieldsRequest) => {
+    const response: { status: boolean; socialId: number | null } = {
+      status: false,
+      socialId: null,
+    };
 
-    const socialResponseData = await createSocialApi(data);
+    if (!isValid) return response;
+    if (!myInfo) return response;
 
-    if (socialResponseData) {
-      const storySettingsData = storySettingMethods.getValues();
-      const storyData = convertToStoryData(
-        socialResponseData,
-        storySettingsData,
-        data.genre
-      );
+    const socialResponseData = await createSocialPost(data);
 
-      const storyResponse = await createStoryApi(storyData);
-      await createCollaboratorAsLeader({
-        story_id: storyResponse[0]?.story_id.toString(),
-        user_id: myInfo?.id,
-        user_name: myInfo?.name,
-        joined_at: new Date().toISOString(),
-      });
-      onClose();
-    }
+    if (!socialResponseData) return response;
+
+    const storyRequestData = convertToStoryData(socialResponseData, data.genre);
+
+    const storyResponse = await createStoryPost(storyRequestData);
+
+    const collaboratorResponse = await createCollaboratorAsLeader({
+      story_id: storyResponse[0]?.story_id.toString(),
+      user_id: myInfo?.id,
+      user_name: myInfo?.name,
+      joined_at: new Date().toISOString(),
+    });
+
+    if (!collaboratorResponse) return response;
+
+    response.status = true;
+    response.socialId = socialResponseData.id;
+
+    return response;
   };
 
   return {
     socialMethods,
     storySettingMethods,
     handleSubmit,
-    handleCreateSocial,
+    createSocialSequentially,
   };
 };
 
