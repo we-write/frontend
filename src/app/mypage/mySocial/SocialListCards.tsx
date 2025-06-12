@@ -12,8 +12,9 @@ const SocialListCards = ({
   refetch,
 }: SocialListCardsProps) => {
   const router = useRouter();
-  const todayDate = new Date().toISOString();
-  const isStoryCompleted = (endDate: string) => todayDate >= endDate;
+  const nowDate = new Date().toISOString();
+  const isStoryCompleted = (registrationEndDate: string) =>
+    registrationEndDate < nowDate;
 
   const handleQuitSocial = async (id: string) => {
     const isJoined = activeTab === 'joined';
