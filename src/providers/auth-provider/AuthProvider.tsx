@@ -1,11 +1,11 @@
 import React, { PropsWithChildren } from 'react';
 import AuthProviderClient from './AuthProvider.client';
-import { getAuthOnServer } from './authProviderUtil';
+import { getMyInfoOnServer } from './authProviderUtil';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
 
 const AuthProvider = async ({ children }: PropsWithChildren) => {
   const { myInfo, isSignIn, queryClient, accessToken } =
-    await getAuthOnServer();
+    await getMyInfoOnServer();
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
