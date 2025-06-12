@@ -10,6 +10,7 @@ export interface TextEditorProps {
   isReadOnly?: boolean;
   useToolbarMenu?: boolean;
   initialContent?: string;
+  maxContentLength?: number;
 }
 
 export interface HandleFontSizeChangeParams {
