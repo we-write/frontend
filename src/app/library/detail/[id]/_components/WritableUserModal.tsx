@@ -37,15 +37,15 @@ const WritableUserModal = ({
   });
 
   useEffect(() => {
-    if (Array.isArray(approveUserData)) {
-      setTempApprovedCount(approveUserData.length);
+    if (!approveUserData) return;
 
-      if (currentUserId) {
-        const hasApproved = approveUserData.some(
-          (item) => item.user_id === currentUserId
-        );
-        setIsUserApproved(hasApproved);
-      }
+    setTempApprovedCount(approveUserData.length);
+
+    if (currentUserId) {
+      const hasApproved = approveUserData.some(
+        (item) => item.user_id === currentUserId
+      );
+      setIsUserApproved(hasApproved);
     }
   }, [approveUserData, currentUserId]);
 
