@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { Person } from '@public/assets/icons';
 
 const ListCard = ({
+  teamUserRole,
   pageId,
   image,
   chip,
@@ -30,6 +31,7 @@ const ListCard = ({
     if (isCompletedStory) {
       return '스토리 보러가기';
     }
+
     return '모임 탈퇴하기';
   };
 
@@ -102,20 +104,22 @@ const ListCard = ({
             </div>
           )}
         </div>
-        <Button
-          type="button"
-          onClick={handleButtonClick}
-          isDisabled={isCardDataLoading}
-          color="custom"
-          size="custom"
-          className={listCardButtonStyle}
-        >
-          {isCardDataLoading
-            ? '정보를 불러오는 중입니다'
-            : getListCardButtonLabel({
-                isCompletedStory: isCompletedStory,
-              })}
-        </Button>
+        {teamUserRole === 'MEMBER' && (
+          <Button
+            type="button"
+            onClick={handleButtonClick}
+            isDisabled={isCardDataLoading}
+            color="custom"
+            size="custom"
+            className={listCardButtonStyle}
+          >
+            {isCardDataLoading
+              ? '정보를 불러오는 중입니다'
+              : getListCardButtonLabel({
+                  isCompletedStory: isCompletedStory,
+                })}
+          </Button>
+        )}
       </div>
     </article>
   );
