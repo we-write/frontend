@@ -195,6 +195,11 @@ const TextEditor = forwardRef(
           ref={editorContentRef}
           editor={editor}
           className={`mt-2 overflow-y-auto`}
+          onClick={() => {
+            if (!editor?.isFocused) {
+              editor?.commands.focus();
+            }
+          }}
           style={{
             height:
               !isReadOnly && useToolbarMenu
