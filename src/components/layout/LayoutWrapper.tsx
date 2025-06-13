@@ -1,11 +1,9 @@
 'use client';
 
 import { usePathname } from 'next/navigation';
+import { PropsWithChildren } from 'react';
 
-interface LayoutWrapperProps {
-  children: React.ReactNode;
-}
-const LayoutWrapper = ({ children }: LayoutWrapperProps) => {
+const LayoutWrapper = ({ children }: PropsWithChildren) => {
   const pathname = usePathname();
   const isAuths = pathname.startsWith('/auths');
   const basicStyle = 'mx-auto w-full max-w-300 px-4 pt-20 min-h-lvh h-full';

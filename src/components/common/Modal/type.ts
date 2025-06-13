@@ -1,3 +1,5 @@
+import { ReactNode } from 'react';
+
 export interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
@@ -6,7 +8,7 @@ export interface ModalProps {
   noCloseButton?: boolean;
   fullScreen?: boolean;
   backdropNoScroll?: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }
 export interface CloseButtonProps {
@@ -21,12 +23,12 @@ export interface ModalHeaderProps {
   className?: string;
 }
 export interface ModalContentProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
   fullScreen?: boolean;
   group?: boolean;
 }
 export interface ModalFooterProps {
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
 }

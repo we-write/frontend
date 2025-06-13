@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { SignUpFormData } from '@/types/user';
-import useCreateUser from '@/hooks/api/users/useCreateUser';
+import { SignUpFormData } from '@/api/auth/type';
+import useCreateUser from '@/hooks/api/auth/useCreateUser';
 import { useRouter } from 'next/navigation';
 
 import InputForm from '@/components/common/Form/InputForm';
@@ -12,8 +12,9 @@ import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
 import Button from '@/components/common/Button/Button';
 import useBoolean from '@/hooks/useBoolean';
 import { APP_ROUTES } from '@/constants/appRoutes';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
-const Page = () => {
+const SignUp = () => {
   const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
   const { value: showPasswordCheck, toggle: toggleShowPasswordCheck } =
     useBoolean();
@@ -53,6 +54,15 @@ const Page = () => {
       },
     });
   };
+  const { isSignIn } = useAuth();
+  useEffect(() => {
+    if (isSignIn) {
+      router.push(APP_ROUTES.social);
+    }
+  }, []);
+  if (isSignIn) {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div className="mt-6 flex h-screen w-full items-center justify-center">
@@ -225,4 +235,4 @@ const Page = () => {
     </div>
   );
 };
-export default Page;
+export default SignUp;

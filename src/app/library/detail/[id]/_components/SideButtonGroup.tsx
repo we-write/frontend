@@ -1,7 +1,6 @@
 import { ChevronLeft } from 'lucide-react';
 // import { ChevronLeft, Heart } from 'lucide-react';
 import Link from 'next/link';
-import React from 'react';
 
 const SideButtonGroup = () => {
   return (

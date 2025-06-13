@@ -1,10 +1,11 @@
 import { MouseEventHandler, ReactNode } from 'react';
 
 export interface DropdownProps {
-  trigger?: React.ReactNode;
+  trigger?: ReactNode;
   isOpen: boolean;
-  children: React.ReactNode;
+  children: ReactNode;
   className?: string;
+  onClose?: () => void;
 }
 
 export interface DropdownContentProps {
@@ -15,5 +16,5 @@ export interface DropdownContentProps {
 
 export interface DropdownContainerProps {
   className?: string;
-  children: React.ReactNode;
+  children: ReactNode;
 }
