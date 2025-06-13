@@ -13,7 +13,6 @@ import instanceBaaS from '../instanceBaaS';
 import { AxiosError } from 'axios';
 import instance from '@/api/instance';
 import { API_PATH } from '@/constants/apiPath';
-import { getMyInfo } from '@/api/auth/api';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -169,13 +168,4 @@ export const getStoryId = async ({
     return 'not-found';
   }
   return data;
-};
-
-export const getMyInfoOrGuest = async () => {
-  try {
-    return await getMyInfo();
-  } catch (e) {
-    console.warn('회원 정보를 찾을 수 없습니다.', e);
-    return { id: 'unauthenticated' };
-  }
 };
