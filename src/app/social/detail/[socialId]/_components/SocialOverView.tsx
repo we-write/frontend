@@ -63,6 +63,7 @@ const SocialOverView = ({
     if (!currentUserId || !currentUserName) {
       alert('로그인이 필요한 서비스입니다.');
       router.push('/auths/signin');
+      return;
     }
 
     const joinTeamConfirmed = window.confirm('모임에 참여하시겠습니까?');
