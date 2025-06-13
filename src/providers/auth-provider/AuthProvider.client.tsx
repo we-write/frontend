@@ -2,28 +2,25 @@
 
 import { useGetMyInfo } from '@/hooks/api/auth/useGetMyInfo';
 import { createContext, useContext } from 'react';
-import { AuthProviderClientProps } from './type';
-import { AuthProviderState } from './authProviderUtil';
-import { UseQueryResult } from '@tanstack/react-query';
-import { MyInfoResponse } from '@/api/auth/type';
-
-type AuthContextValue = Omit<AuthProviderState, 'queryClient'> & {
-  queryMethods: UseQueryResult<MyInfoResponse, Error>;
-};
+import { AuthContextValue, AuthProviderClientProps } from './type';
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
 
 const AuthProviderClient = ({
   children,
-  myInfo,
-  isSignIn,
   accessToken,
+  isSignIn,
 }: AuthProviderClientProps) => {
-  const queryMethods = useGetMyInfo(accessToken);
+  const queryResult = useGetMyInfo(accessToken ?? '');
+  const { data: myInfo } = queryResult;
 
   return (
     <AuthContext.Provider
-      value={{ myInfo, isSignIn, accessToken, queryMethods }}
+      value={{
+        isSignIn,
+        myInfo,
+        queryMethods: queryResult,
+      }}
     >
       {children}
     </AuthContext.Provider>
