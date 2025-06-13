@@ -4,7 +4,7 @@ import { LibraryListGridProps } from '@/app/library/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import { useInfiniteStories } from '@/hooks/library/useInfiniteStories';
+import { useInfiniteStories } from '@/hooks/api/library/useInfiniteStories';
 import htmlToString from '@/utils/htmlToString';
 
 const FETCH_GET_ITEM_LIMIT = 12;
