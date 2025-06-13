@@ -7,9 +7,9 @@ import { CreateSocialFormProps } from './type';
 import useCreateSocialForm from './useCreateSocialForm';
 import { SocialFieldsRequest } from '@/api/social/type';
 import { useRouter } from 'next/navigation';
-import { API_PATH } from '@/constants/apiPath';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { getQueryClient } from '@/lib/queryClinet';
+import { QUERY_KEY } from '@/constants/queryKey';
 
 const CreateSocialForm = ({ onClose }: CreateSocialFormProps) => {
   const {
@@ -23,12 +23,13 @@ const CreateSocialForm = ({ onClose }: CreateSocialFormProps) => {
   const queryClient = getQueryClient();
 
   const handleCreateSocial = async (data: SocialFieldsRequest) => {
-    const isSuccess = await createSocialSequentially(data);
+    const createSocialResult = await createSocialSequentially(data);
 
-    if (!isSuccess.status) return;
+    if (!createSocialResult.status) return;
 
-    router.push(`${APP_ROUTES.socialDetail}/${isSuccess.socialId}`);
-    queryClient.invalidateQueries({ queryKey: [API_PATH.SOCIAL] });
+    // TODO: toast popup출력 추가하기
+    router.push(`${APP_ROUTES.socialDetail}/${createSocialResult.socialId}`);
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY.SOCIAL] });
     onClose();
   };
 
