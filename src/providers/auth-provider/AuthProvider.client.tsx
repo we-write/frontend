@@ -11,15 +11,14 @@ const AuthProviderClient = ({
   accessToken,
   isSignIn,
 }: AuthProviderClientProps) => {
-  const queryResult = useGetMyInfo(accessToken ?? '');
-  const { data: myInfo } = queryResult;
+  const { data: myInfo, ...rest } = useGetMyInfo(accessToken ?? '');
 
   return (
     <AuthContext.Provider
       value={{
         isSignIn,
         myInfo,
-        queryMethods: queryResult,
+        queryMethods: rest,
       }}
     >
       {children}
