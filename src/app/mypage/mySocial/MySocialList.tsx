@@ -5,7 +5,7 @@ import SocialListCards from '@/app/mypage/mySocial/SocialListCards';
 import TabMenu from '@/app/mypage/mySocial/TabMenu';
 import { TabType } from '@/app/mypage/mySocial/type';
 import Observer from '@/components/common/Observer/Observer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMySocialList } from '@/hooks/mypage/useMySocialList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
@@ -22,6 +22,12 @@ const MySocialList = () => {
     isLoading: isSocialListLoading,
     refetch,
   } = useMySocialList(activeTab, String(userId));
+
+  useEffect(() => {
+    if (userId) {
+      refetch();
+    }
+  }, [userId, activeTab, refetch]);
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
