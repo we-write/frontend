@@ -1,9 +1,11 @@
-import { getCookie } from '@/api/cookies';
+import { deleteCookie, getCookie } from '@/api/cookies';
 import { MyInfoResponse } from '@/api/auth/type';
 import { API_PATH } from '@/constants/apiPath';
 import { getQueryClient } from '@/lib/queryClinet';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { QueryClient } from '@tanstack/react-query';
+import { redirect } from 'next/navigation';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 //TODO: 추후 fetch함수 분리예정
 export const fetchMyInfo = async (accessToken: string) => {
@@ -18,6 +20,12 @@ export const fetchMyInfo = async (accessToken: string) => {
         },
       }
     );
+
+    if (res.status === 401) {
+      deleteCookie('accessToken');
+      console.error('토큰이 만료되어 재로그인 해주세요');
+      redirect(APP_ROUTES.signin);
+    }
 
     if (!res.ok) {
       throw new Error('Failed to fetch user info');
@@ -50,7 +58,7 @@ export const getMyInfoOnServer = async () => {
 
   try {
     if (accessToken) {
-      const data = await queryClient.fetchQuery<MyInfoResponse>({
+      const data = await queryClient.prefetchQuery<MyInfoResponse>({
         queryKey: [QUERY_KEY.MY_INFO],
         queryFn: () => fetchMyInfo(accessToken),
         retry: false,
