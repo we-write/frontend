@@ -160,6 +160,7 @@ const RegistrationDeadlineInput = ({
     <div className="w-[217px]">
       <Dropdown
         isOpen={endDateOpen}
+        onClose={setEndDateClose}
         trigger={
           <InputForm
             name="registrationEnd"
