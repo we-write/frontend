@@ -35,7 +35,7 @@ const Button = ({
       onClick={handleClick}
       {...rest}
     >
-      {children}
+      {isLoading ? <div className="animate-spin">⌛</div> : children}
     </button>
   );
 };
