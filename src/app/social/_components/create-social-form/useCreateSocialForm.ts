@@ -1,8 +1,9 @@
 import {
-  CodeitSocialFields,
+  CodeitSocialFieldsRequest,
   SocialFieldsRequest,
   getLocationByGenre,
   GenreType,
+  CreateSocialResponse,
 } from '@/api/social/type';
 import { useForm } from 'react-hook-form';
 import { createSocial } from '@/api/social/api';
@@ -11,7 +12,7 @@ import { CreateStoryRequest } from '@/api/stories/type';
 import { SocialFieldsMethods, StorySettingsFieldsMethods } from './type';
 import { createCollaborator } from '@/api/story-collaborators/api';
 import { TEAM_USER_ROLE } from '@/types/teamUserRole';
-import { CreateCollaboratorRequest } from '@/api/story-collaborators/type';
+import { CollaboratorRequest } from '@/api/story-collaborators/type';
 import {
   APPROVAL_PERIOD_OPTIONS,
   APPROVER_COUNT_OPTIONS,
@@ -20,14 +21,10 @@ import {
 } from '@/constants/social/createSocialForm';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
-interface SocialResponse {
-  id: number;
-  name: string;
-  image: string;
-}
-
 // 소셜 데이터 변환 함수
-const convertToSocialData = (data: SocialFieldsRequest): CodeitSocialFields => {
+const convertToSocialData = (
+  data: SocialFieldsRequest
+): CodeitSocialFieldsRequest => {
   const registrationEndDate = new Date(data.registrationEnd);
   const dateTime = new Date(registrationEndDate);
   dateTime.setDate(dateTime.getDate() + 1);
@@ -45,7 +42,7 @@ const convertToSocialData = (data: SocialFieldsRequest): CodeitSocialFields => {
 
 // 스토리 데이터 변환 함수
 const convertToStoryData = (
-  socialResponse: SocialResponse,
+  socialResponse: CreateSocialResponse,
   storySettings: StorySettingsFieldsMethods,
   genre: GenreType
 ): CreateStoryRequest => {
@@ -101,9 +98,7 @@ const useCreateSocialForm = (onClose: () => void) => {
     return response;
   };
 
-  const createCollaboratorAsLeader = async (
-    data: CreateCollaboratorRequest
-  ) => {
+  const createCollaboratorAsLeader = async (data: CollaboratorRequest) => {
     const response = await createCollaborator({
       data: data,
       role: TEAM_USER_ROLE.LEADER,

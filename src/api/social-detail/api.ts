@@ -7,7 +7,7 @@ import {
   GetTeamsParticipantsParams,
   GetTeamsParticipantsResponse,
   GetUserRoleParams,
-  SaveSummaryParams,
+  SaveSummaryRequest,
 } from '@/api/social-detail/type';
 import instanceBaaS from '../instanceBaaS';
 import { AxiosError } from 'axios';
@@ -114,7 +114,7 @@ export const getSocialParticipants = async (
 export const saveSummary = async ({
   socialId,
   summaryHtml,
-}: SaveSummaryParams) => {
+}: SaveSummaryRequest) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .update([

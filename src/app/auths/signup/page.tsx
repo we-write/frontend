@@ -1,7 +1,6 @@
 'use client';
 
 import Link from 'next/link';
-import React from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormData } from '@/api/auth/type';
 import useCreateUser from '@/hooks/api/auth/useCreateUser';
@@ -12,7 +11,7 @@ import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
 import Button from '@/components/common/Button/Button';
 import useBoolean from '@/hooks/useBoolean';
 
-const Page = () => {
+const SignUp = () => {
   const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
   const { value: showPasswordCheck, toggle: toggleShowPasswordCheck } =
     useBoolean();
@@ -221,4 +220,4 @@ const Page = () => {
     </div>
   );
 };
-export default Page;
+export default SignUp;

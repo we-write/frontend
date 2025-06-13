@@ -7,14 +7,14 @@ import { PaginationControl } from '@/app/library/detail/[id]/_components/Paginat
 import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
 import { StoryWriteOrApproveModalProviders } from '@/providers/StoryWriteOrApproveModalProviders';
-import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/ModalTriggerButton';
+import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/StoryModalTriggerButton';
 import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
-import CoverPage from './_components/CoverPage';
+import ContentCover from './_components/ContentCover';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { useGetStory } from '@/hooks/api/supabase/stories/useGetStory';
 import { useGetContent } from '@/hooks/api/supabase/contents/useGetContent';
 
-const StoryDetailPage = () => {
+const StoryDetail = () => {
   const { id } = useParams();
   const storyId = id as string;
   const [storyPageNumber, setStoryPageNumber] = useState(0);
@@ -83,7 +83,7 @@ const StoryDetailPage = () => {
     <div className="bg-50 flex min-h-full w-full flex-col items-center">
       <div className="flex h-[80dvh] w-[95%] max-w-[1600px] flex-col md:h-[740px]">
         {storyPageNumber === 0 ? (
-          <CoverPage story={story} />
+          <ContentCover story={story} />
         ) : (
           <div className="mt-8 flex-1 md:flex">
             <section className="h-full w-full overflow-y-auto px-8 py-8 md:w-1/2 md:bg-white">
@@ -113,4 +113,4 @@ const StoryDetailPage = () => {
   );
 };
 
-export default StoryDetailPage;
+export default StoryDetail;

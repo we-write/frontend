@@ -1,4 +1,3 @@
-import React from 'react';
 import { SocialListProps } from '../type';
 import useGetSocialList from '@/hooks/api/social/useGetSocialList';
 import Observer from '@/components/common/Observer/Observer';

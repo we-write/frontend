@@ -2,10 +2,9 @@
 
 import SideButtonGroup from './SideButtonGroup';
 import Image from 'next/image';
-import React from 'react';
 import { DBStoryResponse } from '@/types/dbStory';
 
-const CoverPage = ({ story }: { story: DBStoryResponse }) => {
+const ContentCover = ({ story }: { story: DBStoryResponse }) => {
   return (
     <div className="flex-center h-[80dvh] w-[95%] flex-col">
       <div className="flex w-full justify-start">
@@ -30,4 +29,4 @@ const CoverPage = ({ story }: { story: DBStoryResponse }) => {
     </div>
   );
 };
-export default CoverPage;
+export default ContentCover;

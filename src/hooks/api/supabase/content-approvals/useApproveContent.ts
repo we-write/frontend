@@ -1,5 +1,5 @@
 import { approveContent, updateContentMerge } from '@/api/stories/api';
-import { ApproveContentParams } from '@/api/stories/type';
+import { ApproveContentRequest } from '@/api/stories/type';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { DBContentApprovalResponse } from '@/types/dbStory';
 import {
@@ -19,7 +19,7 @@ const useApproveContent = ({
 }: UseApproveContentParams): UseMutationResult<
   DBContentApprovalResponse[],
   Error,
-  ApproveContentParams
+  ApproveContentRequest
 > => {
   const queryClient = useQueryClient();
   return useMutation({

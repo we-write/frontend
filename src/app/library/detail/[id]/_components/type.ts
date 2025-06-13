@@ -15,3 +15,10 @@ export interface CreateContentModalProps {
   currentUserId?: number;
   lastContentData?: DBContentResponse;
 }
+
+export interface PaginationControlProps {
+  title: string;
+  page: number;
+  totalPage: number;
+  setPage: (page: number) => void;
+}

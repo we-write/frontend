@@ -1,5 +1,5 @@
 import { JoinedSocialResponse } from '@/api/mypage/type';
-import { SocialResponse } from '@/api/social/type';
+import { GetSocialResponse } from '@/api/social/type';
 
 export type TabType = 'joined' | 'created';
 
@@ -8,7 +8,7 @@ export interface TabMenuProps {
   onTabChange: (tab: TabType) => void;
 }
 
-type SocialItem = JoinedSocialResponse | SocialResponse;
+type SocialItem = JoinedSocialResponse | GetSocialResponse;
 
 export interface SocialListCardsProps {
   list: SocialItem[];
