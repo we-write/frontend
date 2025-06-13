@@ -63,6 +63,7 @@ const SocialOverView = ({
     if (!currentUserId || !currentUserName) {
       alert('로그인이 필요한 서비스입니다.');
       router.push('/auths/signin');
+      return;
     }
 
     const joinTeamConfirmed = window.confirm('모임에 참여하시겠습니까?');
@@ -80,6 +81,8 @@ const SocialOverView = ({
         },
         role: TEAM_USER_ROLE.MEMBER,
       });
+
+      alert('모임 참여에 성공했습니다.');
     } catch (error) {
       console.error('모임 참여 실패 : ', error);
       alert('오류가 발생하여 모임 참여에 실패하였습니다.');
