@@ -10,6 +10,9 @@ export const usePostSignout = () => {
     onSuccess: () => {
       deleteCookie('accessToken');
       queryClient.removeQueries({ queryKey: [QUERY_KEY.MY_INFO] });
+      queryClient.removeQueries({
+        queryKey: [QUERY_KEY.GET_USER_ROLE],
+      });
     },
     onError: (error) => {
       console.error(error);

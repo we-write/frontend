@@ -60,6 +60,9 @@ const useJoinTeam = (params: UseJoinTeamParams) => {
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.SOCIAL_PARTICIPANTS, socialId],
       });
+      queryClient.invalidateQueries({
+        queryKey: [QUERY_KEY.SOCIAL_DETAIL, socialId],
+      });
       setTimeout(() => alert('모임 참여에 성공했습니다.'), 0);
     },
   });
