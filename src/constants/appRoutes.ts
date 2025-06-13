@@ -1,6 +1,7 @@
 export const APP_ROUTES = {
   home: '/social',
   social: '/social',
+  socialDetail: '/social/detail',
   library: '/library',
   mypage: '/mypage',
   signin: '/auths/signin',

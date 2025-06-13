@@ -5,14 +5,33 @@ import SocialForm from './SocialForm';
 import StorySettingForm from './StorySettingForm';
 import { CreateSocialFormProps } from './type';
 import useCreateSocialForm from './useCreateSocialForm';
+import { SocialFieldsRequest } from '@/api/social/type';
+import { useRouter } from 'next/navigation';
+import { APP_ROUTES } from '@/constants/appRoutes';
+import { getQueryClient } from '@/lib/queryClinet';
+import { QUERY_KEY } from '@/constants/queryKey';
 
 const CreateSocialForm = ({ onClose }: CreateSocialFormProps) => {
   const {
     socialMethods,
     storySettingMethods,
     handleSubmit,
-    handleCreateSocial,
-  } = useCreateSocialForm(onClose);
+    createSocialSequentially,
+  } = useCreateSocialForm();
+
+  const router = useRouter();
+  const queryClient = getQueryClient();
+
+  const handleCreateSocial = async (data: SocialFieldsRequest) => {
+    const createSocialResult = await createSocialSequentially(data);
+
+    if (!createSocialResult.status) return;
+
+    // TODO: toast popup출력 추가하기
+    router.push(`${APP_ROUTES.socialDetail}/${createSocialResult.socialId}`);
+    queryClient.invalidateQueries({ queryKey: [QUERY_KEY.SOCIAL] });
+    onClose();
+  };
 
   return (
     <form
