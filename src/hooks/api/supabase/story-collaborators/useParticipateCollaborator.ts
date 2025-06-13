@@ -2,7 +2,7 @@ import { createCollaborator } from '@/api/story-collaborators/api';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-interface useParticipateCollaboratorParams {
+interface UseParticipateCollaboratorParams {
   socialId: number;
   storyId?: string;
 }
@@ -10,7 +10,7 @@ interface useParticipateCollaboratorParams {
 const useParticipateCollaborator = ({
   socialId,
   storyId,
-}: useParticipateCollaboratorParams) => {
+}: UseParticipateCollaboratorParams) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: createCollaborator,

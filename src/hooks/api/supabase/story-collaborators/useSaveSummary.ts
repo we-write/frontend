@@ -7,7 +7,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-interface UseSaveSummaryRequest {
+interface UseSaveSummaryParams {
   socialId: number;
 }
 
@@ -18,7 +18,7 @@ interface UseSaveSummaryResponse {
 
 const useSaveSummary = ({
   socialId,
-}: UseSaveSummaryRequest): UseMutationResult<
+}: UseSaveSummaryParams): UseMutationResult<
   DBStoryResponse[],
   Error,
   UseSaveSummaryResponse

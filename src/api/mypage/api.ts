@@ -1,6 +1,6 @@
 import { API_PATH } from '@/constants/apiPath';
 import {
-  leaveJoinSocialRequest,
+  LeaveJoinSocialRequest,
   GetJoinedSocialListParams,
   JoinedSocialResponse,
 } from './type';
@@ -26,7 +26,7 @@ export const getJoinedSocialList = async ({
   }
 };
 
-export const leaveJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
+export const leaveJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
   try {
     const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`);
     return response.data;
@@ -35,7 +35,7 @@ export const leaveJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
   }
 };
 
-export const cancelJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
+export const cancelJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
   try {
     const response = await instance.put(API_PATH.SOCIAL + `/${id}/cancel`);
     return response.data;
