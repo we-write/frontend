@@ -1,64 +1,56 @@
-import { cancelJoinSocial, leaveJoinSocial } from '@/api/mypage/api';
-import { SocialListCardsProps } from '@/app/mypage/mySocial/type';
+import {
+  deleteCollaboratorFromSocial,
+  getStoryBySocialId,
+  leaveJoinSocial,
+} from '@/api/mypage/api';
+import { SocialCardItemProps } from '@/app/mypage/mySocial/type';
 import ListCard from '@/components/common/Card/ListCard';
 import { SOCIAL_ACTION_MESSAGES } from '@/constants/messages';
 import useCollaboratorList from '@/hooks/mypage/useCollaboratorList';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import { useRouter } from 'next/navigation';
 
-const SocialCardItem = ({
-  item,
-  activeTab,
-  refetch,
-}: {
-  item: SocialListCardsProps['list'][0];
-  activeTab: string;
-  refetch: () => void;
-}) => {
+
+const SocialCardItem = ({ item, activeTab, refetch }: SocialCardItemProps) => {
   const router = useRouter();
   const nowDate = new Date().toISOString();
   const isStoryCompleted = (registrationEndDate: string) =>
     registrationEndDate < nowDate;
+
   const { data: collaborator } = useCollaboratorList(item.id);
   const collaboratorCount = collaborator?.length || 0;
 
-  const handleQuitSocial = async (id: string) => {
-    const isJoined = activeTab === 'joined';
+  const { myInfo } = useAuth();
+  const userId = myInfo?.id;
+  const isJoined = activeTab === 'joined';
 
-    const messages = {
-      confirm: isJoined
-        ? SOCIAL_ACTION_MESSAGES.confirm.exit
-        : SOCIAL_ACTION_MESSAGES.confirm.delete,
-      success: isJoined
-        ? SOCIAL_ACTION_MESSAGES.success.exit
-        : SOCIAL_ACTION_MESSAGES.success.delete,
-    };
-    const action = isJoined ? leaveJoinSocial : cancelJoinSocial;
-
+  const handleButtonClick = async (id: string) => {
     try {
-      const confirmed = window.confirm(messages.confirm);
-      if (!confirmed) return;
+      const storyId = await getStoryBySocialId(id);
 
-      await action({ id });
-      alert(messages.success);
+      const messages = {
+        confirm: SOCIAL_ACTION_MESSAGES.confirm.exit,
+        success: SOCIAL_ACTION_MESSAGES.success.exit
+      };
+
+      if (isJoined) {
+        const confirmed = window.confirm(messages.confirm);
+        if (!confirmed) return;
+        await leaveJoinSocial({ id });
+        if (userId) {
+          await deleteCollaboratorFromSocial(Number(userId), storyId);
+          alert(messages.success);
+        }
+      } else {
+        router.push(`/social/detail/${id}`);
+      }
+
       refetch();
     } catch (error) {
       console.error(error);
-      throw new Error('모임 취소 실패');
+      alert('모임 취소에 실패했습니다.');
     }
-  };
-
-  const handleCardButtonClick = ({
-    id,
-    registrationEnd,
-  }: {
-    id: string;
-    registrationEnd: string;
-  }) => {
-    if (isStoryCompleted(registrationEnd)) {
-      router.push(`/social/detail/${id}`);
-    }
-    handleQuitSocial(id);
   };
 
   return (
@@ -75,21 +67,17 @@ const SocialCardItem = ({
         chip
         textContent={{
           title: item.name || '제목 없음',
-          genre:
-            convertLocationToGenre({ location: item.location }) || '장르 없음',
-          participantCount: collaboratorCount ?? 0,
+          genre: convertLocationToGenre({ location: item.location }) || '장르 없음',
+          participantCount: collaboratorCount,
           capacity: item.capacity || 0,
         }}
         endDate={item.registrationEnd}
         isCardDataLoading={false}
-        isCompletedStory={isStoryCompleted(item.registrationEnd)}
+        isCompletedStory={isJoined ? isStoryCompleted(item.registrationEnd) : true}
         isCanceled={false}
-        handleButtonClick={() => {
-          handleCardButtonClick({
-            id: item.id,
-            registrationEnd: item.registrationEnd,
-          });
-        }}
+        handleButtonClick={() =>
+          handleButtonClick(item.id)
+        }
       />
     </div>
   );

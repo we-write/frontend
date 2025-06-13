@@ -15,3 +15,9 @@ export interface SocialListCardsProps {
   activeTab: TabType;
   refetch: () => void;
 }
+
+export interface SocialCardItemProps {
+  item: SocialListCardsProps['list'][0];
+  activeTab: string;
+  refetch: () => void;
+}
