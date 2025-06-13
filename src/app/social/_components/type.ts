@@ -1,4 +1,4 @@
-import { GetSocialListParams, SocialResponse } from '@/api/social/type';
+import { GetSocialListParams, GetSocialResponse } from '@/api/social/type';
 import { Dispatch } from 'react';
 
 export interface SocialListProps {
@@ -6,7 +6,7 @@ export interface SocialListProps {
 }
 
 export interface SocialListGridProps {
-  socialList: SocialResponse[];
+  socialList: GetSocialResponse[];
   isLoading: boolean;
 }
 

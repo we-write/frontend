@@ -2,7 +2,6 @@
 
 import SideButtonGroup from './SideButtonGroup';
 import Image from 'next/image';
-import React from 'react';
 import { DBStoryResponse } from '@/types/dbStory';
 
 const ContentCover = ({ story }: { story: DBStoryResponse }) => {

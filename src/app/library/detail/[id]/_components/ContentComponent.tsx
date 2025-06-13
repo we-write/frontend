@@ -1,6 +1,6 @@
-import React from 'react';
 import { DBContentResponse } from '@/types/dbStory';
 import getTextWithLineBreaks from '@/utils/getTextWithLineBreaks';
+
 const ContentComponent = ({ contents }: { contents: DBContentResponse[] }) => {
   const isHtmlString = (str: string): boolean => {
     const doc = new DOMParser().parseFromString(str, 'text/html');

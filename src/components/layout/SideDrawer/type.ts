@@ -1,5 +1,3 @@
-import { MyInfoResponse } from '@/api/auth/type';
-
 interface MenuItemProps {
   label: string;
   href: string;
@@ -7,11 +5,6 @@ interface MenuItemProps {
 
 export interface LogoButtonProps {
   onClick?: () => void;
-}
-
-export interface LoginSectionProps {
-  isSignIn: boolean;
-  myInfo: MyInfoResponse | null;
 }
 
 export interface SideDrawerProps {
