@@ -48,6 +48,19 @@ export const getCollaboratorsByStoryId = async (storyId: string) => {
   return data;
 };
 
+export const deleteCollaboratorFromSocial = async (
+  userId: number,
+  storyId: string
+) => {
+  const { data, error } = await instanceBaaS
+    .from('story_collaborators')
+    .delete()
+    .match({ user_id: userId, story_id: storyId });
+
+  if (error) throw new Error(error.message);
+  return data;
+};
+
 export const leaveJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
   try {
     const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`);
@@ -57,6 +70,7 @@ export const leaveJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
   }
 };
 
+// TODO: 달램 api 모임장의 모임 삭제 기능 (필요 없을시 지워도됨)
 export const cancelJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
   try {
     const response = await instance.put(API_PATH.SOCIAL + `/${id}/cancel`);
