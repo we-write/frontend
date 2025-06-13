@@ -7,6 +7,7 @@ export interface WritableUserModalProps {
   currentUserId?: number;
   approvalPeriod: number;
   approvedCount: number;
+  maxContentLength: number;
 }
 
 export interface CreateContentModalProps {
@@ -14,4 +15,12 @@ export interface CreateContentModalProps {
   currentStoryId: string;
   currentUserId?: number;
   lastContentData?: DBContentResponse;
+  maxContentLength: number;
+}
+
+export interface PaginationControlProps {
+  title: string;
+  page: number;
+  totalPage: number;
+  setPage: (page: number) => void;
 }

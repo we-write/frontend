@@ -41,9 +41,9 @@ instance.interceptors.response.use(
   (response) => {
     return response;
   },
-  async (error) => {
+  (error) => {
     if (error.status === 401) {
-      await deleteCookie('refreshToken');
+      deleteCookie('accessToken');
     }
 
     return Promise.reject(error);

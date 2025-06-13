@@ -1,8 +1,8 @@
 import instanceBaaS from '../instanceBaaS';
 import { DB_PATH } from '@/constants/apiPath';
-import { CreateCollaboratorParams } from './type';
+import { CreateCollaboratorRequest } from './type';
 
-export const createCollaborator = async (params: CreateCollaboratorParams) => {
+export const createCollaborator = async (params: CreateCollaboratorRequest) => {
   const { data, role } = params;
 
   try {

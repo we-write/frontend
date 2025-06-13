@@ -1,10 +1,10 @@
 import { DBContentApprovalResponse, DBContentResponse } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
 import {
-  GetContentsProps,
-  PostContentParams,
+  GetContentsParams,
+  PostContentRequest,
   GetApproveUserParams,
-  ApproveContentParams,
+  ApproveContentRequest,
   GetStoriesParams,
   CreateStoryRequest,
 } from './type';
@@ -119,7 +119,7 @@ export const getContents = async ({
   id,
   page,
   limit,
-}: GetContentsProps): Promise<{
+}: GetContentsParams): Promise<{
   data: DBContentResponse[];
   count: number;
 }> => {
@@ -186,7 +186,7 @@ export const postContent = async ({
   content,
   storyId,
   userId,
-}: PostContentParams) => {
+}: PostContentRequest) => {
   const { error } = await instanceBaaS.from('Contents').insert([
     {
       story_id: storyId,
@@ -214,7 +214,7 @@ export const getApproveUser = async ({ contentId }: GetApproveUserParams) => {
 export const approveContent = async ({
   userId,
   contentId,
-}: ApproveContentParams): Promise<DBContentApprovalResponse[]> => {
+}: ApproveContentRequest): Promise<DBContentApprovalResponse[]> => {
   const { data, error } = await instanceBaaS
     .from('ContentApproval')
     .insert([
