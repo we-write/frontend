@@ -1,7 +1,7 @@
 'use client';
 
 import { useEditor, EditorContent } from '@tiptap/react';
-import { Extension } from '@tiptap/core';
+import { Editor, Extension } from '@tiptap/core';
 import StarterKit from '@tiptap/starter-kit';
 import TextStyle from '@tiptap/extension-text-style';
 import Color from '@tiptap/extension-color';
@@ -9,7 +9,10 @@ import TextAlign from '@tiptap/extension-text-align';
 import Blockquote from '@tiptap/extension-blockquote';
 import EditorToolbar from '@/components/common/TextEditor/EditorToolbar';
 import { Plugin } from 'prosemirror-state';
-import { TextEditorProps } from '@/components/common/TextEditor/type';
+import {
+  EditorContainerHeightParams,
+  TextEditorProps,
+} from '@/components/common/TextEditor/type';
 import {
   forwardRef,
   useEffect,
@@ -170,6 +173,23 @@ const TextEditor = forwardRef(
       [editor]
     );
 
+    const handleEditorFocus = (editor: Editor | null) => () => {
+      if (!editor?.isFocused) {
+        editor?.commands.focus();
+      }
+    };
+
+    const editorContainerHeight = ({
+      editorHeight,
+      isReadOnly,
+      useToolbarMenu,
+    }: EditorContainerHeightParams) => ({
+      height:
+        !isReadOnly && useToolbarMenu
+          ? `calc(${editorHeight} - 20px)`
+          : editorHeight,
+    });
+
     useEffect(() => {
       const proseMirrorEl = editorContentRef.current?.querySelector(
         '.ProseMirror'
@@ -195,17 +215,12 @@ const TextEditor = forwardRef(
           ref={editorContentRef}
           editor={editor}
           className={`mt-2 overflow-y-auto`}
-          onClick={() => {
-            if (!editor?.isFocused) {
-              editor?.commands.focus();
-            }
-          }}
-          style={{
-            height:
-              !isReadOnly && useToolbarMenu
-                ? `calc(${editorHeight} - 20px)`
-                : editorHeight,
-          }}
+          onClick={handleEditorFocus(editor)}
+          style={editorContainerHeight({
+            editorHeight,
+            isReadOnly,
+            useToolbarMenu,
+          })}
         />
         {hasReachedLimit && (
           <p className="pr-4 text-gray-500">최대 글자 수에 도달하였습니다.</p>
