@@ -15,7 +15,6 @@ const MyProfile = () => {
   } = useBoolean();
 
   const { myInfo, isSignIn, queryMethods } = useAuth();
-  console.log(myInfo);
   const currentProfileImageUrl = myInfo?.image ?? '/assets/images/Profile.png';
 
   if (!isSignIn || !myInfo) return null;

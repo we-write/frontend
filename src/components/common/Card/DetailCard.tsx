@@ -19,9 +19,11 @@ const DetailCard = ({
   const startDate = duration.startDate ? new Date(duration.startDate) : null;
   const endDate = duration.endDate ? new Date(duration.endDate) : null;
   const isButtonActivate =
-    textContent.capacity !== null && textContent.participantCount !== null
-      ? textContent.capacity > textContent.participantCount
-      : false;
+    teamUserRole === 'GUEST'
+      ? textContent.capacity !== null &&
+        textContent.participantCount !== null &&
+        textContent.capacity > textContent.participantCount
+      : teamUserRole === 'MEMBER' || teamUserRole === 'LEADER';
 
   const getParticipationButtonLabel = ({
     paramTeamUserRole,
@@ -98,7 +100,7 @@ const DetailCard = ({
           type="button"
           isDisabled={!isButtonActivate}
           onClick={() => handleButtonClick(teamUserRole)}
-          className="flex-1 font-semibold"
+          className={`flex-1 font-semibold ${!isButtonActivate && 'cursor-not-allowed'}`}
         >
           {isCardDataLoading
             ? '정보를 불러오는 중입니다.'

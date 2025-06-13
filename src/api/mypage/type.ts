@@ -20,7 +20,7 @@ export interface JoinedSocialResponse {
   capacity: number;
   image: string;
   createdBy: number;
-  canceledAt: string;
+  canceledAt: string | null;
   joinedAt: string;
   isCompleted: boolean;
   isReviewed: boolean;

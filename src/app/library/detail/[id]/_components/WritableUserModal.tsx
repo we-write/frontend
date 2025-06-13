@@ -18,6 +18,7 @@ const WritableUserModal = ({
   currentUserId,
   approvalPeriod,
   approvedCount,
+  maxContentLength,
 }: WritableUserModalProps) => {
   const { isOpen, closeModal } = useStoryModal();
   const [isUserApproved, setIsUserApproved] = useState(false);
@@ -35,11 +36,13 @@ const WritableUserModal = ({
     storyId: currentStoryId,
     contentId: lastContentData?.content_id,
   });
+
   useEffect(() => {
-    if (approveUserData?.length) {
-      setTempApprovedCount(approveUserData?.length);
-    }
-    if (approveUserData && currentUserId) {
+    if (!approveUserData) return;
+
+    setTempApprovedCount(approveUserData.length);
+
+    if (currentUserId) {
       const hasApproved = approveUserData.some(
         (item) => item.user_id === currentUserId
       );
@@ -56,6 +59,7 @@ const WritableUserModal = ({
         {...(lastContentData && {
           lastContentData: lastContentData,
         })}
+        maxContentLength={maxContentLength}
       />
     );
   }

@@ -28,7 +28,7 @@ const MySocialList = () => {
   };
 
   const flattenedList = data?.pages.flat() || [];
-
+  const filteredList = flattenedList.filter((item) => item.canceledAt === null);
   const isLoading = queryMethods.isLoading || isSocialListLoading;
 
   return (
@@ -38,7 +38,7 @@ const MySocialList = () => {
       <div className="min-h-[50vh] w-full">
         {isLoading && <LoadingListCards />}
 
-        {!isLoading && flattenedList.length === 0 && (
+        {!isLoading && filteredList.length === 0 && (
           <p className="py-6 pt-[20vh] text-center text-gray-500">
             {activeTab === 'joined'
               ? '내가 참여한 모임이 아직 없어요'
@@ -46,9 +46,9 @@ const MySocialList = () => {
           </p>
         )}
 
-        {!isLoading && flattenedList.length > 0 && (
+        {!isLoading && filteredList.length > 0 && (
           <SocialListCards
-            list={flattenedList}
+            list={filteredList}
             activeTab={activeTab}
             refetch={refetch}
           />

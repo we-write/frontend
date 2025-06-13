@@ -8,8 +8,12 @@ import { SigninRequest } from '@/api/auth/type';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
+
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useBoolean from '@/hooks/useBoolean';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const SignIn = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
@@ -21,6 +25,7 @@ const SignIn = () => {
     formState: { isSubmitting, errors },
   } = useForm<SigninRequest>();
   const { mutate: signIn } = usePostSignin();
+  const { isSignIn } = useAuth();
   const onSubmit: SubmitHandler<SigninRequest> = (data) => {
     signIn(data, {
       onSuccess: () => {
@@ -46,7 +51,14 @@ const SignIn = () => {
       },
     });
   };
-
+  useEffect(() => {
+    if (isSignIn) {
+      router.push(APP_ROUTES.social);
+    }
+  }, []);
+  if (isSignIn) {
+    return <div>Loading...</div>;
+  }
   return (
     <div className="flex h-screen w-full flex-col items-center justify-center">
       <div className="flex max-h-[478px] w-[343px] flex-col gap-10 rounded-3xl bg-white px-4 py-6 sm:px-4 md:w-[608px] md:px-13 lg:max-h-[478px] lg:w-[508px]">

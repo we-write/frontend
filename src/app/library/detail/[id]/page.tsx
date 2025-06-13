@@ -71,6 +71,7 @@ const StoryDetail = () => {
               {...(myInfo && { currentUserId: myInfo.id })}
               approvalPeriod={story?.approval_period ?? 0}
               approvedCount={story?.approved_count ?? 0}
+              maxContentLength={story?.max_length}
             />
           </>
         );
