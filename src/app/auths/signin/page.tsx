@@ -29,7 +29,7 @@ const SignIn = () => {
   const onSubmit: SubmitHandler<SigninRequest> = (data) => {
     signIn(data, {
       onSuccess: () => {
-        router.push('/social');
+        router.back();
       },
       onError: (error: Error) => {
         const errorData = JSON.parse(error.message);
