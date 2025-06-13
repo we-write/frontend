@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/common/Button/Button';
-import { useState } from 'react';
+import { ChangeEvent, useState } from 'react';
 import { UserRequest } from '@/api/auth/type';
 import {
   Modal,
@@ -39,7 +39,7 @@ const EditMyProfileForm = ({
   const { mutate: updateMyInfo, isSuccess } = useUpdateMyInfo();
 
   const handleProfileImageChange = (
-    e: React.ChangeEvent<HTMLInputElement>,
+    e: ChangeEvent<HTMLInputElement>,
     onChange: (file: File) => void,
     setPreviewUrl: (url: string) => void
   ) => {
