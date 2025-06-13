@@ -2,11 +2,11 @@ import { postContent } from '@/api/stories/api';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-interface usePostContentRequest {
+interface UsePostContentParams {
   storyId: string;
 }
 
-const usePostContent = ({ storyId }: usePostContentRequest) => {
+const usePostContent = ({ storyId }: UsePostContentParams) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: postContent,

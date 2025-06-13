@@ -8,7 +8,7 @@ import {
   useQueryClient,
 } from '@tanstack/react-query';
 
-interface UseApproveContentRequest {
+interface UseApproveContentParams {
   storyId: string;
   contentId?: string;
 }
@@ -16,7 +16,7 @@ interface UseApproveContentRequest {
 const useApproveContent = ({
   storyId,
   contentId,
-}: UseApproveContentRequest): UseMutationResult<
+}: UseApproveContentParams): UseMutationResult<
   DBContentApprovalResponse[],
   Error,
   ApproveContentRequest
