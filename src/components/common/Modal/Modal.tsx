@@ -14,7 +14,7 @@ export const Modal = ({
   closeButtonDark,
   noCloseButton,
   fullScreen,
-  backdropNoScroll = false,
+  backdropNoScroll = true,
   children,
   className,
 }: ModalProps) => {

@@ -1,6 +1,6 @@
 import ListCard from '@/components/common/Card/ListCard';
 
-const LoadingListCards = () => (
+const MySocialListSkeleton = () => (
   <>
     {Array.from({ length: 2 }).map((_, index) => (
       <div key={index} className="truncate py-6">
@@ -26,4 +26,4 @@ const LoadingListCards = () => (
   </>
 );
 
-export default LoadingListCards;
+export default MySocialListSkeleton;

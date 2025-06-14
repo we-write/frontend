@@ -1,13 +1,13 @@
 'use client';
 
 import Observer from '@/components/common/Observer/Observer';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useMySocialList } from '@/hooks/api/mypage/useMySocialList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { TabType } from './type';
 import TabMenu from './TabMenu';
-import LoadingListCards from './LoadingListCard';
-import SocialListCards from './SocialListCards';
+import MySocialListSkeleton from './MySocialListSkeleton';
+import MySocialListCard from './MySocialListCard';
 
 const MySocialList = () => {
   const [activeTab, setActiveTab] = useState<TabType>('joined');
@@ -19,9 +19,15 @@ const MySocialList = () => {
     fetchNextPage,
     hasNextPage,
     isFetching,
-    isLoading: isSocialListLoading,
+    isLoading: isMySocialListLoading,
     refetch,
   } = useMySocialList(activeTab, String(userId));
+
+  useEffect(() => {
+    if (userId) {
+      refetch();
+    }
+  }, [userId, activeTab, refetch]);
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
@@ -29,14 +35,14 @@ const MySocialList = () => {
 
   const flattenedList = data?.pages.flat() || [];
   const filteredList = flattenedList.filter((item) => item.canceledAt === null);
-  const isLoading = queryMethods.isLoading || isSocialListLoading;
+  const isLoading = queryMethods.isLoading || isMySocialListLoading;
 
   return (
     <div className="mt-[30px] w-full border-t-2 border-gray-900 p-6">
       <TabMenu activeTab={activeTab} onTabChange={handleTabChange} />
 
       <div className="min-h-[50vh] w-full">
-        {isLoading && <LoadingListCards />}
+        {isLoading && <MySocialListSkeleton />}
 
         {!isLoading && filteredList.length === 0 && (
           <p className="py-6 pt-[20vh] text-center text-gray-500">
@@ -47,7 +53,7 @@ const MySocialList = () => {
         )}
 
         {!isLoading && filteredList.length > 0 && (
-          <SocialListCards
+          <MySocialListCard
             list={filteredList}
             activeTab={activeTab}
             refetch={refetch}

@@ -1,7 +1,6 @@
 'use client';
 
 import Button from '@/components/common/Button/Button';
-import { ChangeEvent, useState } from 'react';
 import { UserRequest } from '@/api/auth/type';
 import {
   Modal,
@@ -9,11 +8,12 @@ import {
   ModalFooter,
   ModalHeader,
 } from '@/components/common/Modal/Modal';
-import InputForm from '@/components/common/Form/InputForm';
-import { Controller, useForm } from 'react-hook-form';
+import { Control, Controller, useForm } from 'react-hook-form';
 import { useUpdateMyInfo } from '@/hooks/api/auth/useUpdateMyInfo';
 import { BtnEditSmall } from '@public/assets/icons';
 import { EditMyProfileFormProps } from './type';
+import usePreviewImage from '@/hooks/api/mypage/usePreviewImage';
+import InputController from '@/app/mypage/_components/my-profile/InputController';
 
 const EditMyProfileForm = ({
   isOpen,
@@ -21,51 +21,28 @@ const EditMyProfileForm = ({
   companyName,
   currentProfileImageUrl,
 }: EditMyProfileFormProps) => {
-  const [profilePreviewImageUrl, setProfilePreviewImageUrl] = useState<string>(
-    currentProfileImageUrl
-  );
-
-  const {
-    control,
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<UserRequest>({
+  const { control, handleSubmit } = useForm<UserRequest>({
     defaultValues: {
-      companyName: companyName,
+      companyName,
     },
   });
 
-  const { mutate: updateMyInfo, isSuccess } = useUpdateMyInfo();
-
-  const handleProfileImageChange = (
-    e: ChangeEvent<HTMLInputElement>,
-    onChange: (file: File) => void,
-    setPreviewUrl: (url: string) => void
-  ) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      onChange(file);
-      const previewUrl = URL.createObjectURL(file);
-      setPreviewUrl(previewUrl);
-    }
-  };
+  const { mutate: updateMyInfo } = useUpdateMyInfo();
+  const {
+    previewUrl: profilePreviewImageUrl,
+    handleChange: handleProfileImageChange,
+  } = usePreviewImage(currentProfileImageUrl);
 
   const onSubmit = async (data: UserRequest) => {
     await updateMyInfo(data);
     closeModal();
-    if (isSuccess) {
-      //TODO: 추후 refresh를 하지 않고 고쳐보기
-      // queryClient.invalidateQueries({ queryKey: [QUERY_KEY.MY_INFO] });
-      setProfilePreviewImageUrl('');
-    }
   };
 
   return (
     <Modal isOpen={isOpen} onClose={closeModal}>
       <ModalHeader>프로필 수정하기</ModalHeader>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <ModalContent group>
+        <ModalContent>
           <div className="flex w-full flex-col items-start">
             <Controller
               name="image"
@@ -78,11 +55,7 @@ const EditMyProfileForm = ({
                     accept="image/*"
                     className="hidden"
                     onChange={(e) => {
-                      handleProfileImageChange(
-                        e,
-                        field.onChange,
-                        setProfilePreviewImageUrl
-                      );
+                      handleProfileImageChange(e, field.onChange);
                     }}
                   />
                   <label
@@ -101,26 +74,17 @@ const EditMyProfileForm = ({
                 </>
               )}
             />
-            <Controller
-              name="companyName"
-              control={control}
-              render={({ field }) => (
-                <div className="w-full">
-                  <InputForm
-                    label="좋아하는 작품"
-                    placeholder="좋아하는 작품을 입력해주세요"
-                    register={{
-                      ...register('companyName', {
-                        required: '좋아하는 작품 내용란이 비어있습니다.',
-                      }),
-                    }}
-                    hasError={!!errors.companyName}
-                    helperText={errors.companyName?.message}
-                    {...field}
-                  />
-                </div>
-              )}
-            />
+            <div className="w-full">
+              <InputController
+                name="companyName"
+                control={control as Control<UserRequest>}
+                rules={{
+                  required: '좋아하는 작품 내용란이 비어있습니다.',
+                }}
+                label="좋아하는 작품"
+                placeholder="좋아하는 작품을 입력해주세요"
+              />
+            </div>
           </div>
         </ModalContent>
         <ModalFooter>

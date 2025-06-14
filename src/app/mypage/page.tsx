@@ -3,8 +3,8 @@
 import { redirect } from 'next/navigation';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import MyProfile from './_components/myProfile/MyProfile';
-import MySocialList from './_components/mySocial/MySocialList';
+import MyProfile from './_components/my-profile/MyProfile';
+import MySocialList from './_components/my-social-list/MySocialList';
 
 const MyPage = () => {
   const { isSignIn } = useAuth();

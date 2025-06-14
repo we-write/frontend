@@ -10,8 +10,14 @@ export interface TabMenuProps {
 
 type SocialItem = JoinedSocialResponse | GetSocialResponse;
 
-export interface SocialListCardsProps {
+export interface MySocialListCardProps {
   list: SocialItem[];
   activeTab: TabType;
+  refetch: () => void;
+}
+
+export interface MySocialListItemProps {
+  item: MySocialListCardProps['list'][0];
+  activeTab: string;
   refetch: () => void;
 }
