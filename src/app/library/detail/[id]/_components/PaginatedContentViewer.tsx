@@ -1,7 +1,7 @@
 import getTextWithLineBreaks from '@/utils/getTextWithLineBreaks';
 import { forwardRef, ForwardedRef } from 'react';
 
-const ContentComponent = forwardRef(
+const PaginatedContentViewer = forwardRef(
   (props: { pageData: string[] }, ref: ForwardedRef<HTMLDivElement>) => {
     const isHtmlString = (str: string): boolean => {
       const doc = new DOMParser().parseFromString(str, 'text/html');
@@ -34,5 +34,5 @@ const ContentComponent = forwardRef(
   }
 );
 
-ContentComponent.displayName = 'ContentComponent';
-export default ContentComponent;
+PaginatedContentViewer.displayName = 'PaginatedContentViewer';
+export default PaginatedContentViewer;

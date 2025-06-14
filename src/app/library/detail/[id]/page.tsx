@@ -2,7 +2,7 @@
 
 import { useParams } from 'next/navigation';
 import { useRef } from 'react';
-import ContentComponent from '@/app/library/detail/[id]/_components/ContentComponent';
+import PaginatedContentViewer from '@/app/library/detail/[id]/_components/PaginatedContentViewer';
 import { PaginationControl } from '@/app/library/detail/[id]/_components/PaginationControl';
 import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
@@ -78,7 +78,7 @@ const StoryDetail = () => {
             <SideButtonGroup />
           </>
         ) : (
-          <ContentComponent
+          <PaginatedContentViewer
             ref={containerRef}
             pageData={paginatedContents[storyPageNumber - 1]}
           />
