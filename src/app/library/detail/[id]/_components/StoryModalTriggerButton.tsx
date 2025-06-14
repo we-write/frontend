@@ -6,7 +6,7 @@ const StoryModalTriggerButton = () => {
   return (
     <button
       onClick={openModal}
-      className="fixed right-10 bottom-10 h-15 w-15 md:right-22 md:bottom-14"
+      className="fixed right-6 bottom-10 h-15 w-15 md:right-22 md:bottom-14"
     >
       <ContentWriteIcon aria-hidden="true" />
     </button>
