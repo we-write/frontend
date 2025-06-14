@@ -116,7 +116,7 @@ export const getImage = async (imageName: string) => {
 };
 
 export const getContents = async ({
-  id,
+  storyId,
 }: GetContentsParams): Promise<{
   data: DBContentResponse[];
   count: number;
@@ -124,7 +124,7 @@ export const getContents = async ({
   const { data, error, count } = await instanceBaaS
     .from('Contents')
     .select('*', { count: 'exact' })
-    .eq('story_id', id)
+    .eq('story_id', storyId)
     .order('merged_at', { ascending: true });
   if (error) {
     throw new Error(error.message);

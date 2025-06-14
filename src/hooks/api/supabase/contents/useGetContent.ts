@@ -2,10 +2,10 @@ import { getContents } from '@/api/stories/api';
 import { GetContentsParams } from '@/api/stories/type';
 import { useQuery } from '@tanstack/react-query';
 
-export const useGetContent = ({ id }: GetContentsParams) => {
+export const useGetContent = ({ storyId }: GetContentsParams) => {
   return useQuery({
-    queryKey: ['contents', id],
-    queryFn: () => getContents({ id }),
+    queryKey: ['contents', storyId],
+    queryFn: () => getContents({ storyId }),
     select: (response) => {
       const merged = response.data.filter((item) => item.status === 'MERGED');
       return {

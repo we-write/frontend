@@ -36,7 +36,7 @@ const StoryDetail = () => {
   const currentUserRole = userRoleData ? userRoleData.role : 'GUEST';
 
   const { data: contents } = useGetContent({
-    id: storyId,
+    storyId: storyId,
   });
   const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
   const paginatedContents = usePaginateContentsByViewport({
