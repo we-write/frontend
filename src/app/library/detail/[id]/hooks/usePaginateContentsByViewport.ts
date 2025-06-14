@@ -2,7 +2,7 @@
 
 import { VIEWPORT_BREAK_POINT } from '@/constants/viewportBreakPoint';
 import { useEffect, useState } from 'react';
-import { UsePaginateContentsParams } from '@/app/library/detail/[id]/_components/type';
+import { UsePaginateContentsParams } from '@/app/library/detail/[id]/type';
 
 const VIEWPORT_MD_CONTENT_HEIGHT_LIMIT = 500;
 const VIEWPORT_LG_CONTENT_HEIGHT_LIMIT = 600;

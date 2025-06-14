@@ -2,7 +2,7 @@
 
 import { ChevronLeft } from 'lucide-react';
 import { ChevronRight } from 'lucide-react';
-import { PaginationControlProps } from './type';
+import { PaginationControlProps } from '../type';
 import { useRouter } from 'next/navigation';
 
 export const PaginationControl = ({

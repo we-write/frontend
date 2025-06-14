@@ -3,7 +3,7 @@ import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
 import { addDays, format } from 'date-fns';
 import CreateStoryContentModal from './CreateContentModal';
-import { WritableUserModalProps } from './type';
+import { WritableUserModalProps } from '../type';
 import { useEffect, useState } from 'react';
 import useGetApproveUser from '@/hooks/api/supabase/content-approvals/useGetApproveUser';
 import useApproveContent from '@/hooks/api/supabase/content-approvals/useApproveContent';
