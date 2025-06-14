@@ -1,7 +1,6 @@
 import { DBContentResponse } from '@/types/dbStory';
 
 export interface WritableUserModalProps {
-  currentChapter: number;
   currentStoryId: string;
   currentUserNickName?: string;
   currentUserId?: number;
@@ -11,7 +10,6 @@ export interface WritableUserModalProps {
 }
 
 export interface CreateContentModalProps {
-  currentChapter: number;
   currentStoryId: string;
   currentUserId?: number;
   lastContentData?: DBContentResponse;
@@ -19,8 +17,13 @@ export interface CreateContentModalProps {
 }
 
 export interface PaginationControlProps {
+  storyId: string;
   title: string;
   page: number;
   totalPage: number;
-  setPage: (page: number) => void;
+}
+
+export interface UsePaginateContentsParams {
+  contents?: { data: string[] };
+  currentViewPortWidth?: number;
 }
