@@ -1,5 +1,10 @@
-import { SignUpRequest, SigninRequest, UserRequest } from './type';
-import { setCookie } from '../cookies';
+import {
+  SignUpRequest,
+  SigninRequest,
+  MyInfoRequest,
+  MyInfoResponse,
+} from './type';
+import { getCookie, setCookie } from '../cookies';
 import instance from '../instance';
 import axios from 'axios';
 import { API_PATH } from '@/constants/apiPath';
@@ -92,29 +97,22 @@ export const getMyInfo = async () => {
   }
 };
 
-export const updateMyInfo = async (updateMyInfo: UserRequest) => {
-  const formData = new FormData();
-  if (updateMyInfo.companyName !== null) {
-    formData.append('companyName', updateMyInfo.companyName);
-  }
-  if (updateMyInfo.image) {
-    formData.append('image', updateMyInfo.image);
+export const updateMyInfo = async (data: MyInfoRequest) => {
+  const accessToken = await getCookie('accessToken');
+
+  if (!accessToken) {
+    throw new Error('accessToken이 없습니다.');
   }
 
   try {
-    const res = await instance.put(API_PATH.USER, formData, {
+    const response = await instance.put<MyInfoResponse>(API_PATH.USER, data, {
       headers: {
         'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${accessToken}`,
       },
     });
-    switch (res.status) {
-      case 200:
-        return res.data;
-      default:
-        throw new Error(res.data.message);
-    }
+    return response.data;
   } catch (error) {
-    console.error(error);
     throw error;
   }
 };

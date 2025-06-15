@@ -21,7 +21,7 @@ export interface MyInfoResponse {
   updatedAt: string;
   image: string;
 }
-export interface UserRequest {
+export interface MyInfoRequest {
   image?: File | null;
   companyName: string;
 }
