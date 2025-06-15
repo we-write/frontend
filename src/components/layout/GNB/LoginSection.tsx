@@ -36,7 +36,7 @@ const LoginSection = () => {
         >
           {myInfo.image ? (
             <Image
-              className="h-14 w-14 rounded-full border border-gray-200 object-cover"
+              className="rounded-full border border-gray-200 object-cover"
               src={myInfo.image}
               alt="프로필 이미지"
               width={40}
