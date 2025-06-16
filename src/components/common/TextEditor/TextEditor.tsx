@@ -174,8 +174,13 @@ const TextEditor = forwardRef(
     );
 
     const handleEditorFocus = (editor: Editor | null) => () => {
-      if (!editor?.isFocused) {
-        editor?.commands.focus();
+      if (!editor) {
+        console.warn('editor가 존재하지 않습니다.');
+        return;
+      }
+
+      if (!editor.isFocused) {
+        editor.commands.focus();
       }
     };
 
