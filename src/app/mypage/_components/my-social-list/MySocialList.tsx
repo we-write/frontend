@@ -11,23 +11,17 @@ import MySocialListCard from './MySocialListCard';
 
 const MySocialList = () => {
   const [activeTab, setActiveTab] = useState<TabType>('joined');
-  const { myInfo, queryMethods } = useAuth();
+  const { myInfo } = useAuth();
   const userId = myInfo?.id;
 
-  const {
-    data,
-    fetchNextPage,
-    hasNextPage,
-    isFetching,
-    isLoading: isMySocialListLoading,
-    refetch,
-  } = useMySocialList(activeTab, String(userId));
+  const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
+    useMySocialList(activeTab, String(userId));
 
   useEffect(() => {
-    if (userId) {
+    if (data) {
       refetch();
     }
-  }, [userId, activeTab, refetch]);
+  }, [data, activeTab, refetch]);
 
   const handleTabChange = (tab: TabType) => {
     setActiveTab(tab);
@@ -35,7 +29,6 @@ const MySocialList = () => {
 
   const flattenedList = data?.pages.flat() || [];
   const filteredList = flattenedList.filter((item) => item.canceledAt === null);
-  const isLoading = queryMethods.isLoading || isMySocialListLoading;
 
   return (
     <div className="mt-[30px] w-full border-t-2 border-gray-900 p-6">
