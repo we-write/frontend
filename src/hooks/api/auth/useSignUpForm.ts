@@ -5,11 +5,11 @@ import { SignUpFormData } from '@/api/auth/type';
 import useCreateUser from '@/hooks/api/auth/useCreateUser';
 import { APP_ROUTES } from '@/constants/appRoutes';
 
-interface UseSignUpFormProps {
+const useSignUpForm = ({
+  setError,
+}: {
   setError: UseFormSetError<SignUpFormData>;
-}
-
-const useSignUpForm = ({ setError }: UseSignUpFormProps) => {
+}) => {
   const router = useRouter();
   const { mutate: createUser } = useCreateUser();
 
