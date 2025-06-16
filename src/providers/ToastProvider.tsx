@@ -14,6 +14,7 @@ import React, {
   useState,
   useCallback,
   useEffect,
+  ReactNode,
 } from 'react';
 
 const ToastContext = createContext<ToastContextType | null>(null);
@@ -21,7 +22,7 @@ const ToastContext = createContext<ToastContextType | null>(null);
 const DEFAULT_DURATION_MS = 6000;
 const DEFAULT_POSITION: ToastPositionType = 'bottom';
 
-export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
+export const ToastProvider = ({ children }: { children: ReactNode }) => {
   const [toasts, setToasts] = useState<ToastData[]>([]);
   const [currentPosition, setCurrentPosition] =
     useState<ToastPositionType>(DEFAULT_POSITION);
