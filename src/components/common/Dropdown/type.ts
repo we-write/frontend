@@ -5,6 +5,7 @@ export interface DropdownProps {
   isOpen: boolean;
   children: ReactNode;
   className?: string;
+  onClose?: () => void;
 }
 
 export interface DropdownContentProps {
