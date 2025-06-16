@@ -1,5 +1,7 @@
+'use client';
 import { ChevronLeft } from 'lucide-react';
 import { useRouter } from 'next/navigation';
+// import { ChevronLeft, Heart } from 'lucide-react';
 
 const SideButtonGroup = () => {
   const router = useRouter();
