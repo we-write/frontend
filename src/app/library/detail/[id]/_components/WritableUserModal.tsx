@@ -5,11 +5,11 @@ import { addDays, format } from 'date-fns';
 import CreateStoryContentModal from './CreateContentModal';
 import { WritableUserModalProps } from './type';
 import { useEffect, useState } from 'react';
-import useGetApproveUser from '@/hooks/api/content-approvals/useGetApproveUser';
-import useApproveContent from '@/hooks/api/content-approvals/useApproveContent';
+import useGetApproveUser from '@/hooks/api/supabase/content-approvals/useGetApproveUser';
+import useApproveContent from '@/hooks/api/supabase/content-approvals/useApproveContent';
 import { CircleCheck } from 'lucide-react';
-import useGetLastContent from '@/hooks/api/contents/useGetLastContent';
-import useGetSocialParticipantsByDb from '@/hooks/api/useGetSocialParticipantsByDb';
+import useGetLastContent from '@/hooks/api/supabase/contents/useGetLastContent';
+import useGetSocialParticipantsByDb from '@/hooks/api/supabase/useGetSocialParticipantsByDb';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 
 const WritableUserModal = ({
@@ -18,6 +18,7 @@ const WritableUserModal = ({
   currentUserId,
   approvalPeriod,
   approvedCount,
+  maxContentLength,
 }: WritableUserModalProps) => {
   const { isOpen, closeModal } = useStoryModal();
   const [isUserApproved, setIsUserApproved] = useState(false);
@@ -35,11 +36,13 @@ const WritableUserModal = ({
     storyId: currentStoryId,
     contentId: lastContentData?.content_id,
   });
+
   useEffect(() => {
-    if (approveUserData?.length) {
-      setTempApprovedCount(approveUserData?.length);
-    }
-    if (approveUserData && currentUserId) {
+    if (!approveUserData) return;
+
+    setTempApprovedCount(approveUserData.length);
+
+    if (currentUserId) {
       const hasApproved = approveUserData.some(
         (item) => item.user_id === currentUserId
       );
@@ -56,6 +59,7 @@ const WritableUserModal = ({
         {...(lastContentData && {
           lastContentData: lastContentData,
         })}
+        maxContentLength={maxContentLength}
       />
     );
   }

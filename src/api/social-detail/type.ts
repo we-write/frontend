@@ -41,7 +41,7 @@ export interface GetTeamsParticipantsResponse {
   };
 }
 
-export interface SaveSummaryParams {
+export interface SaveSummaryRequest {
   socialId: number;
   summaryHtml: string;
 }

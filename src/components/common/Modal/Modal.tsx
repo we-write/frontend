@@ -5,7 +5,7 @@ import {
   ModalFooterProps,
   CloseButtonProps,
 } from './type';
-import React, { useEffect } from 'react';
+import { Children, useEffect } from 'react';
 
 export const Modal = ({
   isOpen,
@@ -111,7 +111,7 @@ export const ModalContent = ({
 export const ModalFooter = ({ children, className }: ModalFooterProps) => {
   const modalFooterStyle =
     'text-base text-gray-800 font-semibold flex gap-2 mt-auto';
-  const childrenCount = React.Children.count(children);
+  const childrenCount = Children.count(children);
   const alignment =
     childrenCount > 1 ? 'justify-center' : 'justify-end md:justify-center';
   return (

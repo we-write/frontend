@@ -1,10 +1,10 @@
 'use client';
 
-import MyProfile from './myProfile/MyProfile';
-import MySocialList from '@/app/mypage/mySocial/MySocialList';
 import { redirect } from 'next/navigation';
-import { APP_ROUTES } from '@/constants/appRoutes';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import { APP_ROUTES } from '@/constants/appRoutes';
+import MyProfile from './_components/myProfile/MyProfile';
+import MySocialList from './_components/mySocial/MySocialList';
 
 const MyPage = () => {
   const { isSignIn } = useAuth();

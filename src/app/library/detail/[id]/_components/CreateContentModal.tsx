@@ -3,7 +3,7 @@ import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
 import { CreateContentModalProps } from '@/app/library/detail/[id]/_components/type';
 import { useRef, FormEvent } from 'react';
-import usePostContent from '@/hooks/api/stories/usePostContent';
+import usePostContent from '@/hooks/api/supabase/stories/usePostContent';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 import { TextEditorRef } from '@/types/textEditor';
 import validateEditorContent from '@/utils/validators/validateEditorContent';
@@ -15,6 +15,7 @@ const CreateContentModal = ({
   currentStoryId,
   currentUserId,
   lastContentData,
+  maxContentLength,
 }: CreateContentModalProps) => {
   const editorContentRef = useRef<TextEditorRef>(null);
   const { isOpen, closeModal } = useStoryModal();
@@ -96,10 +97,13 @@ const CreateContentModal = ({
       className="flex h-full w-full max-w-232 flex-col justify-center md:block md:h-auto md:w-fit"
     >
       <form onSubmit={handlePostStoryContent} className="mb-1 pt-12">
-        <div className="mb-6">
+        <div className="mb-2 px-2">
           <h2 className="mb-2 text-xl">이어질 이야기를 작성해주세요</h2>
           <p className="text-2xl font-semibold">
             현재 챕터 <span className="font-extrabold">{currentChapter}</span>
+          </p>
+          <p className="text-end text-gray-500">
+            글자 수 제한 : {maxContentLength}
           </p>
         </div>
         <TextEditor
@@ -107,6 +111,7 @@ const CreateContentModal = ({
           editorHeight="500px"
           initialContent={temporaryContent}
           useToolbarMenu={false}
+          maxContentLength={maxContentLength}
           className="min-h-110 md:min-w-180 lg:min-h-125 lg:min-w-220"
         />
         <div className="mt-6 flex justify-end gap-2">
