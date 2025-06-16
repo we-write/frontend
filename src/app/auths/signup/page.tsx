@@ -13,6 +13,12 @@ import Button from '@/components/common/Button/Button';
 import useBoolean from '@/hooks/useBoolean';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import {
+  emailValidation,
+  favoriteValidation,
+  passwordCheckValidation,
+  passwordValidation,
+} from '@/utils/validators/auth';
 
 const SignUp = () => {
   const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
@@ -88,17 +94,13 @@ const SignUp = () => {
           <InputForm
             name="email"
             size={46} // 입력 필드 너비 지정
-            label="아이디"
+            label="이메일"
             placeholder="이메일을 입력해주세요"
             hasError={!!errors.email}
             helperText={errors.email?.message}
             register={{
               ...register('email', {
-                required: '이메일을 입력해주세요',
-                pattern: {
-                  value: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
-                  message: '이메일 형식이 올바르지 않습니다',
-                },
+                validate: (value) => emailValidation(value),
               }),
             }}
           />
@@ -131,11 +133,7 @@ const SignUp = () => {
                 placeholder="비밀번호를 입력해주세요"
                 register={{
                   ...register('password', {
-                    required: '비밀번호가 8자 이상이 되도록 해 주세요',
-                    pattern: {
-                      value: /^[^\s]{8,}$/,
-                      message: '비밀번호가 8자 이상이 되도록 해 주세요',
-                    },
+                    validate: (value) => passwordValidation(value),
                   }),
                 }}
                 hasError={!!errors.password}
@@ -171,12 +169,8 @@ const SignUp = () => {
                 placeholder="비밀번호를 다시 한 번 입력해주세요"
                 register={{
                   ...register('passwordCheck', {
-                    required: '비밀번호를 다시 한 번 입력해주세요',
-                    validate: (value) => {
-                      if (value !== getValues('password')) {
-                        return '비밀번호가 일치하지 않습니다';
-                      }
-                    },
+                    validate: (value) =>
+                      passwordCheckValidation(value, getValues('password')),
                   }),
                 }}
                 hasError={!!errors.passwordCheck}
@@ -191,7 +185,7 @@ const SignUp = () => {
             placeholder="(ex. 위대한 개츠비,원피스)"
             register={{
               ...register('companyName', {
-                required: '좋아하는 작품을 1개 이상 입력해 주세요.',
+                validate: (value) => favoriteValidation(value),
               }),
             }}
             hasError={!!errors.companyName}
@@ -223,7 +217,6 @@ const SignUp = () => {
           <div className="flex items-center justify-center gap-2">
             <span>이미 회원이신가요?</span>
             <Link
-              role="navigation"
               href="/auths/signin"
               className="text-write-main font-semibold underline"
             >
