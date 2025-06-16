@@ -69,6 +69,9 @@ const StoryDetail = () => {
     }
   };
 
+  // MEMO: 타입 안정성 개선 필요
+  if (!story) return null;
+
   return (
     <div className="absolute top-0 left-0 h-screen w-screen bg-white">
       <div className="flex-center relative h-full w-full flex-col">
