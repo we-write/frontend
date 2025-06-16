@@ -18,7 +18,7 @@ import React, {
 
 const ToastContext = createContext<ToastContextType | null>(null);
 
-const DEFAULT_DURATION_MS = 30000;
+const DEFAULT_DURATION_MS = 6000;
 const DEFAULT_POSITION: ToastPositionType = 'bottom';
 
 export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
@@ -29,7 +29,10 @@ export const ToastProvider = ({ children }: { children: React.ReactNode }) => {
   const showToast = useCallback((params: ToastParams) => {
     const id = crypto.randomUUID();
 
-    const toastDuration = params.duration ?? DEFAULT_DURATION_MS;
+    const toastDuration =
+      params.duration !== undefined
+        ? params.duration * 1000
+        : DEFAULT_DURATION_MS;
     const toastPosition = params.position ?? DEFAULT_POSITION;
 
     const currentToastData: ToastData = {
