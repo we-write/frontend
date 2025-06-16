@@ -23,6 +23,7 @@ import {
 import getTextWithLineBreaks from '@/utils/getTextWithLineBreaks';
 
 const DEFAULT_STRING_MAX_LENGHT = 2000;
+const EDITOR_TOOLBAR_HEIGHT = '20px';
 
 declare module '@tiptap/core' {
   interface Commands<ReturnType> {
@@ -188,12 +189,15 @@ const TextEditor = forwardRef(
       editorHeight,
       isReadOnly,
       useToolbarMenu,
-    }: EditorContainerHeightParams) => ({
-      height:
-        !isReadOnly && useToolbarMenu
-          ? `calc(${editorHeight} - 20px)`
-          : editorHeight,
-    });
+    }: EditorContainerHeightParams) => {
+      const isContainToolbar = !isReadOnly && useToolbarMenu;
+
+      const height = isContainToolbar
+        ? `calc(${editorHeight} - ${EDITOR_TOOLBAR_HEIGHT})`
+        : editorHeight;
+
+      return { height };
+    };
 
     useEffect(() => {
       const proseMirrorEl = editorContentRef.current?.querySelector(
