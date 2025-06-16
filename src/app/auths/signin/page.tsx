@@ -3,18 +3,19 @@ import Button from '@/components/common/Button/Button';
 import InputForm from '@/components/common/Form/InputForm';
 
 import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
-import { usePostSignin } from '@/hooks/api/users/usePostSignin';
-import { SigninRequest } from '@/types/user';
+import { usePostSignin } from '@/hooks/api/auth/usePostSignin';
+import { SigninRequest } from '@/api/auth/type';
 
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
-import React, { useEffect } from 'react';
+
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import useBoolean from '@/hooks/useBoolean';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { APP_ROUTES } from '@/constants/appRoutes';
 
-const Page = () => {
+const SignIn = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
   const router = useRouter();
   const {
@@ -136,4 +137,4 @@ const Page = () => {
   );
 };
 
-export default Page;
+export default SignIn;

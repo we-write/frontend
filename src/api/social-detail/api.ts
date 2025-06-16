@@ -7,13 +7,13 @@ import {
   GetTeamsParticipantsParams,
   GetTeamsParticipantsResponse,
   GetUserRoleParams,
-  SaveSummaryParams,
+  SaveSummaryRequest,
 } from '@/api/social-detail/type';
 import instanceBaaS from '../instanceBaaS';
 import { AxiosError } from 'axios';
 import instance from '@/api/instance';
 import { API_PATH } from '@/constants/apiPath';
-import { getMyInfo } from '@/api/auth';
+import { getMyInfo } from '@/api/auth/api';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -114,7 +114,7 @@ export const getSocialParticipants = async (
 export const saveSummary = async ({
   socialId,
   summaryHtml,
-}: SaveSummaryParams) => {
+}: SaveSummaryRequest) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .update([

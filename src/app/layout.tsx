@@ -6,6 +6,7 @@ import QueryProviders from '@/providers/queryProviders';
 import { GNB } from '@/components/layout/GNB/GNB';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import AuthProvider from '@/providers/auth-provider/AuthProvider';
+import { ReactNode } from 'react';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -30,11 +31,11 @@ export const viewport: Viewport = {
   userScalable: false,
 };
 
-export default function RootLayout({
+const RootLayout = ({
   children,
 }: Readonly<{
-  children: React.ReactNode;
-}>) {
+  children: ReactNode;
+}>) => {
   return (
     <html lang="ko">
       <body
@@ -54,4 +55,6 @@ export default function RootLayout({
       </body>
     </html>
   );
-}
+};
+
+export default RootLayout;

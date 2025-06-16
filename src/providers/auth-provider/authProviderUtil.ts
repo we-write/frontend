@@ -1,5 +1,5 @@
 import { getCookie } from '@/api/cookies';
-import { MyInfoResponse } from '@/types/user';
+import { MyInfoResponse } from '@/api/auth/type';
 import { API_PATH } from '@/constants/apiPath';
 import { getQueryClient } from '@/lib/queryClinet';
 import { QUERY_KEY } from '@/constants/queryKey';

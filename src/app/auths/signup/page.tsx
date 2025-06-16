@@ -1,10 +1,10 @@
 'use client';
 
 import Link from 'next/link';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { SignUpFormData } from '@/types/user';
-import useCreateUser from '@/hooks/api/users/useCreateUser';
+import { SignUpFormData } from '@/api/auth/type';
+import useCreateUser from '@/hooks/api/auth/useCreateUser';
 import { useRouter } from 'next/navigation';
 
 import InputForm from '@/components/common/Form/InputForm';
@@ -14,7 +14,7 @@ import useBoolean from '@/hooks/useBoolean';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 
-const Page = () => {
+const SignUp = () => {
   const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
   const { value: showPasswordCheck, toggle: toggleShowPasswordCheck } =
     useBoolean();
@@ -41,7 +41,10 @@ const Page = () => {
     };
 
     createUser(signUpData, {
-      onSuccess: () => router.push('/social'),
+      onSuccess: () => {
+        alert('회원가입이 완료되었습니다.');
+        router.push(`${APP_ROUTES.signin}`);
+      },
       onError: (error: Error) => {
         // 이메일 중복확인 오류 처리
         setError('email', {
@@ -232,4 +235,4 @@ const Page = () => {
     </div>
   );
 };
-export default Page;
+export default SignUp;

@@ -17,3 +17,10 @@ export interface CreateContentModalProps {
   lastContentData?: DBContentResponse;
   maxContentLength: number;
 }
+
+export interface PaginationControlProps {
+  title: string;
+  page: number;
+  totalPage: number;
+  setPage: (page: number) => void;
+}

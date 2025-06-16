@@ -26,6 +26,6 @@ export interface JoinedSocialResponse {
   isReviewed: boolean;
 }
 
-export interface leaveJoinSocialRequest {
+export interface LeaveJoinSocialRequest {
   id: string;
 }

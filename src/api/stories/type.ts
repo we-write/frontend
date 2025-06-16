@@ -17,13 +17,13 @@ export type CreateStoryRequest = Omit<
   'summary' | 'created_at' | 'updated_at'
 >;
 
-export interface GetContentsProps {
+export interface GetContentsParams {
   id: string;
   page: number;
   limit: number;
 }
 
-export interface PostContentParams {
+export interface PostContentRequest {
   userId: number;
   storyId: string;
   content: string;
@@ -33,7 +33,7 @@ export interface GetApproveUserParams {
   contentId: string;
 }
 
-export interface ApproveContentParams {
+export interface ApproveContentRequest {
   userId: number;
   contentId: string;
 }
