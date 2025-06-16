@@ -8,6 +8,9 @@ const VIEWPORT_MD_CONTENT_HEIGHT_LIMIT = 500;
 const VIEWPORT_LG_CONTENT_HEIGHT_LIMIT = 600;
 const VIEWPORT_XL_CONTENT_HEIGHT_LIMIT = 800;
 
+const TEXT_WIDTH_BELOW_MD = '20rem';
+const TEXT_WIDTH_MD_AND_UP = '40rem';
+
 const usePaginateContentsByViewport = ({
   contents,
   currentViewPortWidth,
@@ -38,7 +41,7 @@ const usePaginateContentsByViewport = ({
         position: absolute;
         top: 0;
         left: 0;
-        width: ${currentViewPortWidth > VIEWPORT_BREAK_POINT.MD ? '640px' : '320px'};
+        width: ${currentViewPortWidth > VIEWPORT_BREAK_POINT.MD ? TEXT_WIDTH_MD_AND_UP : TEXT_WIDTH_BELOW_MD};
       `;
       container.className = 'prose';
       document.body.appendChild(container);

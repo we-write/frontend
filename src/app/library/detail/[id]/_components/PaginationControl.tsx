@@ -5,6 +5,8 @@ import { ChevronRight } from 'lucide-react';
 import { PaginationControlProps } from '../type';
 import { useRouter } from 'next/navigation';
 
+const TITLE_MAX_LENGTH = 30;
+
 export const PaginationControl = ({
   storyId,
   title,
@@ -26,7 +28,7 @@ export const PaginationControl = ({
       aria-label="페이지 이동 네비게이션"
     >
       <span
-        className={`font-semibold text-gray-600 ${title?.length > 30 && 'max-w-xs truncate'}`}
+        className={`font-semibold text-gray-600 ${title.length > TITLE_MAX_LENGTH && 'max-w-xs truncate'}`}
       >
         {title}
       </span>
