@@ -14,9 +14,11 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import useBoolean from '@/hooks/useBoolean';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { APP_ROUTES } from '@/constants/appRoutes';
+import useReferer from '@/hooks/useReferer';
 
 const SignIn = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
+  const { redirectPath } = useReferer();
   const router = useRouter();
   const {
     register,
@@ -30,7 +32,7 @@ const SignIn = () => {
     if (isSubmitting || isPending) return;
     signIn(data, {
       onSuccess: () => {
-        router.back();
+        router.replace(redirectPath);
       },
       onError: (error: Error) => {
         const errorData = JSON.parse(error.message);
