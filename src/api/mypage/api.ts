@@ -1,6 +1,6 @@
 import { API_PATH } from '@/constants/apiPath';
 import {
-  leaveJoinSocialRequest,
+  LeaveJoinSocialRequest,
   GetJoinedSocialListParams,
   JoinedSocialResponse,
 } from './type';
@@ -61,7 +61,7 @@ export const deleteCollaboratorFromSocial = async (
   return data;
 };
 
-export const leaveJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
+export const leaveJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
   try {
     const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`);
     return response.data;
@@ -71,7 +71,7 @@ export const leaveJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
 };
 
 // TODO: 달램 api 모임장의 모임 삭제 기능 (필요 없을시 지워도됨)
-export const cancelJoinSocial = async ({ id }: leaveJoinSocialRequest) => {
+export const cancelJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
   try {
     const response = await instance.put(API_PATH.SOCIAL + `/${id}/cancel`);
     return response.data;
