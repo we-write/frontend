@@ -1,6 +1,6 @@
 'use client';
 
-import { useWatch } from 'react-hook-form';
+import { Path, PathValue, useWatch } from 'react-hook-form';
 import { FieldValues } from 'react-hook-form';
 import InputForm from '@/components/common/Form/InputForm';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
@@ -17,12 +17,18 @@ const DropdownInput = <T extends FieldValues>({
   options,
   unit,
 }: DropdownInputProps<T>) => {
-  const { value: isOpen, toggle } = useBoolean();
+  const { value: isOpen, toggle, setFalse: closeDropdown } = useBoolean();
   const currentValue = useWatch({ control, name });
+
+  const handleClose = (value: PathValue<T, Path<T>>) => {
+    setValue(name, value, { shouldValidate: true });
+    closeDropdown();
+  };
 
   return (
     <Dropdown
       isOpen={isOpen}
+      onClose={() => handleClose(currentValue)}
       trigger={
         <InputForm
           name={name}
@@ -47,8 +53,7 @@ const DropdownInput = <T extends FieldValues>({
               </p>
             }
             onClick={() => {
-              setValue(name, value, { shouldValidate: true });
-              toggle();
+              handleClose(value);
             }}
           />
         ))}

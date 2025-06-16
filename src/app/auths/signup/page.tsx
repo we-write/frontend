@@ -41,7 +41,10 @@ const SignUp = () => {
     };
 
     createUser(signUpData, {
-      onSuccess: () => router.push('/social'),
+      onSuccess: () => {
+        alert('회원가입이 완료되었습니다.');
+        router.push(`${APP_ROUTES.signin}`);
+      },
       onError: (error: Error) => {
         // 이메일 중복확인 오류 처리
         setError('email', {

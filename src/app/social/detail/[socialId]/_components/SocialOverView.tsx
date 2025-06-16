@@ -1,7 +1,7 @@
 'use client';
 
 import DetailCard from '@/components/common/Card/DetailCard';
-import useJoinTeam from '@/hooks/api/supabase/story-collaborators/useJoinTeam';
+import useJoinTeam from '@/hooks/api/social/useJoinTeam';
 import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';

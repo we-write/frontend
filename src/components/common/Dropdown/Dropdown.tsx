@@ -3,6 +3,7 @@ import {
   DropdownContentProps,
   DropdownProps,
 } from './type';
+import useClickOutside from '@/hooks/useClickOutside';
 
 export const DropdownContent = ({
   contentItem,
@@ -31,9 +32,15 @@ const Dropdown = ({
   trigger,
   isOpen,
   className = '',
+  onClose,
 }: DropdownProps) => {
+  const outSideRef = useClickOutside(() => {
+    if (isOpen && onClose) {
+      onClose();
+    }
+  });
   return (
-    <div className={className}>
+    <div ref={outSideRef} className={className}>
       {trigger}
       {isOpen && children}
     </div>
