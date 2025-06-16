@@ -35,7 +35,11 @@ const Button = ({
       onClick={handleClick}
       {...rest}
     >
-      {isLoading ? <div className="animate-spin">⌛</div> : children}
+      {isLoading ? (
+        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+      ) : (
+        children
+      )}
     </button>
   );
 };
