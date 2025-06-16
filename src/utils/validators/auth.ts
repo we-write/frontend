@@ -1,3 +1,24 @@
+import { SignUpValidateProps } from './type';
+
+export const singUpValidate = ({
+  value,
+  name,
+  password,
+}: SignUpValidateProps) => {
+  switch (name) {
+    case 'email':
+      return emailValidation(value);
+    case 'password':
+      return passwordValidation(value);
+    case 'passwordCheck':
+      return passwordCheckValidation(value, password ?? '');
+    case 'name':
+      return nameValidation(value);
+    case 'companyName':
+      return favoriteValidation(value);
+  }
+};
+
 export const emailValidation = (email: string): string | true => {
   if (!email) {
     return '이메일을 입력해주세요';
