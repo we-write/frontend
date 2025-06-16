@@ -63,7 +63,7 @@ const SignUp = () => {
   const { isSignIn } = useAuth();
   useEffect(() => {
     if (isSignIn) {
-      router.push(APP_ROUTES.social);
+      router.replace(APP_ROUTES.social);
     }
   }, []);
   if (isSignIn) {
