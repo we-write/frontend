@@ -117,7 +117,7 @@ const SignIn = () => {
           <Button
             role="button"
             type="submit"
-            isDisabled={!!errors.email || !!errors.password}
+            isDisabled={isPending || !!errors.email || !!errors.password}
             isLoading={isSubmitting || isPending}
           >
             로그인

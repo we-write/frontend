@@ -36,7 +36,7 @@ const Button = ({
       {...rest}
     >
       {isLoading ? (
-        <div className="h-5 w-5 animate-spin rounded-full border-2 border-white border-t-transparent" />
+        <div className="border-write-main h-5 w-5 animate-spin rounded-full border-2 border-t-transparent" />
       ) : (
         children
       )}
