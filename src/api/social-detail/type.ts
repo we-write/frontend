@@ -1,5 +1,5 @@
 import { LocationType } from '@/api/social/type';
-import { useDeleteSocialByDbParams } from '@/hooks/api/teams/useDeleteSocialByDb';
+import { useDeleteSocialByDbParams } from '@/hooks/api/supabase/useDeleteSocialByDb';
 
 export interface GetSocialDetailParams {
   socialId: number;
