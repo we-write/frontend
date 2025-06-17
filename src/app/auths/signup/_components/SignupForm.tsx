@@ -3,7 +3,7 @@ import { SignUpFormData } from '@/api/auth/type';
 import Button from '@/components/common/Button/Button';
 
 import { useForm } from 'react-hook-form';
-import { singUpValidate } from '@/utils/validators/auth';
+import { signUpValidate } from '@/utils/validators/auth';
 
 import useBoolean from '@/hooks/useBoolean';
 import useSignUpForm from '@/hooks/api/auth/useSignUpForm';
@@ -32,7 +32,7 @@ const SignupForm = () => {
         label="닉네임"
         placeholder="닉네임을 입력해주세요"
         register={register}
-        validate={singUpValidate}
+        validate={signUpValidate}
         errors={errors}
       />
 
@@ -41,7 +41,7 @@ const SignupForm = () => {
         label="이메일"
         placeholder="이메일을 입력해주세요"
         register={register}
-        validate={singUpValidate}
+        validate={signUpValidate}
         errors={errors}
       />
 
@@ -52,7 +52,7 @@ const SignupForm = () => {
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요"
             register={register}
-            validate={singUpValidate}
+            validate={signUpValidate}
             errors={errors}
             isShowPassword={showPassword}
             toggleShowPassword={toggleShowPassword}
@@ -66,7 +66,7 @@ const SignupForm = () => {
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 한 번 입력해주세요"
             register={register}
-            validate={singUpValidate}
+            validate={signUpValidate}
             password={getValues('password') ?? ''}
             errors={errors}
             isShowPassword={showPasswordCheck}
@@ -80,7 +80,7 @@ const SignupForm = () => {
         label="좋아하는 작품"
         placeholder="(ex. 위대한 개츠비,원피스)"
         register={register}
-        validate={singUpValidate}
+        validate={signUpValidate}
         errors={errors}
       />
 

@@ -1,6 +1,6 @@
 import { SignUpValidateProps } from './type';
 
-export const singUpValidate = ({
+export const signUpValidate = ({
   value,
   name,
   password,
