@@ -1,5 +1,4 @@
 import {
-  getMyInfoOrGuest,
   getSocialDetail,
   getSocialParticipants,
   getStoryId,
@@ -14,6 +13,7 @@ import { SocialDetailPageParams } from './type';
 import NotFoundRedirect from './_components/NotFoundRedirect';
 import SocialOverView from './_components/SocialOverView';
 import StorySummary from './_components/StorySummary';
+import { getMyInfoOnServer } from '@/providers/auth-provider/authProviderUtil';
 
 const SocialDetail = async ({
   params,
@@ -45,8 +45,9 @@ const SocialDetail = async ({
     queryFn: () => getSummary({ socialId: numericStoryId }),
   });
 
-  const myInfo = await getMyInfoOrGuest();
-  if (myInfo.id !== 'unauthenticated') {
+  const { isSignIn, myInfo } = await getMyInfoOnServer();
+
+  if (isSignIn && myInfo) {
     await queryClient.prefetchQuery({
       queryKey: [QUERY_KEY.GET_USER_ROLE, socialId],
       queryFn: () =>
@@ -62,19 +63,22 @@ const SocialDetail = async ({
       <HydrationBoundary state={dehydrate(queryClient)}>
         <SocialOverView
           currentSocialId={numericStoryId}
-          {...(myInfo.id !== 'unauthenticated' && {
-            currentUserId: myInfo.id,
-          })}
-          {...(myInfo.id !== 'unauthenticated' && {
-            currentUserName: myInfo.name,
-          })}
+          {...(isSignIn &&
+            myInfo && {
+              currentUserId: myInfo.id,
+            })}
+          {...(isSignIn &&
+            myInfo && {
+              currentUserName: myInfo.name,
+            })}
           {...(storyId! && { currentStoryId: storyId.story_id })}
         />
         <StorySummary
           currentSocialId={numericStoryId}
-          {...(myInfo.id !== 'unauthenticated' && {
-            currentUserId: myInfo.id,
-          })}
+          {...(isSignIn &&
+            myInfo && {
+              currentUserId: myInfo.id,
+            })}
           {...(storyId! && { currentStoryId: storyId.story_id })}
         />
       </HydrationBoundary>
