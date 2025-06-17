@@ -2,6 +2,7 @@ import InputForm from '@/components/common/Form/InputForm';
 import { PasswordFormFieldProps } from './type';
 import { Eye, EyeOff } from 'lucide-react';
 import { SignInFormData, SignUpFormData } from '@/api/auth/type';
+import { Path } from 'react-hook-form';
 
 const PasswordFormField = <T extends SignUpFormData | SignInFormData>({
   name,
@@ -24,7 +25,7 @@ const PasswordFormField = <T extends SignUpFormData | SignInFormData>({
       hasError={!!errors[name as keyof typeof errors]}
       helperText={errors[name as keyof typeof errors]?.message as string}
       register={{
-        ...register(name as keyof T, {
+        ...register(name as Path<T>, {
           validate: (value) => validate({ value, name, password }),
         }),
       }}
