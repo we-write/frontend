@@ -181,46 +181,6 @@ export const deleteSocialByDb = async ({ storyId }: DeleteSocialByDbParams) => {
     if (storiesError) {
       throw new Error(storiesError.message);
     }
-
-    const { error: storyCollaboratorsError } = await instanceBaaS
-      .from('story_collaborators')
-      .delete()
-      .eq('storyId', storyId);
-
-    if (storyCollaboratorsError) {
-      throw new Error(storyCollaboratorsError.message);
-    }
-
-    const { data: contentsIdData, error: contetnsIdError } = await instanceBaaS
-      .from('Contents')
-      .select('contents_id')
-      .eq('story_id', storyId);
-
-    if (contetnsIdError) {
-      throw new Error(contetnsIdError.message);
-    }
-
-    const contentsIds = contentsIdData.map((item) => item.contents_id);
-
-    if (contentsIds.length > 0) {
-      const { error: contentsDeleteError } = await instanceBaaS
-        .from('ContentApproval')
-        .delete()
-        .in('contents_id', contentsIds);
-
-      if (contentsDeleteError) {
-        throw new Error(contentsDeleteError.message);
-      }
-    }
-
-    const { error: contentsDeleteError } = await instanceBaaS
-      .from('Contents')
-      .delete()
-      .eq('storyId', storyId);
-
-    if (contentsDeleteError) {
-      throw new Error(contentsDeleteError.message);
-    }
   } catch (error) {
     throw new Error(error as string);
   }
