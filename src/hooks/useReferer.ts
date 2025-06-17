@@ -1,9 +1,8 @@
 'use client';
 
-import { usePathname, useRouter, useSearchParams } from 'next/navigation';
+import { usePathname, useSearchParams } from 'next/navigation';
 
 const useReferer = () => {
-  const router = useRouter();
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
@@ -14,7 +13,6 @@ const useReferer = () => {
   const redirectPath = rawReferer ? decodeURIComponent(rawReferer) : '/';
 
   return {
-    router,
     pathname,
     encodedReferer,
     refererParam,
