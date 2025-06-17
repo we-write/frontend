@@ -9,9 +9,7 @@ const SignUp = async () => {
   const referer = (await headers()).get('referer');
 
   if (isSignIn) {
-    if (referer) {
-      redirect(referer ?? '/');
-    }
+    redirect(referer ?? '/');
   }
 
   return (
