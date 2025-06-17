@@ -75,11 +75,11 @@ const StoryDetail = () => {
   return (
     <div className="absolute top-0 left-0 h-screen w-screen bg-white">
       <div className="flex-center relative h-full w-full flex-col">
+        <div className="absolute top-40 left-10 md:top-20 md:left-20">
+          <SideButtonGroup />
+        </div>
         {storyPageNumber === 0 ? (
-          <>
-            <ContentCover story={story} />
-            <SideButtonGroup />
-          </>
+          <ContentCover story={story} />
         ) : (
           <PaginatedContentViewer
             ref={containerRef}

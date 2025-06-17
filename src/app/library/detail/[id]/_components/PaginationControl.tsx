@@ -41,7 +41,7 @@ export const PaginationControl = ({
         >
           <ChevronLeft className="h-4 w-4" aria-hidden="true" />
         </button>
-        <span className="text-sm text-gray-400">
+        <span className="text-sm text-gray-500">
           {page} / {totalPage}
         </span>
         <button
