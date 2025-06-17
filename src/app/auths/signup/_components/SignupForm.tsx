@@ -37,35 +37,28 @@ const SignupForm = () => {
         errors={errors}
       />
 
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col gap-2">
-          <PasswordFormField
-            name="password"
-            label="비밀번호"
-            placeholder="비밀번호를 입력해주세요"
-            register={register}
-            validate={signUpValidate}
-            errors={errors}
-            isShowPassword={showPassword}
-            toggleShowPassword={toggleShowPassword}
-          />
-        </div>
-      </div>
-      <div className="flex flex-col gap-2">
-        <div className="flex flex-col gap-2">
-          <PasswordFormField
-            name="passwordCheck"
-            label="비밀번호 확인"
-            placeholder="비밀번호를 다시 한 번 입력해주세요"
-            register={register}
-            validate={signUpValidate}
-            password={getValues('password') ?? ''}
-            errors={errors}
-            isShowPassword={showPasswordCheck}
-            toggleShowPassword={toggleShowPasswordCheck}
-          />
-        </div>
-      </div>
+      <PasswordFormField
+        name="password"
+        label="비밀번호"
+        placeholder="비밀번호를 입력해주세요"
+        register={register}
+        validate={signUpValidate}
+        errors={errors}
+        isShowPassword={showPassword}
+        toggleShowPassword={toggleShowPassword}
+      />
+
+      <PasswordFormField
+        name="passwordCheck"
+        label="비밀번호 확인"
+        placeholder="비밀번호를 다시 한 번 입력해주세요"
+        register={register}
+        validate={signUpValidate}
+        password={getValues('password') ?? ''}
+        errors={errors}
+        isShowPassword={showPasswordCheck}
+        toggleShowPassword={toggleShowPasswordCheck}
+      />
 
       <FormField
         name="companyName"
