@@ -1,7 +1,5 @@
 'use client';
-import { SignInFormData } from '@/api/auth/type';
 import Button from '@/components/common/Button/Button';
-import { useForm } from 'react-hook-form';
 import PasswordFormField from '../../_components/PasswordFormField';
 import useBoolean from '@/hooks/useBoolean';
 import { signInValidate } from '@/utils/validators/auth';
@@ -10,13 +8,10 @@ import { useSignInForm } from '@/hooks/api/auth/useSignInForm';
 
 const SignInForm = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
-  const {
-    register,
-    handleSubmit,
-    setError,
-    formState: { isSubmitting, errors },
-  } = useForm<SignInFormData>();
-  const { onSubmit } = useSignInForm({ setError });
+
+  const { onSubmit, register, handleSubmit, isSubmitting, errors } =
+    useSignInForm();
+
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
       <div className="flex flex-col gap-2">

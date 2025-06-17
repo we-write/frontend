@@ -1,15 +1,19 @@
 import { SignInFormData } from '@/api/auth/type';
-import { SubmitHandler, UseFormSetError } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { usePostSignin } from './usePostSignin';
 import { useRouter } from 'next/navigation';
 
-export const useSignInForm = ({
-  setError,
-}: {
-  setError: UseFormSetError<SignInFormData>;
-}) => {
+export const useSignInForm = () => {
   const { mutate: signIn } = usePostSignin();
   const router = useRouter();
+
+  const {
+    register,
+    handleSubmit,
+    setError,
+    formState: { isSubmitting, errors },
+  } = useForm<SignInFormData>();
+
   const onSubmit: SubmitHandler<SignInFormData> = (data) => {
     signIn(data, {
       onSuccess: () => {
@@ -36,7 +40,7 @@ export const useSignInForm = ({
     });
   };
 
-  return { onSubmit };
+  return { onSubmit, register, handleSubmit, isSubmitting, errors };
 };
 
 export default useSignInForm;
