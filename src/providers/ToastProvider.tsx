@@ -19,7 +19,7 @@ import React, {
 
 const ToastContext = createContext<ToastContextType | null>(null);
 
-const DEFAULT_DURATION_MS = 6000;
+const DEFAULT_DURATION_MS = 3000;
 const SECOND_IN_MS = 1000;
 const DEFAULT_POSITION: ToastPositionType = 'bottom';
 
