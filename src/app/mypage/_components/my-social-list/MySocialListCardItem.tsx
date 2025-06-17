@@ -42,11 +42,11 @@ const MySocialListCardItem = ({
         if (!confirmed) return;
         await leaveJoinSocial({ id });
         if (userId) {
-          await deleteCollaboratorFromSocial(Number(userId), storyId);
+          await deleteCollaboratorFromSocial(userId, storyId);
           alert(messages.success);
         }
       } else {
-        router.push(`/social/detail/${id}`);
+        router.push(`/library/detail/${storyId}/?page=0`);
       }
 
       refetch();

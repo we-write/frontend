@@ -14,12 +14,7 @@ const useCollaboratorList = (socialId: string) => {
 
       const collaborators = await getCollaboratorsByStoryId(storyId);
 
-      // user_id 기준으로 중복 제거된 배열 반환
-      const uniqueUserIds = Array.from(
-        new Set(collaborators.map((item) => item.user_id))
-      );
-
-      return uniqueUserIds;
+      return collaborators;
     },
   });
 };
