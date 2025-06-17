@@ -1,8 +1,9 @@
 import InputForm from '@/components/common/Form/InputForm';
 import { PasswordFormFieldProps } from './type';
 import { Eye, EyeOff } from 'lucide-react';
+import { SignInFormData, SignUpFormData } from '@/api/auth/type';
 
-const PasswordFormField = ({
+const PasswordFormField = <T extends SignUpFormData | SignInFormData>({
   name,
   label,
   placeholder,
@@ -12,18 +13,18 @@ const PasswordFormField = ({
   isShowPassword,
   toggleShowPassword,
   password = '',
-}: PasswordFormFieldProps) => {
+}: PasswordFormFieldProps<T>) => {
   return (
     <InputForm
       type={isShowPassword ? 'text' : 'password'}
-      name={name}
+      name={name as string}
       size={46} // 입력 필드 너비 지정
       label={label}
       placeholder={placeholder}
-      hasError={!!errors[name]}
-      helperText={errors[name]?.message as string}
+      hasError={!!errors[name as keyof typeof errors]}
+      helperText={errors[name as keyof typeof errors]?.message as string}
       register={{
-        ...register(name, {
+        ...register(name as keyof T, {
           validate: (value) => validate({ value, name, password }),
         }),
       }}

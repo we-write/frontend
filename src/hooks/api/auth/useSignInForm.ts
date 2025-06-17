@@ -1,0 +1,42 @@
+import { SignInFormData } from '@/api/auth/type';
+import { SubmitHandler, UseFormSetError } from 'react-hook-form';
+import { usePostSignin } from './usePostSignin';
+import { useRouter } from 'next/navigation';
+
+export const useSignInForm = ({
+  setError,
+}: {
+  setError: UseFormSetError<SignInFormData>;
+}) => {
+  const { mutate: signIn } = usePostSignin();
+  const router = useRouter();
+  const onSubmit: SubmitHandler<SignInFormData> = (data) => {
+    signIn(data, {
+      onSuccess: () => {
+        router.push('/social'); //TODO: useReferer  추가
+      },
+      onError: (error: Error) => {
+        const errorData = JSON.parse(error.message);
+        if (
+          errorData.code === 'VALIDATION_ERROR' ||
+          errorData.code === 'USER_NOT_FOUND'
+        ) {
+          setError('email', {
+            type: 'manual',
+            message: errorData.message,
+          });
+        }
+        if (errorData.code === 'INVALID_CREDENTIALS') {
+          setError('password', {
+            type: 'manual',
+            message: errorData.message,
+          });
+        }
+      },
+    });
+  };
+
+  return { onSubmit };
+};
+
+export default useSignInForm;

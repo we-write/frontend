@@ -1,6 +1,8 @@
 import InputForm from '@/components/common/Form/InputForm';
 
 import { FormFieldProps } from './type';
+import { SignInFormData } from '@/api/auth/type';
+import { SignUpFormData } from '@/api/auth/type';
 
 const FormField = ({
   name,
@@ -9,7 +11,7 @@ const FormField = ({
   register,
   errors,
   validate,
-}: FormFieldProps) => {
+}: FormFieldProps<SignUpFormData | SignInFormData>) => {
   return (
     <InputForm
       name={name}
