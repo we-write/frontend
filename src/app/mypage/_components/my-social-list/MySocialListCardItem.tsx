@@ -9,7 +9,7 @@ import useCollaboratorList from '@/hooks/api/mypage/useCollaboratorList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import { useRouter } from 'next/navigation';
-import getActionMessage from '@/utils/getActionMessage';
+import getSocialActionMessage from '@/utils/getSocialActionMessage';
 
 const MySocialListCardItem = ({
   item,
@@ -33,8 +33,8 @@ const MySocialListCardItem = ({
       const storyId = await getStoryBySocialId(id);
 
       const messages = {
-        confirm: getActionMessage('모임').confirm('exit'),
-        success: getActionMessage('모임').success('exit'),
+        confirm: getSocialActionMessage('모임').confirm('exit'),
+        success: getSocialActionMessage('모임').success('exit'),
       };
 
       if (isJoined) {
