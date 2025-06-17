@@ -13,7 +13,7 @@ import { SocialDetailPageParams } from './type';
 import NotFoundRedirect from './_components/NotFoundRedirect';
 import SocialOverView from './_components/SocialOverView';
 import StorySummary from './_components/StorySummary';
-import { getMyInfoOnServer } from '@/providers/auth-provider/authProviderUtil';
+import getMyInfoOnServer from '@/providers/auth-provider/getMyInfoOnServer';
 
 const SocialDetail = async ({
   params,
