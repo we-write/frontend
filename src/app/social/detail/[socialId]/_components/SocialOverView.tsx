@@ -60,7 +60,7 @@ const SocialOverView = ({
     }
 
     if (role === 'MEMBER' || role === 'LEADER') {
-      router.push(`/library/detail/${currentStoryId}`);
+      router.push(`/library/detail/${currentStoryId}/?page=0`);
       return;
     }
 
