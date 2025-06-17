@@ -19,7 +19,7 @@ const SignupForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <FormField<SignUpFormData>
+      <FormField
         name="name"
         label="닉네임"
         placeholder="닉네임을 입력해주세요"
@@ -44,7 +44,7 @@ const SignupForm = () => {
             label="비밀번호"
             placeholder="비밀번호를 입력해주세요"
             register={register}
-            validate={singUpValidate}
+            validate={signUpValidate}
             errors={errors}
             isShowPassword={showPassword}
             toggleShowPassword={toggleShowPassword}
@@ -58,7 +58,7 @@ const SignupForm = () => {
             label="비밀번호 확인"
             placeholder="비밀번호를 다시 한 번 입력해주세요"
             register={register}
-            validate={singUpValidate}
+            validate={signUpValidate}
             password={getValues('password')}
             errors={errors}
             isShowPassword={showPasswordCheck}
