@@ -1,6 +1,6 @@
 type ActionType = 'create' | 'join' | 'exit' | 'delete';
 
-const getActionMessage = (text: string) => ({
+const getSocialActionMessage = (text: string) => ({
   confirm: (action: ActionType) => {
     const messages = {
       create: `${text}을 생성하시겠습니까?`,
@@ -29,4 +29,4 @@ const getActionMessage = (text: string) => ({
     return messages[action];
   },
 });
-export default getActionMessage;
+export default getSocialActionMessage;
