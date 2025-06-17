@@ -1,8 +1,8 @@
 'use client';
 
 import { useParams } from 'next/navigation';
-import { useEffect, useState } from 'react';
-import ContentComponent from '@/app/library/detail/[id]/_components/ContentComponent';
+import { useRef } from 'react';
+import PaginatedContentViewer from '@/app/library/detail/[id]/_components/PaginatedContentViewer';
 import { PaginationControl } from '@/app/library/detail/[id]/_components/PaginationControl';
 import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
@@ -13,48 +13,38 @@ import ContentCover from './_components/ContentCover';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { useGetStory } from '@/hooks/api/supabase/stories/useGetStory';
 import { useGetContent } from '@/hooks/api/supabase/contents/useGetContent';
+import { useSearchParams } from 'next/navigation';
+import SideButtonGroup from './_components/SideButtonGroup';
+import useCurrentViewPort from '@/hooks/useCurrentViewPort';
+import usePaginateContentsByViewport from '@/app/library/detail/[id]/hooks/usePaginateContentsByViewport';
 
 const StoryDetail = () => {
   const { id } = useParams();
   const storyId = id as string;
-  const [storyPageNumber, setStoryPageNumber] = useState(0);
-  const [isMobile, setIsMobile] = useState(false);
-  const handleResize = () => {
-    setIsMobile(window?.innerWidth < 640);
-  };
+
+  const searchParams = useSearchParams();
+  const pageParam = searchParams.get('page');
+  const storyPageNumber = pageParam ? parseInt(pageParam, 10) : 1;
+
+  const { data: story } = useGetStory(storyId);
   const { myInfo } = useAuth();
+
   const { data: userRoleData } = useGetUserRole({
     userId: myInfo?.id,
     storyId: storyId,
   });
-  const { data: story } = useGetStory(storyId);
-  const { data: contents } = useGetContent({
-    id: storyId,
-    page: storyPageNumber,
-    limit: 10,
-  });
-
   const currentUserRole = userRoleData ? userRoleData.role : 'GUEST';
 
-  useEffect(() => {
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  const { data: contents } = useGetContent({
+    storyId: storyId,
+  });
+  const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
+  const paginatedContents = usePaginateContentsByViewport({
+    contents,
+    currentViewPortWidth,
+  });
 
-  const currentContents = contents?.data || [];
-
-  const ITEMS_PER_PAGE = isMobile ? 10 : 5;
-  const totalPage = Math.ceil(
-    (contents?.count ?? 0) / (isMobile ? ITEMS_PER_PAGE : ITEMS_PER_PAGE * 2)
-  );
-
-  const leftPageContents = isMobile
-    ? currentContents
-    : currentContents.slice(0, ITEMS_PER_PAGE);
-  const rightPageContents = isMobile
-    ? currentContents.slice(1, 2)
-    : currentContents.slice(ITEMS_PER_PAGE, currentContents.length);
+  const containerRef = useRef<HTMLDivElement>(null);
 
   const renderWritableUserModalByRole = (role: TeamUserRole) => {
     switch (role) {
@@ -66,7 +56,6 @@ const StoryDetail = () => {
           <>
             <StoryModalTriggerButton />
             <WritableUserModal
-              currentChapter={currentContents?.length ?? 0}
               currentStoryId={storyId}
               {...(myInfo && { currentUserId: myInfo.id })}
               approvalPeriod={story?.approval_period ?? 0}
@@ -80,36 +69,35 @@ const StoryDetail = () => {
     }
   };
 
+  // MEMO: 타입 안정성 개선 필요
+  if (!story) return null;
+
   return (
-    <div className="bg-50 flex min-h-full w-full flex-col items-center">
-      <div className="flex h-[80dvh] w-[95%] max-w-[1600px] flex-col md:h-[740px]">
+    <div className="absolute top-0 left-0 h-screen w-screen bg-white">
+      <div className="flex-center relative h-full w-full flex-col">
         {storyPageNumber === 0 ? (
-          <ContentCover story={story} />
+          <>
+            <ContentCover story={story} />
+            <SideButtonGroup />
+          </>
         ) : (
-          <div className="mt-8 flex-1 md:flex">
-            <section className="h-full w-full overflow-y-auto px-8 py-8 md:w-1/2 md:bg-white">
-              <ContentComponent contents={leftPageContents} />
-            </section>
-
-            <div className="hidden w-[1px] bg-gray-200 md:block" />
-
-            <section className="hidden h-full w-1/2 overflow-y-auto bg-white px-8 py-8 md:block">
-              <ContentComponent contents={rightPageContents} />
-            </section>
-          </div>
+          <PaginatedContentViewer
+            ref={containerRef}
+            pageData={paginatedContents[storyPageNumber - 1]}
+          />
         )}
 
         <PaginationControl
+          storyId={storyId}
           title={story?.title}
           page={storyPageNumber}
-          totalPage={totalPage}
-          setPage={setStoryPageNumber}
+          totalPage={paginatedContents.length}
         />
-      </div>
 
-      <StoryWriteOrApproveModalProviders>
-        {renderWritableUserModalByRole(currentUserRole)}
-      </StoryWriteOrApproveModalProviders>
+        <StoryWriteOrApproveModalProviders>
+          {renderWritableUserModalByRole(currentUserRole)}
+        </StoryWriteOrApproveModalProviders>
+      </div>
     </div>
   );
 };
