@@ -1,7 +1,7 @@
 import { APP_ROUTES } from '@/constants/appRoutes';
 import Link from 'next/link';
 
-const LinkComponent = () => {
+const LinkToSignIn = () => {
   return (
     <div className="flex-center gap-2">
       <span>이미 회원이신가요?</span>
@@ -14,4 +14,4 @@ const LinkComponent = () => {
     </div>
   );
 };
-export default LinkComponent;
+export default LinkToSignIn;

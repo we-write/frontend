@@ -1,6 +1,6 @@
 import { getMyInfoOnServer } from '@/providers/auth-provider/authProviderUtil';
 import SignupForm from './_components/SignupForm';
-import LinkComponent from './_components/LinkComponent';
+import LinkToSignIn from './_components/LinkToSignIn';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
 
@@ -21,7 +21,7 @@ const SignUp = async () => {
           회원가입
         </h1>
         <SignupForm />
-        <LinkComponent />
+        <LinkToSignIn />
       </div>
     </div>
   );
