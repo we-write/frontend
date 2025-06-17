@@ -13,6 +13,18 @@ export interface LibraryListGridProps {
   genres: string[];
 }
 
+interface Story {
+  story_id: string;
+  title: string;
+  genre: string;
+  summary: string;
+  cover_image_url?: string;
+}
+
+export interface StoryGridProps {
+  stories: Story[];
+}
+
 export interface BadgeGroupProps {
   selectedGenres: string[];
   setSelectedGenres: (genres: string[]) => void;

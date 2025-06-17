@@ -1,12 +1,12 @@
 import { GENRE_LOCATION_MAP, GenreType } from '@/api/social/type';
 import { BadgeGroupProps } from './type';
 
-const ALL = '전체';
+const GENRE_ALL = '전체';
 const GENRES = Object.keys(GENRE_LOCATION_MAP) as GenreType[];
 const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
   const toggleGenre = (genre: string) => {
-    if (genre === ALL) {
-      setSelectedGenres([ALL]);
+    if (genre === GENRE_ALL) {
+      setSelectedGenres([GENRE_ALL]);
     } else {
       setSelectedGenres([genre]);
     }
@@ -14,7 +14,7 @@ const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
 
   return (
     <div className="mx-auto flex w-full justify-start gap-2 sm:w-2/3">
-      {[ALL, ...GENRES].map((genre) => {
+      {[GENRE_ALL, ...GENRES].map((genre) => {
         const isActive = selectedGenres.includes(genre);
         return (
           <button

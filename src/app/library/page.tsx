@@ -1,7 +1,7 @@
 'use client';
 
 import BadgeGroup from '@/app/library/_components/BadgeGroup';
-import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
+import LibraryListContainer from '@/app/library/_components/LibraryListContainer';
 import SearchInput from '@/app/library/_components/SearchInput';
 import useSearchReducer from '@/hooks/api/library/useSearchReducer';
 
@@ -33,7 +33,7 @@ const Library = () => {
           }
         />
       </div>
-      <LibraryListGrid
+      <LibraryListContainer
         keyword={state.searchKeyword}
         searchType={state.searchType}
         genres={state.selectedGenres}
