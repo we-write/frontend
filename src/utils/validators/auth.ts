@@ -1,7 +1,7 @@
 import { SignInFormData, SignUpFormData } from '@/api/auth/type';
 import { ValidateProps } from './type';
 
-export const singUpValidate = ({
+export const signUpValidate = ({
   value,
   name,
   password,
@@ -20,7 +20,7 @@ export const singUpValidate = ({
   }
 };
 
-export const emailValidation = (email: string): string | true => {
+const emailValidation = (email: string): string | true => {
   if (!email) {
     return '이메일을 입력해주세요';
   }
@@ -30,7 +30,7 @@ export const emailValidation = (email: string): string | true => {
   return true;
 };
 
-export const passwordValidation = (password: string): string | true => {
+const passwordValidation = (password: string): string | true => {
   if (!password) {
     return '비밀번호를 입력해주세요';
   }
@@ -43,7 +43,7 @@ export const passwordValidation = (password: string): string | true => {
   return true;
 };
 
-export const passwordCheckValidation = (
+const passwordCheckValidation = (
   passwordCheck: string,
   password: string
 ): string | true => {
@@ -56,14 +56,14 @@ export const passwordCheckValidation = (
   return true;
 };
 
-export const nameValidation = (name: string): string | true => {
+const nameValidation = (name: string): string | true => {
   if (!name) {
     return '닉네임을 입력해주세요';
   }
   return true;
 };
 
-export const favoriteValidation = (favorite: string): string | true => {
+const favoriteValidation = (favorite: string): string | true => {
   if (!favorite) {
     return '좋아하는 작품을 입력해주세요';
   }

@@ -1,4 +1,5 @@
 import {
+  DeleteSocialByDbParams,
   GetSocialDetailParams,
   GetSocialDetailResponse,
   GetStoryIdParams,
@@ -13,7 +14,6 @@ import instanceBaaS from '../instanceBaaS';
 import { AxiosError } from 'axios';
 import instance from '@/api/instance';
 import { API_PATH } from '@/constants/apiPath';
-import { getMyInfo } from '@/api/auth/api';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -171,11 +171,17 @@ export const getStoryId = async ({
   return data;
 };
 
-export const getMyInfoOrGuest = async () => {
+export const deleteSocialByDb = async ({ storyId }: DeleteSocialByDbParams) => {
   try {
-    return await getMyInfo();
-  } catch (e) {
-    console.warn('회원 정보를 찾을 수 없습니다.', e);
-    return { id: 'unauthenticated' };
+    const { error: storiesError } = await instanceBaaS
+      .from('Stories')
+      .delete()
+      .eq('storyId', storyId);
+
+    if (storiesError) {
+      throw new Error(storiesError.message);
+    }
+  } catch (error) {
+    throw new Error(error as string);
   }
 };

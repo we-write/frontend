@@ -5,6 +5,7 @@ export const QUERY_KEY = {
   GET_SUMMARY: 'get-summary',
   GET_USER_ROLE: 'get-user-role',
   GET_APPROVE_USER: 'get-approve-user',
+  GET_CONTENTS: 'get-contents',
   GET_LAST_CONTENT: 'get-last-content',
   SOCIAL: 'social',
   SOCIAL_SUMMARY: 'social-summary',

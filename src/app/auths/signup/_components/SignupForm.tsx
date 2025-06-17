@@ -1,9 +1,8 @@
 'use client';
-import { SignUpFormData } from '@/api/auth/type';
+
 import Button from '@/components/common/Button/Button';
 
-import { useForm } from 'react-hook-form';
-import { singUpValidate } from '@/utils/validators/auth';
+import { signUpValidate } from '@/utils/validators/auth';
 
 import useBoolean from '@/hooks/useBoolean';
 import useSignUpForm from '@/hooks/api/auth/useSignUpForm';
@@ -15,15 +14,8 @@ const SignupForm = () => {
   const { value: showPasswordCheck, toggle: toggleShowPasswordCheck } =
     useBoolean();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-    getValues,
-    setError,
-  } = useForm<SignUpFormData>();
-
-  const { onSubmit } = useSignUpForm({ setError });
+  const { onSubmit, register, handleSubmit, isSubmitting, errors, getValues } =
+    useSignUpForm();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
@@ -32,7 +24,7 @@ const SignupForm = () => {
         label="닉네임"
         placeholder="닉네임을 입력해주세요"
         register={register}
-        validate={singUpValidate}
+        validate={signUpValidate}
         errors={errors}
       />
 
@@ -41,7 +33,7 @@ const SignupForm = () => {
         label="이메일"
         placeholder="이메일을 입력해주세요"
         register={register}
-        validate={singUpValidate}
+        validate={signUpValidate}
         errors={errors}
       />
 
@@ -80,7 +72,7 @@ const SignupForm = () => {
         label="좋아하는 작품"
         placeholder="(ex. 위대한 개츠비,원피스)"
         register={register}
-        validate={singUpValidate}
+        validate={signUpValidate}
         errors={errors}
       />
 

@@ -31,9 +31,10 @@ const PasswordFormField = <T extends SignUpFormData | SignInFormData>({
       }}
       suffixIcon={
         <button
-          aria-label="암호 표시 버튼"
+          aria-label={isShowPassword ? '비밀번호 보기' : '비밀번호 숨기기'}
+          aria-pressed={isShowPassword}
           type="button"
-          className="flex items-center justify-center"
+          className="flex-center"
           onClick={toggleShowPassword}
         >
           {isShowPassword ? <Eye /> : <EyeOff />}
