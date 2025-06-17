@@ -1,4 +1,5 @@
 import {
+  DeleteSocialByDbParams,
   GetSocialDetailParams,
   GetSocialDetailResponse,
   GetStoryIdParams,
@@ -168,4 +169,19 @@ export const getStoryId = async ({
     return 'not-found';
   }
   return data;
+};
+
+export const deleteSocialByDb = async ({ storyId }: DeleteSocialByDbParams) => {
+  try {
+    const { error: storiesError } = await instanceBaaS
+      .from('Stories')
+      .delete()
+      .eq('storyId', storyId);
+
+    if (storiesError) {
+      throw new Error(storiesError.message);
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
 };

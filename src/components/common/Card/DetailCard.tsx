@@ -112,13 +112,15 @@ const DetailCard = ({
               })}
         </Button>
         {teamUserRole === 'LEADER' && (
+          // TODO: 삭제 기능 활성화되면 title삭제, isDisabled,aria-label,className 수정
           <Button
             type="button"
             color="custom"
-            isDisabled={!isButtonActivate}
-            aria-label="모임 삭제하기"
+            title="모임 삭제 기능은 곧 업데이트될 예정입니다."
+            isDisabled={true}
+            aria-label="모임 삭제 기능은 곧 업데이트될 예정입니다."
             onClick={handleDeleteButtonClick}
-            className="basis-16 bg-gray-200 font-semibold sm:basis-25"
+            className="basis-16 cursor-not-allowed bg-gray-200 font-semibold sm:basis-25"
           >
             {!isCardDataLoading && (
               <TrashCan

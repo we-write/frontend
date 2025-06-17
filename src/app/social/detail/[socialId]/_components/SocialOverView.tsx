@@ -43,6 +43,10 @@ const SocialOverView = ({
     socialId: currentSocialId,
     storyId: currentStoryId,
   });
+  // TODO: 모임 관리 방식이 전부 DB 기반으로 변경되면, 해당 시점에 삭제 기능을 활성화할 것
+  // const { mutate: deleteSocialData } = useDeleteSocialByDb({
+  //   storyId: currentStoryId,
+  // });
   const imagesUrls = extractUserImages(socialTeamsParticipantsData);
   const currentUserRole: TeamUserRole = userRoleData
     ? userRoleData.role
@@ -89,6 +93,13 @@ const SocialOverView = ({
       router.refresh();
     }
   };
+
+  // TODO: 모임 관리 방식이 전부 DB 기반으로 변경되면, 해당 시점에 삭제 기능을 활성화할 것
+  // const deleteSocial = (role: TeamUserRole) => {
+  //   if (role !== 'LEADER') return;
+  //   deleteSocialData;
+  //   router.push('/social');
+  // };
 
   // TODO: 현재 API 호출로 인한 JSX 렌더링 지연이 발생하므로 로딩 개선 및 스켈레톤UI 필요
   if (isFetchDataLoading || !socialDetailData) {
