@@ -2,7 +2,7 @@ import SignInForm from './_components/SignInForm';
 import { getMyInfoOnServer } from '@/providers/auth-provider/authProviderUtil';
 import { headers } from 'next/headers';
 import { redirect } from 'next/navigation';
-import LinkComponent from './_components/LinkComponent';
+import LinkToSignUp from './_components/LinkToSignUp';
 
 const SignIn = async () => {
   const { isSignIn } = await getMyInfoOnServer();
@@ -18,7 +18,7 @@ const SignIn = async () => {
           로그인
         </h1>
         <SignInForm />
-        <LinkComponent />
+        <LinkToSignUp />
       </div>
     </div>
   );
