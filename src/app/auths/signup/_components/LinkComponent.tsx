@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 const LinkComponent = () => {
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex-center gap-2">
       <span>이미 회원이신가요?</span>
       <Link
         href={APP_ROUTES.signin}

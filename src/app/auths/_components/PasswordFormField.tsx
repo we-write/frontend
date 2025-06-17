@@ -32,7 +32,7 @@ const PasswordFormField = ({
           aria-label={isShowPassword ? '비밀번호 보기' : '비밀번호 숨기기'}
           aria-pressed={isShowPassword}
           type="button"
-          className="flex items-center justify-center"
+          className="flex-center"
           onClick={toggleShowPassword}
         >
           {isShowPassword ? <Eye /> : <EyeOff />}
