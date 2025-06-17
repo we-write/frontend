@@ -18,7 +18,7 @@ interface Story {
   title: string;
   genre: string;
   summary: string;
-  cover_image_url?: string;
+  cover_image_url: string;
 }
 
 export interface StoryGridProps {
