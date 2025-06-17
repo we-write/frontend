@@ -13,20 +13,23 @@ instance.interceptors.request.use(async (config) => {
     '/auths/signup',
     '/auths/signin',
     '/gatherings',
-    /^\/gatherings\/\d+$/, // 숫자로 이루어진 ID를 가진 gatherings 엔드포인트
+    /^\/gatherings\/\d+(\/.*)?$/,
     '/reviews',
     '/reviews/scores',
   ]; // 검증없이 접근 가능한 경로
+
   const fullUrl = new URL(config.url || '', config.baseURL || '');
   const path = fullUrl.pathname;
   const isExcluded = excludedPaths.some((rule) =>
     rule instanceof RegExp ? rule.test(path) : rule === path
   );
+
   if (isExcluded) {
     return config;
   }
 
   const accessToken = await getCookie('accessToken');
+
   if (!accessToken) {
     throw new Error('accessToken이 없습니다.');
   }
