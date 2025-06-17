@@ -8,7 +8,7 @@ import {
 } from 'lucide-react';
 
 const ToastMessage = ({ toastData, closeToast }: ToastMessageProps) => {
-  const toastBgColor = (type: ToastStatusType) => {
+  const getToastBgColor = (type: ToastStatusType) => {
     switch (type) {
       case 'error':
         return 'bg-rose-300';
@@ -23,7 +23,7 @@ const ToastMessage = ({ toastData, closeToast }: ToastMessageProps) => {
     }
   };
 
-  const toastIcon = (type: ToastStatusType) => {
+  const renderToastIcon = (type: ToastStatusType) => {
     const toastIconSize = `w-7 h-7`;
 
     switch (type) {
@@ -40,9 +40,9 @@ const ToastMessage = ({ toastData, closeToast }: ToastMessageProps) => {
 
   return (
     <div
-      className={`relative flex max-w-120 min-w-90 items-center gap-4 rounded-xl px-7 py-6 text-black shadow transition-all ${toastBgColor(toastData.type)}`}
+      className={`relative flex max-w-120 min-w-90 items-center gap-4 rounded-xl px-7 py-6 text-black shadow transition-all ${getToastBgColor(toastData.type)}`}
     >
-      <span>{toastIcon(toastData.type)}</span>
+      <span>{renderToastIcon(toastData.type)}</span>
       <div className="flex flex-col">
         {toastData.title && (
           <p className="line-clamp-1 text-lg font-semibold">
