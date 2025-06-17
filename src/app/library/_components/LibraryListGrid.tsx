@@ -22,7 +22,9 @@ const LibraryListGrid = ({ stories }: StoryGridProps) => {
           textContent={{
             title: story.title,
             genre: story.genre,
-            description: htmlToString(story.summary),
+            description:
+              htmlToString(story.summary) ||
+              '모임장이 소개글을 작성하고 있어요!',
           }}
           isCardDataLoading={false}
         />
