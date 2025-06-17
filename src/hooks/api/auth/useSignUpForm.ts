@@ -1,17 +1,21 @@
 'use client';
 import { useRouter } from 'next/navigation';
-import { SubmitHandler, UseFormSetError } from 'react-hook-form';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormData } from '@/api/auth/type';
 import useCreateUser from '@/hooks/api/auth/useCreateUser';
 import { APP_ROUTES } from '@/constants/appRoutes';
 
-const useSignUpForm = ({
-  setError,
-}: {
-  setError: UseFormSetError<SignUpFormData>;
-}) => {
+const useSignUpForm = () => {
   const router = useRouter();
   const { mutate: createUser } = useCreateUser();
+
+  const {
+    register,
+    handleSubmit,
+    formState: { isSubmitting, errors },
+    getValues,
+    setError,
+  } = useForm<SignUpFormData>();
 
   const onSubmit: SubmitHandler<SignUpFormData> = (data) => {
     const signUpData = {
@@ -35,7 +39,7 @@ const useSignUpForm = ({
     });
   };
 
-  return { onSubmit };
+  return { onSubmit, register, handleSubmit, isSubmitting, errors, getValues };
 };
 
 export default useSignUpForm;

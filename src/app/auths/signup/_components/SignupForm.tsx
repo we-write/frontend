@@ -1,8 +1,7 @@
 'use client';
-import { SignUpFormData } from '@/api/auth/type';
+
 import Button from '@/components/common/Button/Button';
 
-import { useForm } from 'react-hook-form';
 import { signUpValidate } from '@/utils/validators/auth';
 
 import useBoolean from '@/hooks/useBoolean';
@@ -15,15 +14,8 @@ const SignupForm = () => {
   const { value: showPasswordCheck, toggle: toggleShowPasswordCheck } =
     useBoolean();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { isSubmitting, errors },
-    getValues,
-    setError,
-  } = useForm<SignUpFormData>();
-
-  const { onSubmit } = useSignUpForm({ setError });
+  const { onSubmit, register, handleSubmit, isSubmitting, errors, getValues } =
+    useSignUpForm();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
