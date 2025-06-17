@@ -20,6 +20,7 @@ import React, {
 const ToastContext = createContext<ToastContextType | null>(null);
 
 const DEFAULT_DURATION_MS = 6000;
+const SECOND_IN_MS = 1000;
 const DEFAULT_POSITION: ToastPositionType = 'bottom';
 
 export const ToastProvider = ({ children }: { children: ReactNode }) => {
@@ -32,7 +33,7 @@ export const ToastProvider = ({ children }: { children: ReactNode }) => {
 
     const toastDuration =
       params.duration !== undefined
-        ? params.duration * 1000
+        ? params.duration * SECOND_IN_MS
         : DEFAULT_DURATION_MS;
     const toastPosition = params.position ?? DEFAULT_POSITION;
 
