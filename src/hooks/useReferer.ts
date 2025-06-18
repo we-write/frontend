@@ -18,8 +18,6 @@ const useReferer = () => {
   const redirectPath = rawReferer ? decodeURIComponent(rawReferer) : '/';
 
   return {
-    pathname,
-    encodedReferer,
     refererParam,
     redirectPath,
   };
