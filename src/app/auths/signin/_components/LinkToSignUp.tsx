@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const LinkToSignUp = () => {
   return (
-    <div className="flex items-center justify-center gap-2">
+    <div className="flex-center gap-2">
       <span>WE WRITE가 처음이신가요?</span>
       <Link
         href="/auths/signup"

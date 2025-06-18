@@ -14,28 +14,26 @@ const SignInForm = () => {
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-      <div className="flex flex-col gap-2">
-        <FormField
-          label="아이디"
-          name="email"
-          placeholder="이메일을 입력해주세요."
-          register={register}
-          validate={signInValidate}
-          errors={errors}
-        />
-      </div>
-      <div>
-        <PasswordFormField
-          name="password"
-          label="비밀번호"
-          placeholder="비밀번호를 입력해주세요."
-          validate={signInValidate}
-          register={register}
-          errors={errors}
-          isShowPassword={isShowPassword}
-          toggleShowPassword={toggleIsShowPassword}
-        />
-      </div>
+      <FormField
+        label="아이디"
+        name="email"
+        placeholder="이메일을 입력해주세요."
+        register={register}
+        validate={signInValidate}
+        errors={errors}
+      />
+
+      <PasswordFormField
+        name="password"
+        label="비밀번호"
+        placeholder="비밀번호를 입력해주세요."
+        validate={signInValidate}
+        register={register}
+        errors={errors}
+        isShowPassword={isShowPassword}
+        toggleShowPassword={toggleIsShowPassword}
+      />
+
       <Button
         role="button"
         type="submit"
