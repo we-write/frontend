@@ -273,3 +273,16 @@ export const getIsLikedStory = async (storyId: string, userId: number) => {
   }
   return true;
 };
+
+export const cancelLikeStory = async (storyId: string, userId: number) => {
+  const { data, error } = await instanceBaaS
+    .from('story_likes')
+    .delete()
+    .eq('story_id', storyId)
+    .eq('user_id', userId)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
