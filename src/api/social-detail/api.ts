@@ -176,7 +176,7 @@ export const deleteSocialByDb = async ({ storyId }: DeleteSocialByDbParams) => {
     const { error: storiesError } = await instanceBaaS
       .from('Stories')
       .delete()
-      .eq('storyId', storyId);
+      .eq('story_id', storyId);
 
     if (storiesError) {
       throw new Error(storiesError.message);

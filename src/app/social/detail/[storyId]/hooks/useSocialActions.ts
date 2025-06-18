@@ -67,14 +67,11 @@ const useSocialActions = ({
     if (role !== 'LEADER') return;
 
     const deleteSocialConfirmed = window.confirm(
-      '모든 데이터가 삭제되면 복구할 수 있습니다. 모임을 정말 삭제하시겠습니까? '
+      '모든 데이터는 삭제되면 복구할 수 없습니다. 모임을 정말 삭제하시겠습니까? '
     );
     if (!deleteSocialConfirmed) return;
 
     deleteSocialData();
-    // MEMO: 현재 라우트 전환 이전에 Toast를 띄우는건 부자연스러우므로 임시로 alert 적용
-    // TODO: /social 페이지에서 모임 삭제를 감지하고 toast를 띄우는 로직 필요
-    alert('모임이 정상적으로 삭제되었습니다.');
     router.push('/social');
   };
 
