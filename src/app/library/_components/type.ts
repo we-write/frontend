@@ -1,3 +1,5 @@
+import { GenreType } from '@/api/social/type';
+
 export interface FormValues {
   search: string;
 }
@@ -24,8 +26,9 @@ interface Story {
 export interface StoryGridProps {
   stories: Story[];
 }
-
 export interface BadgeGroupProps {
   selectedGenres: string[];
-  setSelectedGenres: (genres: string[]) => void;
+  dispatchSelectedGenres: (genres: string[]) => void;
 }
+
+export type GenreTypeWithAll = '전체' | GenreType;

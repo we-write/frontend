@@ -1,5 +1,3 @@
-'use client';
-
 import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
 import LibraryListSkeleton from '@/app/library/_components/LibraryListSkeleton';
 import { LibraryListGridProps } from '@/app/library/_components/type';

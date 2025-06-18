@@ -1,5 +1,3 @@
-'use client';
-
 import { StoryGridProps } from '@/app/library/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import { APP_ROUTES } from '@/constants/appRoutes';

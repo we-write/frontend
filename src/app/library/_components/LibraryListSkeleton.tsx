@@ -1,5 +1,4 @@
 import GridCard from '@/components/common/Card/GridCard';
-import React from 'react';
 
 const LibraryListSkeleton = () => {
   return (

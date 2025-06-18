@@ -1,25 +1,35 @@
-import { GENRE_LOCATION_MAP, GenreType } from '@/api/social/type';
-import { BadgeGroupProps } from './type';
+import { GENRE_LOCATION_MAP } from '@/api/social/type';
+import { BadgeGroupProps, GenreTypeWithAll } from './type';
 
-const GENRE_ALL = '전체';
-const GENRES = Object.keys(GENRE_LOCATION_MAP) as GenreType[];
-const BadgeGroup = ({ selectedGenres, setSelectedGenres }: BadgeGroupProps) => {
-  const toggleGenre = (genre: string) => {
-    if (genre === GENRE_ALL) {
-      setSelectedGenres([GENRE_ALL]);
+export const GENRE_ALL = '전체';
+
+const GENRES = [
+  GENRE_ALL,
+  ...Object.keys(GENRE_LOCATION_MAP),
+] as GenreTypeWithAll[];
+
+const BadgeGroup = ({
+  selectedGenres,
+  dispatchSelectedGenres,
+}: BadgeGroupProps) => {
+  const selectedSet = new Set(selectedGenres);
+
+  const updateSelectedGenre = (genre: GenreTypeWithAll) => {
+    if (genre === '전체') {
+      dispatchSelectedGenres([GENRE_ALL]);
     } else {
-      setSelectedGenres([genre]);
+      dispatchSelectedGenres([genre]);
     }
   };
 
   return (
     <div className="mx-auto flex w-full justify-start gap-2 sm:w-2/3">
-      {[GENRE_ALL, ...GENRES].map((genre) => {
-        const isActive = selectedGenres.includes(genre);
+      {GENRES.map((genre) => {
+        const isActive = selectedSet.has(genre);
         return (
           <button
             key={genre}
-            onClick={() => toggleGenre(genre)}
+            onClick={() => updateSelectedGenre(genre as GenreTypeWithAll)}
             className={`flex-center h-fit w-fit rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${
               isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'
             }`}
