@@ -11,7 +11,7 @@ const Library = () => {
   const handleSearch = () => {
     if (!state.inputKeyword.trim() && !state.searchKeyword) return;
     dispatch({
-      type: 'SET_SEARCH_KEYWORD',
+      type: 'DISPATCH_SEARCH_KEYWORD',
       payload: state.inputKeyword.trim(),
     });
   };
@@ -22,14 +22,14 @@ const Library = () => {
         <SearchInput
           keyword={state.inputKeyword}
           setKeyword={(keyword) =>
-            dispatch({ type: 'SET_INPUT_KEYWORD', payload: keyword })
+            dispatch({ type: 'DISPATCH_INPUT_KEYWORD', payload: keyword })
           }
           onSearch={handleSearch}
         />
         <BadgeGroup
           selectedGenres={state.selectedGenres}
-          setSelectedGenres={(genres) =>
-            dispatch({ type: 'SET_SELECTED_GENRES', payload: genres })
+          dispatchSelectedGenres={(genres) =>
+            dispatch({ type: 'DISPATCH_SELECTED_GENRES', payload: genres })
           }
         />
       </div>
