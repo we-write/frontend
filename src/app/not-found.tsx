@@ -2,7 +2,7 @@ import Link from 'next/link';
 
 const NotFound = () => {
   return (
-    <div className="text-write-main flex-center absolute top-0 left-0 h-screen w-screen flex-col gap-36 bg-white">
+    <div className="text-write-main flex-center h-screen w-screen flex-col gap-36 bg-white">
       <div className="text-write-sub-title flex flex-col items-center gap-6 md:gap-14">
         <p className="text-write-sub-title text-8xl font-black md:text-9xl">
           404
