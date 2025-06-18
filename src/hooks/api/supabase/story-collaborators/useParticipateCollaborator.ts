@@ -3,12 +3,10 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface UseParticipateCollaboratorParams {
-  socialId: number;
   storyId?: string;
 }
 
 const useParticipateCollaborator = ({
-  socialId,
   storyId,
 }: UseParticipateCollaboratorParams) => {
   const queryClient = useQueryClient();
@@ -19,7 +17,7 @@ const useParticipateCollaborator = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.SOCIAL_PARTICIPANTS, socialId],
+        queryKey: [QUERY_KEY.GET_STORY_COLLABORATORS, storyId],
       });
       queryClient.invalidateQueries({
         queryKey: [QUERY_KEY.GET_USER_ROLE, storyId],
