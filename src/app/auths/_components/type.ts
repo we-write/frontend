@@ -1,5 +1,5 @@
 import { SigninRequest, SignUpFormData } from '@/api/auth/type';
-import { ValidateProps } from '@/utils/validators/type';
+import { AuthValidateProps } from '@/utils/validators/type';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
 export interface FormFieldProps<T extends SignUpFormData | SigninRequest> {
@@ -8,7 +8,7 @@ export interface FormFieldProps<T extends SignUpFormData | SigninRequest> {
   placeholder: string;
   register: UseFormRegister<T>;
   errors: FieldErrors<T>;
-  validate: (props: ValidateProps<T>) => string | true;
+  validate: (props: AuthValidateProps<T>) => string | true;
 }
 
 export interface PasswordFormFieldProps<
