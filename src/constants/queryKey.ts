@@ -7,6 +7,7 @@ export const QUERY_KEY = {
   GET_APPROVE_USER: 'get-approve-user',
   GET_CONTENTS: 'get-contents',
   GET_LAST_CONTENT: 'get-last-content',
+  GET_STORY_COLLABORATORS: 'get-story-collaborators',
   SOCIAL: 'social',
   SOCIAL_SUMMARY: 'social-summary',
   MY_INFO: 'my-info',
