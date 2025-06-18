@@ -1,13 +1,9 @@
 'use client';
-import { useRouter } from 'next/navigation';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { SignUpFormData } from '@/api/auth/type';
 import useCreateUser from '@/hooks/api/auth/useCreateUser';
-import { APP_ROUTES } from '@/constants/appRoutes';
-import toast from '@/utils/toast';
 
 const useSignUpForm = () => {
-  const router = useRouter();
   const { mutate: createUser } = useCreateUser();
 
   const {
@@ -27,17 +23,7 @@ const useSignUpForm = () => {
     };
 
     createUser(signUpData, {
-      onSuccess: () => {
-        toast.success('회원가입이 완료되었습니다.');
-        router.push(APP_ROUTES.signin);
-      },
       onError: (error: Error) => {
-        toast({
-          type: 'error',
-          title: '회원가입에 실패했습니다.',
-          message: error.message,
-          duration: 5,
-        });
         setError('email', {
           type: 'manual',
           message: error.message,
