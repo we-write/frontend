@@ -45,7 +45,7 @@ const SocialDetail = async ({
     queryFn: () => getSummary({ socialId: numericStoryId }),
   });
 
-  const { myInfo, isSignIn } = await getMyInfoOnServer();
+  const { isSignIn, myInfo } = await getMyInfoOnServer();
 
   if (isSignIn && myInfo) {
     await queryClient.prefetchQuery({

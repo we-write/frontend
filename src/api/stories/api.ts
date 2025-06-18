@@ -116,22 +116,16 @@ export const getImage = async (imageName: string) => {
 };
 
 export const getContents = async ({
-  id,
-  page,
-  limit,
+  storyId,
 }: GetContentsParams): Promise<{
   data: DBContentResponse[];
   count: number;
 }> => {
-  const from = (page - 1) * limit;
-  const to = page * limit - 1;
   const { data, error, count } = await instanceBaaS
     .from('Contents')
     .select('*', { count: 'exact' })
-    .eq('story_id', id)
-    // MEMO : merged_at으로 변경했습니다.
-    .order('merged_at', { ascending: true })
-    .range(from, to);
+    .eq('story_id', storyId)
+    .order('merged_at', { ascending: true });
   if (error) {
     throw new Error(error.message);
   }

@@ -18,9 +18,7 @@ export type CreateStoryRequest = Omit<
 >;
 
 export interface GetContentsParams {
-  id: string;
-  page: number;
-  limit: number;
+  storyId: string;
 }
 
 export interface PostContentRequest {

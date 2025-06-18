@@ -3,7 +3,7 @@ import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
 import { addDays, format } from 'date-fns';
 import CreateStoryContentModal from './CreateContentModal';
-import { WritableUserModalProps } from './type';
+import { WritableUserModalProps } from '../type';
 import { useEffect, useState } from 'react';
 import useGetApproveUser from '@/hooks/api/supabase/content-approvals/useGetApproveUser';
 import useApproveContent from '@/hooks/api/supabase/content-approvals/useApproveContent';
@@ -13,7 +13,6 @@ import useGetSocialParticipantsByDb from '@/hooks/api/supabase/useGetSocialParti
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 
 const WritableUserModal = ({
-  currentChapter,
   currentStoryId,
   currentUserId,
   approvalPeriod,
@@ -53,7 +52,6 @@ const WritableUserModal = ({
   if (!lastContentData || lastContentData?.status === 'MERGED') {
     return (
       <CreateStoryContentModal
-        currentChapter={currentChapter}
         currentStoryId={currentStoryId}
         currentUserId={currentUserId}
         {...(lastContentData && {
@@ -111,9 +109,6 @@ const WritableUserModal = ({
             등록한 글이 승인 대기 중입니다.
           </h2>
         )}
-        <div className="sm:flex sm:items-baseline sm:justify-between sm:gap-2">
-          <p className="text-3xl font-bold">현재 챕터 {currentChapter}</p>
-        </div>
       </div>
       <div className="mr-5 flex flex-col-reverse items-start justify-between md:flex-row md:items-center">
         <p className="mb-2 text-sm text-gray-500 md:mb-0">
