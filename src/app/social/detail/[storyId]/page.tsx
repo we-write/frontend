@@ -1,9 +1,9 @@
 import { QUERY_KEY } from '@/constants/queryKey';
 import { getQueryClient } from '@/lib/getQueryClient';
 import { dehydrate, HydrationBoundary } from '@tanstack/react-query';
-import { SocialDetailPageParams } from './type';
-import SocialOverView from './_components/SocialOverView';
-import StorySummary from './_components/StorySummary';
+import { SocialDetailPageParams } from '@/app/social/detail/[storyId]/type';
+import SocialOverView from '@/app/social/detail/[storyId]/_components/SocialOverView';
+import StorySummary from '@/app/social/detail/[storyId]/_components/StorySummary';
 import { getMyInfoOnServer } from '@/providers/auth-provider/authProviderUtil';
 import { getStory } from '@/api/stories/api';
 import { getStoryCollaborators } from '@/api/story-collaborators/api';

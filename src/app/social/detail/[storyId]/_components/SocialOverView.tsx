@@ -2,8 +2,8 @@
 
 import DetailCard from '@/components/common/Card/DetailCard';
 import Image from 'next/image';
-import { SocialOverViewProps } from '../type';
-import useSocialActions from '../hooks/useSocialActions';
+import { SocialOverViewProps } from '@/app/social/detail/[storyId]/type';
+import useSocialActions from '@/app/social/detail/[storyId]/hooks/useSocialActions';
 import useSocialDetailData from '@/app/social/detail/[storyId]/hooks/useSocialDetailData';
 
 const SocialOverView = ({

@@ -2,9 +2,9 @@
 
 import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
-import { SummaryProps } from '../type';
+import { SummaryProps } from '@/app/social/detail/[storyId]/type';
 import useSocialDetailData from '@/app/social/detail/[storyId]/hooks/useSocialDetailData';
-import useManageSummary from '../hooks/useManageSummary';
+import useManageSummary from '@/app/social/detail/[storyId]/hooks/useManageSummary';
 
 const StorySummary = ({ currentUserId, currentStoryId }: SummaryProps) => {
   const { storiesData, userRole, isLoading } = useSocialDetailData({
