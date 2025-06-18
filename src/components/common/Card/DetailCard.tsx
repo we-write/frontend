@@ -58,10 +58,12 @@ const DetailCard = ({
             {textContent.title}
           </h1>
           <p className="text-sm text-gray-700">{textContent.genre}</p>
-          {startDate && endDate && (
+          {startDate && endDate ? (
             <p className="text-sm">
               {format(startDate, 'yyyy.MM.dd')}~{format(endDate, 'yyyy.MM.dd')}
             </p>
+          ) : (
+            <div className="h-5" />
           )}
         </div>
       ) : (
