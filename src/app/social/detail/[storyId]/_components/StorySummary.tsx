@@ -5,38 +5,44 @@ import TextEditor from '@/components/common/TextEditor/TextEditor';
 import useSaveSummary from '@/hooks/api/supabase/story-collaborators/useSaveSummary';
 import { useEffect, useRef, useState } from 'react';
 import { SummaryProps } from '../type';
-import useGetSummary from '@/hooks/api/supabase/story-collaborators/useGetSummary';
-import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
 import { TextEditorRef } from '@/types/textEditor';
 import validateEditorContent from '@/utils/validators/validateEditorContent';
+import { useGetStory } from '@/hooks/api/supabase/stories/useGetStory';
+import useGetStoryCollaborators from '@/hooks/api/supabase/story-collaborators/useGetStoryCollaborators';
+import getUserRole from '@/utils/getUserRole';
 
 const SUMMARY_MIN_LENGTH = 10;
 
-const StorySummary = ({
-  currentSocialId,
-  currentUserId,
-  currentStoryId,
-}: SummaryProps) => {
+const StorySummary = ({ currentUserId, currentStoryId }: SummaryProps) => {
   const editorContentRef = useRef<TextEditorRef>(null);
+
   const [extractionHtml, setExtractionHtml] = useState('');
-  const { data: summaryData } = useGetSummary({
-    socialId: currentSocialId,
-  });
-  const { data: userRoleData } = useGetUserRole({
-    userId: currentUserId,
-    storyId: currentStoryId,
-  });
-  const { mutate } = useSaveSummary({ socialId: currentSocialId });
+
+  const { data: storiesData, isLoading: isStoriesDataLoading } =
+    useGetStory(currentStoryId);
+
+  const {
+    data: storyCollaboratorsData,
+    isLoading: isStoryCollaboratorsDataLoading,
+  } = useGetStoryCollaborators(currentStoryId);
+  const currentUserRole =
+    currentUserId && storyCollaboratorsData
+      ? getUserRole({ storyCollaboratorsData, currentUserId })
+      : 'GUEST';
+
+  const { mutate } = useSaveSummary({ storyId: currentStoryId });
 
   useEffect(() => {
+    if (!storiesData) return;
+
     const sanitizeHTML = async () => {
       const DOMPurify = (await import('dompurify')).default;
-      if (summaryData?.summary) {
-        setExtractionHtml(DOMPurify.sanitize(summaryData.summary));
+      if (storiesData.summary) {
+        setExtractionHtml(DOMPurify.sanitize(storiesData.summary));
       }
     };
     sanitizeHTML();
-  }, [summaryData?.summary]);
+  }, [storiesData]);
 
   const handleStoryIntroductionSubmit = () => {
     const validateResult = validateEditorContent({
@@ -44,17 +50,21 @@ const StorySummary = ({
       minLength: SUMMARY_MIN_LENGTH,
     });
     if (!validateResult) return;
+
     mutate({
-      socialId: currentSocialId,
+      storyId: currentStoryId,
       summaryHtml: validateResult.newExtractionHtml,
     });
     setExtractionHtml(validateResult.newExtractionHtml);
   };
 
+  if (!storiesData || isStoriesDataLoading || isStoryCollaboratorsDataLoading)
+    return;
+
   return (
     <div className="mt-32 sm:mt-24 xl:px-10">
       <h2 className="mx-1 mb-4 text-2xl font-semibold">스토리 소개글</h2>
-      {userRoleData?.role === 'LEADER' && !summaryData?.summary ? (
+      {currentUserRole === 'LEADER' && !storiesData.summary ? (
         <div className="flex h-240 w-full flex-col">
           <TextEditor
             ref={editorContentRef}

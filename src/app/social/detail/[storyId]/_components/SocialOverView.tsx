@@ -1,56 +1,48 @@
 'use client';
 
 import DetailCard from '@/components/common/Card/DetailCard';
-import useJoinTeam from '@/hooks/api/social/useJoinTeam';
 import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
-import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';
 import { SocialOverViewProps } from '../type';
-import extractUserImages from '@/utils/extractUserImages';
-import useGetSocialDetail from '@/hooks/api/supabase/story-collaborators/useGetSocialDetail';
-import useGetSocialParticipants from '@/hooks/api/supabase/story-collaborators/useGetSocialParticipants';
-import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
 import { useRouter } from 'next/navigation';
 import useParticipateCollaborator from '@/hooks/api/supabase/story-collaborators/useParticipateCollaborator';
+import { useGetStory } from '@/hooks/api/supabase/stories/useGetStory';
+import useGetStoryCollaborators from '@/hooks/api/supabase/story-collaborators/useGetStoryCollaborators';
+import getUserRole from '@/utils/getUserRole';
+import toast from '@/utils/toast';
+import useDeleteSocialByDb from '@/hooks/api/supabase/useDeleteSocialByDb';
 
 const SocialOverView = ({
-  currentSocialId,
   currentUserId,
   currentUserName,
   currentStoryId,
 }: SocialOverViewProps) => {
-  const { data: socialDetailData, isLoading: socialDetailDataIsLoading } =
-    useGetSocialDetail({
-      socialId: currentSocialId,
-    });
+  const { data: storiesData, isLoading: isStoriesDataLoading } =
+    useGetStory(currentStoryId);
 
   const {
-    data: socialTeamsParticipantsData,
-    isLoading: socialTeamsParticipantsDataIsLoading,
-  } = useGetSocialParticipants({
-    socialId: currentSocialId,
-  });
-  const { data: userRoleData } = useGetUserRole({
-    userId: currentUserId,
-    storyId: currentStoryId,
-  });
+    data: storyCollaboratorsData,
+    isLoading: isStoryCollaboratorsDataLoading,
+  } = useGetStoryCollaborators(currentStoryId);
+
+  const currentUserRole =
+    currentUserId && storyCollaboratorsData
+      ? getUserRole({ storyCollaboratorsData, currentUserId })
+      : 'GUEST';
+
   const isFetchDataLoading =
-    socialDetailDataIsLoading || socialTeamsParticipantsDataIsLoading;
-  const { mutateAsync: joinTeam } = useJoinTeam({
-    socialId: currentSocialId,
-  });
-  const { mutateAsync: insertNewCollaborator } = useParticipateCollaborator({
-    socialId: currentSocialId,
+    isStoriesDataLoading || isStoryCollaboratorsDataLoading;
+
+  const { mutate: insertNewCollaborator } = useParticipateCollaborator({
     storyId: currentStoryId,
   });
-  // TODO: 모임 관리 방식이 전부 DB 기반으로 변경되면, 해당 시점에 삭제 기능을 활성화할 것
-  // const { mutate: deleteSocialData } = useDeleteSocialByDb({
-  //   storyId: currentStoryId,
-  // });
-  const imagesUrls = extractUserImages(socialTeamsParticipantsData);
-  const currentUserRole: TeamUserRole = userRoleData
-    ? userRoleData.role
-    : 'GUEST';
+
+  const { mutate: deleteSocialData } = useDeleteSocialByDb({
+    storyId: currentStoryId,
+  });
+
+  // TODO: storyCollaborators 테이블에 이미지 필드 추가되면 활성화
+  // const imageUrls = extractUserImages(socialTeamsParticipantsData);
   const router = useRouter();
 
   const navigateStoryOrJoinTeam = async (role: TeamUserRole) => {
@@ -74,9 +66,7 @@ const SocialOverView = ({
     if (!joinTeamConfirmed) return;
 
     try {
-      await joinTeam();
-
-      await insertNewCollaborator({
+      insertNewCollaborator({
         data: {
           story_id: currentStoryId,
           user_id: currentUserId!,
@@ -86,34 +76,47 @@ const SocialOverView = ({
         role: TEAM_USER_ROLE.MEMBER,
       });
 
-      alert('모임 참여에 성공했습니다.');
+      toast.success('모임 참여에 성공하였습니다.');
     } catch (error) {
       console.error('모임 참여 실패 : ', error);
-      alert('오류가 발생하여 모임 참여에 실패하였습니다.');
+      toast({
+        type: 'error',
+        message: '오류가 발생하여 모임 참여에 실패하였습니다.',
+        duration: 5,
+      });
       router.refresh();
     }
   };
 
-  // TODO: 모임 관리 방식이 전부 DB 기반으로 변경되면, 해당 시점에 삭제 기능을 활성화할 것
-  // const deleteSocial = (role: TeamUserRole) => {
-  //   if (role !== 'LEADER') return;
-  //   deleteSocialData;
-  //   router.push('/social');
-  // };
+  const deleteSocial = (role: TeamUserRole) => {
+    if (role !== 'LEADER') return;
+
+    const deleteSocialConfirmed = window.confirm(
+      '모든 데이터가 삭제되면 복구할 수 있습니다. 모임을 정말 삭제하시겠습니까? '
+    );
+    if (!deleteSocialConfirmed) return;
+
+    deleteSocialData();
+    // MEMO: 현재 라우트 전환 이전에 Toast를 띄우는건 부자연스러우므로 임시로 alert 적용
+    // TODO: /social 페이지에서 모임 삭제를 감지하고 toast를 띄우는 로직 필요
+    alert('모임이 정상적으로 삭제되었습니다.');
+    router.push('/social');
+  };
 
   // TODO: 현재 API 호출로 인한 JSX 렌더링 지연이 발생하므로 로딩 개선 및 스켈레톤UI 필요
-  if (isFetchDataLoading || !socialDetailData) {
+  if (
+    isFetchDataLoading ||
+    isStoriesDataLoading ||
+    !storiesData ||
+    !storyCollaboratorsData
+  ) {
     return <div className="h-83 w-full" />;
   }
-
-  const storyGenre = convertLocationToGenre({
-    location: socialDetailData.location,
-  });
 
   return (
     <div className="flex h-83 w-full flex-col justify-center gap-5 sm:flex-row">
       <Image
-        src={socialDetailData.image}
+        src={storiesData.cover_image_url ?? ''}
         alt=""
         width={596}
         height={332}
@@ -123,18 +126,19 @@ const SocialOverView = ({
         <DetailCard
           teamUserRole={currentUserRole}
           textContent={{
-            title: socialDetailData.name,
-            genre: storyGenre,
-            participantCount: socialDetailData.participantCount,
-            capacity: socialDetailData.capacity,
+            title: storiesData.title,
+            genre: storiesData.genre,
+            participantCount: storyCollaboratorsData.length,
+            capacity: storiesData.capacity,
           }}
           duration={{
-            startDate: socialDetailData.registrationEnd,
-            endDate: socialDetailData.dateTime,
+            startDate: storiesData.created_at,
+            endDate: null, // MEMO: DB에서 받아올 수 있을 때 값 수정
           }}
           isCardDataLoading={isFetchDataLoading}
-          imageUrls={imagesUrls}
+          imageUrls={[]} // MEMO: DB에서 받아올 수 있을 때 imageUrls로 수정
           handleButtonClick={() => navigateStoryOrJoinTeam(currentUserRole)}
+          handleDeleteButtonClick={() => deleteSocial(currentUserRole)}
         />
       </div>
     </div>
