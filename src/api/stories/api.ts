@@ -235,3 +235,27 @@ export const getSocialParticipantsByDb = async (userId: number) => {
   }
   return data[0].user_name;
 };
+
+export const likeStory = async (storyId: string, userId: string) => {
+  const { data, error } = await instanceBaaS.from('story_likes').insert([
+    {
+      story_id: storyId,
+      user_id: userId,
+    },
+  ]);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+
+export const getStoryLikesCount = async (storyId: string) => {
+  const { data, error } = await instanceBaaS
+    .from('story_likes')
+    .select('*', { count: 'exact' })
+    .eq('story_id', storyId);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data.length;
+};
