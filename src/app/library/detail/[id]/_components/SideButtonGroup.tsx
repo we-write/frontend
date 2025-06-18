@@ -13,10 +13,10 @@ const SideButtonGroup = () => {
   const { isSignIn, myInfo } = useAuth();
   const { id } = useParams();
   const { value: isModalOpen, setTrue, setFalse } = useBoolean();
-  const { handleLikeStory, isLiked, likeCount } = useLikeStory(
-    id as string,
-    myInfo?.id as number
-  );
+  const { handleLikeStory, isLiked, likeCount } = useLikeStory({
+    story_id: id as string,
+    user_id: myInfo?.id as number,
+  });
   const handleClickLike = () => {
     if (isSignIn) {
       handleLikeStory();

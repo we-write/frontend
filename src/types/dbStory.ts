@@ -34,3 +34,8 @@ export interface DBStoryCollaboratorsResponse {
   role: TeamUserRole;
   user_name: string;
 }
+
+export interface DBStoryLikeResponse {
+  user_id: number;
+  story_id: string;
+}

@@ -5,36 +5,43 @@ import {
   getStoryLikesCount,
   likeStory,
 } from '@/api/stories/api';
+import { DBStoryLikeResponse } from '@/types/dbStory';
 
-const useLikeStory = (id: string, userId: number) => {
+const useLikeStory = ({ story_id, user_id }: DBStoryLikeResponse) => {
   const queryClient = useQueryClient();
   const { data: isLiked } = useQuery({
-    queryKey: ['isLiked', id, userId],
-    queryFn: () => getIsLikedStory(id, userId),
+    queryKey: ['isLiked', story_id, user_id],
+    queryFn: () => getIsLikedStory(story_id, user_id),
   });
   const { data: likeCount } = useQuery({
-    queryKey: ['likeCount', id],
-    queryFn: () => getStoryLikesCount(id),
+    queryKey: ['likeCount', story_id],
+    queryFn: () => getStoryLikesCount(story_id),
   });
   const { mutate: handleLikeStory } = useMutation({
     mutationFn: async () => {
       if (!!isLiked) {
-        return cancelLikeStory(id, userId);
+        return cancelLikeStory(story_id, user_id);
       }
-      return likeStory(id, userId);
+      return likeStory(story_id, user_id);
     },
     onMutate: async () => {
-      await queryClient.cancelQueries({ queryKey: ['isLiked', id, userId] });
-      await queryClient.cancelQueries({ queryKey: ['likeCount', id] });
+      await queryClient.cancelQueries({
+        queryKey: ['isLiked', story_id, user_id],
+      });
+      await queryClient.cancelQueries({ queryKey: ['likeCount', story_id] });
 
-      const prevIsLiked = queryClient.getQueryData(['isLiked', id, userId]);
-      const preLikeCount = queryClient.getQueryData(['likeCount', id]);
+      const prevIsLiked = queryClient.getQueryData([
+        'isLiked',
+        story_id,
+        user_id,
+      ]);
+      const preLikeCount = queryClient.getQueryData(['likeCount', story_id]);
 
       queryClient.setQueryData(
-        ['isLiked', id, userId],
+        ['isLiked', story_id, user_id],
         (prev: boolean) => !prev
       );
-      queryClient.setQueryData(['likeCount', id], (prev: number) =>
+      queryClient.setQueryData(['likeCount', story_id], (prev: number) =>
         isLiked ? prev - 1 : prev + 1
       );
       return { prevIsLiked, preLikeCount };
@@ -42,15 +49,20 @@ const useLikeStory = (id: string, userId: number) => {
     onError: (_, __, context) => {
       if (context) {
         queryClient.setQueryData(
-          ['isLiked', id, userId],
+          ['isLiked', story_id, user_id],
           () => context.prevIsLiked
         );
-        queryClient.setQueryData(['likeCount', id], () => context.preLikeCount);
+        queryClient.setQueryData(
+          ['likeCount', story_id],
+          () => context.preLikeCount
+        );
       }
     },
     onSettled: () => {
-      queryClient.invalidateQueries({ queryKey: ['isLiked', id, userId] });
-      queryClient.invalidateQueries({ queryKey: ['likeCount', id] });
+      queryClient.invalidateQueries({
+        queryKey: ['isLiked', story_id, user_id],
+      });
+      queryClient.invalidateQueries({ queryKey: ['likeCount', story_id] });
     },
   });
 
