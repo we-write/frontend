@@ -26,7 +26,7 @@ const LayoutWrapper = ({ children }: PropsWithChildren) => {
       };
     }
 
-    // default layout
+    // default layout (/library/detail, /not-found)
     return {
       outer: 'bg-white',
       inner: 'w-full',
