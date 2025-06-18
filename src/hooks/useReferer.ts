@@ -6,7 +6,12 @@ const useReferer = () => {
   const pathname = usePathname();
   const searchParams = useSearchParams();
 
-  const encodedReferer = encodeURIComponent(pathname);
+  // referer + pageParams
+  const fullPath = searchParams.toString()
+    ? `${pathname}?${searchParams.toString()}`
+    : pathname;
+
+  const encodedReferer = encodeURIComponent(fullPath);
   const refererParam = `referer=${encodedReferer}`;
 
   const rawReferer = searchParams.get('referer');
