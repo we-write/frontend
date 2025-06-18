@@ -21,11 +21,6 @@ const useSocialActions = ({
   const router = useRouter();
 
   const navigateStoryOrJoinTeam = async (role: TeamUserRole) => {
-    if (!storyId) {
-      alert('스토리 정보를 불러오지 못했습니다. 잠시 후에 다시 시도해주세요.');
-      return;
-    }
-
     if (role === 'MEMBER' || role === 'LEADER') {
       router.push(`/library/detail/${storyId}/?page=0`);
       return;
