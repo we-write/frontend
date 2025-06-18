@@ -8,16 +8,16 @@ import {
 } from '@tanstack/react-query';
 
 interface UseSaveSummaryParams {
-  socialId: number;
+  storyId: string;
 }
 
 interface UseSaveSummaryResponse {
-  socialId: number;
+  storyId: string;
   summaryHtml: string;
 }
 
 const useSaveSummary = ({
-  socialId,
+  storyId,
 }: UseSaveSummaryParams): UseMutationResult<
   DBStoryResponse[],
   Error,
@@ -31,7 +31,7 @@ const useSaveSummary = ({
     },
     onSuccess: () => {
       queryClient.invalidateQueries({
-        queryKey: [QUERY_KEY.GET_SUMMARY, socialId],
+        queryKey: [QUERY_KEY.GET_SUMMARY, storyId],
       });
       setTimeout(() => alert('등록되었습니다.'), 0);
     },

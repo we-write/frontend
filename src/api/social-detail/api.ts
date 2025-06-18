@@ -112,7 +112,7 @@ export const getSocialParticipants = async (
 };
 
 export const saveSummary = async ({
-  socialId,
+  storyId,
   summaryHtml,
 }: SaveSummaryRequest) => {
   const { data, error } = await instanceBaaS
@@ -122,7 +122,7 @@ export const saveSummary = async ({
         summary: summaryHtml,
       },
     ])
-    .eq('social_id', socialId)
+    .eq('story_id', storyId)
     .select();
   if (error) {
     throw new Error(error.message);
