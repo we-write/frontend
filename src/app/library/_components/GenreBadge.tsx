@@ -8,7 +8,7 @@ const GENRES = [
   ...Object.keys(GENRE_LOCATION_MAP),
 ] as GenreTypeWithAll[];
 
-const BadgeGroup = ({
+const GenreBadge = ({
   selectedGenres,
   dispatchSelectedGenres,
 }: BadgeGroupProps) => {
@@ -42,4 +42,4 @@ const BadgeGroup = ({
   );
 };
 
-export default BadgeGroup;
+export default GenreBadge;

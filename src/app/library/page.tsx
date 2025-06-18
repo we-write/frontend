@@ -1,6 +1,6 @@
 'use client';
 
-import BadgeGroup from '@/app/library/_components/BadgeGroup';
+import GenreBadge from '@/app/library/_components/GenreBadge';
 import LibraryListContainer from '@/app/library/_components/LibraryListContainer';
 import SearchInput from '@/app/library/_components/SearchInput';
 import useSearchReducer from '@/hooks/api/library/useSearchReducer';
@@ -26,7 +26,7 @@ const Library = () => {
           }
           onSearch={handleSearch}
         />
-        <BadgeGroup
+        <GenreBadge
           selectedGenres={state.selectedGenres}
           dispatchSelectedGenres={(genres) =>
             dispatch({ type: 'DISPATCH_SELECTED_GENRES', payload: genres })
