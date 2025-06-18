@@ -22,7 +22,7 @@ const SocialDetail = async ({
   });
 
   await queryClient.prefetchQuery({
-    queryKey: ['story', storyId],
+    queryKey: [QUERY_KEY.GET_STORIES, storyId],
     queryFn: () => getStory(storyId),
   });
 
