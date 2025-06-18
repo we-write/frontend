@@ -24,12 +24,13 @@ const SignIn = () => {
     setError,
     formState: { isSubmitting, errors },
   } = useForm<SigninRequest>();
-  const { mutate: signIn } = usePostSignin();
+  const { mutate: signIn, isPending } = usePostSignin();
   const { isSignIn } = useAuth();
   const onSubmit: SubmitHandler<SigninRequest> = (data) => {
+    if (isSubmitting || isPending) return;
     signIn(data, {
       onSuccess: () => {
-        router.push('/social');
+        router.back();
       },
       onError: (error: Error) => {
         const errorData = JSON.parse(error.message);
@@ -116,9 +117,8 @@ const SignIn = () => {
           <Button
             role="button"
             type="submit"
-            color="custom"
-            disabled={isSubmitting || !!errors.email || !!errors.password}
-            className={`${errors.email || errors.password ? 'bg-gray-400' : 'bg-write-main'} font-bold text-white`}
+            isDisabled={isPending || !!errors.email || !!errors.password}
+            isLoading={isSubmitting || isPending}
           >
             로그인
           </Button>
