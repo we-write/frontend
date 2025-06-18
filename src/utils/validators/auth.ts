@@ -1,4 +1,4 @@
-import { SignInFormData, SignUpFormData } from '@/api/auth/type';
+import { SigninRequest, SignUpFormData } from '@/api/auth/type';
 import { ValidateProps } from './type';
 
 export const signUpValidate = ({
@@ -73,7 +73,7 @@ const favoriteValidation = (favorite: string): string | true => {
 export const signInValidate = ({
   value,
   name,
-}: ValidateProps<SignInFormData>) => {
+}: ValidateProps<SigninRequest>) => {
   switch (name) {
     case 'email':
       return emailValidation(value);

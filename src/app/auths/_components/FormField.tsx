@@ -1,11 +1,10 @@
 import InputForm from '@/components/common/Form/InputForm';
 
 import { FormFieldProps } from './type';
-import { SignInFormData } from '@/api/auth/type';
-import { SignUpFormData } from '@/api/auth/type';
+import { SigninRequest, SignUpRequest } from '@/api/auth/type';
 import { FieldErrors, Path } from 'react-hook-form';
 
-const FormField = <T extends SignUpFormData | SignInFormData>({
+const FormField = <T extends SignUpRequest | SigninRequest>({
   name,
   label,
   placeholder,

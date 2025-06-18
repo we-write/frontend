@@ -1,8 +1,8 @@
-import { SignInFormData, SignUpFormData } from '@/api/auth/type';
+import { SigninRequest, SignUpFormData } from '@/api/auth/type';
 import { ValidateProps } from '@/utils/validators/type';
 import { FieldErrors, UseFormRegister } from 'react-hook-form';
 
-export interface FormFieldProps<T extends SignUpFormData | SignInFormData> {
+export interface FormFieldProps<T extends SignUpFormData | SigninRequest> {
   name: keyof T;
   label: string;
   placeholder: string;
@@ -12,7 +12,7 @@ export interface FormFieldProps<T extends SignUpFormData | SignInFormData> {
 }
 
 export interface PasswordFormFieldProps<
-  T extends SignUpFormData | SignInFormData,
+  T extends SignUpFormData | SigninRequest,
 > extends FormFieldProps<T> {
   isShowPassword: boolean;
   toggleShowPassword: () => void;

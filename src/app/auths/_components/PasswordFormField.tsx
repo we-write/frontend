@@ -1,10 +1,10 @@
 import InputForm from '@/components/common/Form/InputForm';
 import { PasswordFormFieldProps } from './type';
 import { Eye, EyeOff } from 'lucide-react';
-import { SignInFormData, SignUpFormData } from '@/api/auth/type';
+import { SigninRequest, SignUpRequest } from '@/api/auth/type';
 import { Path } from 'react-hook-form';
 
-const PasswordFormField = <T extends SignUpFormData | SignInFormData>({
+const PasswordFormField = <T extends SignUpRequest | SigninRequest>({
   name,
   label,
   placeholder,

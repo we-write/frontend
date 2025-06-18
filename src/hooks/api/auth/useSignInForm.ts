@@ -1,4 +1,4 @@
-import { SignInFormData } from '@/api/auth/type';
+import { SigninRequest } from '@/api/auth/type';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import { usePostSignin } from './usePostSignin';
 import { useRouter } from 'next/navigation';
@@ -13,9 +13,9 @@ export const useSignInForm = () => {
     handleSubmit,
     setError,
     formState: { isSubmitting, errors },
-  } = useForm<SignInFormData>();
+  } = useForm<SigninRequest>();
 
-  const onSubmit: SubmitHandler<SignInFormData> = (data) => {
+  const onSubmit: SubmitHandler<SigninRequest> = (data) => {
     signIn(data, {
       onSuccess: () => {
         toast.success('로그인에 성공했습니다.');
