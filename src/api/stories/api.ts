@@ -236,7 +236,7 @@ export const getSocialParticipantsByDb = async (userId: number) => {
   return data[0].user_name;
 };
 
-export const likeStory = async (storyId: string, userId: string) => {
+export const likeStory = async (storyId: string, userId: number) => {
   const { data, error } = await instanceBaaS.from('story_likes').insert([
     {
       story_id: storyId,
@@ -258,4 +258,18 @@ export const getStoryLikesCount = async (storyId: string) => {
     throw new Error(error.message);
   }
   return data.length;
+};
+
+export const getIsLikedStory = async (storyId: string, userId: number) => {
+  const { data, error } = await instanceBaaS
+    .from('story_likes')
+    .select('*')
+    .eq('story_id', storyId)
+    .eq('user_id', userId)
+    .maybeSingle();
+  if (!data) return false;
+  if (error) {
+    throw new Error(error.message);
+  }
+  return true;
 };
