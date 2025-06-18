@@ -18,7 +18,7 @@ const useLikeStory = ({ story_id, user_id }: DBStoryLikeResponse) => {
     queryFn: () => getStoryLikesCount(story_id),
   });
   const { mutate: handleLikeStory } = useMutation({
-    mutationFn: async () => {
+    mutationFn: () => {
       if (!!isLiked) {
         return cancelLikeStory(story_id, user_id);
       }
