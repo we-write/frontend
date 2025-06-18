@@ -239,3 +239,13 @@ export const getSocialParticipantsByDb = async (userId: number) => {
   }
   return data[0].user_name;
 };
+
+export const checkStoryExists = async (storyId: string): Promise<boolean> => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('story_id')
+    .eq('story_id', storyId)
+    .single();
+
+  return !error && !!data;
+};

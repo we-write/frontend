@@ -5,8 +5,9 @@ import { SocialDetailPageParams } from '@/app/social/detail/[storyId]/type';
 import SocialOverView from '@/app/social/detail/[storyId]/_components/SocialOverView';
 import StorySummary from '@/app/social/detail/[storyId]/_components/StorySummary';
 import { getMyInfoOnServer } from '@/providers/auth-provider/authProviderUtil';
-import { getStory } from '@/api/stories/api';
+import { checkStoryExists, getStory } from '@/api/stories/api';
 import { getStoryCollaborators } from '@/api/story-collaborators/api';
+import { notFound } from 'next/navigation';
 
 const SocialDetail = async ({
   params,
@@ -14,6 +15,10 @@ const SocialDetail = async ({
   params: Promise<SocialDetailPageParams>;
 }) => {
   const { storyId } = await params;
+
+  const storyExists = await checkStoryExists(storyId);
+  if (!storyExists) return notFound();
+
   const queryClient = getQueryClient();
 
   await queryClient.prefetchQuery({
