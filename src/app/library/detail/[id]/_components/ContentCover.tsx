@@ -14,6 +14,7 @@ const ContentCover = ({ story }: { story: DBStoryResponse }) => {
             fill
             className="rounded-lg object-contain"
             priority
+            sizes="500px"
           />
         )}
       </div>
