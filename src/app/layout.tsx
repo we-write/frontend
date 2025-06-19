@@ -7,6 +7,7 @@ import { GNB } from '@/components/layout/GNB/GNB';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import AuthProvider from '@/providers/auth-provider/AuthProvider';
 import { ReactNode } from 'react';
+import { ToastProvider } from '@/providers/ToastProvider';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -41,17 +42,19 @@ const RootLayout = ({
       <body
         className={`flex min-h-screen flex-col ${pretendard.variable} ${hanuman.variable} antialiased`}
       >
-        <QueryProviders>
-          <AuthProvider>
-            <header>
-              <GNB />
-            </header>
+        <ToastProvider>
+          <QueryProviders>
+            <AuthProvider>
+              <header>
+                <GNB />
+              </header>
 
-            <main>
-              <LayoutWrapper>{children}</LayoutWrapper>
-            </main>
-          </AuthProvider>
-        </QueryProviders>
+              <main>
+                <LayoutWrapper>{children}</LayoutWrapper>
+              </main>
+            </AuthProvider>
+          </QueryProviders>
+        </ToastProvider>
       </body>
     </html>
   );

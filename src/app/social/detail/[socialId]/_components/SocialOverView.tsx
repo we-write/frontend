@@ -1,7 +1,7 @@
 'use client';
 
 import DetailCard from '@/components/common/Card/DetailCard';
-import useJoinTeam from '@/hooks/api/supabase/story-collaborators/useJoinTeam';
+import useJoinTeam from '@/hooks/api/social/useJoinTeam';
 import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import Image from 'next/image';
@@ -43,6 +43,10 @@ const SocialOverView = ({
     socialId: currentSocialId,
     storyId: currentStoryId,
   });
+  // TODO: 모임 관리 방식이 전부 DB 기반으로 변경되면, 해당 시점에 삭제 기능을 활성화할 것
+  // const { mutate: deleteSocialData } = useDeleteSocialByDb({
+  //   storyId: currentStoryId,
+  // });
   const imagesUrls = extractUserImages(socialTeamsParticipantsData);
   const currentUserRole: TeamUserRole = userRoleData
     ? userRoleData.role
@@ -56,13 +60,14 @@ const SocialOverView = ({
     }
 
     if (role === 'MEMBER' || role === 'LEADER') {
-      router.push(`/library/detail/${currentStoryId}`);
+      router.push(`/library/detail/${currentStoryId}/?page=0`);
       return;
     }
 
     if (!currentUserId || !currentUserName) {
       alert('로그인이 필요한 서비스입니다.');
       router.push('/auths/signin');
+      return;
     }
 
     const joinTeamConfirmed = window.confirm('모임에 참여하시겠습니까?');
@@ -80,12 +85,21 @@ const SocialOverView = ({
         },
         role: TEAM_USER_ROLE.MEMBER,
       });
+
+      alert('모임 참여에 성공했습니다.');
     } catch (error) {
       console.error('모임 참여 실패 : ', error);
       alert('오류가 발생하여 모임 참여에 실패하였습니다.');
       router.refresh();
     }
   };
+
+  // TODO: 모임 관리 방식이 전부 DB 기반으로 변경되면, 해당 시점에 삭제 기능을 활성화할 것
+  // const deleteSocial = (role: TeamUserRole) => {
+  //   if (role !== 'LEADER') return;
+  //   deleteSocialData;
+  //   router.push('/social');
+  // };
 
   // TODO: 현재 API 호출로 인한 JSX 렌더링 지연이 발생하므로 로딩 개선 및 스켈레톤UI 필요
   if (isFetchDataLoading || !socialDetailData) {

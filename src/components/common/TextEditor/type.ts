@@ -26,3 +26,9 @@ export interface HandleChangeTextAlignParams {
 export interface HandleMarkChangeParams {
   mark: 'bold' | 'italic' | 'blockquote';
 }
+
+export interface EditorContainerHeightParams {
+  editorHeight: string;
+  isReadOnly: boolean;
+  useToolbarMenu: boolean;
+}

@@ -5,7 +5,7 @@ import { QUERY_KEY } from '@/constants/queryKey';
 import { AuthProviderServerState } from './type';
 import { getMyInfo } from '@/api/auth/api';
 
-export const getMyInfoOnServer = async () => {
+const getMyInfoOnServer = async () => {
   const queryClient = getQueryClient();
   const accessToken = await getCookie('accessToken');
 
@@ -20,10 +20,9 @@ export const getMyInfoOnServer = async () => {
     return initialState;
   }
 
-  const data = await queryClient.prefetchQuery<MyInfoResponse>({
+  const data = await queryClient.fetchQuery<MyInfoResponse>({
     queryKey: [QUERY_KEY.MY_INFO],
     queryFn: () => getMyInfo(accessToken),
-    retry: false,
   });
 
   return {
@@ -32,3 +31,4 @@ export const getMyInfoOnServer = async () => {
     isSignIn: true,
   };
 };
+export default getMyInfoOnServer;
