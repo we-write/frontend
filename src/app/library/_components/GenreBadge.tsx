@@ -1,5 +1,5 @@
 import { GENRE_LOCATION_MAP } from '@/api/social/type';
-import { BadgeGroupProps, GenreTypeWithAll } from './type';
+import { GenreBadgeProps, GenreTypeWithAll } from './type';
 
 export const GENRE_ALL = '전체';
 
@@ -11,7 +11,7 @@ const GENRES = [
 const GenreBadge = ({
   selectedGenres,
   dispatchSelectedGenres,
-}: BadgeGroupProps) => {
+}: GenreBadgeProps) => {
   const selectedSet = new Set(selectedGenres);
 
   const updateSelectedGenre = (genre: GenreTypeWithAll) => {
@@ -28,11 +28,11 @@ const GenreBadge = ({
         const isActive = selectedSet.has(genre);
         return (
           <button
+            type="button"
             key={genre}
-            onClick={() => updateSelectedGenre(genre as GenreTypeWithAll)}
-            className={`flex-center h-fit w-fit rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${
-              isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'
-            }`}
+            onClick={() => updateSelectedGenre(genre)}
+            className={`flex-center rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'
+              }`}
           >
             {genre}
           </button>

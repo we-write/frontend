@@ -9,10 +9,11 @@ export interface SearchInputProps {
   setKeyword: (value: string) => void;
   onSearch: () => void;
 }
-export interface LibraryListGridProps {
+export interface LibraryListContainerProps {
   keyword: string;
-  searchType: '제목' | '소개글';
+  searchType: '제목';
   genres: string[];
+  limit: number;
 }
 
 interface Story {
@@ -23,10 +24,10 @@ interface Story {
   cover_image_url: string;
 }
 
-export interface StoryGridProps {
+export interface LibraryListGridProps {
   stories: Story[];
 }
-export interface BadgeGroupProps {
+export interface GenreBadgeProps {
   selectedGenres: string[];
   dispatchSelectedGenres: (genres: string[]) => void;
 }
