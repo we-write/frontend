@@ -1,18 +1,29 @@
 'use client';
 
+import { FETCH_GET_ITEM_LIMIT } from '@/api/social/api';
 import { LibraryListGridProps } from '@/app/library/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import Observer from '@/components/common/Observer/Observer';
 import { APP_ROUTES } from '@/constants/appRoutes';
+import { VIEWPORT_BREAK_POINT } from '@/constants/viewportBreakPoint';
 import { useInfiniteStories } from '@/hooks/api/library/useInfiniteStories';
+import useCurrentViewPort from '@/hooks/useCurrentViewPort';
 import htmlToString from '@/utils/htmlToString';
 
-const FETCH_GET_ITEM_LIMIT = 12;
+const IMAGE_PRIORITY_THRESHOLD_BELOW_MD = 2;
+const IMAGE_PRIORITY_THRESHOLD_MD_AND_UP = 9;
+
 const LibraryListGrid = ({
   keyword,
   searchType,
   genres,
 }: LibraryListGridProps) => {
+  const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
+  const currentImagePriorityThershold =
+    currentViewPortWidth && currentViewPortWidth >= VIEWPORT_BREAK_POINT.MD
+      ? IMAGE_PRIORITY_THRESHOLD_MD_AND_UP
+      : IMAGE_PRIORITY_THRESHOLD_BELOW_MD;
+
   const {
     data: stories,
     fetchNextPage,
@@ -64,7 +75,7 @@ const LibraryListGrid = ({
   return (
     <>
       <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4 lg:grid-cols-3">
-        {flatStories?.map((story) => (
+        {flatStories?.map((story, index) => (
           <GridCard
             href={`${APP_ROUTES.library}/detail/${story.story_id}/?page=0`}
             key={story.story_id}
@@ -73,6 +84,8 @@ const LibraryListGrid = ({
                 story.cover_image_url ||
                 'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
               alt: `${story.title || '대체'} 커버 이미지`,
+              index: index,
+              priorityThreshold: currentImagePriorityThershold,
             }}
             textContent={{
               title: story.title,
