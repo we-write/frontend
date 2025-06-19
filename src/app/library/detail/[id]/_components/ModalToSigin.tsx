@@ -7,14 +7,9 @@ import {
 } from '@/components/common/Modal/Modal';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { useRouter } from 'next/navigation';
+import { ModalToSiginProps } from '../type';
 
-const ModalToSigin = ({
-  isModalOpen,
-  setFalse,
-}: {
-  isModalOpen: boolean;
-  setFalse: () => void;
-}) => {
+const ModalToSigin = ({ isModalOpen, setFalse }: ModalToSiginProps) => {
   const router = useRouter();
 
   return (
