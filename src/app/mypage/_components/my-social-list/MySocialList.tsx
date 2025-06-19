@@ -6,7 +6,6 @@ import { useMySocialList } from '@/hooks/api/mypage/useMySocialList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import { TabType } from './type';
 import TabMenu from './TabMenu';
-import MySocialListSkeleton from './MySocialListSkeleton';
 import MySocialListCard from './MySocialListCard';
 
 const MySocialList = () => {
@@ -15,7 +14,7 @@ const MySocialList = () => {
   const userId = myInfo?.id;
 
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
-    useMySocialList(activeTab, String(userId));
+    useMySocialList(activeTab, userId);
 
   useEffect(() => {
     if (data) {
@@ -35,8 +34,6 @@ const MySocialList = () => {
       <TabMenu activeTab={activeTab} onTabChange={handleTabChange} />
 
       <div className="min-h-[50vh] w-full">
-        {isLoading && <MySocialListSkeleton />}
-
         {!isLoading && filteredList.length === 0 && (
           <p className="py-6 pt-[20vh] text-center text-gray-500">
             {activeTab === 'joined'

@@ -18,8 +18,6 @@ const MySocialListCardItem = ({
 }: MySocialListItemProps) => {
   const router = useRouter();
   const nowDate = new Date().toISOString();
-  const isStoryCompleted = (registrationEndDate: string) =>
-    registrationEndDate < nowDate;
 
   const { data: collaborator } = useCollaboratorList(item.id);
   const collaboratorCount = collaborator?.length || 0;
@@ -28,7 +26,7 @@ const MySocialListCardItem = ({
   const userId = myInfo?.id;
   const isJoined = activeTab === 'joined';
 
-  const handleButtonClick = async (id: string) => {
+  const handleMySocial = async (id: string) => {
     try {
       const storyId = await getStoryBySocialId(id);
 
@@ -44,12 +42,11 @@ const MySocialListCardItem = ({
         if (userId) {
           await deleteCollaboratorFromSocial(userId, storyId);
           alert(messages.success);
+          refetch();
         }
       } else {
         router.push(`/library/detail/${storyId}/?page=0`);
       }
-
-      refetch();
     } catch (error) {
       console.error(error);
       alert('모임 취소에 실패했습니다.');
@@ -77,11 +74,9 @@ const MySocialListCardItem = ({
         }}
         endDate={item.registrationEnd}
         isCardDataLoading={false}
-        isCompletedStory={
-          isJoined ? isStoryCompleted(item.registrationEnd) : true
-        }
+        isCompletedStory={isJoined ? item.registrationEnd < nowDate : true}
         isCanceled={false}
-        handleButtonClick={() => handleButtonClick(item.id)}
+        handleButtonClick={() => handleMySocial(item.id)}
       />
     </div>
   );

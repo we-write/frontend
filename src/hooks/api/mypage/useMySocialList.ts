@@ -5,7 +5,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 const FETCH_LIMIT = 12;
 
-export const useMySocialList = (activeTab: TabType, userId?: string) => {
+export const useMySocialList = (activeTab: TabType, userId?: number) => {
   return useInfiniteQuery({
     queryKey: ['mySocialList', activeTab, userId],
     enabled: !!userId,
