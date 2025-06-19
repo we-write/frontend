@@ -16,7 +16,7 @@ const useLikeStory = ({ story_id, user_id }: DBStoryLikeResponse) => {
     select: (data) => data.length,
   });
 
-  const { mutate: handleLikeStory } = useMutation({
+  const { mutate: handleLikeStory, isPending } = useMutation({
     mutationFn: () => {
       if (!!isLiked) {
         return cancelLikeStory(story_id, user_id);
@@ -73,7 +73,7 @@ const useLikeStory = ({ story_id, user_id }: DBStoryLikeResponse) => {
     },
   });
 
-  return { handleLikeStory, isLiked, likeCount };
+  return { handleLikeStory, isLiked, likeCount, isPending };
 };
 
 export default useLikeStory;

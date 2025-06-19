@@ -13,12 +13,13 @@ const SideButtonGroup = () => {
   const { isSignIn, myInfo } = useAuth();
   const { id } = useParams();
   const { value: isModalOpen, setTrue, setFalse } = useBoolean();
-  const { handleLikeStory, isLiked, likeCount } = useLikeStory({
+  const { handleLikeStory, isLiked, likeCount, isPending } = useLikeStory({
     story_id: id as string,
     user_id: myInfo?.id as number,
   });
   const handleClickLike = () => {
     if (isSignIn) {
+      if (isPending) return;
       handleLikeStory();
     } else {
       setTrue();
@@ -38,6 +39,7 @@ const SideButtonGroup = () => {
       </button>
 
       <button
+        disabled={isPending}
         aria-label="좋아요"
         aria-pressed={isLiked}
         className="flex-center md:border-write-main h-10 w-10 flex-col rounded-full border-0 bg-white md:h-12 md:w-12 md:border"
@@ -48,7 +50,9 @@ const SideButtonGroup = () => {
           aria-hidden
           fill={!!isLiked ? 'currentColor' : 'none'}
         />
-        <span className="text-write-main h-3 text-xs">{likeCount}</span>
+        <span className="text-write-main h-3 text-xs">
+          {likeCount ? (likeCount > 999 ? '999+' : likeCount) : 0}
+        </span>
       </button>
     </div>
   );
