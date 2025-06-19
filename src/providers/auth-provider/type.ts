@@ -1,16 +1,22 @@
 import { MyInfoResponse } from '@/api/auth/type';
-import { UseQueryResult } from '@tanstack/react-query';
+import { QueryClient, UseQueryResult } from '@tanstack/react-query';
 import { ReactNode } from 'react';
 
 export interface AuthContextValue {
-  myInfo: MyInfoResponse | undefined;
   isSignIn: boolean;
-  queryMethods: UseQueryResult<MyInfoResponse, Error>;
+  myInfo: MyInfoResponse | undefined;
+  queryMethods: Omit<UseQueryResult<MyInfoResponse, Error>, 'data'>;
 }
 
 export interface AuthProviderClientProps {
   children: ReactNode;
-  myInfo: MyInfoResponse | undefined;
   isSignIn: boolean;
   accessToken: string;
+}
+
+export interface AuthProviderServerState {
+  myInfo: MyInfoResponse | undefined;
+  isSignIn: boolean;
+  accessToken: string | undefined;
+  queryClient: QueryClient;
 }
