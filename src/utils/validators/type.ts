@@ -1,7 +1,7 @@
-import { SignUpFormData } from '@/api/auth/type';
+import { SignUpFormData, SigninRequest } from '@/api/auth/type';
 
-export interface SignUpValidateProps {
+export interface AuthValidateProps<T extends SignUpFormData | SigninRequest> {
   value: string;
-  name: keyof SignUpFormData;
+  name: keyof T;
   password?: string;
 }

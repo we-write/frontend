@@ -1,10 +1,11 @@
-import { SignUpValidateProps } from './type';
+import { SigninRequest, SignUpFormData } from '@/api/auth/type';
+import { AuthValidateProps } from './type';
 
 export const signUpValidate = ({
   value,
   name,
   password,
-}: SignUpValidateProps) => {
+}: AuthValidateProps<SignUpFormData>) => {
   switch (name) {
     case 'email':
       return emailValidation(value);
@@ -67,4 +68,16 @@ const favoriteValidation = (favorite: string): string | true => {
     return '좋아하는 작품을 입력해주세요';
   }
   return true;
+};
+
+export const signInValidate = ({
+  value,
+  name,
+}: AuthValidateProps<SigninRequest>) => {
+  switch (name) {
+    case 'email':
+      return emailValidation(value);
+    case 'password':
+      return passwordValidation(value);
+  }
 };
