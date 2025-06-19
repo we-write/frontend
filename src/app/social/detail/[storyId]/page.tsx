@@ -41,9 +41,6 @@ const SocialDetail = async ({
           {...(isSignIn &&
             myInfo && {
               currentUserId: myInfo.id,
-            })}
-          {...(isSignIn &&
-            myInfo && {
               currentUserName: myInfo.name,
             })}
         />
