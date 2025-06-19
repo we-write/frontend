@@ -18,8 +18,10 @@ const SignIn = async () => {
         <h1 className="text-write-main text-center text-xl font-bold">
           로그인
         </h1>
+
         <SignInForm />
         <LinkToSignUp />
+
       </div>
     </div>
   );

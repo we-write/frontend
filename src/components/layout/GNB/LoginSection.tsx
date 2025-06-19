@@ -9,10 +9,12 @@ import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
 import UserDropdown from '@/components/layout/GNB/UserDropdown';
 import Link from 'next/link';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import useReferer from '@/hooks/useReferer';
 
 const LoginSection = () => {
   const { mutate: signOut } = usePostSignout();
   const { isSignIn, myInfo } = useAuth();
+  const { refererParam } = useReferer();
 
   const {
     value: isDropdownOpen,
@@ -48,7 +50,7 @@ const LoginSection = () => {
         </button>
       ) : (
         <Link
-          href={APP_ROUTES.signin}
+          href={`${APP_ROUTES.signin}?${refererParam}`}
           className="text-write-main text-base font-semibold"
         >
           로그인
