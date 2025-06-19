@@ -17,16 +17,16 @@ const Social = async () => {
     <HydrationBoundary state={dehydrate(queryClient)}>
       <div className="flex flex-col justify-center gap-5 px-3 py-8 md:px-7">
         <h1 className="text-xl leading-tight font-medium text-gray-900 md:text-[1.5rem]">
-          다른 사람들과 함께 만들어가는
+          모두와 만들어 나가는 상상의 여정
           <span className="text-write-sub-title mt-1 block text-[2.4rem] font-extrabold">
-            특별한 이야기
+            함께 쓰고, 함께 완성하는 이야기
             <span className="text-write-sub-title ml-2 inline-block pt-1.5 align-top">
               <BookOpen className="h-6.5 w-6.5" aria-hidden="true" />
             </span>
           </span>
         </h1>
         <p className="text-lg font-medium text-gray-400 md:text-lg">
-          당신의 상상력으로 이야기를 완성해보세요
+          지금, 당신의 상상을 더해보세요
         </p>
       </div>
       <SocialListContainer />
