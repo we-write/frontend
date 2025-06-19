@@ -4,18 +4,22 @@ import axiosErrorHandler from './axiosErrorHandler';
 import postgrestErrorHandler from './postgrestErrorHandler';
 import { ErrorType, HandleErrorOptions } from './types';
 
+const isPostgrestError = (error: ErrorType): error is PostgrestError => {
+  return (
+    typeof error === 'object' &&
+    error !== null &&
+    'message' in error &&
+    'code' in error
+  );
+};
+
 // 통합 에러 핸들러
 const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
   const { onDone, onStatus } = options ?? {};
 
   if (isAxiosError(error)) {
     axiosErrorHandler(error, onStatus);
-  } else if (
-    typeof error === 'object' &&
-    error !== null &&
-    'message' in error &&
-    'code' in error
-  ) {
+  } else if (isPostgrestError(error)) {
     postgrestErrorHandler(error as PostgrestError, onStatus);
   } else if (error instanceof Error) {
     console.log('error', error);
@@ -26,5 +30,5 @@ const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
   onDone?.();
 };
 
-export { axiosErrorHandler, postgrestErrorHandler };
 export default handleError;
+export { axiosErrorHandler, postgrestErrorHandler, isPostgrestError };
