@@ -10,4 +10,6 @@ export const QUERY_KEY = {
   SOCIAL: 'social',
   SOCIAL_SUMMARY: 'social-summary',
   MY_INFO: 'my-info',
+  IS_LIKED: 'is-liked',
+  LIKE_COUNT: 'like-count',
 } as const;
