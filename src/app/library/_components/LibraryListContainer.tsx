@@ -1,28 +1,22 @@
 import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
 import LibraryListSkeleton from '@/app/library/_components/LibraryListSkeleton';
-import { LibraryListGridProps } from '@/app/library/_components/type';
+import { LibraryListContainerProps } from '@/app/library/_components/type';
 import Observer from '@/components/common/Observer/Observer';
 import { useInfiniteStories } from '@/hooks/api/library/useInfiniteStories';
-
-const FETCH_GET_ITEM_LIMIT = 12;
 
 const LibraryListContainer = ({
   keyword,
   searchType,
   genres,
-}: LibraryListGridProps) => {
+  limit,
+}: LibraryListContainerProps) => {
   const {
     data: stories,
     fetchNextPage,
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useInfiniteStories(
-    keyword ?? '',
-    searchType,
-    genres,
-    FETCH_GET_ITEM_LIMIT
-  );
+  } = useInfiniteStories(keyword ?? '', searchType, genres, limit);
 
   const flatStories = stories?.pages.flat() || [];
 
