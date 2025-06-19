@@ -22,7 +22,7 @@ const CreateSocialModalButton = () => {
   return (
     <>
       {/* 모임만들기 버튼 */}
-      <Button size="custom" className="px-3" onClick={handleModalClick}>
+      <Button size="custom" className="px-4" onClick={handleModalClick}>
         스토리그룹 만들기
       </Button>
 
