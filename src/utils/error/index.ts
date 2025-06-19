@@ -1,11 +1,11 @@
 import { isAxiosError } from 'axios';
 import { PostgrestError } from '@supabase/supabase-js';
-import { axiosErrorHandler } from './axiosErrorHandler';
-import { postgrestErrorHandler } from './postgrestErrorHandler';
+import axiosErrorHandler from './axiosErrorHandler';
+import postgrestErrorHandler from './postgrestErrorHandler';
 import { ErrorType, HandleErrorOptions } from './types';
 
 // 통합 에러 핸들러
-export const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
+const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
   const { onDone, onStatus } = options ?? {};
 
   if (isAxiosError(error)) {
@@ -25,3 +25,6 @@ export const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
 
   onDone?.();
 };
+
+export { axiosErrorHandler, postgrestErrorHandler };
+export default handleError;
