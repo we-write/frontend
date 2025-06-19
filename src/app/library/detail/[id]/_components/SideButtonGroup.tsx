@@ -38,6 +38,8 @@ const SideButtonGroup = () => {
       </button>
 
       <button
+        aria-label="좋아요"
+        aria-pressed={isLiked}
         className="flex-center md:border-write-main h-10 w-10 flex-col rounded-full border-0 bg-white md:h-12 md:w-12 md:border"
         onClick={handleClickLike}
       >
