@@ -2,7 +2,7 @@ import { SupabaseResponse } from './type';
 
 const throwOnSupabaseError = async <T>(
   operation: () => Promise<SupabaseResponse<T>>
-): Promise<T> => {
+): Promise<T | null> => {
   const response = await operation();
 
   if (!response) {
@@ -14,7 +14,7 @@ const throwOnSupabaseError = async <T>(
   }
 
   if ('data' in response && response.data === null) {
-    throw new Error('No data found');
+    return null;
   }
 
   return response.data!;
