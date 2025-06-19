@@ -249,29 +249,17 @@ export const likeStory = async (storyId: string, userId: number) => {
   return data;
 };
 
-export const getStoryLikesCount = async (storyId: string) => {
+export const getStoryLikes = async (storyId: string) => {
   const { data, error } = await instanceBaaS
     .from('story_likes')
     .select('*', { count: 'exact' })
     .eq('story_id', storyId);
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data.length;
-};
+  if (!data) return [];
 
-export const getIsLikedStory = async (storyId: string, userId: number) => {
-  const { data, error } = await instanceBaaS
-    .from('story_likes')
-    .select('*')
-    .eq('story_id', storyId)
-    .eq('user_id', userId)
-    .maybeSingle();
-  if (!data) return false;
   if (error) {
-    throw new Error(error.message);
+    throw new Error(error);
   }
-  return true;
+  return data;
 };
 
 export const cancelLikeStory = async (storyId: string, userId: number) => {
