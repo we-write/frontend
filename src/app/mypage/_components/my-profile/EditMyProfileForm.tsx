@@ -1,7 +1,7 @@
 'use client';
 
 import Button from '@/components/common/Button/Button';
-import { UserRequest } from '@/api/auth/type';
+import { MyInfoRequest } from '@/api/auth/type';
 import {
   Modal,
   ModalContent,
@@ -21,7 +21,7 @@ const EditMyProfileForm = ({
   companyName,
   currentProfileImageUrl,
 }: EditMyProfileFormProps) => {
-  const { control, handleSubmit } = useForm<UserRequest>({
+  const { control, handleSubmit } = useForm<MyInfoRequest>({
     defaultValues: {
       companyName,
     },
@@ -33,7 +33,7 @@ const EditMyProfileForm = ({
     handleChange: handleProfileImageChange,
   } = usePreviewImage(currentProfileImageUrl);
 
-  const onSubmit = async (data: UserRequest) => {
+  const onSubmit = async (data: MyInfoRequest) => {
     await updateMyInfo(data);
     closeModal();
   };
@@ -77,7 +77,7 @@ const EditMyProfileForm = ({
             <div className="w-full">
               <InputController
                 name="companyName"
-                control={control as Control<UserRequest>}
+                control={control as Control<MyInfoRequest>}
                 rules={{
                   required: '좋아하는 작품 내용란이 비어있습니다.',
                 }}
