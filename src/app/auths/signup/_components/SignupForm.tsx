@@ -1,13 +1,12 @@
 'use client';
 
 import Button from '@/components/common/Button/Button';
-
-import { signUpValidate } from '@/utils/validators/auth';
+import InputForm from '@/components/common/Form/InputForm';
 
 import useBoolean from '@/hooks/useBoolean';
 import useSignUpForm from '@/hooks/api/auth/useSignUpForm';
-import FormField from '@/app/auths/_components/FormField';
-import PasswordFormField from '@/app/auths/_components/PasswordFormField';
+import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
+import { signUpValidate } from '@/utils/validators/auth';
 
 const SignupForm = () => {
   const { value: showPassword, toggle: toggleShowPassword } = useBoolean();
@@ -19,61 +18,124 @@ const SignupForm = () => {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4">
-      <FormField
+      <InputForm
         name="name"
+        size={46}
         label="닉네임"
         placeholder="닉네임을 입력해주세요"
-        register={register}
-        validate={signUpValidate}
-        errors={errors}
+        register={{
+          ...register('name', {
+            validate: (value) => signUpValidate({ value, name: 'name' }),
+          }),
+        }}
+        hasError={!!errors.name}
+        helperText={errors.name?.message}
       />
 
-      <FormField
+      <InputForm
         name="email"
-        label="이메일"
+        size={46} // 입력 필드 너비 지정
+        label="아이디"
         placeholder="이메일을 입력해주세요"
-        register={register}
-        validate={signUpValidate}
-        errors={errors}
+        hasError={!!errors.email}
+        helperText={errors.email?.message}
+        register={{
+          ...register('email', {
+            validate: (value) => signUpValidate({ value, name: 'email' }),
+          }),
+        }}
       />
 
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
-          <PasswordFormField
-            name="password"
+          <InputForm
             label="비밀번호"
+            name="password"
+            suffixIcon={
+              <button
+                type="button"
+                className="flex items-center justify-center"
+                onClick={toggleShowPassword}
+              >
+                {showPassword ? (
+                  <VisibilityOn
+                    aria-label="show password"
+                    fill="currentColor"
+                  />
+                ) : (
+                  <VisibilityOff
+                    aria-label="hide password"
+                    fill="currentColor"
+                  />
+                )}
+              </button>
+            }
+            type={showPassword ? 'text' : 'password'}
             placeholder="비밀번호를 입력해주세요"
-            register={register}
-            validate={signUpValidate}
-            errors={errors}
-            isShowPassword={showPassword}
-            toggleShowPassword={toggleShowPassword}
+            register={{
+              ...register('password', {
+                validate: (value) =>
+                  signUpValidate({ value, name: 'password' }),
+              }),
+            }}
+            hasError={!!errors.password}
+            helperText={errors.password?.message}
           />
         </div>
       </div>
       <div className="flex flex-col gap-2">
         <div className="flex flex-col gap-2">
-          <PasswordFormField
-            name="passwordCheck"
+          <InputForm
             label="비밀번호 확인"
+            name="passwordCheck"
+            suffixIcon={
+              <button
+                type="button"
+                className="flex items-center justify-center"
+                onClick={toggleShowPasswordCheck}
+              >
+                {showPasswordCheck ? (
+                  <VisibilityOn
+                    aria-label="show password"
+                    fill="currentColor"
+                  />
+                ) : (
+                  <VisibilityOff
+                    aria-label="hide password"
+                    fill="currentColor"
+                  />
+                )}
+              </button>
+            }
+            type={showPasswordCheck ? 'text' : 'password'}
             placeholder="비밀번호를 다시 한 번 입력해주세요"
-            register={register}
-            validate={signUpValidate}
-            password={getValues('password')}
-            errors={errors}
-            isShowPassword={showPasswordCheck}
-            toggleShowPassword={toggleShowPasswordCheck}
+            register={{
+              ...register('passwordCheck', {
+                validate: (value) =>
+                  signUpValidate({
+                    value,
+                    name: 'passwordCheck',
+                    password: getValues('password'),
+                  }),
+              }),
+            }}
+            hasError={!!errors.passwordCheck}
+            helperText={errors.passwordCheck?.message}
           />
         </div>
       </div>
 
-      <FormField
+      <InputForm
         name="companyName"
         label="좋아하는 작품"
         placeholder="(ex. 위대한 개츠비,원피스)"
-        register={register}
-        validate={signUpValidate}
-        errors={errors}
+        register={{
+          ...register('companyName', {
+            validate: (value) => signUpValidate({ value, name: 'companyName' }),
+          }),
+        }}
+        hasError={!!errors.companyName}
+        helperText={errors.companyName?.message}
       />
 
       <Button

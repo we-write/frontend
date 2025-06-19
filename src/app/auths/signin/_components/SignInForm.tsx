@@ -1,10 +1,10 @@
 'use client';
 import Button from '@/components/common/Button/Button';
-import PasswordFormField from '../../_components/PasswordFormField';
+import InputForm from '@/components/common/Form/InputForm';
 import useBoolean from '@/hooks/useBoolean';
-import { signInValidate } from '@/utils/validators/auth';
-import FormField from '../../_components/FormField';
 import { useSignInForm } from '@/hooks/api/auth/useSignInForm';
+import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
+import { signInValidate } from '@/utils/validators/auth';
 
 const SignInForm = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
@@ -14,24 +14,41 @@ const SignInForm = () => {
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
-      <FormField
+      <InputForm
         label="아이디"
         name="email"
         placeholder="이메일을 입력해주세요."
-        register={register}
-        validate={signInValidate}
-        errors={errors}
+        register={register('email', {
+          validate: (value) => signInValidate({ value, name: 'email' }),
+        })}
+        type="email"
+        hasError={!!errors.email}
+        helperText={errors.email?.message}
       />
 
-      <PasswordFormField
+      <InputForm
         name="password"
         label="비밀번호"
         placeholder="비밀번호를 입력해주세요."
-        validate={signInValidate}
-        register={register}
-        errors={errors}
-        isShowPassword={isShowPassword}
-        toggleShowPassword={toggleIsShowPassword}
+        register={register('password', {
+          validate: (value) => signInValidate({ value, name: 'password' }),
+        })}
+        type={isShowPassword ? 'text' : 'password'}
+        hasError={!!errors.password}
+        helperText={errors.password?.message}
+        suffixIcon={
+          <button
+            type="button"
+            className="flex items-center justify-center"
+            onClick={toggleIsShowPassword}
+          >
+            {isShowPassword ? (
+              <VisibilityOn aria-label="show password" fill="currentColor" />
+            ) : (
+              <VisibilityOff aria-label="hide password" fill="currentColor" />
+            )}
+          </button>
+        }
       />
 
       <Button
