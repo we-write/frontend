@@ -1,4 +1,5 @@
 import { UseSocialActionsParams } from '@/app/social/detail/[storyId]/type';
+import { APP_ROUTES } from '@/constants/appRoutes';
 import useParticipateCollaborator from '@/hooks/api/supabase/story-collaborators/useParticipateCollaborator';
 import useDeleteSocialByDb from '@/hooks/api/supabase/useDeleteSocialByDb';
 import { TEAM_USER_ROLE, TeamUserRole } from '@/types/teamUserRole';
@@ -22,13 +23,13 @@ const useSocialActions = ({
 
   const navigateStoryOrJoinTeam = async (role: TeamUserRole) => {
     if (role === 'MEMBER' || role === 'LEADER') {
-      router.push(`/library/detail/${storyId}/?page=0`);
+      router.push(`${APP_ROUTES.libraryDetail}/${storyId}/?page=0`);
       return;
     }
 
     if (!userId || !userName) {
       alert('로그인이 필요한 서비스입니다.');
-      router.push('/auths/signin');
+      router.push(`${APP_ROUTES.signin}`);
       return;
     }
 
@@ -67,7 +68,7 @@ const useSocialActions = ({
     if (!deleteSocialConfirmed) return;
 
     deleteSocialData();
-    router.push('/social');
+    router.push(`${APP_ROUTES.home}`);
   };
 
   return { navigateStoryOrJoinTeam, deleteSocial };

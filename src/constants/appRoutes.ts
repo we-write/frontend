@@ -3,6 +3,7 @@ export const APP_ROUTES = {
   social: '/social',
   socialDetail: '/social/detail',
   library: '/library',
+  libraryDetail: '/library/detail',
   mypage: '/mypage',
   signin: '/auths/signin',
   signup: '/auths/signup',
