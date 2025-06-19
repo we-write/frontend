@@ -2,7 +2,7 @@ import { isAxiosError } from 'axios';
 import { PostgrestError } from '@supabase/supabase-js';
 import axiosErrorHandler from './axiosErrorHandler';
 import postgrestErrorHandler from './postgrestErrorHandler';
-import { ErrorType, HandleErrorOptions } from './types';
+import { ErrorType, HandleErrorOptions } from './type';
 
 const isPostgrestError = (error: ErrorType): error is PostgrestError => {
   return (

@@ -1,6 +1,5 @@
 import { PostgrestError } from '@supabase/supabase-js';
-
-type StatusCodeCallback = (statusCode?: number | string) => void;
+import { StatusCodeCallback } from './type';
 
 // Postgrest 에러 핸들러
 const postgrestErrorHandler = (
