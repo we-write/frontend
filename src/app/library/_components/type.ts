@@ -13,7 +13,6 @@ export interface LibraryListContainerProps {
   keyword: string;
   searchType: '제목';
   genres: string[];
-  limit: number;
 }
 
 interface Story {

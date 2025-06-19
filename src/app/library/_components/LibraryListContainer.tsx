@@ -8,7 +8,6 @@ const LibraryListContainer = ({
   keyword,
   searchType,
   genres,
-  limit,
 }: LibraryListContainerProps) => {
   const {
     data: stories,
@@ -16,7 +15,7 @@ const LibraryListContainer = ({
     hasNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useInfiniteStories(keyword ?? '', searchType, genres, limit);
+  } = useInfiniteStories(keyword ?? '', searchType, genres);
 
   const flatStories = stories?.pages.flat() || [];
 
