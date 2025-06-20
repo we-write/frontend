@@ -7,15 +7,18 @@ import { usePathname, useRouter } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import useReferer from '@/hooks/useReferer';
 
 const SideDrawer = ({ isOpen, closeDrawer, menuItems }: SideDrawerProps) => {
   const { isSignIn, myInfo } = useAuth();
   const pathname = usePathname();
   const router = useRouter();
   const { mutate: signOut } = usePostSignout();
+  const { refererParam } = useReferer();
 
   const handleSignIn = () => {
-    router.push(APP_ROUTES.signin);
+    router.push(`${APP_ROUTES.signin}?${refererParam}
+`);
     closeDrawer();
   };
 
