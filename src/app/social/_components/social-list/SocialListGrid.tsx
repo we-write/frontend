@@ -28,7 +28,7 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
       {socialList.map((item, index) => (
         <GridCard
           key={item.id}
-          href={`${APP_ROUTES.social}/detail/${storyIdData?.[index]}`}
+          href={`${APP_ROUTES.socialDetail}/${storyIdData?.[index]}`}
           image={{
             src:
               item.image ||
