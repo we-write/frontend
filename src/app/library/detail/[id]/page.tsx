@@ -77,8 +77,8 @@ const StoryDetail = () => {
       <div className="flex-center relative h-full w-full flex-col">
         {storyPageNumber === 0 ? (
           <>
-            <ContentCover story={story} />
             <SideButtonGroup />
+            <ContentCover story={story} />
           </>
         ) : (
           <PaginatedContentViewer
