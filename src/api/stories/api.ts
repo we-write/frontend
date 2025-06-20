@@ -240,7 +240,6 @@ export const getSocialParticipantsByDb = async (userId: number) => {
   return data[0].user_name;
 };
 
-
 export const likeStory = async (storyId: string, userId: number) => {
   const { data, error } = await instanceBaaS.from('story_likes').insert([
     {
@@ -278,7 +277,7 @@ export const cancelLikeStory = async (storyId: string, userId: number) => {
     throw new Error(error.message);
   }
   return data;
-
+};
 export const checkStoryExists = async (storyId: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
@@ -287,5 +286,4 @@ export const checkStoryExists = async (storyId: string) => {
     .single();
 
   return !error && !!data;
-
 };
