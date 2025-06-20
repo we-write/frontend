@@ -17,7 +17,7 @@ const SocialOverView = ({
       userId: currentUserId,
     });
 
-  const { navigateStoryOrJoinTeam, deleteSocial } = useSocialActions({
+  const { navigateStoryOrJoinSocial, deleteSocial } = useSocialActions({
     storyId: currentStoryId,
     userId: currentUserId,
     userName: currentUserName,
@@ -55,7 +55,7 @@ const SocialOverView = ({
           }}
           isCardDataLoading={isLoading}
           imageUrls={[]} // TODO: DB에서 받아올 수 있을 때 imageUrls로 수정
-          handleButtonClick={() => navigateStoryOrJoinTeam(userRole)}
+          handleButtonClick={() => navigateStoryOrJoinSocial(userRole)}
           handleDeleteButtonClick={() => deleteSocial(userRole)}
         />
       </div>
