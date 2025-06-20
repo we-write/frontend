@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 import useBoolean from '@/hooks/useBoolean';
-import { BtnEditLarge } from '@public/assets/icons';
+import { BtnEditLarge, DefaultProfileImage } from '@public/assets/icons';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import EditMyProfileForm from './EditMyProfileForm';
 import MyProfileSkeleton from './MyProfileSkeleton';
@@ -15,10 +15,8 @@ const MyProfile = () => {
   } = useBoolean();
 
   const { myInfo, isSignIn, queryMethods } = useAuth();
-  const currentProfileImageUrl = myInfo?.image ?? '/assets/images/Profile.png';
 
-  if (!isSignIn || !myInfo) return null;
-
+  if (!isSignIn || !myInfo) return;
   if (queryMethods.isLoading) return <MyProfileSkeleton />;
 
   return (
@@ -33,18 +31,22 @@ const MyProfile = () => {
             isOpen={isOpen}
             closeModal={closeModal}
             companyName={myInfo.companyName}
-            currentProfileImageUrl={currentProfileImageUrl}
+            currentProfileImageUrl={myInfo?.image}
           />
         </>
       </div>
-      <Image
-        className="absolute top-[58px] left-[26px] h-14 w-14 rounded-full object-cover"
-        src={currentProfileImageUrl}
-        alt="프로필 이미지"
-        width={56}
-        height={56}
-        unoptimized
-      />
+      {myInfo?.image ? (
+        <Image
+          className="absolute top-[58px] left-[26px] h-14 w-14 rounded-full object-cover"
+          src={myInfo?.image}
+          alt="프로필 이미지"
+          width={56}
+          height={56}
+          unoptimized
+        />
+      ) : (
+        <DefaultProfileImage className="absolute top-[58px] left-[26px] h-14 w-14 rounded-full object-cover" />
+      )}
       <div className="mt-3 w-full truncate pl-[92px] md:w-2/3">
         <h3 className="mb-[9px] text-base font-semibold">{myInfo.name}</h3>
         <div className="mb-1 flex text-sm">
