@@ -1,7 +1,7 @@
 'use client';
 
-import BadgeGroup from '@/app/library/_components/BadgeGroup';
-import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
+import GenreBadge from '@/app/library/_components/GenreBadge';
+import LibraryListContainer from '@/app/library/_components/LibraryListContainer';
 import SearchInput from '@/app/library/_components/SearchInput';
 import useSearchReducer from '@/hooks/api/library/useSearchReducer';
 
@@ -11,7 +11,7 @@ const Library = () => {
   const handleSearch = () => {
     if (!state.inputKeyword.trim() && !state.searchKeyword) return;
     dispatch({
-      type: 'SET_SEARCH_KEYWORD',
+      type: 'DISPATCH_SEARCH_KEYWORD',
       payload: state.inputKeyword.trim(),
     });
   };
@@ -22,18 +22,18 @@ const Library = () => {
         <SearchInput
           keyword={state.inputKeyword}
           setKeyword={(keyword) =>
-            dispatch({ type: 'SET_INPUT_KEYWORD', payload: keyword })
+            dispatch({ type: 'DISPATCH_INPUT_KEYWORD', payload: keyword })
           }
           onSearch={handleSearch}
         />
-        <BadgeGroup
+        <GenreBadge
           selectedGenres={state.selectedGenres}
-          setSelectedGenres={(genres) =>
-            dispatch({ type: 'SET_SELECTED_GENRES', payload: genres })
+          dispatchSelectedGenres={(genres) =>
+            dispatch({ type: 'DISPATCH_SELECTED_GENRES', payload: genres })
           }
         />
       </div>
-      <LibraryListGrid
+      <LibraryListContainer
         keyword={state.searchKeyword}
         searchType={state.searchType}
         genres={state.selectedGenres}

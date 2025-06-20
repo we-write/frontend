@@ -3,15 +3,15 @@ import { useReducer } from 'react';
 type State = {
   inputKeyword: string;
   searchKeyword: string;
-  searchType: '제목' | '소개글';
+  searchType: '제목';
   selectedGenres: string[];
 };
 
 type Action =
-  | { type: 'SET_INPUT_KEYWORD'; payload: string }
-  | { type: 'SET_SEARCH_KEYWORD'; payload: string }
-  | { type: 'SET_SEARCH_TYPE'; payload: '제목' | '소개글' }
-  | { type: 'SET_SELECTED_GENRES'; payload: string[] };
+  | { type: 'DISPATCH_INPUT_KEYWORD'; payload: string }
+  | { type: 'DISPATCH_SEARCH_KEYWORD'; payload: string }
+  | { type: 'DISPATCH_SEARCH_TYPE'; payload: '제목' }
+  | { type: 'DISPATCH_SELECTED_GENRES'; payload: string[] };
 
 const initialState: State = {
   inputKeyword: '',
@@ -22,13 +22,13 @@ const initialState: State = {
 
 function reducer(state: State, action: Action): State {
   switch (action.type) {
-    case 'SET_INPUT_KEYWORD':
+    case 'DISPATCH_INPUT_KEYWORD':
       return { ...state, inputKeyword: action.payload };
-    case 'SET_SEARCH_KEYWORD':
+    case 'DISPATCH_SEARCH_KEYWORD':
       return { ...state, searchKeyword: action.payload };
-    case 'SET_SEARCH_TYPE':
+    case 'DISPATCH_SEARCH_TYPE':
       return { ...state, searchType: action.payload };
-    case 'SET_SELECTED_GENRES':
+    case 'DISPATCH_SELECTED_GENRES':
       return { ...state, selectedGenres: action.payload };
     default:
       return state;

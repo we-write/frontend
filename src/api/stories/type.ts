@@ -38,7 +38,7 @@ export interface ApproveContentRequest {
 
 export interface GetStoriesParams {
   keyword: string;
-  searchType: '제목' | '소개글';
+  searchType: '제목';
   genres: string[];
   offset: number;
   limit: number;
