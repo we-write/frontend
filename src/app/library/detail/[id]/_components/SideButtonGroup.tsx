@@ -26,7 +26,7 @@ const SideButtonGroup = () => {
     }
   };
   return (
-    <div className="flex flex-row md:flex-col md:gap-4">
+    <div className="relative top-10 flex w-full flex-row sm:top-30 sm:left-10 md:top-20 md:left-80 md:flex-col md:gap-4">
       {isModalOpen && (
         <ModalToSigin isModalOpen={isModalOpen} setFalse={setFalse} />
       )}
