@@ -3,7 +3,7 @@ import { getStoryId } from '@/api/social-detail/api';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { GetSocialResponse } from '@/api/social/type';
 
-const useGetStoryId = (socialList: GetSocialResponse[]) => {
+const useGetStoryIdList = (socialList: GetSocialResponse[]) => {
   return useQuery({
     queryKey: [
       QUERY_KEY.SOCIAL_GET_STORY_ID,
@@ -36,4 +36,4 @@ const useGetStoryId = (socialList: GetSocialResponse[]) => {
   });
 };
 
-export default useGetStoryId;
+export default useGetStoryIdList;
