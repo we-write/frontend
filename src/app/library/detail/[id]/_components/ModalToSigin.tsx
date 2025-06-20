@@ -8,16 +8,20 @@ import {
 import { APP_ROUTES } from '@/constants/appRoutes';
 import { useRouter } from 'next/navigation';
 import { ModalToSiginProps } from '../type';
+import useReferer from '@/hooks/useReferer';
 
 const ModalToSigin = ({ isModalOpen, setFalse }: ModalToSiginProps) => {
   const router = useRouter();
+  const { refererParam } = useReferer();
 
   return (
     <Modal isOpen={isModalOpen} onClose={setFalse}>
       <ModalHeader>스토리가 마음에 들었나요?</ModalHeader>
       <ModalContent>로그인해서 좋아요를 눌러보세요</ModalContent>
       <ModalFooter>
-        <Button onClick={() => router.push(APP_ROUTES.signin)}>
+        <Button
+          onClick={() => router.push(`${APP_ROUTES.signin}?${refererParam}`)}
+        >
           로그인하러 가기
         </Button>
       </ModalFooter>
