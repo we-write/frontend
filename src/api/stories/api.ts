@@ -240,7 +240,7 @@ export const getSocialParticipantsByDb = async (userId: number) => {
   return data[0].user_name;
 };
 
-export const checkStoryExists = async (storyId: string): Promise<boolean> => {
+export const checkStoryExists = async (storyId: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('story_id')
