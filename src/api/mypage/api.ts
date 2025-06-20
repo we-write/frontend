@@ -61,6 +61,37 @@ export const deleteCollaboratorFromSocial = async (
   return data;
 };
 
+export const getLikedStories = async (userId: number) => {
+  const { data, error } = await instanceBaaS
+    .from('story_likes')
+    .select('story_id')
+    .eq('user_id', userId);
+
+  if (error) throw new Error(error.message);
+  return data;
+};
+
+export const getStoriesByIds = async (storyIds: string[]) => {
+  if (storyIds.length === 0) return [];
+
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('*')
+    .in('story_id', storyIds)
+    .order('created_at', { ascending: false }); // 필요시 정렬
+
+  if (error) throw new Error(error.message);
+  return data;
+};
+
+export const getLikedStoryList = async (userId: number) => {
+  const liked = await getLikedStories(userId);
+
+  const storyIds = liked.map((item) => item.story_id);
+  const stories = await getStoriesByIds(storyIds);
+  return stories;
+};
+
 export const leaveJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
   try {
     const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`);
