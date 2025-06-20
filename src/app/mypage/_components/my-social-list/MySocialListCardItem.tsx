@@ -21,7 +21,7 @@ const MySocialListCardItem = ({
   const router = useRouter();
   const nowDate = new Date().toISOString();
 
-  const { data: collaborator } = useCollaboratorList(item.id);
+  const { data: collaborator } = useCollaboratorList(Number(item.id));
   const collaboratorCount = collaborator?.length || 0;
 
   const { myInfo } = useAuth();

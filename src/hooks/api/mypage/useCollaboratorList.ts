@@ -5,7 +5,7 @@ import {
 } from '@/api/mypage/api';
 import { QUERY_KEY } from '@/constants/queryKey';
 
-const useCollaboratorList = (socialId: string) => {
+const useCollaboratorList = (socialId: number) => {
   return useQuery({
     queryKey: [QUERY_KEY.COLLABORATOR_LIST, socialId],
     queryFn: async () => {
