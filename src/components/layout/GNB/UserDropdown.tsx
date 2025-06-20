@@ -19,7 +19,7 @@ const UserDropdown = ({ onSignOut, onClose }: UserDropdownProps) => {
   };
 
   return (
-    <div className="mt-0.5 w-40 overflow-hidden rounded-xl bg-gray-50 shadow-lg">
+    <div className="mt-2.5 w-40 overflow-hidden rounded-xl bg-gray-50 shadow-lg">
       <button
         onClick={() => gotoMyPage()}
         className="block w-full px-4 py-4 text-left text-sm hover:bg-gray-100"

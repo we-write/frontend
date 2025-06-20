@@ -73,7 +73,7 @@ const StoryDetail = () => {
   if (!story) return null;
 
   return (
-    <div className="absolute top-0 left-0 h-screen w-screen bg-white">
+    <div className="h-screen w-screen bg-white">
       <div className="flex-center relative h-full w-full flex-col">
         {storyPageNumber === 0 ? (
           <>
