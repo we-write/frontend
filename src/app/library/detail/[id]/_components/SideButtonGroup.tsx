@@ -31,11 +31,11 @@ const SideButtonGroup = () => {
         <ModalToSigin isModalOpen={isModalOpen} setFalse={setFalse} />
       )}
       <button
-        type="button"
         aria-label="뒤로가기"
         className="flex-center md:border-write-main h-10 w-10 rounded-full border-0 bg-white md:h-12 md:w-12 md:border"
         onClick={() => router.back()}
       >
+
         <ChevronLeft className="text-write-main h-8 w-8" aria-hidden />
       </button>
 
@@ -55,6 +55,7 @@ const SideButtonGroup = () => {
         <span className="text-write-main h-3 text-xs">
           {likeCount ? (likeCount > 999 ? '999+' : likeCount) : 0}
         </span>
+
       </button>
     </div>
   );

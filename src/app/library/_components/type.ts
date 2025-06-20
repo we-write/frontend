@@ -1,3 +1,5 @@
+import { GenreType } from '@/api/social/type';
+
 export interface FormValues {
   search: string;
 }
@@ -7,13 +9,26 @@ export interface SearchInputProps {
   setKeyword: (value: string) => void;
   onSearch: () => void;
 }
-export interface LibraryListGridProps {
+export interface LibraryListContainerProps {
   keyword: string;
-  searchType: '제목' | '소개글';
+  searchType: '제목';
   genres: string[];
 }
 
-export interface BadgeGroupProps {
-  selectedGenres: string[];
-  setSelectedGenres: (genres: string[]) => void;
+interface Story {
+  story_id: string;
+  title: string;
+  genre: string;
+  summary: string;
+  cover_image_url: string;
 }
+
+export interface LibraryListGridProps {
+  stories: Story[];
+}
+export interface GenreBadgeProps {
+  selectedGenres: string[];
+  dispatchSelectedGenres: (genres: string[]) => void;
+}
+
+export type GenreTypeWithAll = '전체' | GenreType;

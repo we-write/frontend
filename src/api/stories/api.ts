@@ -22,7 +22,7 @@ export const getStories = async ({
   const column = searchType === '제목' ? 'title' : 'summary';
   const validGenres = genres.filter((g) => g !== '전체');
 
-  let query = instanceBaaS.from('Stories').select('*');
+  let query = instanceBaaS.from('Stories').select('*').eq('is_public', true);
 
   if (keyword.trim()) {
     query = query.ilike(column, `%${keyword}%`);
