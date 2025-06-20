@@ -1,6 +1,7 @@
+'use client';
+
 import {
   deleteCollaboratorFromSocial,
-  getStoryBySocialId,
   leaveJoinSocial,
 } from '@/api/mypage/api';
 import { MySocialListItemProps } from './type';
@@ -10,6 +11,7 @@ import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import { useRouter } from 'next/navigation';
 import getSocialActionMessage from '@/utils/getSocialActionMessage';
+import { useStoryIdBySocialId } from '@/hooks/api/supabase/useStoryIdBySocialId';
 
 const MySocialListCardItem = ({
   item,
@@ -26,10 +28,14 @@ const MySocialListCardItem = ({
   const userId = myInfo?.id;
   const isJoined = activeTab === 'joined';
 
-  const handleMySocial = async (id: string) => {
-    try {
-      const storyId = await getStoryBySocialId(id);
+  const { data: storyId, isLoading: isStoryLoading } = useStoryIdBySocialId(
+    Number(item.id)
+  );
 
+  const handleMySocial = async (id: string) => {
+    if (!storyId) return;
+
+    try {
       const messages = {
         confirm: getSocialActionMessage('모임').confirm('exit'),
         success: getSocialActionMessage('모임').success('exit'),
@@ -54,10 +60,10 @@ const MySocialListCardItem = ({
   };
 
   return (
-    <div key={`${activeTab}-${item.id}`} className="truncate py-6">
+    <div className="truncate py-6">
       <ListCard
         teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
-        pageId={item.id}
+        pageId={storyId}
         image={{
           src:
             item.image ||
@@ -73,7 +79,7 @@ const MySocialListCardItem = ({
           capacity: item.capacity || 0,
         }}
         endDate={item.registrationEnd}
-        isCardDataLoading={false}
+        isCardDataLoading={!storyId || isStoryLoading}
         isCompletedStory={isJoined ? item.registrationEnd < nowDate : true}
         isCanceled={false}
         handleButtonClick={() => handleMySocial(item.id)}

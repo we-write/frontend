@@ -27,7 +27,7 @@ export const getJoinedSocialList = async ({
   }
 };
 
-export const getStoryBySocialId = async (socialId: string) => {
+export const getStoryBySocialId = async (socialId: number) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('*')
