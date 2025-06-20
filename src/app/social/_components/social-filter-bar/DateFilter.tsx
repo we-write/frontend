@@ -53,6 +53,7 @@ const DateFilter = ({ filter, filterDispatch }: FilterProps) => {
   return (
     <Dropdown
       isOpen={dateFilterOpen}
+      onClose={closeDateFilter}
       trigger={
         <div className="flex items-center gap-2">
           <Button
