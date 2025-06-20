@@ -31,6 +31,7 @@ const SideButtonGroup = () => {
         <ModalToSigin isModalOpen={isModalOpen} setFalse={setFalse} />
       )}
       <button
+        type="button"
         aria-label="뒤로가기"
         className="flex-center md:border-write-main h-10 w-10 rounded-full border-0 bg-white md:h-12 md:w-12 md:border"
         onClick={() => router.back()}
@@ -39,6 +40,7 @@ const SideButtonGroup = () => {
       </button>
 
       <button
+        type="button"
         disabled={isPending}
         aria-label="좋아요"
         aria-pressed={isLiked}
