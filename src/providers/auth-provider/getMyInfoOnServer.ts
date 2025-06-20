@@ -4,6 +4,7 @@ import { getQueryClient } from '@/lib/queryClinet';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { AuthProviderServerState } from './type';
 import { getMyInfo } from '@/api/auth/api';
+import handleError from '@/utils/error';
 
 const getMyInfoOnServer = async () => {
   const queryClient = getQueryClient();
@@ -20,15 +21,20 @@ const getMyInfoOnServer = async () => {
     return initialState;
   }
 
-  const data = await queryClient.fetchQuery<MyInfoResponse>({
-    queryKey: [QUERY_KEY.MY_INFO],
-    queryFn: () => getMyInfo(accessToken),
-  });
+  try {
+    const data = await queryClient.fetchQuery<MyInfoResponse>({
+      queryKey: [QUERY_KEY.MY_INFO],
+      queryFn: () => getMyInfo(accessToken),
+    });
+    return {
+      ...initialState,
+      myInfo: data,
+      isSignIn: true,
+    };
+  } catch (error) {
+    handleError(error);
+  }
 
-  return {
-    ...initialState,
-    myInfo: data,
-    isSignIn: true,
-  };
+  return initialState;
 };
 export default getMyInfoOnServer;
