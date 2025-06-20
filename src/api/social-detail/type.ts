@@ -42,7 +42,7 @@ export interface GetTeamsParticipantsResponse {
 }
 
 export interface SaveSummaryRequest {
-  socialId: number;
+  storyId: string;
   summaryHtml: string;
 }
 
