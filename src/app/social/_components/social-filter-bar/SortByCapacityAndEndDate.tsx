@@ -27,6 +27,7 @@ const SortByCapacityAndEndDate = ({ filter, filterDispatch }: FilterProps) => {
   return (
     <Dropdown
       isOpen={sortOpen}
+      onClose={toggleSort}
       trigger={
         <Button
           onClick={toggleSort}

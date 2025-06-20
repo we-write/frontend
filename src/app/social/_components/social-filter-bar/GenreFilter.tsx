@@ -36,6 +36,7 @@ const GenreFilter = ({ filter, filterDispatch }: FilterProps) => {
   return (
     <Dropdown
       isOpen={genreFilterOpen}
+      onClose={closeGenreFilter}
       trigger={
         <Button
           onClick={toggleGenreFilter}
