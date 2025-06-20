@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { deleteCookie, getCookie } from './cookies';
+import { getCookie } from './cookies';
 
 const instance = axios.create({
   baseURL: process.env.NEXT_PUBLIC_BASE_URL,
@@ -45,10 +45,6 @@ instance.interceptors.response.use(
     return response;
   },
   (error) => {
-    if (error.status === 401) {
-      deleteCookie('accessToken');
-    }
-
     return Promise.reject(error);
   }
 );
