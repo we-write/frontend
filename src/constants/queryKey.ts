@@ -12,5 +12,6 @@ export const QUERY_KEY = {
   GET_STORY_COLLABORATORS: 'get-story-collaborators',
   SOCIAL: 'social',
   SOCIAL_SUMMARY: 'social-summary',
+  SOCIAL_GET_STORY_ID: 'social-get-story-id',
   MY_INFO: 'my-info',
 } as const;
