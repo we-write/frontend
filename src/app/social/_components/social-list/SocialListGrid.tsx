@@ -4,15 +4,13 @@ import htmlToString from '@/utils/htmlToString';
 import { SocialListGridProps } from '@/app/social/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import useGetStoryIdList from '@/hooks/api/supabase/stories/useGetStoryId';
+import useGetStoryIdList from '@/hooks/api/supabase/stories/useGetStoryIdList';
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
   const { data: summaryData, isLoading: isSummaryLoading } =
     useGetSocialSummary(socialList);
 
   const { data: storyIdData } = useGetStoryIdList(socialList);
-
-  console.log(storyIdData);
 
   if (!isLoading && socialList.length === 0) {
     return (
