@@ -5,12 +5,23 @@ import { SocialListGridProps } from '@/app/social/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import useGetStoryIdList from '@/hooks/api/supabase/stories/useGetStoryIdList';
+import useCurrentViewPort from '@/hooks/useCurrentViewPort';
+import { VIEWPORT_BREAK_POINT } from '@/constants/viewportBreakPoint';
+
+const IMAGE_PRIORITY_THRESHOLD_BELOW_MD = 2;
+const IMAGE_PRIORITY_THRESHOLD_AND_UP = 9;
 
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
   const { data: summaryData, isLoading: isSummaryLoading } =
     useGetSocialSummary(socialList);
 
   const { data: storyIdData } = useGetStoryIdList(socialList);
+
+  const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
+  const currentImagePriorityThershold =
+    currentViewPortWidth && currentViewPortWidth >= VIEWPORT_BREAK_POINT.MD
+      ? IMAGE_PRIORITY_THRESHOLD_AND_UP
+      : IMAGE_PRIORITY_THRESHOLD_BELOW_MD;
 
   if (!isLoading && socialList.length === 0) {
     return (
@@ -32,6 +43,8 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
               item.image ||
               'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
             alt: `${item.name || '비어있는'} 섬네일 이미지`,
+            index: index,
+            priorityThreshold: currentImagePriorityThershold,
           }}
           textContent={{
             title: item.name || '제목 없음',

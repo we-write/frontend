@@ -25,6 +25,7 @@ interface Story {
 
 export interface LibraryListGridProps {
   stories: Story[];
+  imagePriorityThershold: number;
 }
 export interface GenreBadgeProps {
   selectedGenres: string[];

@@ -23,6 +23,8 @@ type ListCardTextContentProps = TextContentWithParticipantsProps;
 interface ImageProps {
   src: string | null;
   alt: string | null;
+  index?: number;
+  priorityThreshold?: number;
 }
 
 interface DurationProps {

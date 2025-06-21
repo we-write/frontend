@@ -2,13 +2,24 @@ import LibraryListGrid from '@/app/library/_components/LibraryListGrid';
 import LibraryListSkeleton from '@/app/library/_components/LibraryListSkeleton';
 import { LibraryListContainerProps } from '@/app/library/_components/type';
 import Observer from '@/components/common/Observer/Observer';
+import { VIEWPORT_BREAK_POINT } from '@/constants/viewportBreakPoint';
 import { useInfiniteStories } from '@/hooks/api/library/useInfiniteStories';
+import useCurrentViewPort from '@/hooks/useCurrentViewPort';
+
+const IMAGE_PRIORITY_THRESHOLD_BELOW_MD = 2;
+const IMAGE_PRIORITY_THRESHOLD_MD_AND_UP = 9;
 
 const LibraryListContainer = ({
   keyword,
   searchType,
   genres,
 }: LibraryListContainerProps) => {
+  const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
+  const currentImagePriorityThershold =
+    currentViewPortWidth && currentViewPortWidth >= VIEWPORT_BREAK_POINT.MD
+      ? IMAGE_PRIORITY_THRESHOLD_MD_AND_UP
+      : IMAGE_PRIORITY_THRESHOLD_BELOW_MD;
+
   const {
     data: stories,
     fetchNextPage,
@@ -37,7 +48,10 @@ const LibraryListContainer = ({
 
   return (
     <>
-      <LibraryListGrid stories={flatStories} />
+      <LibraryListGrid
+        stories={flatStories}
+        imagePriorityThershold={currentImagePriorityThershold}
+      />
 
       <Observer
         enabled={hasNextPage && !isFetchingNextPage}

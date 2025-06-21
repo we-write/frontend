@@ -31,8 +31,9 @@ const GenreBadge = ({
             type="button"
             key={genre}
             onClick={() => updateSelectedGenre(genre)}
-            className={`flex-center rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'
-              }`}
+            className={`flex-center rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${
+              isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'
+            }`}
           >
             {genre}
           </button>
