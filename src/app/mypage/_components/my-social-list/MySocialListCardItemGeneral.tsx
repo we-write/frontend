@@ -12,18 +12,17 @@ import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import { useRouter } from 'next/navigation';
 import getSocialActionMessage from '@/utils/getSocialActionMessage';
 import { useStoryIdBySocialId } from '@/hooks/api/supabase/useStoryIdBySocialId';
+import { LocationType } from '@/api/social/type';
 
-const MySocialListCardItem = ({
+const MySocialListCardItemGeneral = ({
   item,
   activeTab,
   refetch,
 }: MySocialListItemProps) => {
   const router = useRouter();
   const nowDate = new Date().toISOString();
-
   const { data: collaborator } = useCollaboratorList(Number(item.id));
   const collaboratorCount = collaborator?.length || 0;
-
   const { myInfo } = useAuth();
   const userId = myInfo?.id;
   const isJoined = activeTab === 'joined';
@@ -74,7 +73,9 @@ const MySocialListCardItem = ({
         textContent={{
           title: item.name || '제목 없음',
           genre:
-            convertLocationToGenre({ location: item.location }) || '장르 없음',
+            convertLocationToGenre({
+              location: item.location as LocationType,
+            }) || '장르 없음',
           participantCount: collaboratorCount,
           capacity: item.capacity || 0,
         }}
@@ -82,10 +83,10 @@ const MySocialListCardItem = ({
         isCardDataLoading={!storyId || isStoryLoading}
         isCompletedStory={isJoined ? item.registrationEnd < nowDate : true}
         isCanceled={false}
-        handleButtonClick={() => handleMySocial(item.id)}
+        handleButtonClick={() => handleMySocial(String(item.id))}
       />
     </div>
   );
 };
 
-export default MySocialListCardItem;
+export default MySocialListCardItemGeneral;

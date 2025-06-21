@@ -1,5 +1,6 @@
-import MySocialListCardItem from '@/app/mypage/_components/my-social-list/MySocialListCardItem';
-import { MySocialListCardProps } from './type';
+import MySocialListCardItemLiked from '@/app/mypage/_components/my-social-list/MySocialListItemLiked';
+import MySocialListCardItemGeneral from './MySocialListCardItemGeneral';
+import { LikedStoryItem, MySocialListCardProps, SocialItem } from './type';
 
 const MySocialListCard = ({
   list,
@@ -8,14 +9,21 @@ const MySocialListCard = ({
 }: MySocialListCardProps) => {
   return (
     <>
-      {list.map((item) => (
-        <MySocialListCardItem
-          key={`${activeTab}-${item.id}`}
-          item={item}
-          activeTab={activeTab}
-          refetch={refetch}
-        />
-      ))}
+      {list.map((item, index) =>
+        activeTab === 'liked' ? (
+          <MySocialListCardItemLiked
+            key={`liked-${(item as LikedStoryItem).story_id}`}
+            item={item as LikedStoryItem}
+          />
+        ) : (
+          <MySocialListCardItemGeneral
+            key={`social-${(item as SocialItem).id ?? index}`}
+            item={item as SocialItem}
+            activeTab={activeTab}
+            refetch={refetch}
+          />
+        )
+      )}
     </>
   );
 };
