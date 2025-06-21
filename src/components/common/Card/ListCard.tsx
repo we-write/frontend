@@ -34,7 +34,7 @@ const ListCard = ({
   };
 
   return (
-    <article className="relative flex w-full flex-col gap-4 rounded-3xl p-2 sm:flex-row">
+    <article className="relative flex w-full flex-wrap justify-center gap-4 rounded-3xl p-2 sm:justify-start">
       {isCanceled && (
         <div className="flex-center absolute inset-0 z-10 rounded-3xl bg-black opacity-80">
           <p className="text-sm font-medium text-white">삭제된 스토리입니다.</p>
@@ -55,7 +55,7 @@ const ListCard = ({
           />
         )}
       </figure>
-      <div className="flex w-full flex-col gap-3 px-1.5 sm:p-0">
+      <div className="flex w-fit flex-col justify-center gap-3 px-1.5 sm:p-0">
         {!isCardDataLoading && chip ? (
           <div>{chip}</div>
         ) : (
