@@ -14,4 +14,6 @@ export const QUERY_KEY = {
   SOCIAL_SUMMARY: 'social-summary',
   SOCIAL_GET_STORY_ID: 'social-get-story-id',
   MY_INFO: 'my-info',
+  IS_LIKED: 'is-liked',
+  LIKE_COUNT: 'like-count',
 } as const;
