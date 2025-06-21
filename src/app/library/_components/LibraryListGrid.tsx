@@ -1,108 +1,38 @@
-'use client';
-
-import { FETCH_GET_ITEM_LIMIT } from '@/api/social/api';
 import { LibraryListGridProps } from '@/app/library/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
-import Observer from '@/components/common/Observer/Observer';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import { VIEWPORT_BREAK_POINT } from '@/constants/viewportBreakPoint';
-import { useInfiniteStories } from '@/hooks/api/library/useInfiniteStories';
-import useCurrentViewPort from '@/hooks/useCurrentViewPort';
 import htmlToString from '@/utils/htmlToString';
 
-const IMAGE_PRIORITY_THRESHOLD_BELOW_MD = 2;
-const IMAGE_PRIORITY_THRESHOLD_MD_AND_UP = 9;
+const PLACEHOLDER_COVER_IMAGE =
+  'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75';
 
 const LibraryListGrid = ({
-  keyword,
-  searchType,
-  genres,
+  stories,
+  imagePriorityThershold,
 }: LibraryListGridProps) => {
-  const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
-  const currentImagePriorityThershold =
-    currentViewPortWidth && currentViewPortWidth >= VIEWPORT_BREAK_POINT.MD
-      ? IMAGE_PRIORITY_THRESHOLD_MD_AND_UP
-      : IMAGE_PRIORITY_THRESHOLD_BELOW_MD;
-
-  const {
-    data: stories,
-    fetchNextPage,
-    hasNextPage,
-    isFetchingNextPage,
-    isLoading,
-  } = useInfiniteStories(
-    keyword ?? '',
-    searchType,
-    genres,
-    FETCH_GET_ITEM_LIMIT
-  );
-
-  const flatStories = stories?.pages.flat() || [];
-  if (isLoading)
-    return (
-      <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4">
-        {Array.from({ length: 4 }).map((_, index) => (
-          <GridCard
-            href={''}
-            key={index}
-            image={{
-              src: '',
-              alt: '',
-            }}
-            textContent={{
-              title: '',
-              genre: '',
-              description: '',
-            }}
-            isCardDataLoading={true}
-          />
-        ))}
-      </div>
-    );
-
-  if (!stories || flatStories.length === 0) {
-    return (
-      <div className="flex-center text-base text-gray-500">
-        {keyword.trim() === '' ? (
-          <p>아직 스토리가 없어요</p>
-        ) : (
-          <p>검색된 스토리가 없어요</p>
-        )}
-      </div>
-    );
-  }
-
   return (
-    <>
-      <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4 lg:grid-cols-3">
-        {flatStories?.map((story, index) => (
-          <GridCard
-            href={`${APP_ROUTES.library}/detail/${story.story_id}/?page=0`}
-            key={story.story_id}
-            image={{
-              src:
-                story.cover_image_url ||
-                'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
-              alt: `${story.title || '대체'} 커버 이미지`,
-              index: index,
-              priorityThreshold: currentImagePriorityThershold,
-            }}
-            textContent={{
-              title: story.title,
-              genre: story.genre,
-              description: htmlToString(story.summary),
-            }}
-            isCardDataLoading={false}
-          />
-        ))}
-      </div>
-
-      <Observer
-        enabled={hasNextPage && !isFetchingNextPage}
-        onIntersect={fetchNextPage}
-        threshold={0.1}
-      />
-    </>
+    <div className="gap-2: grid grid-cols-1 justify-items-center md:grid-cols-2 md:gap-4 lg:grid-cols-3">
+      {stories.map((story, index) => (
+        <GridCard
+          key={story.story_id}
+          href={`${APP_ROUTES.library}/detail/${story.story_id}/?page=0`}
+          image={{
+            src: story.cover_image_url || PLACEHOLDER_COVER_IMAGE,
+            alt: `${story.title || '대체'} 커버 이미지`,
+            index: index,
+            priorityThreshold: imagePriorityThershold,
+          }}
+          textContent={{
+            title: story.title,
+            genre: story.genre,
+            description:
+              htmlToString(story.summary) ||
+              '모임장이 소개글을 작성하고 있어요!',
+          }}
+          isCardDataLoading={false}
+        />
+      ))}
+    </div>
   );
 };
 

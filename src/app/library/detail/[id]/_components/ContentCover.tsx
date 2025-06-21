@@ -9,6 +9,7 @@ const ContentCover = ({ story }: { story: DBStoryResponse }) => {
       <div className="relative aspect-square max-h-[50vh] min-h-[200px] w-[80%] max-w-[500px] min-w-[200px]">
         {story.cover_image_url && (
           <Image
+            fetchPriority="high"
             src={story.cover_image_url ?? ''}
             alt={story.title ?? '스토리 이미지'}
             fill

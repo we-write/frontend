@@ -4,6 +4,7 @@ import htmlToString from '@/utils/htmlToString';
 import { SocialListGridProps } from '@/app/social/_components/type';
 import GridCard from '@/components/common/Card/GridCard';
 import { APP_ROUTES } from '@/constants/appRoutes';
+import useGetStoryIdList from '@/hooks/api/supabase/stories/useGetStoryIdList';
 import useCurrentViewPort from '@/hooks/useCurrentViewPort';
 import { VIEWPORT_BREAK_POINT } from '@/constants/viewportBreakPoint';
 
@@ -13,6 +14,8 @@ const IMAGE_PRIORITY_THRESHOLD_AND_UP = 9;
 const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
   const { data: summaryData, isLoading: isSummaryLoading } =
     useGetSocialSummary(socialList);
+
+  const { data: storyIdData } = useGetStoryIdList(socialList);
 
   const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
   const currentImagePriorityThershold =
@@ -33,8 +36,8 @@ const SocialListGrid = ({ socialList, isLoading }: SocialListGridProps) => {
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-3">
       {socialList.map((item, index) => (
         <GridCard
-          href={`${APP_ROUTES.social}/detail/${item.id}`}
           key={item.id}
+          href={`${APP_ROUTES.socialDetail}/${storyIdData?.[index]}`}
           image={{
             src:
               item.image ||

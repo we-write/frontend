@@ -1,6 +1,7 @@
 import instanceBaaS from '../instanceBaaS';
 import { DB_PATH } from '@/constants/apiPath';
 import { CreateCollaboratorRequest } from './type';
+import { DBStoryCollaboratorsResponse } from '@/types/dbStory';
 
 export const createCollaborator = async (params: CreateCollaboratorRequest) => {
   const { data, role } = params;
@@ -28,4 +29,15 @@ export const createCollaborator = async (params: CreateCollaboratorRequest) => {
     }
     throw new Error('참여자 정보가 등록되지 못했습니다.');
   }
+};
+
+export const getStoryCollaborators = async (
+  storyId: string
+): Promise<DBStoryCollaboratorsResponse[] | null> => {
+  const { data } = await instanceBaaS
+    .from(DB_PATH.STORY_COLLABORATORS)
+    .select('*')
+    .eq('story_id', storyId);
+
+  return data;
 };

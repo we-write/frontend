@@ -1,4 +1,8 @@
-import { DBContentApprovalResponse, DBContentResponse } from '@/types/dbStory';
+import {
+  DBContentApprovalResponse,
+  DBContentResponse,
+  DBStoryResponse,
+} from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
 import {
   GetContentsParams,
@@ -22,7 +26,7 @@ export const getStories = async ({
   const column = searchType === '제목' ? 'title' : 'summary';
   const validGenres = genres.filter((g) => g !== '전체');
 
-  let query = instanceBaaS.from('Stories').select('*');
+  let query = instanceBaaS.from('Stories').select('*').eq('is_public', true);
 
   if (keyword.trim()) {
     query = query.ilike(column, `%${keyword}%`);
@@ -55,7 +59,7 @@ export const getSocialSummary = async (id: string) => {
   return data?.summary || '모임장이 소개글을 작성하고 있어요!';
 };
 
-export const getStory = async (id: string) => {
+export const getStory = async (id: string): Promise<DBStoryResponse> => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('*')
@@ -234,4 +238,14 @@ export const getSocialParticipantsByDb = async (userId: number) => {
     throw new Error(error.message);
   }
   return data[0].user_name;
+};
+
+export const checkStoryExists = async (storyId: string) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('story_id')
+    .eq('story_id', storyId)
+    .single();
+
+  return !error && !!data;
 };

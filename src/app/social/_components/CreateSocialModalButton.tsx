@@ -22,9 +22,8 @@ const CreateSocialModalButton = () => {
   return (
     <>
       {/* 모임만들기 버튼 */}
-      {/* 버튼사이즈는 버튼 리팩토링 이후 삭제예정 */}
-      <Button size="custom" className="w-[115px]" onClick={handleModalClick}>
-        모임만들기
+      <Button size="custom" className="px-4" onClick={handleModalClick}>
+        스토리그룹 만들기
       </Button>
 
       <Modal

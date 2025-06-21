@@ -5,6 +5,7 @@ export interface SignUpFormData {
   passwordCheck: string;
   companyName: string;
 }
+
 export type SignUpRequest = Omit<SignUpFormData, 'passwordCheck'>;
 
 //TODO: 병합 후 수정
@@ -21,7 +22,7 @@ export interface MyInfoResponse {
   updatedAt: string;
   image: string;
 }
-export interface UserRequest {
+export interface MyInfoRequest {
   image?: File | null;
   companyName: string;
 }
