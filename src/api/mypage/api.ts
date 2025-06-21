@@ -7,6 +7,8 @@ import {
 import instance from '@/api/instance';
 import { getFilterParams } from '@/utils/getFilterParams';
 import instanceBaaS from '@/api/instanceBaaS';
+import { getCookie } from '@/api/cookies';
+import toast from '@/utils/toast';
 
 export const getJoinedSocialList = async ({
   limit = 12,
@@ -62,10 +64,23 @@ export const deleteCollaboratorFromSocial = async (
 };
 
 export const leaveJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
+  const accessToken = await getCookie('accessToken');
+  if (!accessToken) {
+    throw new Error('accessToken이 없습니다.');
+  }
   try {
-    const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`);
+    const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
+    toast({
+      type: 'error',
+      message: '모임 나가기에 실패하였습니다.',
+      duration: 5,
+    });
     throw error;
   }
 };
