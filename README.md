@@ -107,11 +107,11 @@ npm run dev
 
 <div style="display: flex; gap: 10px; text-align: center;">
   <div>
-    <img src="public/assets/images/ReadMe-SupabaseSchema.png" width="100%" />
+    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-SupabaseSchema.png" width="100%" />
     <h4>스키마</h4>
   </div>
   <div>
-    <img src="public/assets/images/ReadMe-SupabaseTroubleShootiong.png" width="100%" />
+    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-SupabaseTroubleShootiong.png" width="100%" />
     <h4>팀원들에게 지식 공유</h4>
   </div>
 </div>
@@ -127,11 +127,11 @@ npm run dev
 
 <div style="display: flex; gap: 10px; text-align: center;">
   <div>
-    <img src="public/assets/images/ReadMe-FigmaUI.png" width="100%" />
+    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-FigmaUI.png" width="100%" />
     <h4>UI 시안</h4>
   </div>
   <div>
-    <img src="public/assets/images/ReadMe-FigmaUIKnowledgeSharing.png" width="100%" />
+    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-FigmaUIKnowledgeSharing.png" width="100%" />
     <h4>팀원들에게 지식 공유</h4>
   </div>
 </div>
@@ -144,7 +144,7 @@ npm run dev
 판단해 직접 개발하기로 결정했습니다.
 
 > 라이브러리 없이 구현한 컴포넌트 예시
-> ![직접 구현한 컴포넌트](public/assets/images/ReadMe-CustomComponents.png)
+> ![직접 구현한 컴포넌트](https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-CustomComponents.PNG)
 
 컴포넌트들을 설계 하면서 확장성과 재사용성을 고려하며 새로운 기획이 추가되더라도 쉽게 대응될 수 있도록 하였습니다.  
 또한 공통 컴포넌트를 구현 후에는 다른 팀원들이 쉽게 UI를 확인하고 동작을 테스트해볼 수 있도록 **StoryBook** 파일을 함께  
@@ -158,7 +158,7 @@ npm run dev
 데에 지나치게 높은 개발 자원이 소모될 것이라고 판단하여 TipTap 라이브러리를 도입하고 해당 라이브러리의  
 커스텀 Extension 을 활용하여 에디터에 필요한 기능을 직접 구현하는 방식을 채택하였습니다.
 
-> ![직접 구현한 컴포넌트](public/assets/images/ReadMe-TipTap.png)
+> ![직접 구현한 컴포넌트](https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-TipTap.PNG)
 > 개발을 진행하는 사람이 팀원들에게 특정 라이브러리를 도입하는 배경과 근거를 설명하는 프로세스를 거쳐서  
 > 모두가 프로젝트 내에 어떤 라이브러리가, 왜 사용되었는지를 이해하고 넘어갈 수 있도록 하였습니다.
 
@@ -215,11 +215,11 @@ lightHouse 테스트 결과 FCP, LCP 등이 소폭 개선된 것으로 확인하
 <div style="text-align: center;">
   <div>
   <h4>개선 전</h4>
-    <img src="public/assets/images/ReadMe-GnbBefore.png" width="100%" />
+    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-GnbBefore.PNG" width="100%" />
   </div>
   <div>
     <h4>개선 후</h4>
-    <img src="public/assets/images/ReadMe-GnbAfter.png" width="100%" />
+    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-GnbAfter.PNG" width="100%" />
   </div>
 </div>
 
