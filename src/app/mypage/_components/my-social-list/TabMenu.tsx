@@ -12,7 +12,7 @@ const TabMenu = ({ activeTab, onTabChange }: TabMenuProps) => (
         className="flex cursor-pointer flex-col items-center"
       >
         <span
-          className={`activeTab === tab ? 'text-gray-900' : 'text-gray-400'`}
+          className={`${activeTab === tab ? 'text-gray-900' : 'text-gray-400'}`}
         >
           {tab === 'joined' ? (
             '내가 참여한 모임'
@@ -21,7 +21,10 @@ const TabMenu = ({ activeTab, onTabChange }: TabMenuProps) => (
           ) : (
             <span className="flex-center gap-2">
               좋아요한 모임
-              <Heart fill="currentColor" className="text-write-main h-4 w-4" />
+              <Heart
+                fill="currentColor"
+                className={`${activeTab === 'liked' ? 'text-write-main' : 'text-gray-400'} h-4 w-4`}
+              />
             </span>
           )}
         </span>
