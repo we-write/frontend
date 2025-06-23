@@ -8,6 +8,19 @@
 
 ***WeWrite***는 누구나 작가가 되어, 다른 사람들과 함께 이야기를 이어 쓰며 만들어가는 **참여형 스토리텔링 플랫폼**입니다.
 
+## 📄 목차
+
+1. [📢 배포 주소](#📢-배포-주소)
+2. [📥 시작하기](#📥-시작하기)
+3. [⚙ 기술 스택](#⚙-기술-스택)
+4. [🚩 팀원](#🚩-팀원)
+5. [💬 활발한 소통과 토론 문화](#💬-활발한-소통과-토론-문화)
+6. [🚀 Front End에 더해서 백엔드와 디자인까지](#🚀-front-end에-더해서-백엔드와-디자인까지)
+7. [💄 라이브러리를 최소화하고 UI 컴포넌트를 설계](#💄-라이브러리를-최소화하고-ui-컴포넌트를-설계)
+8. [🙋‍♀️ 사용자 피드백 반영](#🙋‍♀️-사용자-피드백-반영)
+9. [👨‍💻 향후 업데이트 계획](#👨‍💻-향후-업데이트-계획)
+10. [⚖ 라이센스](#⚖-라이센스)
+
 ## 📢 배포 주소
 
 [@we-write.netlify.app](we-write.netlify.app)
@@ -26,36 +39,47 @@ npm install
 npm run dev
 ```
 
+<!-- MEMO: 환경 변수 제공이 필요한 지 확인 -->
+
 ## ⚙ 기술 스택
 
 |              |                                                          |
-| :----------: | -------------------------------------------------------- |
+| :----------: | :------------------------------------------------------- |
 |     언어     | **TypeScript**                                           |
 |  프레임워크  | **Next.js15.3.2**                                        |
 |  라이브러리  | **React19**, **TailWindCSS**, **TipTap**, etc.           |
 |   상태관리   | **Context API**, **Tanstack Query**, **React Hook Form** |
-| 데이터베이스 | **Codeit Dallaem API**, **Supabase**                     |
+| 데이터베이스 | **Codeit API**, **Supabase**                             |
 |  협업 도구   | **Notion**, **StoryBook**, **Husky**                     |
+|    테스트    | **Jest**                                                 |
 
 ## 🚩 팀원
 
 <table>
   <tr>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/70846061?v=4" width="120" style="border-radius: 9999px;" />
+    <a href="https://github.com/myeongheonhong" target="_blank">
+      <img src="https://private-user-images.githubusercontent.com/163122800/457730070-81eb95c1-ffc5-4de6-a728-e6ffedf187c3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMDcwLTgxZWI5NWMxLWZmYzUtNGRlNi1hNzI4LWU2ZmZlZGYxODdjMy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wYWIzOWFkNDVkYTQxMzJhODJiZWE1Nzg3YTEwNGE4OTVmZjMyN2UwNDczMWUxMjU4ODEwMGI5OTQ5ZTlkOTBkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.LYkTz00QpPKE386515Ma2S1klhZBnhxp_YwYAkwTAEM" width="120" style="border-radius: 9999px;" />
       <p>홍명헌(myeongheonhong)</p>
+      </a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/92986844?v=4" width="120" style="border-radius: 9999px;" />
+    <a href="https://github.com/swimmingRiver" target="_blank">
+      <img src="https://private-user-images.githubusercontent.com/163122800/457730084-81245348-311d-46f4-91a0-40f3e5b8a918.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMDg0LTgxMjQ1MzQ4LTMxMWQtNDZmNC05MWEwLTQwZjNlNWI4YTkxOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MDdhZTA0MDhjOWRiYmRmNjg3NjA3OWIzMzRkNTI0ZDAyMWRiYThmYWJiMzQ1YmJjMTMyMThlZTdmYTIwNDQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.ijAb83-e8j1tka9Bw6wWNu0xDVRQeVZL1nv-b61q4gg" width="120" style="border-radius: 9999px;" />
       <p>강수영(swimmingRiver)</p>
+      </a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/163122800?v=4" width="120" style="border-radius: 9999px;" />
+    <a href="https://github.com/juyesu" target="_blank">
+      <img src="https://private-user-images.githubusercontent.com/163122800/457730093-36a26c70-6136-461f-aa75-f07be1054ad7.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMDkzLTM2YTI2YzcwLTYxMzYtNDYxZi1hYTc1LWYwN2JlMTA1NGFkNy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kYjE2MjNmYzYwYTQ1OGMyNzIzOTIzMDJjNWQxYTVlMjg3ODE5YTM2NzdlNDllYWUyMGM4ZGNkN2FmOWEwZjllJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.flx3APjDvSNkmOTtHZJF_wNTpXd-QqmJ0Bu3pcen5Kg" width="120" style="border-radius: 9999px;" />
       <p>김지혁(juyesu)</p>
+      </a>
     </td>
     <td align="center">
-      <img src="https://avatars.githubusercontent.com/u/159544052?v=4" width="120" style="border-radius: 9999px;" />
+    <a href="https://github.com/hoxey2Front" target="_blank">
+      <img src="https://private-user-images.githubusercontent.com/163122800/457730102-28862435-1a9e-48fb-8a0e-c7d92222aff8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMTAyLTI4ODYyNDM1LTFhOWUtNDhmYi04YTBlLWM3ZDkyMjIyYWZmOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mYTdmMzA0MTNmZGViOTk3ZTJiN2Y4ZjA2YzNhYTcyNjg5NWE2ZDdkMTkxZGMzYWVmODU1MzkwOTA3MWU3YTJmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.qDJA2y9qcnUdq7-Yk6pdh67_JtnYWq4AKKQnRMSWDHg" width="120" style="border-radius: 9999px;" />
       <p>장한옥(hoxey2Front)</p>
+      </a>
     </td>
   </tr>
 </table>
@@ -71,10 +95,10 @@ npm run dev
 2. **근거 있는 컨벤션을 만들기. 그리고 새로운 팀의 룰이 필요하다면 자유롭게 제안하기**
 3. **다른 사람이 작성한 코드도 내가 쓴 코드처럼. 꼼꼼한 PR리뷰 작성하기**
 
-프로젝트를 진행하면서 겪는 어찌보면 사소한? 고민도 가볍게 넘어가지 않고  
-나름 치열하게 토론하고, 멘토님과 강사님께 여쭤보면서 의미있는 결정을 내리는 문화를 조성하였습니다.
+프로젝트를 진행하면서 겪는 어찌보면 사소할 수 있는 고민도 가볍게 넘어가지 않고  
+활발하게 토론하며 의미있는 결정을 내리는 문화를 조성하였습니다.
 
-프로젝트 진행 중 활발하게 토론이 이루어진 의제로는 다음과 같은 예시들이 있었습니다.
+프로젝트 진행 중 토론이 이루어진 의제로는 다음과 같은 예시들이 있었습니다.
 
 - 미래의 확장성을 고려한 개발 vs 현재의 요구사항에 부합하는 개발
 - 전역 상태를 통한 인증 정보 관리 vs useQuery의 캐싱을 통한 인증 정보 관리
@@ -90,7 +114,7 @@ npm run dev
 이를 구현하기 위해서는 UI 디자인과 데이터 베이스가 필요했습니다.
 
 팀에 디자이너도 없고, 백엔드 개발자도 없으니 기본으로 제공되는 명세만 따라갈 수도 있었지만  
-우리가 하고 싶은걸 해야 더 즐겁고, 모두가 적극적으로 개발을 할 수 있다고 생각했습니다.
+우리가 하고 싶은걸 해야 더 즐겁고, 모두가 적극적으로 개발에 참여할 수 있다고 생각했습니다.
 
 이에 한정된 시간이지만 일과 후와 주말을 틈틈히 활용하여 Figma와 Supabase를 공부하고  
 이번 프로젝트에 도입하게 되었습니다.
@@ -105,36 +129,22 @@ npm run dev
 또한 DB로 부터 데이터를 요청 및 수정하는 과정을 효율적으로 진행하기 위해서  
 에러 핸들링을 위한 공통 유틸리티 함수를 만들었고, CLI로 테이블 기반 타입 자동 생성 기능을 활용하였습니다.
 
-<div style="display: flex; gap: 10px; text-align: center;">
-  <div>
-    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-SupabaseSchema.png" width="100%" />
-    <h4>스키마</h4>
-  </div>
-  <div>
-    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-SupabaseTroubleShootiong.png" width="100%" />
-    <h4>팀원들에게 지식 공유</h4>
-  </div>
-</div>
+|                                                                          스키마                                                                          |                                                                               팀원들에게 지식 공유                                                                                |
+| :------------------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![DB스키마](https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-SupabaseSchema.png) | ![팀원들에게 DB 지식 공유](https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-SupabaseTroubleShootiong.png) |
 
 ### Figma UI
 
-새로운 페이지와 프로젝트 명세에 맞는 컴포넌트 UI를 설계하기 위해 Figma를 적극 활용했습니다.  
-감각있는 디자인이나 정교한 레이아웃까지는 구현하기 어려웠지만,  
-러프한 시안을 바탕으로도 팀원들과 방향성을 논의하고 의도를 효과적으로 공유하는 데 큰 도움이 되었습니다.
+새로운 페이지와 프로젝트 명세에 맞는 컴포넌트 UI를 설계하기 위해 Figma를 활용했습니다.  
+정교한 레이아웃이나 디자인까지는 제작하기 어려웠지만,  
+러프한 시안을 바탕으로도 팀원들과 방향성을 논의하고 의도를 공유하는 데 도움이 되었습니다.
 
 팀원 각자가 Figma를 공부하기 보다는 기존에 사용해본 경험이 있거나,  
 이번 기회에 공부를 진행한 팀원이 필요한 단축키나 기능을 공유해주는 방식을 채택하였습니다.
 
-<div style="display: flex; gap: 10px; text-align: center;">
-  <div>
-    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-FigmaUI.png" width="100%" />
-    <h4>UI 시안</h4>
-  </div>
-  <div>
-    <img src="https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-FigmaUIKnowledgeSharing.png" width="100%" />
-    <h4>팀원들에게 지식 공유</h4>
-  </div>
-</div>
+|                                                                     UI 시안                                                                      |                                                                               팀원들에게 지식 공유                                                                                |
+| :----------------------------------------------------------------------------------------------------------------------------------------------: | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------: |
+| ![UI 시안](https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-FigmaUI.png) | ![팀원들에게 DB 지식 공유](https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-SupabaseTroubleShootiong.png) |
 
 ## 💄 라이브러리를 최소화하고 UI 컴포넌트를 설계
 
@@ -155,7 +165,7 @@ npm run dev
 대부분의 컴포넌트를 라이브러리없이 구현했지만, 한 가지 리치 텍스트 에디터(WYSIWYG)의 경우  
 사이트의 특징상 사용자가 글을 작성하는 부분이 높은 중요도를 가지기도 하고,
 라이브러리 없이 구현하는  
-데에 지나치게 높은 개발 자원이 소모될 것이라고 판단하여 TipTap 라이브러리를 도입하고 해당 라이브러리의  
+데에 높은 개발 자원이 소모될 것이라고 판단하여 TipTap 라이브러리를 도입하고 해당 라이브러리의  
 커스텀 Extension 을 활용하여 에디터에 필요한 기능을 직접 구현하는 방식을 채택하였습니다.
 
 > ![직접 구현한 컴포넌트](https://raw.githubusercontent.com/we-write/frontend/590a176fb99cb217f75b4184e26e8ddbe5cf7412/public/assets/images/ReadMe-TipTap.PNG)
@@ -205,7 +215,7 @@ lightHouse 테스트 결과 FCP, LCP 등이 소폭 개선된 것으로 확인하
 
 ### 🔨 '모임'과 '스토리'의 개념 재정립
 
-페이지 로딩을 제외하고 가장 많은 피드백을 받은 부분은 '모임'과 '스토리'의 개념을 구분하기 어렵다는 것이었습니다.  
+로딩 속도 외에 가장 많은 피드백을 받은 부분은 '모임'과 '스토리'의 개념을 구분하기 어렵다는 것이었습니다.  
 이러한 피드백을 받은 데에는 여러가지 이유가 있을 것이라 분석하고 있지만,  
 그 중 하나는 '모임 찾기'와 '스토리 찾기' 라는 페이지명이 직관적이지 않다고 판단하여 개선을 진행했습니다.
 
@@ -263,3 +273,9 @@ referer로 저장하고, 로그인 성공 시 이를 디코딩하여 해당 페�
 - 만약에 모임장이 모임에서 탈퇴한다면? 누군가 악의적으로 글을 계속 올린다면?  
   이러한 다양한 상황에서 발생할 수 있는 불편을 해결할 수 있도록 지금의 이어쓰기 시스템을  
   더욱 개선할 예정입니다.
+
+## ⚖ 라이센스
+
+```
+© 2025 WeWrite. Licensed under the MIT License.
+```
