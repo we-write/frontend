@@ -10,7 +10,8 @@ const config: Config = {
   testEnvironment: 'jsdom',
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   moduleNameMapper: {
-    '^@/(.*)$': '<rootDir>/src/$1', // ✅ 이 줄이 핵심!
+    '^@/(.*)$': '<rootDir>/src/$1',
+    '\\.svg$': '<rootDir>/__mocks__/svgMock.tsx',
   },
 };
 

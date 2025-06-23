@@ -5,7 +5,8 @@ import InputForm from '@/components/common/Form/InputForm';
 
 import useBoolean from '@/hooks/useBoolean';
 import useSignUpForm from '@/hooks/api/auth/useSignUpForm';
-import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
+
+import { Eye, EyeOff } from 'lucide-react';
 import { signUpValidate } from '@/utils/validators/auth';
 
 const SignupForm = () => {
@@ -53,21 +54,17 @@ const SignupForm = () => {
             name="password"
             suffixIcon={
               <button
+                name="toggleShowPassword"
+                aria-label="toggleShowPassword"
                 role="button"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPassword}
               >
                 {showPassword ? (
-                  <VisibilityOn
-                    aria-label="show password"
-                    fill="currentColor"
-                  />
+                  <Eye aria-label="show password" fill="currentColor" />
                 ) : (
-                  <VisibilityOff
-                    aria-label="hide password"
-                    fill="currentColor"
-                  />
+                  <EyeOff aria-label="hide password" fill="currentColor" />
                 )}
               </button>
             }
@@ -91,21 +88,17 @@ const SignupForm = () => {
             name="passwordCheck"
             suffixIcon={
               <button
+                name="toggleShowPasswordCheck"
+                aria-label="toggleShowPasswordCheck"
                 role="button"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPasswordCheck}
               >
                 {showPasswordCheck ? (
-                  <VisibilityOn
-                    aria-label="show password"
-                    fill="currentColor"
-                  />
+                  <Eye aria-label="show password" fill="currentColor" />
                 ) : (
-                  <VisibilityOff
-                    aria-label="hide password"
-                    fill="currentColor"
-                  />
+                  <EyeOff aria-label="hide password" fill="currentColor" />
                 )}
               </button>
             }

@@ -94,5 +94,9 @@ export const HelperText = ({
     .filter(Boolean)
     .join(' ');
 
-  return <p className={className}>{helperText}</p>;
+  return (
+    <p role="alert" className={className}>
+      {helperText}
+    </p>
+  );
 };
