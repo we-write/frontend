@@ -13,7 +13,6 @@ import { useRouter } from 'next/navigation';
 import getSocialActionMessage from '@/utils/getSocialActionMessage';
 import { useStoryIdBySocialId } from '@/hooks/api/supabase/useStoryIdBySocialId';
 import toast from '@/utils/toast';
-import { IMAGE_ROUTES } from '@/constants/ImageRoutes';
 
 const MySocialListCardItem = ({
   item,
@@ -61,7 +60,7 @@ const MySocialListCardItem = ({
         teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
         pageId={storyId}
         image={{
-          src: item.image || IMAGE_ROUTES.noImage,
+          src: '',
           alt: item.name || '섬네일 이미지',
         }}
         chip

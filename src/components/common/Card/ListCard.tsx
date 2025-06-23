@@ -41,10 +41,10 @@ const ListCard = ({
         </div>
       )}
       <figure className="relative h-48 w-full max-w-50 flex-shrink-0 sm:h-39 sm:w-70">
-        {!isImageLoaded || isImageLoadError || isCardDataLoading ? (
+        {!!isImageLoaded || isImageLoadError || isCardDataLoading ? (
           <div className="absolute h-full w-full animate-pulse rounded-xl bg-gray-300" />
         ) : null}
-        {image.src && image.alt && !isCardDataLoading && (
+        {image.src && image.alt && !isCardDataLoading ? (
           <Image
             src={image.src}
             alt={image.alt ? image.alt : '이미지를 불러올 수 없습니다'}
@@ -53,6 +53,10 @@ const ListCard = ({
             fill
             className={`rounded-3xl object-cover ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
           />
+        ) : (
+          <div className="flex h-full w-full items-center justify-center rounded-3xl bg-gray-400 text-base text-white">
+            No Image
+          </div>
         )}
       </figure>
       <div className="flex w-full flex-col gap-3 px-1.5 sm:p-0">
