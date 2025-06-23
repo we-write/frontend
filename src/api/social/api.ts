@@ -57,3 +57,8 @@ export const createSocial = async (data: CodeitSocialFieldsRequest) => {
     throw error;
   }
 };
+
+export const deleteSocial = async (socialId: number) => {
+  const response = await instance.put(API_PATH.SOCIAL_CANCEL(socialId));
+  return response.data;
+};
