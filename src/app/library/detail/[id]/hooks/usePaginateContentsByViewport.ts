@@ -56,7 +56,7 @@ const usePaginateContentsByViewport = ({
       const paragraph = document.createElement('div');
       paragraph.innerHTML = html;
       paragraph.className =
-        'text-[1.05rem] md:text-lg leading-[1.9] md:leading-[2.4] mb-4 break-words w-80';
+        'text-[1.05rem] md:text-lg leading-[2] md:leading-[2.5] mb-4 break-words w-80';
 
       tempContainer.appendChild(paragraph);
       const paragraphHeight = paragraph.getBoundingClientRect().height;

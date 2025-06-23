@@ -20,7 +20,7 @@ const PaginatedContentViewer = forwardRef(
 
           return (
             <p
-              className="mb-4 w-80 text-center text-[1.05rem] leading-[2] break-words md:flex md:w-160 md:flex-wrap md:justify-between md:space-x-4 md:text-left md:text-lg md:leading-[2.4]"
+              className="mb-4 w-80 text-center text-[1.05rem] leading-[2] break-words md:flex md:w-160 md:flex-wrap md:justify-between md:space-x-4 md:text-left md:text-lg md:leading-[2.5]"
               key={index}
             >
               {isHtmlContent
