@@ -39,9 +39,16 @@ const SocialOverView = ({
   const handleDeleteButtonClick = (role: TeamUserRole) => {
     if (!storiesData) return;
 
+    const deleteSocialConfirmed = window.confirm(
+      '모든 데이터는 삭제되면 복구할 수 없습니다. 모임을 정말 삭제하시겠습니까? '
+    );
+
     const socialId = storiesData.social_id;
-    mutate(socialId);
-    deleteSocial(role);
+
+    if (deleteSocialConfirmed) {
+      mutate(socialId);
+      deleteSocial(role);
+    }
   };
 
   // TODO: storyCollaborators 테이블에 이미지 컬럼 추가되면 활성화
