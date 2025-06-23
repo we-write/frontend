@@ -14,9 +14,9 @@ export const usePostSignin = () => {
   return useMutation({
     mutationFn: (data: SigninRequest) => postSignIn(data),
     onSuccess: async () => {
-      toast.success('로그인에 성공했습니다.');
       await queryClient.prefetchQuery({ queryKey: ['myInfo'] });
       router.replace(redirectPath);
+      toast.success('로그인에 성공했습니다.');
     },
     onError: (error: Error) => {
       const errorData = JSON.parse(error.message);
