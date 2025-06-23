@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import getSocialActionMessage from '@/utils/getSocialActionMessage';
 import { useStoryIdBySocialId } from '@/hooks/api/supabase/useStoryIdBySocialId';
 import toast from '@/utils/toast';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const MySocialListCardItem = ({
   item,
@@ -35,14 +36,16 @@ const MySocialListCardItem = ({
 
   const handleMySocial = async (id: string) => {
     if (!storyId) return;
+
     const messages = {
       confirm: getSocialActionMessage('모임').confirm('exit'),
       success: getSocialActionMessage('모임').success('exit'),
-      fail: getSocialActionMessage('모임').fail('exit'),
     };
+
     if (isJoined) {
       const confirmed = window.confirm(messages.confirm);
       if (!confirmed) return;
+
       if (userId) {
         await leaveJoinSocial({ id });
         await deleteCollaboratorFromSocial(userId, storyId);
@@ -50,7 +53,7 @@ const MySocialListCardItem = ({
         refetch();
       }
     } else {
-      router.push(`/library/detail/${storyId}/?page=0`);
+      router.push(`${APP_ROUTES.libraryDetail}/${storyId}/?page=0`);
     }
   };
 
@@ -60,7 +63,7 @@ const MySocialListCardItem = ({
         teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
         pageId={storyId}
         image={{
-          src: '',
+          src: item.image,
           alt: item.name || '섬네일 이미지',
         }}
         chip
