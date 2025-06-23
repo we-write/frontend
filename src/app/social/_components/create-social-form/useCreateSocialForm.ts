@@ -116,9 +116,9 @@ const useCreateSocialForm = () => {
 
   // 소셜 및 스토리 생성 핸들러
   const createSocialSequentially = async (data: SocialFieldsRequest) => {
-    const response: { status: boolean; socialId: number | null } = {
+    const response: { status: boolean; storyId: string | null } = {
       status: false,
-      socialId: null,
+      storyId: null,
     };
 
     if (!isValid) return response;
@@ -142,7 +142,7 @@ const useCreateSocialForm = () => {
     if (!collaboratorResponse) return response;
 
     response.status = true;
-    response.socialId = socialResponseData.id;
+    response.storyId = storyResponse[0]?.story_id.toString();
 
     return response;
   };
