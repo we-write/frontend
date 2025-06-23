@@ -8,6 +8,7 @@
 
 ***WeWrite***는 누구나 작가가 되어, 다른 사람들과 함께 이야기를 이어 쓰며 만들어가는 **참여형 스토리텔링 플랫폼**입니다.
 
+
 ## 📄 목차
 
 1. [📢 배포 주소](#-배포-주소)
@@ -59,25 +60,25 @@ npm run dev
   <tr>
     <td align="center">
     <a href="https://github.com/myeongheonhong" target="_blank">
-      <img src="https://private-user-images.githubusercontent.com/163122800/457730070-81eb95c1-ffc5-4de6-a728-e6ffedf187c3.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMDcwLTgxZWI5NWMxLWZmYzUtNGRlNi1hNzI4LWU2ZmZlZGYxODdjMy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT0wYWIzOWFkNDVkYTQxMzJhODJiZWE1Nzg3YTEwNGE4OTVmZjMyN2UwNDczMWUxMjU4ODEwMGI5OTQ5ZTlkOTBkJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.LYkTz00QpPKE386515Ma2S1klhZBnhxp_YwYAkwTAEM" width="120" style="border-radius: 9999px;" />
+      <img src="https://github.com/user-attachments/assets/fdaf809e-449a-4ea2-a539-825dd8856963" width="120" style="border-radius: 9999px;" />
       <p>홍명헌(myeongheonhong)</p>
       </a>
     </td>
     <td align="center">
     <a href="https://github.com/swimmingRiver" target="_blank">
-      <img src="https://private-user-images.githubusercontent.com/163122800/457730084-81245348-311d-46f4-91a0-40f3e5b8a918.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMDg0LTgxMjQ1MzQ4LTMxMWQtNDZmNC05MWEwLTQwZjNlNWI4YTkxOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT02MDdhZTA0MDhjOWRiYmRmNjg3NjA3OWIzMzRkNTI0ZDAyMWRiYThmYWJiMzQ1YmJjMTMyMThlZTdmYTIwNDQ0JlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.ijAb83-e8j1tka9Bw6wWNu0xDVRQeVZL1nv-b61q4gg" width="120" style="border-radius: 9999px;" />
+      <img src="https://github.com/user-attachments/assets/7e40e40b-d5d7-469e-a1d0-2efc1b609209" width="120" style="border-radius: 9999px;" />
       <p>강수영(swimmingRiver)</p>
       </a>
     </td>
     <td align="center">
     <a href="https://github.com/juyesu" target="_blank">
-      <img src="https://private-user-images.githubusercontent.com/163122800/457730093-36a26c70-6136-461f-aa75-f07be1054ad7.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMDkzLTM2YTI2YzcwLTYxMzYtNDYxZi1hYTc1LWYwN2JlMTA1NGFkNy5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1kYjE2MjNmYzYwYTQ1OGMyNzIzOTIzMDJjNWQxYTVlMjg3ODE5YTM2NzdlNDllYWUyMGM4ZGNkN2FmOWEwZjllJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.flx3APjDvSNkmOTtHZJF_wNTpXd-QqmJ0Bu3pcen5Kg" width="120" style="border-radius: 9999px;" />
+      <img src="https://github.com/user-attachments/assets/a1791577-5477-427f-a2b9-8178482be9bc" width="120" style="border-radius: 9999px;" />
       <p>김지혁(juyesu)</p>
       </a>
     </td>
     <td align="center">
     <a href="https://github.com/hoxey2Front" target="_blank">
-      <img src="https://private-user-images.githubusercontent.com/163122800/457730102-28862435-1a9e-48fb-8a0e-c7d92222aff8.png?jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJnaXRodWIuY29tIiwiYXVkIjoicmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbSIsImtleSI6ImtleTUiLCJleHAiOjE3NTA2NTI2MzAsIm5iZiI6MTc1MDY1MjMzMCwicGF0aCI6Ii8xNjMxMjI4MDAvNDU3NzMwMTAyLTI4ODYyNDM1LTFhOWUtNDhmYi04YTBlLWM3ZDkyMjIyYWZmOC5wbmc_WC1BbXotQWxnb3JpdGhtPUFXUzQtSE1BQy1TSEEyNTYmWC1BbXotQ3JlZGVudGlhbD1BS0lBVkNPRFlMU0E1M1BRSzRaQSUyRjIwMjUwNjIzJTJGdXMtZWFzdC0xJTJGczMlMkZhd3M0X3JlcXVlc3QmWC1BbXotRGF0ZT0yMDI1MDYyM1QwNDE4NTBaJlgtQW16LUV4cGlyZXM9MzAwJlgtQW16LVNpZ25hdHVyZT1mYTdmMzA0MTNmZGViOTk3ZTJiN2Y4ZjA2YzNhYTcyNjg5NWE2ZDdkMTkxZGMzYWVmODU1MzkwOTA3MWU3YTJmJlgtQW16LVNpZ25lZEhlYWRlcnM9aG9zdCJ9.qDJA2y9qcnUdq7-Yk6pdh67_JtnYWq4AKKQnRMSWDHg" width="120" style="border-radius: 9999px;" />
+      <img src="https://github.com/user-attachments/assets/8c8bfe67-23f1-4c93-bd72-3825006f5e97" width="120" style="border-radius: 9999px;" />
       <p>장한옥(hoxey2Front)</p>
       </a>
     </td>
