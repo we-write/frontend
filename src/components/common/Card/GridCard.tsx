@@ -15,7 +15,7 @@ const GridCard = ({
     useImageLoadStatus();
 
   return (
-    <article className="mx-auto h-80 w-90 rounded-2xl p-2 hover:bg-gray-100">
+    <article className="h-80 w-90 rounded-2xl p-2 hover:bg-gray-100">
       <Link
         href={isCardDataLoading ? '' : href}
         className="flex h-full flex-col"
