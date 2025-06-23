@@ -53,6 +53,7 @@ const SignupForm = () => {
             name="password"
             suffixIcon={
               <button
+                role="button"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPassword}
@@ -90,6 +91,7 @@ const SignupForm = () => {
             name="passwordCheck"
             suffixIcon={
               <button
+                role="button"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPasswordCheck}
