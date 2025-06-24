@@ -4,6 +4,12 @@ import SocialForm from './SocialForm';
 import '@testing-library/jest-dom';
 import { GenreType } from '@/api/social/type';
 
+import {
+  validateCapacity,
+  validateLocation,
+  validateRegistrationEnd,
+} from '@/utils/validators/social';
+
 // 실제 SocialForm에서 사용하는 필드 타입 예시
 type SocialFieldsRequest = {
   title: string;
@@ -49,5 +55,71 @@ describe('SocialForm 렌더링 테스트', () => {
     expect(
       screen.getByRole('button', { name: '파일 찾기' })
     ).toBeInTheDocument();
+  });
+});
+
+describe('validateCapacity', () => {
+  it('정원이 없으면 에러 메시지를 반환한다', () => {
+    expect(validateCapacity(0)).toBe('모집 정원을 입력해 주세요.');
+  });
+
+  it('숫자가 아니면 에러 메시지를 반환한다', () => {
+    expect(validateCapacity(NaN)).toBe('모집 정원을 입력해 주세요.');
+  });
+
+  it('2 미만이면 에러 메시지를 반환한다', () => {
+    expect(validateCapacity(1)).toBe(
+      '모집 정원은 2-10인 사이로 입력해 주세요.'
+    );
+  });
+
+  it('10 초과이면 에러 메시지를 반환한다', () => {
+    expect(validateCapacity(11)).toBe(
+      '모집 정원은 2-10인 사이로 입력해 주세요.'
+    );
+  });
+
+  it('2~10 사이 값이면 true를 반환한다', () => {
+    expect(validateCapacity(5)).toBe(true);
+    expect(validateCapacity(2)).toBe(true);
+    expect(validateCapacity(10)).toBe(true);
+  });
+});
+
+describe('validateLocation', () => {
+  it('값이 없으면 에러 메시지를 반환한다', () => {
+    expect(validateLocation('')).toBe('장르를 선택해 주세요.');
+  });
+
+  it('값이 있으면 true를 반환한다', () => {
+    expect(validateLocation('판타지')).toBe(true);
+  });
+});
+
+describe('validateRegistrationEnd', () => {
+  const today = new Date();
+  const todayStr = today.toISOString();
+  const yesterdayStr = new Date(today.getTime() - 86400000).toISOString(); // 1일 전
+
+  it('마감 날짜가 없으면 에러 메시지를 반환한다', () => {
+    expect(validateRegistrationEnd('', todayStr)).toBe(
+      '마감 날짜를 선택해 주세요.'
+    );
+  });
+
+  it('시작 날짜가 없으면 에러 메시지를 반환한다', () => {
+    expect(validateRegistrationEnd(todayStr, '')).toBe(
+      '시작 날짜를 먼저 선택해 주세요.'
+    );
+  });
+
+  it('마감 날짜가 시작 날짜보다 이후면 에러 메시지를 반환한다', () => {
+    expect(validateRegistrationEnd(todayStr, yesterdayStr)).toBe(
+      '마감 날짜는 시작 날짜보다 이전이어야 합니다.'
+    );
+  });
+
+  it('마감 날짜가 시작 날짜보다 이전이면 true를 반환한다', () => {
+    expect(validateRegistrationEnd(yesterdayStr, todayStr)).toBe(true);
   });
 });

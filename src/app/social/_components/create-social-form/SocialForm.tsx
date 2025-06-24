@@ -12,7 +12,8 @@ import InputForm from '@/components/common/Form/InputForm';
 import Input, { HelperText } from '@/components/common/Input/Input';
 import useBoolean from '@/hooks/useBoolean';
 import { truncateText } from '@/utils/convertString';
-import { CalendarIcon } from '@public/assets/icons';
+// import { CalendarIcon } from '@public/assets/icons';
+import { CalendarIcon } from 'lucide-react';
 import {
   CapacityInputProps,
   SelectGenreInputProps,
@@ -170,7 +171,7 @@ const RegistrationDeadlineInput = ({
             onClick={toggleEndDate}
             readOnly
             className="cursor-pointer"
-            suffixIcon={<CalendarIcon fill="currentColor" />}
+            suffixIcon={<CalendarIcon />}
           />
         }
       >
