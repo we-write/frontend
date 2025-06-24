@@ -26,7 +26,6 @@ const nextConfig: NextConfig = {
       'inabooth.io',
       'd19bi7owzxc0m2.cloudfront.net',
       'vrxqxfmkfmhihinihubf.supabase.co',
-      'placehold.co',
     ],
   },
 };
