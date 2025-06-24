@@ -7,8 +7,6 @@ const SocialInfiniteScrollFeed = ({ filter }: SocialListProps) => {
   const { data, isLoading, fetchNextPage, isFetchingNextPage, hasNextPage } =
     useGetSocialList(filter);
 
-  console.log(data);
-
   const socialList = data?.pages.flat() ?? [];
 
   return (
