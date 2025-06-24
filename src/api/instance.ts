@@ -20,11 +20,12 @@ instance.interceptors.request.use(async (config) => {
 
   const fullUrl = new URL(config.url || '', config.baseURL || '');
   const path = fullUrl.pathname;
+
   const isExcluded = excludedPaths.some((rule) =>
     rule instanceof RegExp ? rule.test(path) : rule === path
   );
 
-  if (isExcluded) {
+  if (isExcluded && !path.endsWith('/leave')) {
     return config;
   }
 
