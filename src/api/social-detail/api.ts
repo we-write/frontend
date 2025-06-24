@@ -14,6 +14,7 @@ import instanceBaaS from '../instanceBaaS';
 import { AxiosError } from 'axios';
 import instance from '@/api/instance';
 import { API_PATH } from '@/constants/apiPath';
+import { getCookie } from '@/api/cookies';
 
 const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL;
 
@@ -169,6 +170,41 @@ export const getStoryId = async ({
     return 'not-found';
   }
   return data;
+};
+
+export const getSocialId = async (storyId: string) => {
+  const { data, error } = await instanceBaaS
+    .from('Stories')
+    .select('social_id')
+    .eq('story_id', storyId)
+    .maybeSingle();
+
+  if (error) throw new Error(error.message);
+  if (!data) {
+    return 'not-found';
+  }
+  return data.social_id;
+};
+
+export const joinTeam = async (socialId: string) => {
+  const accessToken = await getCookie('accessToken');
+  if (!accessToken) {
+    throw new Error('accessToken이 없습니다.');
+  }
+  const res = await instance.post(
+    `${API_PATH.SOCIAL}/${socialId}/join`,
+    { socialId },
+    {
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        Authorization: `Bearer ${accessToken}`,
+      },
+    }
+  );
+  if (res.status === 201) {
+    return res.data;
+  }
+  throw new Error('모임 가입 실패!');
 };
 
 export const deleteSocialByDb = async ({ storyId }: DeleteSocialByDbParams) => {

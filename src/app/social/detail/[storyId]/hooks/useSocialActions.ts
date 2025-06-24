@@ -1,3 +1,4 @@
+import { getSocialId, joinTeam } from '@/api/social-detail/api';
 import { UseSocialActionsParams } from '@/app/social/detail/[storyId]/type';
 import { APP_ROUTES } from '@/constants/appRoutes';
 import useParticipateCollaborator from '@/hooks/api/supabase/story-collaborators/useParticipateCollaborator';
@@ -29,11 +30,13 @@ const useSocialActions = ({
     router.push(`${APP_ROUTES.signin}`);
   };
 
-  const joinSocial = () => {
+  const joinSocial = async () => {
     const joinTeamConfirmed = window.confirm('모임에 참여하시겠습니까?');
     if (!joinTeamConfirmed) return;
 
-    insertNewCollaborator({
+    const socialId = await getSocialId(storyId);
+    await joinTeam(socialId);
+    await insertNewCollaborator({
       data: {
         story_id: storyId,
         user_id: userId!,
@@ -44,10 +47,10 @@ const useSocialActions = ({
     });
   };
 
-  const navigateStoryOrJoinSocial = (role: TeamUserRole) => {
+  const navigateStoryOrJoinSocial = async (role: TeamUserRole) => {
     if (!userId || !userName) return navigateLogin();
 
-    if (role === 'GUEST') return joinSocial();
+    if (role === 'GUEST') return await joinSocial();
 
     return navigateStoryDetail();
   };
