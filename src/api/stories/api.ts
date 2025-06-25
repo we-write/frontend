@@ -80,7 +80,7 @@ export const getLastContent = async (
     .eq('story_id', id)
     .order('merged_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
   if (error) {
     throw new Error(error.message);
   }
