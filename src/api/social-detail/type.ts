@@ -1,4 +1,5 @@
 import { LocationType } from '@/api/social/type';
+import { useDeleteSocialByDbParams } from '@/hooks/api/supabase/useDeleteSocialByDb';
 
 export interface GetSocialDetailParams {
   socialId: number;
@@ -41,7 +42,7 @@ export interface GetTeamsParticipantsResponse {
 }
 
 export interface SaveSummaryRequest {
-  socialId: number;
+  storyId: string;
   summaryHtml: string;
 }
 
@@ -61,3 +62,5 @@ export interface GetStoryIdParams {
 export interface GetStoryIdResponse {
   story_id: string;
 }
+
+export type DeleteSocialByDbParams = useDeleteSocialByDbParams;

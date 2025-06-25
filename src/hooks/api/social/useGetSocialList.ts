@@ -14,7 +14,12 @@ const useGetSocialList = (filter: GetSocialListParams) => {
           offset: pageParam as number,
           limit: FETCH_GET_ITEM_LIMIT,
         });
-        return response;
+        const filteredResponse = response.filter((item) => {
+          const registrationEndDate = new Date(item.registrationEnd);
+          const now = new Date();
+          return registrationEndDate > now;
+        });
+        return filteredResponse;
       } catch (error) {
         console.error('소셜 데이터 조회 실패:', error);
         throw error;

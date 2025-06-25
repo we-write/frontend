@@ -5,10 +5,13 @@ export interface DBStoryResponse {
   title: string;
   cover_image_url?: string;
   summary: string;
-  genre?: string;
+  genre: string;
   created_at: string;
   updated_at: string;
+  max_length: number;
+  approval_period: number;
   approved_count: number;
+  capacity: number;
 }
 
 export interface DBContentResponse {
@@ -33,4 +36,9 @@ export interface DBStoryCollaboratorsResponse {
   joined_at: string;
   role: TeamUserRole;
   user_name: string;
+}
+
+export interface DBStoryLikeResponse {
+  user_id: number;
+  story_id: string;
 }

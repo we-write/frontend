@@ -4,6 +4,8 @@ import { GridCardProps } from '@/components/common/Card/type';
 import Image from 'next/image';
 import useImageLoadStatus from '@/hooks/useImageLoadStatus';
 
+const DEFAULT_IMAGE_PRIORITY_THRESHOLD = 9;
+
 const GridCard = ({
   tag,
   image,
@@ -33,7 +35,12 @@ const GridCard = ({
               onLoad={onLoad}
               onError={onError}
               fill
-              className={`rounded-xl object-cover ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
+              sizes="344px"
+              priority={
+                (image.index ?? Infinity) <=
+                (image.priorityThreshold ?? DEFAULT_IMAGE_PRIORITY_THRESHOLD)
+              }
+              className={`aspect-[43/24] rounded-xl object-cover ${isImageLoaded ? 'opacity-100' : 'opacity-0'}`}
             />
           )}
         </figure>

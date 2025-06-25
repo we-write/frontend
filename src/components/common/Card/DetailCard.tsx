@@ -58,10 +58,12 @@ const DetailCard = ({
             {textContent.title}
           </h1>
           <p className="text-sm text-gray-700">{textContent.genre}</p>
-          {startDate && endDate && (
+          {startDate && endDate ? (
             <p className="text-sm">
               {format(startDate, 'yyyy.MM.dd')}~{format(endDate, 'yyyy.MM.dd')}
             </p>
+          ) : (
+            <div className="h-5" />
           )}
         </div>
       ) : (
@@ -115,8 +117,8 @@ const DetailCard = ({
           <Button
             type="button"
             color="custom"
+            aria-label="모임 삭제"
             isDisabled={!isButtonActivate}
-            aria-label="모임 삭제하기"
             onClick={handleDeleteButtonClick}
             className="basis-16 bg-gray-200 font-semibold sm:basis-25"
           >

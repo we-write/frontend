@@ -9,10 +9,12 @@ import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
 import UserDropdown from '@/components/layout/GNB/UserDropdown';
 import Link from 'next/link';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import useReferer from '@/hooks/useReferer';
 
 const LoginSection = () => {
   const { mutate: signOut } = usePostSignout();
   const { isSignIn, myInfo } = useAuth();
+  const { refererParam } = useReferer();
 
   const {
     value: isDropdownOpen,
@@ -35,20 +37,21 @@ const LoginSection = () => {
           aria-label="유저 메뉴 열기"
         >
           {myInfo.image ? (
-            <Image
-              className="h-14 w-14 rounded-full border border-gray-200 object-cover"
-              src={myInfo.image}
-              alt="프로필 이미지"
-              width={40}
-              height={40}
-            />
+            <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-300">
+              <Image
+                src={myInfo.image}
+                alt="프로필 이미지"
+                width={40}
+                height={40}
+              />
+            </div>
           ) : (
             <DefaultProfileImage width={40} height={40} />
           )}
         </button>
       ) : (
         <Link
-          href={APP_ROUTES.signin}
+          href={`${APP_ROUTES.signin}?${refererParam}`}
           className="text-write-main text-base font-semibold"
         >
           로그인

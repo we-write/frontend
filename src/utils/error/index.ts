@@ -1,21 +1,25 @@
 import { isAxiosError } from 'axios';
 import { PostgrestError } from '@supabase/supabase-js';
-import { axiosErrorHandler } from './axiosErrorHandler';
-import { postgrestErrorHandler } from './postgrestErrorHandler';
-import { ErrorType, HandleErrorOptions } from './types';
+import axiosErrorHandler from './axiosErrorHandler';
+import postgrestErrorHandler from './postgrestErrorHandler';
+import { ErrorType, HandleErrorOptions } from './type';
 
-// 통합 에러 핸들러
-export const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
-  const { onDone, onStatus } = options ?? {};
-
-  if (isAxiosError(error)) {
-    axiosErrorHandler(error, onStatus);
-  } else if (
+const isPostgrestError = (error: ErrorType): error is PostgrestError => {
+  return (
     typeof error === 'object' &&
     error !== null &&
     'message' in error &&
     'code' in error
-  ) {
+  );
+};
+
+// 통합 에러 핸들러
+const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
+  const { onDone, onStatus } = options ?? {};
+
+  if (isAxiosError(error)) {
+    axiosErrorHandler(error, onStatus);
+  } else if (isPostgrestError(error)) {
     postgrestErrorHandler(error as PostgrestError, onStatus);
   } else if (error instanceof Error) {
     console.log('error', error);
@@ -25,3 +29,6 @@ export const handleError = (error: ErrorType, options?: HandleErrorOptions) => {
 
   onDone?.();
 };
+
+export default handleError;
+export { axiosErrorHandler, postgrestErrorHandler, isPostgrestError };

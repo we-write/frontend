@@ -1,4 +1,5 @@
 import {
+  DeleteSocialByDbParams,
   GetSocialDetailParams,
   GetSocialDetailResponse,
   GetStoryIdParams,
@@ -111,7 +112,7 @@ export const getSocialParticipants = async (
 };
 
 export const saveSummary = async ({
-  socialId,
+  storyId,
   summaryHtml,
 }: SaveSummaryRequest) => {
   const { data, error } = await instanceBaaS
@@ -121,7 +122,7 @@ export const saveSummary = async ({
         summary: summaryHtml,
       },
     ])
-    .eq('social_id', socialId)
+    .eq('story_id', storyId)
     .select();
   if (error) {
     throw new Error(error.message);
@@ -168,4 +169,19 @@ export const getStoryId = async ({
     return 'not-found';
   }
   return data;
+};
+
+export const deleteSocialByDb = async ({ storyId }: DeleteSocialByDbParams) => {
+  try {
+    const { error: storiesError } = await instanceBaaS
+      .from('Stories')
+      .delete()
+      .eq('story_id', storyId);
+
+    if (storiesError) {
+      throw new Error(storiesError.message);
+    }
+  } catch (error) {
+    throw new Error(error as string);
+  }
 };
