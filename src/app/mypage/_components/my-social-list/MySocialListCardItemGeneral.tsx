@@ -28,7 +28,7 @@ const MySocialListCardItemGeneral = ({
   const isJoined = activeTab === 'joined';
 
   const { data: storyId, isLoading: isStoryLoading } = useStoryIdBySocialId(
-    Number(item.id)
+    item.id
   );
 
   const handleMySocial = async (id: number) => {
@@ -62,7 +62,7 @@ const MySocialListCardItemGeneral = ({
     <div className="truncate py-6">
       <ListCard
         teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
-        pageId={storyId}
+        pageId={storyId?.toString() || null}
         image={{
           src:
             item.image ||
