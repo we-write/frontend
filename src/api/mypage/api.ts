@@ -27,15 +27,17 @@ export const getJoinedSocialList = async ({
   }
 };
 
-export const getStoryBySocialId = async (socialId: number) => {
+export const getStoryBySocialId = async (
+  socialId: number
+): Promise<string | null> => {
   const { data, error } = await instanceBaaS
     .from('Stories')
-    .select('*')
+    .select('story_id')
     .eq('social_id', socialId)
     .maybeSingle();
+
   if (error) throw new Error(error.message);
-  if (!data) return;
-  return data.story_id;
+  return data?.story_id;
 };
 
 export const getCollaboratorsByStoryId = async (storyId: string) => {
