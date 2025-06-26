@@ -1,11 +1,4 @@
-import { PostgrestError } from '@supabase/supabase-js';
-
-export type SupabaseResponse<T> = {
-  data: T | null;
-  error: PostgrestError | null;
-};
-
-export type Json =
+﻿export type Json =
   | string
   | number
   | boolean
@@ -108,6 +101,7 @@ export type Database = {
         Row: {
           approval_period: number | null;
           approved_count: number;
+          capacity: number | null;
           cover_image_url: string | null;
           created_at: string;
           genre: string;
@@ -122,6 +116,7 @@ export type Database = {
         Insert: {
           approval_period?: number | null;
           approved_count: number;
+          capacity?: number | null;
           cover_image_url?: string | null;
           created_at?: string;
           genre: string;
@@ -136,6 +131,7 @@ export type Database = {
         Update: {
           approval_period?: number | null;
           approved_count?: number;
+          capacity?: number | null;
           cover_image_url?: string | null;
           created_at?: string;
           genre?: string;
@@ -184,6 +180,35 @@ export type Database = {
           },
         ];
       };
+      story_likes: {
+        Row: {
+          id: number;
+          liked_at: string;
+          story_id: string;
+          user_id: number;
+        };
+        Insert: {
+          id?: number;
+          liked_at?: string;
+          story_id: string;
+          user_id: number;
+        };
+        Update: {
+          id?: number;
+          liked_at?: string;
+          story_id?: string;
+          user_id?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'story_likes_story_id_fkey';
+            columns: ['story_id'];
+            isOneToOne: false;
+            referencedRelation: 'Stories';
+            referencedColumns: ['story_id'];
+          },
+        ];
+      };
     };
     Views: {
       [_ in never]: never;
@@ -203,7 +228,7 @@ export type Database = {
       };
     };
     Enums: {
-      content_status: 'WRITNG' | 'PENDING' | 'MERGED';
+      content_status: 'WRITING' | 'PENDING' | 'MERGED';
       user_role: 'LEADER' | 'MEMBER' | 'GUEST';
     };
     CompositeTypes: {
@@ -320,89 +345,8 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      content_status: ['WRITNG', 'PENDING', 'MERGED'],
+      content_status: ['WRITING', 'PENDING', 'MERGED'],
       user_role: ['LEADER', 'MEMBER', 'GUEST'],
     },
   },
 } as const;
-
-// ===== 테이블명 상수 =====
-export const TABLE_NAMES = {
-  STORIES: 'Stories',
-  CONTENTS: 'Contents',
-  STORY_COLLABORATORS: 'story_collaborators',
-  CONTENT_APPROVAL: 'ContentApproval',
-  CONTENTS_DELETED_LOG: 'contents_deleted_log',
-} as const;
-
-// ===== 컬럼명 상수 =====
-export const COLUMN_NAMES = {
-  STORIES: {
-    STORY_ID: 'story_id',
-    TITLE: 'title',
-    SUMMARY: 'summary',
-    GENRE: 'genre',
-    SOCIAL_ID: 'social_id',
-    COVER_IMAGE_URL: 'cover_image_url',
-    IS_PUBLIC: 'is_public',
-    MAX_LENGTH: 'max_length',
-    APPROVAL_PERIOD: 'approval_period',
-    APPROVED_COUNT: 'approved_count',
-    CREATED_AT: 'created_at',
-    UPDATED_AT: 'updated_at',
-  },
-  CONTENTS: {
-    CONTENT_ID: 'content_id',
-    STORY_ID: 'story_id',
-    USER_ID: 'user_id',
-    CONTENT: 'content',
-    STATUS: 'status',
-    CREATED_AT: 'created_at',
-    MERGED_AT: 'merged_at',
-  },
-  STORY_COLLABORATORS: {
-    ID: 'id',
-    STORY_ID: 'story_id',
-    USER_ID: 'user_id',
-    USER_NAME: 'user_name',
-    ROLE: 'role',
-    JOINED_AT: 'joined_at',
-  },
-  CONTENT_APPROVAL: {
-    CONTENT_ID: 'content_id',
-    USER_ID: 'user_id',
-    APPROVED_AT: 'approved_at',
-  },
-  CONTENTS_DELETED_LOG: {
-    LOG_ID: 'log_id',
-    CONTENT_ID: 'content_id',
-    STORY_ID: 'story_id',
-    CREATED_AT: 'created_at',
-    DELETED_AT: 'deleted_at',
-  },
-} as const;
-
-// ===== 테이블별 타입 정의 =====
-export type Story = Tables<'Stories'>;
-export type StoryInsert = TablesInsert<'Stories'>;
-export type StoryUpdate = TablesUpdate<'Stories'>;
-
-export type Content = Tables<'Contents'>;
-export type ContentInsert = TablesInsert<'Contents'>;
-export type ContentUpdate = TablesUpdate<'Contents'>;
-
-export type StoryCollaborator = Tables<'story_collaborators'>;
-export type StoryCollaboratorInsert = TablesInsert<'story_collaborators'>;
-export type StoryCollaboratorUpdate = TablesUpdate<'story_collaborators'>;
-
-export type ContentApproval = Tables<'ContentApproval'>;
-export type ContentApprovalInsert = TablesInsert<'ContentApproval'>;
-export type ContentApprovalUpdate = TablesUpdate<'ContentApproval'>;
-
-export type ContentsDeletedLog = Tables<'contents_deleted_log'>;
-export type ContentsDeletedLogInsert = TablesInsert<'contents_deleted_log'>;
-export type ContentsDeletedLogUpdate = TablesUpdate<'contents_deleted_log'>;
-
-// ===== Enum 타입 =====
-export type ContentStatus = Enums<'content_status'>;
-export type UserRole = Enums<'user_role'>;
