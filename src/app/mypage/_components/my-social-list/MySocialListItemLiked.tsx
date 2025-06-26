@@ -7,6 +7,7 @@ import useCollaboratorList from '@/hooks/api/mypage/useCollaboratorList';
 import { Heart } from 'lucide-react';
 import useLikeStory from '@/hooks/api/library/useLikeStory';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import toast from '@/utils/toast';
 
 const MySocialListCardItemLiked = ({
   item,
@@ -20,10 +21,15 @@ const MySocialListCardItemLiked = ({
     user_id: myInfo?.id as number,
   });
   const handleClickLike = () => {
-    if (isSignIn) {
-      if (isPending) return;
-      handleLikeStory();
-    } else {
+    if (isPending) return;
+    handleLikeStory();
+    if (!isSignIn) {
+      toast({
+        message:
+          '로그인이 필요합니다. 로그인 페이지로 이동합니다.',
+        type: 'error',
+        duration: 5,
+      });
       router.push('/signin');
     }
   };
@@ -42,7 +48,7 @@ const MySocialListCardItemLiked = ({
             title: item.title || '제목 없음',
             genre: item.genre || '장르 없음',
             participantCount: collaboratorCount,
-            capacity: item.capacity || 7,
+            capacity: item.capacity || null,
           }}
           endDate={''}
           isCardDataLoading={false}
@@ -52,12 +58,16 @@ const MySocialListCardItemLiked = ({
             router.push(`/library/detail/${item.story_id}/?page=0`)
           }
         />
-        <Heart
-          className="text-write-main h-6 w-6"
-          aria-hidden
-          fill={!!isLiked ? 'currentColor' : 'none'}
+        <button
+          type="button"
           onClick={handleClickLike}
-        />
+          aria-label={`${isLiked}`}
+        >
+          <Heart
+            className="text-write-main h-6 w-6"
+            fill={!!isLiked ? 'currentColor' : 'none'}
+          />
+        </button>
       </div>
     </div>
   );
