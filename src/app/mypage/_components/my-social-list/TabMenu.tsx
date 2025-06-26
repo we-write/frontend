@@ -1,4 +1,3 @@
-import { Heart } from 'lucide-react';
 import { TAB_TYPES, TabMenuProps, TabType } from './type';
 
 const TabMenus: TabType[] = [...TAB_TYPES];
@@ -21,17 +20,12 @@ const TabMenu = ({ activeTab, onTabChange }: TabMenuProps) => (
           ) : (
             <span className="flex-center gap-2">
               좋아요한 모임
-              <Heart
-                fill="currentColor"
-                className={`${activeTab === 'liked' ? 'text-write-main' : 'text-gray-400'} h-4 w-4`}
-              />
             </span>
           )}
         </span>
         <div
-          className={`mt-1 h-[2px] w-full transition-all ${
-            activeTab === tab ? 'bg-gray-900' : 'bg-transparent'
-          }`}
+          className={`mt-1 h-[2px] w-full transition-all ${activeTab === tab ? 'bg-gray-900' : 'bg-transparent'
+            }`}
         />
       </li>
     ))}
