@@ -1,4 +1,5 @@
 import { GenreType } from '@/api/social/type';
+import { Database } from '@/lib/supabase/database.types';
 
 export interface FormValues {
   search: string;
@@ -15,16 +16,8 @@ export interface LibraryListContainerProps {
   genres: string[];
 }
 
-interface Story {
-  story_id: string;
-  title: string;
-  genre: string;
-  summary: string;
-  cover_image_url: string;
-}
-
 export interface LibraryListGridProps {
-  stories: Story[];
+  stories: Database['public']['Tables']['Stories']['Row'][];
   imagePriorityThershold: number;
 }
 export interface GenreBadgeProps {

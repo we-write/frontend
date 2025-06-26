@@ -1,7 +1,7 @@
-import { DBStoryCollaboratorsResponse } from '@/types/dbStory';
+import { Database } from '@/lib/supabase/database.types';
 
 interface getUserRoleParams {
-  storyCollaboratorsData: DBStoryCollaboratorsResponse[];
+  storyCollaboratorsData: Database['public']['Tables']['story_collaborators']['Row'][];
   currentUserId: number;
 }
 

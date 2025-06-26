@@ -10,7 +10,7 @@ export interface GetJoinedSocialListParams {
 }
 
 export interface JoinedSocialResponse {
-  id: string;
+  id: number;
   type: SocialType | 'DALLAEMFIT';
   name: string;
   dateTime: string;
@@ -27,5 +27,5 @@ export interface JoinedSocialResponse {
 }
 
 export interface LeaveJoinSocialRequest {
-  id: string;
+  id: number;
 }

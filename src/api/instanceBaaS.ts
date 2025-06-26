@@ -1,3 +1,4 @@
+import { Database } from '@/lib/supabase/database.types';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_BAAS_URL;
@@ -8,6 +9,6 @@ if (!supabaseUrl) {
 if (!supabaseKey) {
   throw new Error('Baas API Key is not defined');
 }
-export const instanceBaaS = createClient(supabaseUrl, supabaseKey);
+export const instanceBaaS = createClient<Database>(supabaseUrl, supabaseKey);
 
 export default instanceBaaS;

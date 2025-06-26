@@ -1,28 +1,12 @@
 import { saveSummary } from '@/api/social-detail/api';
 import { QUERY_KEY } from '@/constants/queryKey';
-import { DBStoryResponse } from '@/types/dbStory';
-import {
-  useMutation,
-  UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface UseSaveSummaryParams {
   storyId: string;
 }
 
-interface UseSaveSummaryResponse {
-  storyId: string;
-  summaryHtml: string;
-}
-
-const useSaveSummary = ({
-  storyId,
-}: UseSaveSummaryParams): UseMutationResult<
-  DBStoryResponse[],
-  Error,
-  UseSaveSummaryResponse
-> => {
+const useSaveSummary = ({ storyId }: UseSaveSummaryParams) => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: saveSummary,

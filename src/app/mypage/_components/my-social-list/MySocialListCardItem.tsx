@@ -32,7 +32,7 @@ const MySocialListCardItem = ({
     Number(item.id)
   );
 
-  const handleMySocial = async (id: string) => {
+  const handleMySocial = async (id: number) => {
     if (!storyId) return;
 
     try {

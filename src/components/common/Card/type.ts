@@ -51,7 +51,7 @@ export interface DetailCardProps {
 }
 
 export interface ListCardProps {
-  pageId: string | null;
+  pageId: string | undefined;
   teamUserRole: TeamUserRole;
   image: ImageProps;
   chip: ReactNode;

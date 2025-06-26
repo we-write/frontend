@@ -117,11 +117,11 @@ export const saveSummary = async ({
 }: SaveSummaryRequest) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
-    .update([
+    .update(
       {
         summary: summaryHtml,
       },
-    ])
+    )
     .eq('story_id', storyId)
     .select();
   if (error) {

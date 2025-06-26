@@ -1,7 +1,6 @@
 import instanceBaaS from '../instanceBaaS';
 import { DB_PATH } from '@/constants/apiPath';
 import { CreateCollaboratorRequest } from './type';
-import { DBStoryCollaboratorsResponse } from '@/types/dbStory';
 
 export const createCollaborator = async (params: CreateCollaboratorRequest) => {
   const { data, role } = params;
@@ -33,7 +32,7 @@ export const createCollaborator = async (params: CreateCollaboratorRequest) => {
 
 export const getStoryCollaborators = async (
   storyId: string
-): Promise<DBStoryCollaboratorsResponse[] | null> => {
+) => {
   const { data } = await instanceBaaS
     .from(DB_PATH.STORY_COLLABORATORS)
     .select('*')

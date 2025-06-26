@@ -2,7 +2,7 @@ import { deleteSocialByDb } from '@/api/social-detail/api';
 import { useMutation } from '@tanstack/react-query';
 
 export interface useDeleteSocialByDbParams {
-  storyId?: string;
+  storyId: string;
 }
 
 const useDeleteSocialByDb = ({ storyId }: useDeleteSocialByDbParams) => {
