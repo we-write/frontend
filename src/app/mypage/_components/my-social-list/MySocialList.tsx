@@ -31,7 +31,6 @@ const MySocialList = () => {
     activeTab === 'liked'
       ? flattenedList
       : flattenedList.filter((item) => item.canceledAt === null);
-  console.log(filteredList)
 
   return (
     <div className="mt-[30px] w-full border-t-2 border-gray-900 p-6">
@@ -41,9 +40,9 @@ const MySocialList = () => {
         {!isLoading && filteredList.length === 0 && (
           <p className="py-6 pt-[20vh] text-center text-gray-500">
             {activeTab === 'joined'
-              ? '내가 참여한 모임이 아직 없어요' :
-              activeTab === 'created' ?
-                '내가 만든 모임이 아직 없어요'
+              ? '내가 참여한 모임이 아직 없어요'
+              : activeTab === 'created'
+                ? '내가 만든 모임이 아직 없어요'
                 : '내가 좋아요한 스토리가 아직 없어요'}
           </p>
         )}
