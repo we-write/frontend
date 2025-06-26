@@ -3,8 +3,6 @@ import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 import { Contents } from '@/lib/supabase/custom-types';
 
-// ===== Content Approval 테이블 CRUD 함수들 =====
-
 /**
  * 콘텐츠 승인 사용자 조회
  * from: api/stories/api.ts line.203

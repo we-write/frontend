@@ -3,8 +3,6 @@ import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 import { Contents, ContentsInsert } from '@/lib/supabase/custom-types';
 
-// ===== Contents 테이블 CRUD 함수들 =====
-
 /**
  * 스토리의 마지막 콘텐츠 조회
  */

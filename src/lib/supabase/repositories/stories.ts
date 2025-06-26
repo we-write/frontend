@@ -3,8 +3,6 @@ import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
 import { Stories, StoriesInsert } from '@/lib/supabase/custom-types';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 
-// ===== Stories 테이블 CRUD 함수들 =====
-
 /**
  * 스토리 요약 저장
  * from: api/social-detail/api.ts line.113
