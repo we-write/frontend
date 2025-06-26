@@ -40,7 +40,7 @@ const ListCard = ({
           <p className="text-sm font-medium text-white">삭제된 스토리입니다.</p>
         </div>
       )}
-      <figure className="relative h-48 w-full flex-shrink-0 sm:h-39 sm:w-70 sm:max-w-50">
+      <figure className="relative h-48 w-full flex-shrink-0 sm:h-39 sm:w-70 sm:max-w-70">
         {!isImageLoaded || isImageLoadError || isCardDataLoading ? (
           <div className="absolute h-full w-full animate-pulse rounded-xl bg-gray-300" />
         ) : null}
