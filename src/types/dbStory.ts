@@ -12,6 +12,7 @@ export interface DBStoryResponse {
   approval_period: number;
   approved_count: number;
   capacity: number;
+  social_id: number;
 }
 
 export interface DBContentResponse {

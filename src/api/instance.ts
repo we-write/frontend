@@ -24,11 +24,17 @@ instance.interceptors.request.use(async (config) => {
     rule instanceof RegExp ? rule.test(path) : rule === path
   );
 
-  if (isExcluded) {
+  const accessToken = await getCookie('accessToken');
+
+  //TODO: 임시적으로 처리 추후 삭제
+  if (path.includes('cancel')) {
+    config.headers.Authorization = `Bearer ${accessToken}`;
     return config;
   }
 
-  const accessToken = await getCookie('accessToken');
+  if (isExcluded) {
+    return config;
+  }
 
   if (!accessToken) {
     throw new Error('accessToken이 없습니다.');
