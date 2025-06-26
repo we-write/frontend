@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { DBStoryResponse } from '@/types/dbStory';
+import { Database } from '@/lib/supabase/database.types';
 
-const ContentCover = ({ story }: { story: DBStoryResponse }) => {
+const ContentCover = ({ story }: { story: Database['public']['Tables']['Stories']['Row'] }) => {
   return (
     <div className="flex-center h-[80dvh] w-[95%] flex-col">
       <div className="relative aspect-square max-h-[50vh] min-h-[200px] w-[80%] max-w-[500px] min-w-[200px]">

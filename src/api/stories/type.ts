@@ -1,3 +1,5 @@
+import { Database } from "@/lib/supabase/database.types";
+
 export interface StoryEntity {
   social_id: string;
   title: string;
@@ -12,10 +14,7 @@ export interface StoryEntity {
   approval_period: number;
 }
 
-export type CreateStoryRequest = Omit<
-  StoryEntity,
-  'summary' | 'created_at' | 'updated_at'
->;
+export type CreateStoryRequest = Database['public']['Tables']['Stories']['Insert'];
 
 export interface GetContentsParams {
   storyId: string;

@@ -1,6 +1,7 @@
 import instanceBaaS from '@/api/instanceBaaS';
-import throwOnSupabaseError from './throwOnSupabaseError';
-import { TABLE_NAMES, COLUMN_NAMES, Content } from './type';
+import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
+import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
+import { Content } from '@/lib/supabase/custom-types';
 
 // ===== Content Approval 테이블 CRUD 함수들 =====
 

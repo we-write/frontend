@@ -1,4 +1,4 @@
-import { DBContentResponse } from '@/types/dbStory';
+import { Database } from '@/lib/supabase/database.types';
 
 export interface WritableUserModalProps {
   currentStoryId: string;
@@ -12,7 +12,7 @@ export interface WritableUserModalProps {
 export interface CreateContentModalProps {
   currentStoryId: string;
   currentUserId?: number;
-  lastContentData?: DBContentResponse;
+  lastContentData?: Database['public']['Tables']['Contents']['Row'];
   maxContentLength: number;
 }
 

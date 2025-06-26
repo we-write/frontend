@@ -1,4 +1,4 @@
-import { SupabaseResponse } from './type';
+import { SupabaseResponse } from '@/lib/supabase/custom-types';
 
 const throwOnSupabaseError = async <T>(
   operation: () => Promise<SupabaseResponse<T>>

@@ -1,8 +1,9 @@
 // ===== Story Collaborators 테이블 CRUD 함수들 =====
 
 import instanceBaaS from '@/api/instanceBaaS';
-import throwOnSupabaseError from './throwOnSupabaseError';
-import { COLUMN_NAMES, StoryCollaborator, TABLE_NAMES, UserRole } from './type';
+import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
+import { StoryCollaborator, UserRole } from '@/lib/supabase/custom-types';
+import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 
 /**
  * 사용자 역할 조회

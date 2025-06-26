@@ -1,15 +1,14 @@
 import instanceBaaS from '@/api/instanceBaaS';
-import throwOnSupabaseError from './throwOnSupabaseError';
-import { TABLE_NAMES, COLUMN_NAMES, Content, ContentInsert } from './type';
+import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
+import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
+import { Content, ContentInsert } from '@/lib/supabase/custom-types';
 
 // ===== Contents 테이블 CRUD 함수들 =====
 
 /**
  * 스토리의 마지막 콘텐츠 조회
  */
-export const getLastContent = async (
-  storyId: string
-): Promise<Content | null> => {
+export const getLastContent = async (storyId: string) => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.CONTENTS)

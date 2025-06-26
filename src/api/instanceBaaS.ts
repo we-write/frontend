@@ -1,4 +1,4 @@
-import { Database } from '@/lib/supabase/type';
+import { Database } from '@/lib/supabase/database.types';
 import { createClient } from '@supabase/supabase-js';
 
 const supabaseUrl = process.env.NEXT_PUBLIC_BAAS_URL;

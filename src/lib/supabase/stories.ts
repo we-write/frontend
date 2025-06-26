@@ -1,6 +1,7 @@
 import instanceBaaS from '@/api/instanceBaaS';
-import throwOnSupabaseError from './throwOnSupabaseError';
-import { TABLE_NAMES, COLUMN_NAMES, Story, StoryInsert } from './type';
+import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
+import { Story, StoryInsert } from '@/lib/supabase/custom-types';
+import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 
 // ===== Stories 테이블 CRUD 함수들 =====
 

@@ -1,7 +1,5 @@
 import {
   DBContentApprovalResponse,
-  DBContentResponse,
-  DBStoryResponse,
 } from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
 import {
@@ -44,7 +42,7 @@ export const getStories = async ({
   return data;
 };
 
-export const getSocialSummary = async (id: string) => {
+export const getSocialSummary = async (id: number) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('*')
@@ -59,7 +57,7 @@ export const getSocialSummary = async (id: string) => {
   return data?.summary || '모임장이 소개글을 작성하고 있어요!';
 };
 
-export const getStory = async (id: string): Promise<DBStoryResponse> => {
+export const getStory = async (id: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
     .select('*')
@@ -73,7 +71,7 @@ export const getStory = async (id: string): Promise<DBStoryResponse> => {
 
 export const getLastContent = async (
   id: string
-): Promise<DBContentResponse> => {
+) => {
   const { data, error } = await instanceBaaS
     .from('Contents')
     .select('*')
@@ -92,6 +90,7 @@ export const createStory = async (story: CreateStoryRequest) => {
     .from('Stories')
     .insert(story)
     .select();
+
   if (error) {
     throw new Error(error.message);
   }
@@ -121,10 +120,7 @@ export const getImage = async (imageName: string) => {
 
 export const getContents = async ({
   storyId,
-}: GetContentsParams): Promise<{
-  data: DBContentResponse[];
-  count: number;
-}> => {
+}: GetContentsParams) => {
   const { data, error, count } = await instanceBaaS
     .from('Contents')
     .select('*', { count: 'exact' })
