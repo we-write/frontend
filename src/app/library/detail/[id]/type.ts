@@ -27,3 +27,8 @@ export interface UsePaginateContentsParams {
   contents?: { data: string[] };
   currentViewPortWidth?: number;
 }
+
+export interface ModalToSiginProps {
+  isModalOpen: boolean;
+  setFalse: () => void;
+}
