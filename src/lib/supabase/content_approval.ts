@@ -1,7 +1,7 @@
 import instanceBaaS from '@/api/instanceBaaS';
 import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
-import { Content } from '@/lib/supabase/custom-types';
+import { Contents } from '@/lib/supabase/custom-types';
 
 // ===== Content Approval 테이블 CRUD 함수들 =====
 
@@ -10,7 +10,7 @@ import { Content } from '@/lib/supabase/custom-types';
  * from: api/stories/api.ts line.203
  */
 export const getContentApproveUser = async (
-  contentId: Content['content_id']
+  contentId: Contents['content_id']
 ) => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
@@ -26,8 +26,8 @@ export const getContentApproveUser = async (
  * from: api/stories/api.ts line.214
  */
 export const insertContentApproveUser = async (
-  contentId: Content['content_id'],
-  userId: Content['user_id']
+  contentId: Contents['content_id'],
+  userId: Contents['user_id']
 ) => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS

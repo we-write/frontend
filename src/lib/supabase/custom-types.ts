@@ -12,17 +12,17 @@ export type SupabaseResponse<T> = {
 };
 
 // ===== 테이블별 타입 정의 =====
-export type Story = Tables<'Stories'>;
-export type StoryInsert = TablesInsert<'Stories'>;
-export type StoryUpdate = TablesUpdate<'Stories'>;
+export type Stories = Tables<'Stories'>;
+export type StoriesInsert = TablesInsert<'Stories'>;
+export type StoriesUpdate = TablesUpdate<'Stories'>;
 
-export type Content = Tables<'Contents'>;
-export type ContentInsert = TablesInsert<'Contents'>;
-export type ContentUpdate = TablesUpdate<'Contents'>;
+export type Contents = Tables<'Contents'>;
+export type ContentsInsert = TablesInsert<'Contents'>;
+export type ContentsUpdate = TablesUpdate<'Contents'>;
 
-export type StoryCollaborator = Tables<'story_collaborators'>;
-export type StoryCollaboratorInsert = TablesInsert<'story_collaborators'>;
-export type StoryCollaboratorUpdate = TablesUpdate<'story_collaborators'>;
+export type StoryCollaborators = Tables<'story_collaborators'>;
+export type StoryCollaboratorsInsert = TablesInsert<'story_collaborators'>;
+export type StoryCollaboratorsUpdate = TablesUpdate<'story_collaborators'>;
 
 export type ContentApproval = Tables<'ContentApproval'>;
 export type ContentApprovalInsert = TablesInsert<'ContentApproval'>;

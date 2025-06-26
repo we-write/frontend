@@ -1,7 +1,7 @@
 import instanceBaaS from '@/api/instanceBaaS';
 import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
-import { Content, ContentInsert } from '@/lib/supabase/custom-types';
+import { Contents, ContentsInsert } from '@/lib/supabase/custom-types';
 
 // ===== Contents 테이블 CRUD 함수들 =====
 
@@ -49,9 +49,9 @@ export const getContents = async ({ id, page, limit }: GetContentsParams) => {
 };
 
 interface PostContentRequest {
-  content: ContentInsert;
-  storyId: Content['story_id'];
-  userId: Content['user_id'];
+  content: ContentsInsert;
+  storyId: Contents['story_id'];
+  userId: Contents['user_id'];
 }
 
 /**

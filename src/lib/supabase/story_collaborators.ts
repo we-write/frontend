@@ -2,7 +2,7 @@
 
 import instanceBaaS from '@/api/instanceBaaS';
 import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
-import { StoryCollaborator, UserRole } from '@/lib/supabase/custom-types';
+import { StoryCollaborators, UserRole } from '@/lib/supabase/custom-types';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 
 /**
@@ -10,8 +10,8 @@ import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
  * from: api/stories/api.ts line.233
  */
 export const getSocialParticipantsByDb = async (
-  userId: StoryCollaborator['user_id']
-): Promise<StoryCollaborator['user_name'] | null> => {
+  userId: StoryCollaborators['user_id']
+): Promise<StoryCollaborators['user_name'] | null> => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.STORY_COLLABORATORS)
@@ -26,8 +26,8 @@ export const getSocialParticipantsByDb = async (
  * from: api/stories/api.ts line.144
  */
 export const getUserRole = async (
-  userId: StoryCollaborator['user_id'],
-  storyId: StoryCollaborator['story_id']
+  userId: StoryCollaborators['user_id'],
+  storyId: StoryCollaborators['story_id']
 ): Promise<{
   role: UserRole;
 } | null> => {

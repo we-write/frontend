@@ -1,6 +1,6 @@
 import instanceBaaS from '@/api/instanceBaaS';
 import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
-import { Story, StoryInsert } from '@/lib/supabase/custom-types';
+import { Stories, StoriesInsert } from '@/lib/supabase/custom-types';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 
 // ===== Stories 테이블 CRUD 함수들 =====
@@ -10,10 +10,10 @@ import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
  * from: api/social-detail/api.ts line.113
  */
 export const saveSummary = async (
-  socialId: Story['social_id'],
-  summaryHtml: NonNullable<Story['summary']>
-): Promise<Story[]> => {
-  const data = await throwOnSupabaseError<Story[]>(async () => {
+  socialId: Stories['social_id'],
+  summaryHtml: NonNullable<Stories['summary']>
+): Promise<Stories[]> => {
+  const data = await throwOnSupabaseError<Stories[]>(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.STORIES)
       .update({ summary: summaryHtml })
@@ -29,8 +29,8 @@ export const saveSummary = async (
  * from: api/social-detail/api.ts
  */
 export const getSummary = async (
-  socialId: Story['social_id']
-): Promise<Pick<Story, 'summary'> | null> => {
+  socialId: Stories['social_id']
+): Promise<Pick<Stories, 'summary'> | null> => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.STORIES)
@@ -46,8 +46,8 @@ export const getSummary = async (
  * from: api/social-detail/api.ts line.157
  */
 export const getStoryId = async (
-  socialId: Story['social_id']
-): Promise<Pick<Story, 'story_id'> | null> => {
+  socialId: Stories['social_id']
+): Promise<Pick<Stories, 'story_id'> | null> => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.STORIES)
@@ -103,7 +103,7 @@ export const getStories = async (params: GetStoriesParams) => {
  * 소셜 요약 조회
  * from: api/stories/api.ts line.43
  */
-export const getSocialSummary = async (socialId: Story['social_id']) => {
+export const getSocialSummary = async (socialId: Stories['social_id']) => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.STORIES)
@@ -127,7 +127,7 @@ export const getSocialSummary = async (socialId: Story['social_id']) => {
  * 스토리 조회
  * from: api/stories/api.ts line.58
  */
-export const getStory = async (storyId: Story['story_id']) => {
+export const getStory = async (storyId: Stories['story_id']) => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.STORIES)
@@ -143,7 +143,7 @@ export const getStory = async (storyId: Story['story_id']) => {
  * 스토리 생성
  * from: api/stories/api.ts line.86
  */
-export const insertStory = async (story: StoryInsert) => {
+export const insertStory = async (story: StoriesInsert) => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS.from(TABLE_NAMES.STORIES).insert(story).select();
   });
