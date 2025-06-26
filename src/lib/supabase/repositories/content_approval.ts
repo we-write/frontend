@@ -2,10 +2,10 @@ import instanceBaaS from '@/api/instanceBaaS';
 import throwOnSupabaseError from '@/lib/supabase/throwOnSupabaseError';
 import { TABLE_NAMES, COLUMN_NAMES } from '@/constants/supabase';
 import { Contents } from '@/lib/supabase/custom-types';
+import { InsertContentApproveUserRequest } from '@/lib/supabase/repositories/content_approval.type';
 
 /**
  * 콘텐츠 승인 사용자 조회
- * from: api/stories/api.ts line.203
  */
 export const getContentApproveUser = async (
   contentId: Contents['content_id']
@@ -21,12 +21,11 @@ export const getContentApproveUser = async (
 
 /**
  * 콘텐츠 승인 사용자 추가
- * from: api/stories/api.ts line.214
  */
-export const insertContentApproveUser = async (
-  contentId: Contents['content_id'],
-  userId: Contents['user_id']
-) => {
+export const insertContentApproveUser = async ({
+  userId,
+  contentId,
+}: InsertContentApproveUserRequest) => {
   const data = await throwOnSupabaseError(async () => {
     return await instanceBaaS
       .from(TABLE_NAMES.CONTENT_APPROVAL)

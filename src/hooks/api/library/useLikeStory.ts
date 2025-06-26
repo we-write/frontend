@@ -1,9 +1,13 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { cancelLikeStory, getStoryLikes, likeStory } from '@/api/stories/api';
-import { DBStoryLikeResponse } from '@/types/dbStory';
 import { QUERY_KEY } from '@/constants/queryKey';
 
-const useLikeStory = ({ story_id, user_id }: DBStoryLikeResponse) => {
+interface UseLikeStoryParams {
+  user_id: number;
+  story_id: string;
+}
+
+const useLikeStory = ({ story_id, user_id }: UseLikeStoryParams) => {
   const queryClient = useQueryClient();
   const { data: isLiked } = useQuery({
     queryKey: [QUERY_KEY.IS_LIKED, story_id, user_id],

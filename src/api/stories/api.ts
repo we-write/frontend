@@ -1,12 +1,7 @@
-import {
-  DBContentApprovalResponse,
-} from '@/types/dbStory';
 import instanceBaaS from '../instanceBaaS';
 import {
   GetContentsParams,
   PostContentRequest,
-  GetApproveUserParams,
-  ApproveContentRequest,
   GetStoriesParams,
   CreateStoryRequest,
 } from './type';
@@ -69,9 +64,7 @@ export const getStory = async (id: string) => {
   return data;
 };
 
-export const getLastContent = async (
-  id: string
-) => {
+export const getLastContent = async (id: string) => {
   const { data, error } = await instanceBaaS
     .from('Contents')
     .select('*')
@@ -118,9 +111,7 @@ export const getImage = async (imageName: string) => {
   return data.publicUrl;
 };
 
-export const getContents = async ({
-  storyId,
-}: GetContentsParams) => {
+export const getContents = async ({ storyId }: GetContentsParams) => {
   const { data, error, count } = await instanceBaaS
     .from('Contents')
     .select('*', { count: 'exact' })
@@ -192,36 +183,6 @@ export const postContent = async ({
   if (error) {
     throw new Error(error.message);
   }
-};
-
-export const getApproveUser = async ({ contentId }: GetApproveUserParams) => {
-  const { data, error } = await instanceBaaS
-    .from('ContentApproval')
-    .select('*')
-    .eq('content_id', contentId);
-
-  if (error && error.code === 'PGRST116') return null;
-  if (error) throw new Error(error.message);
-  return data;
-};
-
-export const approveContent = async ({
-  userId,
-  contentId,
-}: ApproveContentRequest): Promise<DBContentApprovalResponse[]> => {
-  const { data, error } = await instanceBaaS
-    .from('ContentApproval')
-    .insert([
-      {
-        content_id: contentId,
-        user_id: userId,
-      },
-    ])
-    .select();
-  if (error) {
-    throw new Error(error.message);
-  }
-  return data;
 };
 
 export const getSocialParticipantsByDb = async (userId: number) => {
