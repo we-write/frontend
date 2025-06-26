@@ -32,6 +32,10 @@ export type ContentsDeletedLog = Tables<'contents_deleted_log'>;
 export type ContentsDeletedLogInsert = TablesInsert<'contents_deleted_log'>;
 export type ContentsDeletedLogUpdate = TablesUpdate<'contents_deleted_log'>;
 
+export type StoryLikes = Tables<'story_likes'>;
+export type StoryLikesInsert = TablesInsert<'story_likes'>;
+export type StoryLikesUpdate = TablesUpdate<'story_likes'>;
+
 // ===== Enum 타입 =====
 export type ContentStatus = Enums<'content_status'>;
 export type UserRole = Enums<'user_role'>;
