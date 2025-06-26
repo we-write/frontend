@@ -7,18 +7,22 @@ import usePostContent from '@/hooks/api/supabase/stories/usePostContent';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
 import { TextEditorRef } from '@/types/textEditor';
 import validateEditorContent from '@/utils/validators/validateEditorContent';
+import { useQueryClient } from '@tanstack/react-query';
+import { QUERY_KEY } from '@/constants/queryKey';
+import { getLastContent } from '@/api/stories/api';
+import { DBContentResponse } from '@/types/dbStory';
 
 const CONTENT_MIN_LENGTH = 20;
 
 const CreateContentModal = ({
   currentStoryId,
   currentUserId,
-  lastContentData,
   maxContentLength,
 }: CreateContentModalProps) => {
   const editorContentRef = useRef<TextEditorRef>(null);
   const { isOpen, closeModal } = useStoryModal();
   const { mutate } = usePostContent({ storyId: currentStoryId });
+  const queryClient = useQueryClient();
   const temporaryContent =
     typeof window !== 'undefined'
       ? localStorage.getItem('TemporaryContent') || ''
@@ -38,34 +42,58 @@ const CreateContentModal = ({
     alert('임시 저장되었습니다.');
   };
 
-  const handlePostStoryContent = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!currentUserId) {
-      console.warn('유저 정보가 존재하지 않습니다.');
-      return;
-    }
-    if (lastContentData?.status === 'PENDING') {
+  const refetchLastContent = async () => {
+    const result = await queryClient.fetchQuery({
+      queryKey: [QUERY_KEY.GET_LAST_CONTENT, currentStoryId],
+      queryFn: () => getLastContent(currentStoryId),
+      staleTime: 0,
+    });
+
+    return result;
+  };
+
+  const lastContentStatusCheck = (
+    content: DBContentResponse | null | undefined
+  ) => {
+    if (content?.status === 'PENDING') {
       alert('승인 대기 중인 글이 존재하여 등록할 수 없습니다.');
       return;
     }
+
     const validateResult = validateEditorContent({
       ref: editorContentRef,
       minLength: CONTENT_MIN_LENGTH,
     });
+
     if (!validateResult) return;
+
     const postStoryConfirmed = window.confirm(
       '등록된 후엔 수정할 수 없습니다. 등록하시겠습니까?'
     );
+
     if (postStoryConfirmed) {
       mutate({
         storyId: currentStoryId,
         content: validateResult.newExtractionHtml,
-        userId: currentUserId,
+        userId: currentUserId!,
       });
       localStorage.removeItem('TemporaryContent');
     } else {
       return;
     }
+  };
+
+  const handlePostStoryContent = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (!currentUserId) {
+      console.warn('유저 정보가 존재하지 않습니다.');
+      return;
+    }
+
+    const currentLastContentData = await refetchLastContent();
+
+    lastContentStatusCheck(currentLastContentData);
   };
 
   const handleCloseModal = () => {
