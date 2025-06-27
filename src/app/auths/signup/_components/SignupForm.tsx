@@ -54,18 +54,14 @@ const SignupForm = () => {
             name="password"
             suffixIcon={
               <button
-                name="toggleShowPassword"
-                aria-label="toggleShowPassword"
                 role="button"
+                name="toggle-show-password"
+                aria-label="비밀번호 토글 버튼"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPassword}
               >
-                {showPassword ? (
-                  <Eye aria-label="show password" fill="currentColor" />
-                ) : (
-                  <EyeOff aria-label="hide password" fill="currentColor" />
-                )}
+                {showPassword ? <Eye aria-hidden /> : <EyeOff aria-hidden />}
               </button>
             }
             type={showPassword ? 'text' : 'password'}
@@ -88,17 +84,17 @@ const SignupForm = () => {
             name="passwordCheck"
             suffixIcon={
               <button
-                name="toggleShowPasswordCheck"
-                aria-label="toggleShowPasswordCheck"
                 role="button"
+                name="toggle-show-password-check"
+                aria-label="비밀번호 확인 토글 버튼"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPasswordCheck}
               >
                 {showPasswordCheck ? (
-                  <Eye aria-label="show password" fill="currentColor" />
+                  <Eye aria-hidden />
                 ) : (
-                  <EyeOff aria-label="hide password" fill="currentColor" />
+                  <EyeOff aria-hidden />
                 )}
               </button>
             }
