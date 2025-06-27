@@ -4,24 +4,23 @@ import '@testing-library/jest-dom';
 import { FormEvent, FormEventHandler } from 'react';
 import { signInValidate } from '@/utils/validators/auth';
 
-const mockSubmit = jest.fn();
+// 하나의 모킹 객체로 통합
+const mockUseSignInForm = jest.fn();
 
-jest.mock('@/hooks/api/auth/useSignInForm', () => {
-  return {
-    __esModule: true,
-    useSignInForm: () => ({
+jest.mock('@/hooks/api/auth/useSignInForm', () => ({
+  __esModule: true,
+  useSignInForm: () => mockUseSignInForm(),
+}));
+
+describe('SignInForm 렌더링 테스트', () => {
+  beforeEach(() => {
+    mockUseSignInForm.mockReturnValue({
       register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
       handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
       isSubmitting: false,
       errors: {},
-      onSubmit: mockSubmit,
-    }),
-  };
-});
-
-describe('SignInForm 렌더링 테스트', () => {
-  beforeEach(() => {
-    mockSubmit.mockClear();
+      onSubmit: jest.fn(), // 여기서 직접 jest.fn() 사용
+    });
   });
 
   it('이메일과 비밀번호 입력 필드가 렌더링되어야 한다', () => {
@@ -34,15 +33,25 @@ describe('SignInForm 렌더링 테스트', () => {
   it('비밀번호 토글 버튼을 클릭하면 입력 타입이 바뀐다', () => {
     render(<SignInForm />);
     const toggleButton = screen.getByRole('button', {
-      name: /show password|hide password/i,
+      name: '비밀번호 토글 버튼',
     });
     const passwordInput = screen.getByLabelText('비밀번호');
 
     expect(passwordInput).toHaveAttribute('type', 'password');
     fireEvent.click(toggleButton);
+    expect(passwordInput).toHaveAttribute('type', 'text');
   });
 
   it('유효한 값 입력 시 onSubmit이 호출된다', async () => {
+    const mockSubmit = jest.fn();
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
+      handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
+      isSubmitting: false,
+      errors: {},
+      onSubmit: mockSubmit,
+    });
+
     render(<SignInForm />);
     const submitButton = screen.getByRole('button', { name: /로그인/i });
 
@@ -51,6 +60,68 @@ describe('SignInForm 렌더링 테스트', () => {
     await waitFor(() => {
       expect(mockSubmit).toHaveBeenCalled();
     });
+  });
+});
+
+describe('SignInForm 에러 메시지 테스트', () => {
+  beforeEach(() => {
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
+      handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
+      isSubmitting: false,
+      errors: { email: { message: '이메일을 입력해주세요' } },
+      onSubmit: jest.fn(),
+    });
+  });
+
+  it('이메일 에러가 있을 때 에러 메시지가 렌더링된다', () => {
+    render(<SignInForm />);
+    expect(screen.getByText('이메일을 입력해주세요')).toBeInTheDocument();
+  });
+
+  it('비밀번호 에러가 있을 때 에러 메시지가 렌더링된다', () => {
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
+      handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
+      isSubmitting: false,
+      errors: { password: { message: '비밀번호를 입력해주세요' } },
+      onSubmit: jest.fn(),
+    });
+
+    render(<SignInForm />);
+    expect(screen.getByText('비밀번호를 입력해주세요')).toBeInTheDocument();
+  });
+});
+
+describe('SignInForm 제출 상태 테스트', () => {
+  beforeEach(() => {
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
+      handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
+      isSubmitting: true,
+      errors: {},
+      onSubmit: jest.fn(),
+    });
+  });
+
+  it('isSubmitting이 true일 때 버튼이 비활성화된다', () => {
+    render(<SignInForm />);
+    const submitButton = screen.getByRole('button', { name: /로그인/i });
+    expect(submitButton).toBeDisabled();
+  });
+
+  it('에러가 있을 때 버튼이 비활성화된다', () => {
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
+      handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
+      isSubmitting: false,
+      errors: { email: { message: '이메일을 입력해주세요' } },
+      onSubmit: jest.fn(),
+    });
+
+    render(<SignInForm />);
+    const submitButton = screen.getByRole('button', { name: /로그인/i });
+    expect(submitButton).toBeDisabled();
   });
 });
 
