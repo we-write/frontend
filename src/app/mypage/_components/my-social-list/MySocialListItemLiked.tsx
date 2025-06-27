@@ -8,6 +8,7 @@ import { Heart } from 'lucide-react';
 import useLikeStory from '@/hooks/api/library/useLikeStory';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import toast from '@/utils/toast';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const MySocialListCardItemLiked = ({
   item,
@@ -55,7 +56,7 @@ const MySocialListCardItemLiked = ({
           isCompletedStory={true}
           isCanceled={false}
           handleButtonClick={() =>
-            router.push(`/library/detail/${item.story_id}/?page=0`)
+            router.push(`${APP_ROUTES.libraryDetail}/${item.story_id}/?page=0`)
           }
         />
         <button

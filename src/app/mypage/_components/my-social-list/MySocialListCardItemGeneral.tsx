@@ -13,6 +13,7 @@ import { useRouter } from 'next/navigation';
 import getSocialActionMessage from '@/utils/getSocialActionMessage';
 import { useStoryIdBySocialId } from '@/hooks/api/supabase/useStoryIdBySocialId';
 import { LocationType } from '@/api/social/type';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const MySocialListCardItemGeneral = ({
   item,
@@ -50,7 +51,7 @@ const MySocialListCardItemGeneral = ({
           refetch();
         }
       } else {
-        router.push(`/library/detail/${storyId}/?page=0`);
+        router.push(`${APP_ROUTES.socialDetail}/${storyId}/?page=0`);
       }
     } catch (error) {
       console.error(error);
