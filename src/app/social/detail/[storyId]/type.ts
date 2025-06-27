@@ -1,4 +1,4 @@
-import { DBStoryResponse } from '@/types/dbStory';
+import { Database } from '@/lib/supabase/database.types';
 
 export interface SocialDetailPageParams {
   storyId: string;
@@ -28,5 +28,5 @@ export interface UseSocialDetailDataParams {
 
 export interface UseManageSummaryParams {
   storyId: string;
-  storiesData?: DBStoryResponse;
+  storiesData?: Database['public']['Tables']['Stories']['Insert'];
 }

@@ -81,7 +81,7 @@ const useCreateSocialForm = () => {
 
     return {
       ...storySettingsData,
-      social_id: socialResponse.id.toString(),
+      social_id: socialResponse.id,
       title: socialResponse.name,
       cover_image_url: socialResponse.image,
       genre,

@@ -26,7 +26,7 @@ const LibraryListGrid = ({
             title: story.title,
             genre: story.genre,
             description:
-              htmlToString(story.summary) ||
+              htmlToString(story.summary ?? '') ||
               '모임장이 소개글을 작성하고 있어요!',
           }}
           isCardDataLoading={false}

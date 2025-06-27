@@ -8,4 +8,4 @@ export const API_PATH = {
 
 export const DB_PATH = {
   STORY_COLLABORATORS: 'story_collaborators',
-};
+} as const;

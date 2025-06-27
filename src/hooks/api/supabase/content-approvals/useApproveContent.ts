@@ -1,29 +1,17 @@
-import { approveContent, updateContentMerge } from '@/api/stories/api';
-import { ApproveContentRequest } from '@/api/stories/type';
+import { updateContentMerge } from '@/api/stories/api';
 import { QUERY_KEY } from '@/constants/queryKey';
-import { DBContentApprovalResponse } from '@/types/dbStory';
-import {
-  useMutation,
-  UseMutationResult,
-  useQueryClient,
-} from '@tanstack/react-query';
+import { insertContentApproveUser } from '@/lib/supabase/repositories/content_approval';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 interface UseApproveContentParams {
   storyId: string;
   contentId?: string;
 }
 
-const useApproveContent = ({
-  storyId,
-  contentId,
-}: UseApproveContentParams): UseMutationResult<
-  DBContentApprovalResponse[],
-  Error,
-  ApproveContentRequest
-> => {
+const useApproveContent = ({ storyId, contentId }: UseApproveContentParams) => {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: approveContent,
+    mutationFn: insertContentApproveUser,
     onError: (error) => {
       console.error(error);
     },
