@@ -3,8 +3,9 @@ import Button from '@/components/common/Button/Button';
 import InputForm from '@/components/common/Form/InputForm';
 import useBoolean from '@/hooks/useBoolean';
 import { useSignInForm } from '@/hooks/api/auth/useSignInForm';
-import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
+
 import { signInValidate } from '@/utils/validators/auth';
+import { Eye, EyeOff } from 'lucide-react';
 
 const SignInForm = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
@@ -39,13 +40,14 @@ const SignInForm = () => {
         suffixIcon={
           <button
             type="button"
+            aria-label="비밀번호 토글 버튼"
             className="flex items-center justify-center"
             onClick={toggleIsShowPassword}
           >
             {isShowPassword ? (
-              <VisibilityOn aria-label="show password" fill="currentColor" />
+              <Eye aria-hidden="true" />
             ) : (
-              <VisibilityOff aria-label="hide password" fill="currentColor" />
+              <EyeOff aria-hidden="true" />
             )}
           </button>
         }
