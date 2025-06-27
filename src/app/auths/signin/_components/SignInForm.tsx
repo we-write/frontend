@@ -40,13 +40,14 @@ const SignInForm = () => {
         suffixIcon={
           <button
             type="button"
+            aria-label="비밀번호 토글 버튼"
             className="flex items-center justify-center"
             onClick={toggleIsShowPassword}
           >
             {isShowPassword ? (
-              <Eye aria-label="show password" fill="currentColor" />
+              <Eye aria-hidden="true" />
             ) : (
-              <EyeOff aria-label="hide password" fill="currentColor" />
+              <EyeOff aria-hidden="true" />
             )}
           </button>
         }
