@@ -55,9 +55,7 @@ const SignupForm = () => {
             suffixIcon={
               <button
                 name="toggleShowPassword"
-                aria-label="toggleShowPassword"
                 role="button"
-                name="toggle-show-password"
                 aria-label="비밀번호 토글 버튼"
                 type="button"
                 className="flex items-center justify-center"
@@ -86,8 +84,6 @@ const SignupForm = () => {
             name="passwordCheck"
             suffixIcon={
               <button
-                name="toggleShowPasswordCheck"
-                aria-label="toggleShowPasswordCheck"
                 role="button"
                 name="toggle-show-password-check"
                 aria-label="비밀번호 확인 토글 버튼"
