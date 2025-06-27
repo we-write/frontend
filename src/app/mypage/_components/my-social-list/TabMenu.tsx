@@ -18,14 +18,13 @@ const TabMenu = ({ activeTab, onTabChange }: TabMenuProps) => (
           ) : tab === 'created' ? (
             '내가 만든 모임'
           ) : (
-            <span className="flex-center gap-2">
-              좋아요한 모임
-            </span>
+            <span className="flex-center gap-2">좋아요한 모임</span>
           )}
         </span>
         <div
-          className={`mt-1 h-[2px] w-full transition-all ${activeTab === tab ? 'bg-gray-900' : 'bg-transparent'
-            }`}
+          className={`mt-1 h-0.5 w-full transition-all ${
+            activeTab === tab ? 'bg-gray-900' : 'bg-transparent'
+          }`}
         />
       </li>
     ))}
