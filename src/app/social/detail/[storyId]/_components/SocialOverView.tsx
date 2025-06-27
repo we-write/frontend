@@ -5,6 +5,10 @@ import Image from 'next/image';
 import { SocialOverViewProps } from '@/app/social/detail/[storyId]/type';
 import useSocialActions from '@/app/social/detail/[storyId]/hooks/useSocialActions';
 import useSocialDetailData from '@/app/social/detail/[storyId]/hooks/useSocialDetailData';
+import useDeleteSocial from '@/hooks/api/social/useDeleteSocial';
+import handleError from '@/utils/error';
+import { TeamUserRole } from '@/types/teamUserRole';
+import toast from '@/utils/toast';
 
 const SocialOverView = ({
   currentUserId,
@@ -22,6 +26,30 @@ const SocialOverView = ({
     userId: currentUserId,
     userName: currentUserName,
   });
+
+  const { mutate } = useDeleteSocial({
+    onSuccess: () => {
+      toast.success('모임이 삭제되었습니다.');
+    },
+    onError: (error) => {
+      handleError(error);
+    },
+  });
+
+  const handleDeleteButtonClick = (role: TeamUserRole) => {
+    if (!storiesData) return;
+
+    const deleteSocialConfirmed = window.confirm(
+      '모든 데이터는 삭제되면 복구할 수 없습니다. 모임을 정말 삭제하시겠습니까? '
+    );
+
+    const socialId = storiesData.social_id;
+
+    if (deleteSocialConfirmed) {
+      mutate(socialId);
+      deleteSocial(role);
+    }
+  };
 
   // TODO: storyCollaborators 테이블에 이미지 컬럼 추가되면 활성화
   // const imageUrls = extractUserImages(socialTeamsParticipantsData);
@@ -56,7 +84,7 @@ const SocialOverView = ({
           isCardDataLoading={isLoading}
           imageUrls={[]} // TODO: DB에서 받아올 수 있을 때 imageUrls로 수정
           handleButtonClick={() => navigateStoryOrJoinSocial(userRole)}
-          handleDeleteButtonClick={() => deleteSocial(userRole)}
+          handleDeleteButtonClick={() => handleDeleteButtonClick(userRole)}
         />
       </div>
     </div>

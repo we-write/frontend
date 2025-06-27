@@ -4,17 +4,19 @@ import { SigninRequest } from '@/api/auth/type';
 
 import { useRouter } from 'next/navigation';
 import toast from '@/utils/toast';
-import { APP_ROUTES } from '@/constants/appRoutes';
+import useReferer from '@/hooks/useReferer';
 
 export const usePostSignin = () => {
   const queryClient = useQueryClient();
+  const { redirectPath } = useReferer();
   const router = useRouter();
+
   return useMutation({
     mutationFn: (data: SigninRequest) => postSignIn(data),
     onSuccess: async () => {
-      toast.success('로그인에 성공했습니다.');
       await queryClient.prefetchQuery({ queryKey: ['myInfo'] });
-      router.push(APP_ROUTES.social);
+      router.replace(redirectPath);
+      toast.success('로그인에 성공했습니다.');
     },
     onError: (error: Error) => {
       const errorData = JSON.parse(error.message);

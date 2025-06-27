@@ -1,5 +1,3 @@
-import { DBContentResponse } from '@/types/dbStory';
-
 export interface WritableUserModalProps {
   currentStoryId: string;
   currentUserNickName?: string;
@@ -12,7 +10,6 @@ export interface WritableUserModalProps {
 export interface CreateContentModalProps {
   currentStoryId: string;
   currentUserId?: number;
-  lastContentData?: DBContentResponse;
   maxContentLength: number;
 }
 
@@ -26,4 +23,9 @@ export interface PaginationControlProps {
 export interface UsePaginateContentsParams {
   contents?: { data: string[] };
   currentViewPortWidth?: number;
+}
+
+export interface ModalToSiginProps {
+  isModalOpen: boolean;
+  setFalse: () => void;
 }

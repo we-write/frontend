@@ -91,13 +91,3 @@ export const leaveJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
     throw error;
   }
 };
-
-// TODO: 달램 api 모임장의 모임 삭제 기능 (필요 없을시 지워도됨)
-export const cancelJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
-  try {
-    const response = await instance.put(API_PATH.SOCIAL + `/${id}/cancel`);
-    return response.data;
-  } catch (error) {
-    throw error;
-  }
-};

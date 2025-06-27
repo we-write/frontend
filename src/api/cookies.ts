@@ -5,7 +5,7 @@ export const setCookie = async (key: string, value: string) => {
   cookieStore.set(key, value, {
     httpOnly: true,
     secure: true,
-    maxAge: 60 * 60 * 24 * 30,
+    maxAge: 60 * 60,
     path: '/',
   });
 };

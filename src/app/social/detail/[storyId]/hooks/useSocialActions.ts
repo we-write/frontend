@@ -55,11 +55,6 @@ const useSocialActions = ({
   const deleteSocial = (role: TeamUserRole) => {
     if (role !== 'LEADER') return;
 
-    const deleteSocialConfirmed = window.confirm(
-      '모든 데이터는 삭제되면 복구할 수 없습니다. 모임을 정말 삭제하시겠습니까? '
-    );
-    if (!deleteSocialConfirmed) return;
-
     deleteSocialData();
     router.push(`${APP_ROUTES.home}`);
   };

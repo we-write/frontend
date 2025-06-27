@@ -54,7 +54,7 @@ const StoryDetail = () => {
       case 'MEMBER':
         return (
           <>
-            <StoryModalTriggerButton />
+            <StoryModalTriggerButton storyId={storyId} />
             <WritableUserModal
               currentStoryId={storyId}
               {...(myInfo && { currentUserId: myInfo.id })}

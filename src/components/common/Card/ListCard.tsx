@@ -59,7 +59,7 @@ const ListCard = ({
           </div>
         )}
       </figure>
-      <div className="flex w-full flex-col gap-3 px-1.5 sm:p-0">
+      <div className="flex w-full flex-col justify-center gap-3 px-1.5 sm:p-0">
         {!isCardDataLoading && chip ? (
           <div>{chip}</div>
         ) : (

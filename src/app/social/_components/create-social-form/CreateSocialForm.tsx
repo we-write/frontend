@@ -28,7 +28,7 @@ const CreateSocialForm = ({ onClose }: CreateSocialFormProps) => {
     if (!createSocialResult.status) return;
 
     // TODO: toast popup출력 추가하기
-    router.push(`${APP_ROUTES.socialDetail}/${createSocialResult.socialId}`);
+    router.push(`${APP_ROUTES.socialDetail}/${createSocialResult.storyId}`);
     queryClient.invalidateQueries({ queryKey: [QUERY_KEY.SOCIAL] });
     onClose();
   };

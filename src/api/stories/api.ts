@@ -80,7 +80,7 @@ export const getLastContent = async (
     .eq('story_id', id)
     .order('merged_at', { ascending: false })
     .limit(1)
-    .single();
+    .maybeSingle();
   if (error) {
     throw new Error(error.message);
   }
@@ -240,6 +240,44 @@ export const getSocialParticipantsByDb = async (userId: number) => {
   return data[0].user_name;
 };
 
+export const likeStory = async (storyId: string, userId: number) => {
+  const { data, error } = await instanceBaaS.from('story_likes').insert([
+    {
+      story_id: storyId,
+      user_id: userId,
+    },
+  ]);
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+
+export const getStoryLikes = async (storyId: string) => {
+  const { data, error } = await instanceBaaS
+    .from('story_likes')
+    .select('*', { count: 'exact' })
+    .eq('story_id', storyId);
+  if (!data) return [];
+
+  if (error) {
+    throw new Error(error);
+  }
+  return data;
+};
+
+export const cancelLikeStory = async (storyId: string, userId: number) => {
+  const { data, error } = await instanceBaaS
+    .from('story_likes')
+    .delete()
+    .eq('story_id', storyId)
+    .eq('user_id', userId)
+    .single();
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
 export const checkStoryExists = async (storyId: string) => {
   const { data, error } = await instanceBaaS
     .from('Stories')
