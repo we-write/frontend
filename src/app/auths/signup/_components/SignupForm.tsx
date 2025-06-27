@@ -5,7 +5,8 @@ import InputForm from '@/components/common/Form/InputForm';
 
 import useBoolean from '@/hooks/useBoolean';
 import useSignUpForm from '@/hooks/api/auth/useSignUpForm';
-import { VisibilityOff, VisibilityOn } from '@public/assets/icons';
+
+import { Eye, EyeOff } from 'lucide-react';
 import { signUpValidate } from '@/utils/validators/auth';
 
 const SignupForm = () => {
@@ -53,21 +54,14 @@ const SignupForm = () => {
             name="password"
             suffixIcon={
               <button
+                role="button"
+                name="toggle-show-password"
+                aria-label="비밀번호 토글 버튼"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPassword}
               >
-                {showPassword ? (
-                  <VisibilityOn
-                    aria-label="show password"
-                    fill="currentColor"
-                  />
-                ) : (
-                  <VisibilityOff
-                    aria-label="hide password"
-                    fill="currentColor"
-                  />
-                )}
+                {showPassword ? <Eye aria-hidden /> : <EyeOff aria-hidden />}
               </button>
             }
             type={showPassword ? 'text' : 'password'}
@@ -90,20 +84,17 @@ const SignupForm = () => {
             name="passwordCheck"
             suffixIcon={
               <button
+                role="button"
+                name="toggle-show-password-check"
+                aria-label="비밀번호 확인 토글 버튼"
                 type="button"
                 className="flex items-center justify-center"
                 onClick={toggleShowPasswordCheck}
               >
                 {showPasswordCheck ? (
-                  <VisibilityOn
-                    aria-label="show password"
-                    fill="currentColor"
-                  />
+                  <Eye aria-hidden />
                 ) : (
-                  <VisibilityOff
-                    aria-label="hide password"
-                    fill="currentColor"
-                  />
+                  <EyeOff aria-hidden />
                 )}
               </button>
             }
