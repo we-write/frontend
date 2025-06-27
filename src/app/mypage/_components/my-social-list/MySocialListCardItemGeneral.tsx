@@ -84,7 +84,7 @@ const MySocialListCardItemGeneral = ({
         isCardDataLoading={!storyId || isStoryLoading}
         isCompletedStory={isJoined ? item.registrationEnd < nowDate : true}
         isCanceled={false}
-        handleButtonClick={() => handleMySocial(item.id)}
+        handleButtonClick={() => handleMySocial(String(item.id))}
       />
     </div>
   );

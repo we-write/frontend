@@ -32,7 +32,7 @@ export const getStoryBySocialId = async (
 ): Promise<string | null> => {
   const { data, error } = await instanceBaaS
     .from('Stories')
-    .select('*')
+    .select('story_id')
     .eq('social_id', socialId)
     .maybeSingle();
 
