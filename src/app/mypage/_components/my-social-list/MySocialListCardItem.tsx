@@ -12,6 +12,8 @@ import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import { useRouter } from 'next/navigation';
 import getSocialActionMessage from '@/utils/getSocialActionMessage';
 import { useStoryIdBySocialId } from '@/hooks/api/supabase/useStoryIdBySocialId';
+import toast from '@/utils/toast';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const MySocialListCardItem = ({
   item,
@@ -35,27 +37,23 @@ const MySocialListCardItem = ({
   const handleMySocial = async (id: string) => {
     if (!storyId) return;
 
-    try {
-      const messages = {
-        confirm: getSocialActionMessage('모임').confirm('exit'),
-        success: getSocialActionMessage('모임').success('exit'),
-      };
+    const messages = {
+      confirm: getSocialActionMessage('모임').confirm('exit'),
+      success: getSocialActionMessage('모임').success('exit'),
+    };
 
-      if (isJoined) {
-        const confirmed = window.confirm(messages.confirm);
-        if (!confirmed) return;
+    if (isJoined) {
+      const confirmed = window.confirm(messages.confirm);
+      if (!confirmed) return;
+
+      if (userId) {
         await leaveJoinSocial({ id });
-        if (userId) {
-          await deleteCollaboratorFromSocial(userId, storyId);
-          alert(messages.success);
-          refetch();
-        }
-      } else {
-        router.push(`/library/detail/${storyId}/?page=0`);
+        await deleteCollaboratorFromSocial(userId, storyId);
+        toast.success(messages.success);
+        refetch();
       }
-    } catch (error) {
-      console.error(error);
-      alert('모임 취소에 실패했습니다.');
+    } else {
+      router.push(`${APP_ROUTES.libraryDetail}/${storyId}/?page=0`);
     }
   };
 
@@ -65,9 +63,7 @@ const MySocialListCardItem = ({
         teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
         pageId={storyId}
         image={{
-          src:
-            item.image ||
-            'https://inabooth.io/_next/image?url=https%3A%2F%2Fd19bi7owzxc0m2.cloudfront.net%2Fprod%2Fcharacter_files%2FRwH7fLwSHwA4_e2s354f2.webp&w=3840&q=75',
+          src: item.image,
           alt: item.name || '섬네일 이미지',
         }}
         chip

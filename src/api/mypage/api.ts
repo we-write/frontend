@@ -7,6 +7,10 @@ import {
 import instance from '@/api/instance';
 import { getFilterParams } from '@/utils/getFilterParams';
 import instanceBaaS from '@/api/instanceBaaS';
+import { getCookie } from '@/api/cookies';
+import toast from '@/utils/toast';
+import { APP_ROUTES } from '@/constants/appRoutes';
+import { redirect } from 'next/navigation';
 
 export const getJoinedSocialList = async ({
   limit = 12,
@@ -62,10 +66,28 @@ export const deleteCollaboratorFromSocial = async (
 };
 
 export const leaveJoinSocial = async ({ id }: LeaveJoinSocialRequest) => {
+  const accessToken = await getCookie('accessToken');
+  if (!accessToken) {
+    toast({
+      type: 'error',
+      message: '로그인이 필요합니다. 로그인 페이지로 이동합니다.',
+      duration: 5,
+    });
+    redirect(APP_ROUTES.signin);
+  }
   try {
-    const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`);
+    const response = await instance.delete(API_PATH.SOCIAL + `/${id}/leave`, {
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+      },
+    });
     return response.data;
   } catch (error) {
+    toast({
+      type: 'error',
+      message: '모임 나가기에 실패하였습니다.',
+      duration: 5,
+    });
     throw error;
   }
 };
