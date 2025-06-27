@@ -4,7 +4,7 @@ import Observer from '@/components/common/Observer/Observer';
 import { useEffect, useState } from 'react';
 import { useMySocialList } from '@/hooks/api/mypage/useMySocialList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
-import { TabType } from './type';
+import { LikedStoryItem, SocialItem, TabType } from './type';
 import TabMenu from './TabMenu';
 import MySocialListCard from './MySocialListCard';
 
@@ -27,10 +27,7 @@ const MySocialList = () => {
   };
 
   const flattenedList = data?.pages.flat() || [];
-  const filteredList =
-    activeTab === 'liked'
-      ? flattenedList
-      : flattenedList.filter((item) => item.canceledAt === null);
+  const filteredList = flattenedList;
 
   return (
     <div className="mt-[30px] w-full border-t-2 border-gray-900 p-6">
@@ -49,7 +46,11 @@ const MySocialList = () => {
 
         {!isLoading && filteredList.length > 0 && (
           <MySocialListCard
-            list={filteredList}
+            list={
+              activeTab === 'liked'
+                ? (filteredList as LikedStoryItem[])
+                : (filteredList as SocialItem[])
+            }
             activeTab={activeTab}
             refetch={refetch}
           />

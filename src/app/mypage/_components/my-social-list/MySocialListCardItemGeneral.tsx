@@ -63,7 +63,7 @@ const MySocialListCardItemGeneral = ({
     <div className="truncate py-6">
       <ListCard
         teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
-        pageId={storyId?.toString() || null}
+        pageId={storyId?.toString() || undefined}
         image={{
           src:
             item.image ||
@@ -84,7 +84,7 @@ const MySocialListCardItemGeneral = ({
         isCardDataLoading={!storyId || isStoryLoading}
         isCompletedStory={isJoined ? item.registrationEnd < nowDate : true}
         isCanceled={false}
-        handleButtonClick={() => handleMySocial(String(item.id))}
+        handleButtonClick={() => handleMySocial(item.id)}
       />
     </div>
   );
