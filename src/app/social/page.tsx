@@ -4,6 +4,13 @@ import { GET_SOCIAL_LIST_INIT_FILTER, getSocialList } from '@/api/social/api';
 import { getQueryClient } from '@/lib/queryClinet';
 import SocialListContainer from './_components/SocialListContainer';
 import { BookOpen } from 'lucide-react';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '스토리그룹 - WeWrite',
+  description:
+    '새로운 스토리그룹을 만들거나, 모집 중인 스토리그룹을 탐색할 수 있습니다.',
+};
 
 const Social = async () => {
   const queryClient = getQueryClient();

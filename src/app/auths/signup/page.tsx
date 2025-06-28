@@ -3,6 +3,14 @@ import SignupForm from './_components/SignupForm';
 import LinkToSignIn from './_components/LinkToSignIn';
 import { redirect } from 'next/navigation';
 import { headers } from 'next/headers';
+import type { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: '회원가입 - WeWrite',
+  description:
+    'WeWrite에 계정을 만들면 스토리그룹 참여, 좋아요 남기기 등 다양한 서비스를 이용할 수 있습니다.',
+  robots: { index: false },
+};
 
 const SignUp = async () => {
   const { isSignIn } = await getMyInfoOnServer();
