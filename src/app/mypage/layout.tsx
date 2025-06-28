@@ -13,7 +13,7 @@ export const metadata: Metadata = {
     siteName: 'WeWrite',
     images: [
       {
-        url: 'https://i.imgur.com/RR3PYKv.png',
+        url: 'https://i.imgur.com/bzcHesg.png',
         width: 1200,
         height: 630,
         alt: 'WeWrite 타이틀 이미지',

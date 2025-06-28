@@ -19,7 +19,7 @@ export const generateMetadata = async ({
       siteName: 'WeWrite',
       images: [
         {
-          url: storiesData.cover_image_url ?? 'https://i.imgur.com/RR3PYKv.png',
+          url: storiesData.cover_image_url ?? 'https://i.imgur.com/bzcHesg.png',
           width: 1200,
           height: 630,
           alt: storiesData.cover_image_url
