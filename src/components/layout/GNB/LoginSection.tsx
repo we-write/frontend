@@ -37,14 +37,13 @@ const LoginSection = () => {
           aria-label="유저 메뉴 열기"
         >
           {myInfo.image ? (
-            <div className="h-10 w-10 overflow-hidden rounded-full bg-gray-300">
-              <Image
-                src={myInfo.image}
-                alt="프로필 이미지"
-                width={40}
-                height={40}
-              />
-            </div>
+            <Image
+              src={myInfo.image}
+              alt="프로필 이미지"
+              width={48}
+              height={48}
+              className="aspect-square h-12 w-12 rounded-full border border-gray-300 object-cover"
+            />
           ) : (
             <DefaultProfileImage width={40} height={40} />
           )}
