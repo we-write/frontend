@@ -20,7 +20,22 @@ export const generateMetadata = async ({
 
   return {
     title: `${storiesData.title} - WeWrite`,
-    description: `${storiesData.title} 스토리 그룹에 대한 모집 인원, 장르, 소개글 등 다양한 정보를 확인할 수 있습니다. `,
+    description: `${storiesData.title} 스토리 그룹에 대한 모집 인원, 장르, 소개글 등 다양한 정보를 확인할 수 있습니다.`,
+    openGraph: {
+      title: `${storiesData.title} - WeWrite`,
+      description: `${storiesData.title} 스토리 그룹에 대한 모집 인원, 장르, 소개글 등 다양한 정보를 확인할 수 있습니다.`,
+      siteName: 'WeWrite',
+      images: [
+        {
+          url: storiesData.cover_image_url ?? 'https://i.imgur.com/RR3PYKv.png',
+          width: 1200,
+          height: 630,
+          alt: storiesData.cover_image_url
+            ? `${storiesData.title} 표지 이미지`
+            : 'WeWrite 타이틀 이미지',
+        },
+      ],
+    },
   };
 };
 

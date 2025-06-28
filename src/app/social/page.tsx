@@ -10,6 +10,20 @@ export const metadata: Metadata = {
   title: '스토리그룹 - WeWrite',
   description:
     '새로운 스토리그룹을 만들거나, 모집 중인 스토리그룹을 탐색할 수 있습니다.',
+  openGraph: {
+    title: '스토리그룹 - WeWrite',
+    description:
+      '새로운 스토리그룹을 만들거나, 모집 중인 스토리그룹을 탐색할 수 있습니다.',
+    siteName: 'WeWrite',
+    images: [
+      {
+        url: 'https://i.imgur.com/RR3PYKv.png',
+        width: 1200,
+        height: 630,
+        alt: 'WeWrite 타이틀 이미지',
+      },
+    ],
+  },
 };
 
 const Social = async () => {

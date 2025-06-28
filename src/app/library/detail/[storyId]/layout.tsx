@@ -13,6 +13,21 @@ export const generateMetadata = async ({
   return {
     title: `${storiesData.title} - WeWrite`,
     description: `${storiesData.title} 스토리를 읽고, 다양한 사람들의 참여로 완성된 이야기를 경험해보세요.`,
+    openGraph: {
+      title: `${storiesData.title} - WeWrite`,
+      description: `${storiesData.title} 스토리를 읽고, 다양한 사람들의 참여로 완성된 이야기를 경험해보세요.`,
+      siteName: 'WeWrite',
+      images: [
+        {
+          url: storiesData.cover_image_url ?? 'https://i.imgur.com/RR3PYKv.png',
+          width: 1200,
+          height: 630,
+          alt: storiesData.cover_image_url
+            ? `${storiesData.title} 표지 이미지`
+            : 'WeWrite 타이틀 이미지',
+        },
+      ],
+    },
   };
 };
 
