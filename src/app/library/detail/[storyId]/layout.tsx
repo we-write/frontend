@@ -5,10 +5,10 @@ import { ReactNode } from 'react';
 export const generateMetadata = async ({
   params,
 }: {
-  params: Promise<{ id: string }>;
+  params: Promise<{ storyId: string }>;
 }): Promise<Metadata> => {
-  const { id } = await params;
-  const storiesData = await getStory(id);
+  const { storyId } = await params;
+  const storiesData = await getStory(storyId);
 
   return {
     title: `${storiesData.title} - WeWrite`,
