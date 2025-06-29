@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { fireEvent, render, screen } from '@testing-library/react';
 import { FormProvider, useForm } from 'react-hook-form';
 import SocialForm from './SocialForm';
 import '@testing-library/jest-dom';
@@ -121,5 +121,20 @@ describe('validateRegistrationEnd', () => {
 
   it('마감 날짜가 시작 날짜보다 이전이면 true를 반환한다', () => {
     expect(validateRegistrationEnd(yesterdayStr, todayStr)).toBe(true);
+  });
+  it('썸네일 이미지를 업로드하면 input에 파일이 반영된다', async () => {
+    render(<TestWrapper />);
+    const fileInput = screen.getByLabelText(
+      '썸네일 이미지'
+    ) as HTMLInputElement;
+
+    const file = new File(['dummy'], 'thumbnail.png', { type: 'image/png' });
+
+    fireEvent.change(fileInput, {
+      target: { files: [file] },
+    });
+
+    expect(fileInput.files?.[0]).toBe(file);
+    expect(fileInput.files?.[0].name).toBe('thumbnail.png');
   });
 });
