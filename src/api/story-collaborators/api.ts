@@ -30,9 +30,7 @@ export const createCollaborator = async (params: CreateCollaboratorRequest) => {
   }
 };
 
-export const getStoryCollaborators = async (
-  storyId: string
-) => {
+export const getStoryCollaborators = async (storyId: string) => {
   const { data } = await instanceBaaS
     .from(DB_PATH.STORY_COLLABORATORS)
     .select('*')

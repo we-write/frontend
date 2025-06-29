@@ -1,4 +1,4 @@
-import { Database } from "@/lib/supabase/database.types";
+import { Database } from '@/lib/supabase/database.types';
 
 export interface StoryEntity {
   social_id: string;
@@ -14,7 +14,8 @@ export interface StoryEntity {
   approval_period: number;
 }
 
-export type CreateStoryRequest = Database['public']['Tables']['Stories']['Insert'];
+export type CreateStoryRequest =
+  Database['public']['Tables']['Stories']['Insert'];
 
 export interface GetContentsParams {
   storyId: string;
