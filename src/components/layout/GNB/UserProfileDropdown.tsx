@@ -2,18 +2,18 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import { UserDropdownProps } from './type';
+import { UserProfileDropdownProps } from './type';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 import Image from 'next/image';
 import { DefaultProfileImage } from '@public/assets/icons';
 import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
 
-const UserDropdown = ({
+const UserProfileDropdown = ({
   isDropdownOpen,
   toggleDropDown,
   closeDropdown,
   profileImage,
-}: UserDropdownProps) => {
+}: UserProfileDropdownProps) => {
   const router = useRouter();
   const pathname = usePathname();
   const { mutate: signOut } = usePostSignout();
@@ -79,4 +79,4 @@ const UserDropdown = ({
   );
 };
 
-export default UserDropdown;
+export default UserProfileDropdown;

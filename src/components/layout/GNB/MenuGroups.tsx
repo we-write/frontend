@@ -6,7 +6,7 @@ import useClickOutside from '@/hooks/useClickOutside';
 import useBoolean from '@/hooks/useBoolean';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import useReferer from '@/hooks/useReferer';
-import UserDropdown from './UserDropdown';
+import UserProfileDropdown from './UserProfileDropdown';
 
 const MenuGroups = () => {
   const pathname = usePathname();
@@ -57,7 +57,7 @@ const MenuGroups = () => {
 
       <li ref={ref} className="relative ml-auto hidden md:flex">
         {myInfo && isSignIn ? (
-          <UserDropdown
+          <UserProfileDropdown
             isDropdownOpen={isDropdownOpen}
             toggleDropDown={toggleDropDown}
             closeDropdown={closeDropdown}

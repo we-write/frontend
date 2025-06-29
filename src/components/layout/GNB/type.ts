@@ -1,4 +1,4 @@
-export interface UserDropdownProps {
+export interface UserProfileDropdownProps {
   isDropdownOpen: boolean;
   toggleDropDown: () => void;
   closeDropdown: () => void;
