@@ -8,6 +8,7 @@ import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import AuthProvider from '@/providers/auth-provider/AuthProvider';
 import { ReactNode } from 'react';
 import { ToastProvider } from '@/providers/ToastProvider';
+import SideDrawer from '@/components/layout/SideDrawer/SideDrawer';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -52,6 +53,7 @@ const RootLayout = ({
               <main>
                 <LayoutWrapper>{children}</LayoutWrapper>
               </main>
+              <SideDrawer />
             </AuthProvider>
           </QueryProviders>
         </ToastProvider>
