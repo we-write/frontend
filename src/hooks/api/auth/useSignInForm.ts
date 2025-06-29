@@ -9,6 +9,7 @@ export const useSignInForm = () => {
     register,
     handleSubmit,
     setError,
+    setValue,
     formState: { isSubmitting, errors },
   } = useForm<SigninFormData>();
 
@@ -41,7 +42,7 @@ export const useSignInForm = () => {
     );
   };
 
-  return { onSubmit, register, handleSubmit, isSubmitting, errors };
+  return { onSubmit, register, handleSubmit, isSubmitting, errors, setValue };
 };
 
 export default useSignInForm;
