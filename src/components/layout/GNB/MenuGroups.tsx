@@ -2,12 +2,27 @@ import { APP_ROUTES, APP_ROUTES_LABEL } from '@/constants/appRoutes';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Users, BookOpen } from 'lucide-react';
+import useClickOutside from '@/hooks/useClickOutside';
+import useBoolean from '@/hooks/useBoolean';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import useReferer from '@/hooks/useReferer';
+import UserDropdown from './UserDropdown';
 
 const MenuGroups = () => {
   const pathname = usePathname();
+  const { refererParam } = useReferer();
+  const { isSignIn, myInfo } = useAuth();
+
+  const {
+    value: isDropdownOpen,
+    toggle: toggleDropDown,
+    setFalse: closeDropdown,
+  } = useBoolean();
+
+  const ref = useClickOutside<HTMLLIElement>(closeDropdown);
 
   return (
-    <ul className="hidden gap-6 font-semibold md:flex">
+    <ul className="hidden gap-6 font-semibold md:flex md:w-full md:items-center">
       <li
         className={`${
           pathname === '/social'
@@ -23,6 +38,7 @@ const MenuGroups = () => {
           {APP_ROUTES_LABEL.social}
         </Link>
       </li>
+
       <li
         className={`${
           pathname === '/library'
@@ -37,6 +53,24 @@ const MenuGroups = () => {
           <BookOpen className="h-5 w-5" aria-hidden="true" />
           {APP_ROUTES_LABEL.library}
         </Link>
+      </li>
+
+      <li ref={ref} className="relative ml-auto hidden md:flex">
+        {myInfo && isSignIn ? (
+          <UserDropdown
+            isDropdownOpen={isDropdownOpen}
+            toggleDropDown={toggleDropDown}
+            closeDropdown={closeDropdown}
+            profileImage={myInfo.image ?? null}
+          />
+        ) : (
+          <Link
+            href={`${APP_ROUTES.signin}?${refererParam}`}
+            className="text-write-main text-base font-semibold"
+          >
+            로그인
+          </Link>
+        )}
       </li>
     </ul>
   );

@@ -45,7 +45,7 @@ const RootLayout = ({
         <ToastProvider>
           <QueryProviders>
             <AuthProvider>
-              <header>
+              <header className="fixed z-50 h-15 w-full">
                 <GNB />
               </header>
 

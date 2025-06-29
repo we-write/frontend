@@ -1,6 +1,5 @@
 'use client';
 
-import LoginSection from './LoginSection';
 import SideDrawer from '../SideDrawer/SideDrawer';
 import LogoButton from '@/components/layout/GNB/LogoButton';
 import MenuGroups from '@/components/layout/GNB/MenuGroups';
@@ -24,16 +23,11 @@ export const GNB = () => {
 
   return (
     <>
-      <nav className="fixed top-0 z-50 h-15 w-full border-b border-gray-200 bg-white">
-        <div className="flex-center mx-auto h-full w-full max-w-300 px-4 md:justify-between md:pr-6 md:pl-7 lg:px-1">
-          {/* Logo */}
-          <div className="flex items-center gap-5 truncate lg:gap-10">
-            <LogoButton />
-            {/* 데스크탑 메뉴 */}
-            <MenuGroups />
-          </div>
-          {/* 데스크탑 로그인 영역*/}
-          <LoginSection />
+      <nav className="flex-center h-full w-full border-b border-gray-200 bg-white">
+        <div className="flex w-full max-w-300 gap-6 px-4 md:pr-6 md:pl-7 lg:gap-10 xl:px-1">
+          <LogoButton />
+          <MenuGroups />
+          {/* <LoginSection /> */}
           {/* 모바일 햄버거 */}
           <button
             className="absolute top-5 right-5 md:hidden"
