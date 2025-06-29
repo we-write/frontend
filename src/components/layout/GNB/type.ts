@@ -1,4 +1,6 @@
 export interface UserDropdownProps {
-  onSignOut: () => void;
-  onClose: () => void;
+  isDropdownOpen: boolean;
+  toggleDropDown: () => void;
+  closeDropdown: () => void;
+  profileImage: string | null;
 }
