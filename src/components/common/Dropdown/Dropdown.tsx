@@ -34,7 +34,7 @@ const Dropdown = ({
   className = '',
   onClose,
 }: DropdownProps) => {
-  const outSideRef = useClickOutside(() => {
+  const outSideRef = useClickOutside<HTMLDivElement>(() => {
     if (isOpen && onClose) {
       onClose();
     }
