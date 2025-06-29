@@ -54,9 +54,6 @@ const WritableUserModal = ({
       <CreateStoryContentModal
         currentStoryId={currentStoryId}
         currentUserId={currentUserId}
-        {...(lastContentData && {
-          lastContentData: lastContentData,
-        })}
         maxContentLength={maxContentLength}
       />
     );

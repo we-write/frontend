@@ -24,7 +24,7 @@ export const PaginationControl = ({
 
   return (
     <nav
-      className="fixed bottom-5 flex flex-col items-center justify-center gap-1.5 md:gap-4"
+      className="fixed bottom-5 flex flex-col items-center justify-center gap-1.5 md:gap-3"
       aria-label="페이지 이동 네비게이션"
     >
       <span

@@ -12,24 +12,24 @@ import convertLocationToGenre from '@/utils/convertLocationToGenre';
 import { useRouter } from 'next/navigation';
 import getSocialActionMessage from '@/utils/getSocialActionMessage';
 import { useStoryIdBySocialId } from '@/hooks/api/supabase/useStoryIdBySocialId';
+import { LocationType } from '@/api/social/type';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
-const MySocialListCardItem = ({
+const MySocialListCardItemGeneral = ({
   item,
   activeTab,
   refetch,
 }: MySocialListItemProps) => {
   const router = useRouter();
   const nowDate = new Date().toISOString();
-
   const { data: collaborator } = useCollaboratorList(Number(item.id));
   const collaboratorCount = collaborator?.length || 0;
-
   const { myInfo } = useAuth();
   const userId = myInfo?.id;
   const isJoined = activeTab === 'joined';
 
   const { data: storyId, isLoading: isStoryLoading } = useStoryIdBySocialId(
-    Number(item.id)
+    item.id
   );
 
   const handleMySocial = async (id: number) => {
@@ -51,7 +51,7 @@ const MySocialListCardItem = ({
           refetch();
         }
       } else {
-        router.push(`/library/detail/${storyId}/?page=0`);
+        router.push(`${APP_ROUTES.socialDetail}/${storyId}/?page=0`);
       }
     } catch (error) {
       console.error(error);
@@ -63,7 +63,7 @@ const MySocialListCardItem = ({
     <div className="truncate py-6">
       <ListCard
         teamUserRole={activeTab === 'created' ? 'LEADER' : 'MEMBER'}
-        pageId={storyId}
+        pageId={storyId?.toString() || undefined}
         image={{
           src:
             item.image ||
@@ -74,7 +74,9 @@ const MySocialListCardItem = ({
         textContent={{
           title: item.name || '제목 없음',
           genre:
-            convertLocationToGenre({ location: item.location }) || '장르 없음',
+            convertLocationToGenre({
+              location: item.location as LocationType,
+            }) || '장르 없음',
           participantCount: collaboratorCount,
           capacity: item.capacity || 0,
         }}
@@ -88,4 +90,4 @@ const MySocialListCardItem = ({
   );
 };
 
-export default MySocialListCardItem;
+export default MySocialListCardItemGeneral;
