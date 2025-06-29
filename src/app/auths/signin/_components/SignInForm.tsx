@@ -9,14 +9,15 @@ import { Eye, EyeOff } from 'lucide-react';
 
 const SignInForm = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
-
+  const { value: isRememberEmail, toggle: toggleIsRememberEmail } =
+    useBoolean();
   const { onSubmit, register, handleSubmit, isSubmitting, errors } =
     useSignInForm();
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
       <InputForm
-        label="아이디"
+        label="이메일"
         name="email"
         placeholder="이메일을 입력해주세요."
         register={register('email', {
@@ -26,6 +27,17 @@ const SignInForm = () => {
         hasError={!!errors.email}
         helperText={errors.email?.message}
       />
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          aria-label="이메일 기억하기"
+          checked={isRememberEmail}
+          className="h-4 w-4"
+          {...register('rememberEmail')}
+          onChange={toggleIsRememberEmail}
+        />
+        <span className="text-sm">이메일 기억하기</span>
+      </div>
 
       <InputForm
         name="password"

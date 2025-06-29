@@ -25,7 +25,7 @@ describe('SignInForm 렌더링 테스트', () => {
 
   it('이메일과 비밀번호 입력 필드가 렌더링되어야 한다', () => {
     render(<SignInForm />);
-    expect(screen.getByLabelText('아이디')).toBeInTheDocument();
+    expect(screen.getByLabelText('이메일')).toBeInTheDocument();
     expect(screen.getByLabelText('비밀번호')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /로그인/i })).toBeInTheDocument();
   });
