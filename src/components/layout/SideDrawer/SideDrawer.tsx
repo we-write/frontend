@@ -8,6 +8,7 @@ import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import useReferer from '@/hooks/useReferer';
 import { useSideDrawerStore } from '@/lib/store/useSideDrawerStore';
+import { X } from 'lucide-react';
 
 const MENU_ITEMS = [
   { label: APP_ROUTES_LABEL.mypage, href: APP_ROUTES.mypage },
@@ -57,7 +58,7 @@ const SideDrawer = () => {
             className="self-start text-xl text-gray-500"
             onClick={closeDrawer}
           >
-            ✕
+            <X aria-hidden="true" />
           </button>
         </div>
         {MENU_ITEMS.filter((item) =>
