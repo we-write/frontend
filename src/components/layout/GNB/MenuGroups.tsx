@@ -31,7 +31,7 @@ const MenuGroups = () => {
       <ul className="hidden gap-6 font-semibold md:flex md:w-full md:items-center">
         <li
           className={`${
-            pathname === '/social'
+            pathname === `${APP_ROUTES.social}`
               ? 'text-write-main bg-gray-100'
               : 'text-gray-500'
           } hover:text-write-main inline-flex rounded-xl px-3 py-1.5 hover:bg-gray-100`}
@@ -47,7 +47,7 @@ const MenuGroups = () => {
 
         <li
           className={`${
-            pathname === '/library'
+            pathname === `${APP_ROUTES.library}`
               ? 'text-write-main bg-gray-100'
               : 'text-gray-500'
           } hover:text-write-main inline-flex rounded-xl px-2 py-1.5 hover:bg-gray-100`}
