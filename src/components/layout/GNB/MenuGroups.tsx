@@ -67,6 +67,7 @@ const MenuGroups = () => {
               isDropdownOpen={isDropdownOpen}
               toggleDropDown={toggleDropDown}
               closeDropdown={closeDropdown}
+              userName={myInfo.name ?? null}
               profileImage={myInfo.image ?? null}
             />
           ) : (
@@ -80,8 +81,10 @@ const MenuGroups = () => {
         </li>
       </ul>
       <button
+        type="button"
         className="absolute top-5 right-5 md:hidden"
         onClick={() => openDrawer()}
+        aria-label="사이드 드로어 열기"
       >
         <Hamburger
           className="h-6 w-6 text-gray-500"

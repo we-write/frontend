@@ -1,4 +1,4 @@
-import { MouseEventHandler, ReactNode } from 'react';
+import { MouseEventHandler, ReactNode, HTMLAttributes } from 'react';
 
 export interface DropdownProps {
   trigger?: ReactNode;
@@ -14,7 +14,6 @@ export interface DropdownContentProps {
   className?: string;
 }
 
-export interface DropdownContainerProps {
-  className?: string;
+export type DropdownContainerProps = HTMLAttributes<HTMLUListElement> & {
   children: ReactNode;
-}
+};

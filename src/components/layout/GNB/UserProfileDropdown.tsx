@@ -7,16 +7,40 @@ import Dropdown from '@/components/common/Dropdown/Dropdown';
 import Image from 'next/image';
 import { DefaultProfileImage } from '@public/assets/icons';
 import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
+import Link from 'next/link';
+import { useEffect, useRef, useState } from 'react';
 
 const UserProfileDropdown = ({
   isDropdownOpen,
   toggleDropDown,
   closeDropdown,
+  userName,
   profileImage,
 }: UserProfileDropdownProps) => {
   const router = useRouter();
   const pathname = usePathname();
+  const menuItemRef = useRef<(HTMLDivElement | HTMLAnchorElement | null)[]>([]);
+  const [focusedIndex, setFocusedIndex] = useState(0);
   const { mutate: signOut } = usePostSignout();
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      setFocusedIndex(0);
+      setTimeout(() => {
+        menuItemRef.current[0]?.focus();
+      }, 0);
+    }
+  }, [isDropdownOpen]);
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && isDropdownOpen) {
+        closeDropdown();
+      }
+    };
+    document.addEventListener('keydown', handleKeyDown);
+    return () => document.removeEventListener('keydown', handleKeyDown);
+  }, [isDropdownOpen]);
 
   const handleSignOut = () => {
     signOut();
@@ -28,10 +52,28 @@ const UserProfileDropdown = ({
     }
   };
 
-  const gotoMyPage = () => {
-    router.push(APP_ROUTES.mypage);
+  const handleMenuKeyDown = (e: React.KeyboardEvent<HTMLUListElement>) => {
+    if (!isDropdownOpen) return;
 
-    closeDropdown();
+    if (e.key === 'ArrowDown') {
+      e.preventDefault();
+      const nextIndex = (focusedIndex + 1) % menuItemRef.current.length;
+      setFocusedIndex(nextIndex);
+      menuItemRef.current[nextIndex]?.focus();
+    }
+
+    if (e.key === 'ArrowUp') {
+      e.preventDefault();
+      const prevIndex =
+        (focusedIndex - 1 + menuItemRef.current.length) %
+        menuItemRef.current.length;
+      setFocusedIndex(prevIndex);
+      menuItemRef.current[prevIndex]?.focus();
+    }
+
+    if (e.key === 'Escape') {
+      closeDropdown();
+    }
   };
 
   return (
@@ -40,36 +82,56 @@ const UserProfileDropdown = ({
       onClose={closeDropdown}
       className="flex items-center"
       trigger={
-        profileImage ? (
-          <button
-            className="h-10 w-10 overflow-hidden rounded-full bg-gray-300"
-            onClick={toggleDropDown}
-          >
-            <Image
-              src={profileImage}
-              alt="프로필 이미지"
-              width={40}
-              height={40}
-            />
-          </button>
-        ) : (
-          <DefaultProfileImage width={40} height={40} />
-        )
+        <button
+          type="button"
+          className="h-10 w-10 overflow-hidden rounded-full bg-gray-300"
+          aria-label={`${profileImage && userName ? `${userName}님의 프로필 이미지.` : '기본 프로필 이미지.'}클릭하면 사용자 메뉴가 열립니다`}
+          aria-expanded={isDropdownOpen}
+          aria-controls="profile-dropdown"
+          aria-haspopup="menu"
+          onClick={toggleDropDown}
+        >
+          {profileImage && userName ? (
+            <Image src={profileImage} alt="" width={40} height={40} />
+          ) : (
+            <DefaultProfileImage width={40} height={40} aria-hidden="true" />
+          )}
+        </button>
       }
     >
-      <Dropdown.Container className="absolute top-full right-0 z-10 w-40 rounded-xl bg-gray-50 shadow-lg">
+      <Dropdown.Container
+        id="profile-dropdown"
+        role="menu"
+        onKeyDown={handleMenuKeyDown}
+        className="absolute top-full right-0 z-10 w-40 rounded-xl bg-gray-50 shadow-lg"
+      >
         <Dropdown.Content
-          onClick={() => gotoMyPage()}
           contentItem={
-            <div className="block w-full rounded-xl px-4 py-4 text-left text-sm font-medium hover:bg-gray-100">
+            <Link
+              ref={(el) => {
+                menuItemRef.current[0] = el;
+              }}
+              href={`${APP_ROUTES.mypage}`}
+              tabIndex={0}
+              role="menuitem"
+              onClick={() => closeDropdown()}
+              className="block w-full rounded-xl px-4 py-4 text-left text-sm font-medium hover:bg-gray-100"
+            >
               마이페이지
-            </div>
+            </Link>
           }
         />
         <Dropdown.Content
           onClick={handleSignOut}
           contentItem={
-            <div className="block w-full rounded-xl px-4 py-4 text-left text-sm font-medium hover:bg-gray-100">
+            <div
+              ref={(el) => {
+                menuItemRef.current[1] = el;
+              }}
+              role="menuitem"
+              tabIndex={0}
+              className="block w-full rounded-xl px-4 py-4 text-left text-sm font-medium hover:bg-gray-100"
+            >
               로그아웃
             </div>
           }
