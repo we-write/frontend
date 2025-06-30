@@ -1,5 +1,3 @@
-'use client';
-
 import { useRouter } from 'next/navigation';
 import ListCard from '@/components/common/Card/ListCard';
 import { MySocialListCardItemLikedProps } from '@/app/mypage/_components/my-social-list/type';
