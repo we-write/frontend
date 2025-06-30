@@ -8,7 +8,7 @@ import useClickOutside from '@/hooks/useClickOutside';
 import useBoolean from '@/hooks/useBoolean';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import useReferer from '@/hooks/useReferer';
-import UserProfileDropdown from './UserProfileDropdown';
+import UserProfileDropdown from '@/components/layout/GNB/UserProfileDropdown';
 import { Hamburger } from '@public/assets/icons';
 import { useSideDrawerStore } from '@/lib/store/useSideDrawerStore';
 

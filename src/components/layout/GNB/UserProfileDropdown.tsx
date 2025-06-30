@@ -2,7 +2,7 @@
 
 import { useRouter, usePathname } from 'next/navigation';
 import { APP_ROUTES } from '@/constants/appRoutes';
-import { UserProfileDropdownProps } from './type';
+import { UserProfileDropdownProps } from '@/components/layout/GNB/type';
 import Dropdown from '@/components/common/Dropdown/Dropdown';
 import Image from 'next/image';
 import { DefaultProfileImage } from '@public/assets/icons';
