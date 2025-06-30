@@ -85,11 +85,10 @@ const SideDrawer = () => {
           <LogoButton onClick={closeDrawer} />
           <button
             type="button"
-            className="self-start text-xl text-gray-500"
             onClick={closeDrawer}
             aria-label="사이드 드로어 닫기"
           >
-            <X aria-hidden="true" />
+            <X aria-hidden="true" className="text-gray-500" />
           </button>
         </div>
         <nav aria-label="내비게이션 메뉴">
@@ -99,8 +98,8 @@ const SideDrawer = () => {
             ).map((item) => (
               <li
                 key={item.href}
-                className={`mb-2 rounded-md p-4 text-start font-semibold text-gray-500 ${
-                  isMenuActive(item) ? 'bg-gray-200' : 'hover:bg-gray-200'
+                className={`mb-2 rounded-md p-4 font-semibold text-gray-500 ${
+                  isMenuActive(item) ? 'bg-gray-200' : 'active:bg-gray-200'
                 }`}
               >
                 <Link
@@ -114,10 +113,10 @@ const SideDrawer = () => {
             ))}
             {isSignIn && myInfo ? (
               <li
-                className={`mb-2 rounded-md p-4 text-start font-semibold text-gray-500 ${
+                className={`mb-2 rounded-md p-4 font-semibold text-gray-500 ${
                   pathname === APP_ROUTES.mypage
                     ? 'bg-gray-200'
-                    : 'hover:bg-gray-200'
+                    : 'active:bg-gray-200'
                 }`}
               >
                 <Link
@@ -130,7 +129,7 @@ const SideDrawer = () => {
               </li>
             ) : null}
             <hr className="my-4 border-t border-gray-200" />
-            <li className="mb-2 rounded-md p-4 text-start font-semibold text-gray-500 hover:bg-gray-200">
+            <li className="mb-2 rounded-md p-4 font-semibold text-gray-500 active:bg-gray-200">
               <button
                 type="button"
                 onClick={isSignIn ? handleSignOut : handleSignIn}
