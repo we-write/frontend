@@ -45,7 +45,7 @@ const LoginSection = () => {
               className="aspect-square h-12 w-12 rounded-full border border-gray-300 object-cover"
             />
           ) : (
-            <DefaultProfileImage width={40} height={40} />
+            <DefaultProfileImage width={48} height={48} />
           )}
         </button>
       ) : (
