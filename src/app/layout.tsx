@@ -3,7 +3,7 @@ import { Hanuman } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.css';
 import QueryProviders from '@/providers/queryProviders';
-import { GNB } from '@/components/layout/GNB/GNB';
+import GNB from '@/components/layout/GNB/GNB';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import AuthProvider from '@/providers/auth-provider/AuthProvider';
 import { ReactNode } from 'react';
