@@ -3,6 +3,11 @@ import { GenreType } from '@/api/social/type';
 export const TAB_TYPES = ['joined', 'created', 'liked'] as const;
 export type TabType = (typeof TAB_TYPES)[number];
 
+export interface TabMenuProps {
+  activeTab: TabType;
+  onTabChange: (tab: TabType) => void;
+}
+
 export interface LikedStoryResponse {
   capacity: number;
   collaborator_count: number;
