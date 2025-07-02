@@ -27,6 +27,11 @@ const MySocialListCardItem = ({
   const isJoinedTab = activeTab === 'joined';
   const isLikedTab = activeTab === 'liked';
 
+  const messages = {
+    confirm: getSocialActionMessage('모임').confirm('exit'),
+    success: getSocialActionMessage('모임').success('exit'),
+  };
+
   const { handleLikeStory, isLiked, isPending } = useLikeStory({
     story_id: item.story_id,
     user_id: myInfo?.id as number,
@@ -37,28 +42,17 @@ const MySocialListCardItem = ({
     handleLikeStory();
   };
 
-  const handleMySocial = async (storyId: string) => {
-    try {
-      const messages = {
-        confirm: getSocialActionMessage('모임').confirm('exit'),
-        success: getSocialActionMessage('모임').success('exit'),
-      };
+  const handleExitSocial = async (storyId: string) => {
+    const confirmed = window.confirm(messages.confirm);
+    if (!confirmed || !userId) return;
+    await deleteCollaboratorFromSocial({ userId, storyId });
+    toast.success(messages.success);
+    refetch();
+  };
 
-      if (isJoinedTab) {
-        const confirmed = window.confirm(messages.confirm);
-        if (!confirmed) return;
-        if (userId) {
-          await deleteCollaboratorFromSocial(userId, storyId);
-          toast.success(messages.success);
-          refetch();
-        }
-      } else {
-        router.push(`${APP_ROUTES.libraryDetail}/${storyId}/?page=0`);
-      }
-    } catch (error) {
-      console.error(error);
-      alert('모임 취소에 실패했습니다.');
-    }
+  const handleSocialAction = (storyId: string) => {
+    if (isJoinedTab) handleExitSocial(storyId);
+    else router.push(`${APP_ROUTES.libraryDetail}/${storyId}/?page=0`);
   };
 
   return (
@@ -88,13 +82,13 @@ const MySocialListCardItem = ({
           (item as MySocialResponse).role === 'LEADER' || isLikedTab
         }
         isCanceled={false}
-        handleButtonClick={() => handleMySocial(item.story_id)}
+        handleButtonClick={() => handleSocialAction(item.story_id)}
       />
       {isLikedTab && (
         <button
           type="button"
           onClick={handleClickLike}
-          aria-label={`${isLiked}`}
+          aria-label={`${isLiked ? '좋아요' : '좋아요 취소'}`}
         >
           <Heart
             className="text-write-main h-6 w-6"
