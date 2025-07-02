@@ -6,21 +6,23 @@ import { useSignInForm } from '@/hooks/api/auth/useSignInForm';
 
 import { signInValidate } from '@/utils/validators/auth';
 import { Eye, EyeOff } from 'lucide-react';
-import { useEffect } from 'react';
 
 const SignInForm = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
 
-  const { onSubmit, register, handleSubmit, isSubmitting, errors, setValue } =
-    useSignInForm();
+  const email =
+    typeof window !== 'undefined'
+      ? (localStorage.getItem('rememberEmail') ?? '')
+      : '';
+  const rememberEmail = !!email;
 
-  useEffect(() => {
-    const email = localStorage.getItem('rememberEmail');
-    if (email) {
-      setValue('email', email);
-      setValue('rememberEmail', true);
-    }
-  }, [setValue]);
+  const { onSubmit, register, handleSubmit, isSubmitting, errors } =
+    useSignInForm({
+      defaultValues: {
+        email,
+        rememberEmail,
+      },
+    });
 
   return (
     <form className="flex flex-col gap-6" onSubmit={handleSubmit(onSubmit)}>
@@ -35,15 +37,6 @@ const SignInForm = () => {
         hasError={!!errors.email}
         helperText={errors.email?.message}
       />
-      <div className="flex items-center gap-2">
-        <input
-          type="checkbox"
-          aria-label="이메일 기억하기"
-          className="h-4 w-4"
-          {...register('rememberEmail')}
-        />
-        <span className="text-sm">이메일 기억하기</span>
-      </div>
 
       <InputForm
         name="password"
@@ -70,7 +63,17 @@ const SignInForm = () => {
           </button>
         }
       />
-
+      <div className="flex items-center gap-2">
+        <input
+          type="checkbox"
+          aria-label="이메일 기억하기"
+          className="h-4 w-4"
+          {...register('rememberEmail')}
+        />
+        <label htmlFor="rememberEmail" className="text-sm">
+          이메일 기억하기
+        </label>
+      </div>
       <Button
         role="button"
         type="submit"

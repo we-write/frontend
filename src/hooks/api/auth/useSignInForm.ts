@@ -1,8 +1,8 @@
 import { SigninFormData } from '@/api/auth/type';
-import { SubmitHandler, useForm } from 'react-hook-form';
+import { SubmitHandler, useForm, UseFormProps } from 'react-hook-form';
 import { usePostSignin } from './usePostSignin';
 
-export const useSignInForm = () => {
+export function useSignInForm(options: UseFormProps<SigninFormData>) {
   const { mutate: signIn } = usePostSignin();
 
   const {
@@ -11,7 +11,10 @@ export const useSignInForm = () => {
     setError,
     setValue,
     formState: { isSubmitting, errors },
-  } = useForm<SigninFormData>();
+  } = useForm<SigninFormData>({
+    mode: 'onChange',
+    ...options,
+  });
 
   const onSubmit: SubmitHandler<SigninFormData> = (data) => {
     if (data.rememberEmail) {
@@ -42,7 +45,14 @@ export const useSignInForm = () => {
     );
   };
 
-  return { onSubmit, register, handleSubmit, isSubmitting, errors, setValue };
-};
+  return {
+    onSubmit,
+    register,
+    handleSubmit,
+    isSubmitting,
+    errors,
+    setValue,
+  };
+}
 
 export default useSignInForm;
