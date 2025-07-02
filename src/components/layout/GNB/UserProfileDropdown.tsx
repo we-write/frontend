@@ -84,7 +84,6 @@ const UserProfileDropdown = ({
       trigger={
         <button
           type="button"
-          className="h-10 w-10 overflow-hidden rounded-full bg-gray-300"
           aria-label={`${profileImage && userName ? `${userName}님의 프로필 이미지.` : '기본 프로필 이미지.'}클릭하면 사용자 메뉴가 열립니다`}
           aria-expanded={isDropdownOpen}
           aria-controls="profile-dropdown"
@@ -92,9 +91,15 @@ const UserProfileDropdown = ({
           onClick={toggleDropDown}
         >
           {profileImage && userName ? (
-            <Image src={profileImage} alt="" width={40} height={40} />
+            <Image
+              src={profileImage}
+              alt=""
+              width={48}
+              height={48}
+              className="aspect-square h-12 w-12 rounded-full border border-gray-300 object-cover"
+            />
           ) : (
-            <DefaultProfileImage width={40} height={40} aria-hidden="true" />
+            <DefaultProfileImage width={48} height={48} aria-hidden="true" />
           )}
         </button>
       }

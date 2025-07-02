@@ -1,7 +1,7 @@
 import { Modal } from '@/components/common/Modal/Modal';
 import Button from '@/components/common/Button/Button';
 import TextEditor from '@/components/common/TextEditor/TextEditor';
-import { CreateContentModalProps } from '@/app/library/detail/[id]/type';
+import { CreateContentModalProps } from '@/app/library/detail/[storyId]/type';
 import { useRef, FormEvent } from 'react';
 import usePostContent from '@/hooks/api/supabase/stories/usePostContent';
 import { useStoryModal } from '@/providers/StoryWriteOrApproveModalProviders';
