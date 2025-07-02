@@ -1,43 +1,37 @@
+import { GenreType } from '@/api/social/type';
+
 export const TAB_TYPES = ['joined', 'created', 'liked'] as const;
-
 export type TabType = (typeof TAB_TYPES)[number];
-export interface TabMenuProps {
-  activeTab: TabType;
-  onTabChange: (tab: TabType) => void;
-}
 
-export interface SocialItem {
-  id: number;
-  name: string;
-  image: string;
-  location: string;
-  registrationEnd: string;
+export interface LikedStoryResponse {
   capacity: number;
-  canceledAt: string | null;
-}
-
-export interface LikedStoryItem {
-  story_id: string;
-  social_id: number;
-  title: string;
-  genre: string;
+  collaborator_count: number;
   cover_image_url: string;
-  approved_count: number;
-  capacity?: number;
+  genre: string;
+  liked_at: string;
+  story_id: string;
+  title: string;
 }
 
-export interface MySocialListCardItemLikedProps {
-  item: LikedStoryItem;
+export interface MySocialResponse {
+  capacity: number;
+  cover_image_url: string;
+  genre: GenreType;
+  title: string;
+  collaborator_count: number;
+  joined_at: string;
+  role: 'LEADER' | 'MEMBER' | 'GUEST';
+  story_id: string;
 }
 
-export interface MySocialListItemProps {
-  item: SocialItem;
+export interface MySocialListCardItemProps {
+  item: MySocialResponse | LikedStoryResponse;
   activeTab: TabType;
   refetch: () => void;
 }
 
 export interface MySocialListCardProps {
-  list: LikedStoryItem[] | SocialItem[];
+  list: (LikedStoryResponse | MySocialResponse)[];
   activeTab: TabType;
   refetch: () => void;
 }
