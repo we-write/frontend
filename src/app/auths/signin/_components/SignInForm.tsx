@@ -10,17 +10,17 @@ import { Eye, EyeOff } from 'lucide-react';
 const SignInForm = () => {
   const { value: isShowPassword, toggle: toggleIsShowPassword } = useBoolean();
 
-  const email =
+  const localEmail =
     typeof window !== 'undefined'
       ? (localStorage.getItem('rememberEmail') ?? '')
       : '';
-  const rememberEmail = !!email;
+  const rememberEmail = !!localEmail;
 
   const { onSubmit, register, handleSubmit, isSubmitting, errors } =
     useSignInForm({
       defaultValues: {
-        email,
-        rememberEmail,
+        email: localEmail,
+        isRememberEmail: rememberEmail,
       },
     });
 
@@ -68,7 +68,7 @@ const SignInForm = () => {
           type="checkbox"
           aria-label="이메일 기억하기"
           className="h-4 w-4"
-          {...register('rememberEmail')}
+          {...register('isRememberEmail')}
         />
         <label htmlFor="rememberEmail" className="text-sm">
           이메일 기억하기

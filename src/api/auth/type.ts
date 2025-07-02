@@ -14,7 +14,7 @@ export interface SigninRequest {
   password: string;
 }
 export interface SigninFormData extends SigninRequest {
-  rememberEmail: boolean;
+  isRememberEmail: boolean;
 }
 
 export interface MyInfoResponse {

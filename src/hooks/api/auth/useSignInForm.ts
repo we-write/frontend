@@ -17,7 +17,7 @@ export function useSignInForm(options: UseFormProps<SigninFormData>) {
   });
 
   const onSubmit: SubmitHandler<SigninFormData> = (data) => {
-    if (data.rememberEmail) {
+    if (data.isRememberEmail) {
       localStorage.setItem('rememberEmail', data.email);
     } else {
       localStorage.removeItem('rememberEmail');
