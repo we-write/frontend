@@ -30,13 +30,18 @@ export const createCollaborator = async (params: CreateCollaboratorRequest) => {
   }
 };
 
-export const getStoryCollaborators = async (
-  storyId: string
+export const getStoryCollaborators = async <T extends string | string[]>(
+  storyId: T
 ) => {
-  const { data } = await instanceBaaS
-    .from(DB_PATH.STORY_COLLABORATORS)
-    .select('*')
-    .eq('story_id', storyId);
+  const query = instanceBaaS.from(DB_PATH.STORY_COLLABORATORS).select('*');
+
+  if (Array.isArray(storyId)) {
+    query.in('story_id', storyId);
+  } else {
+    query.eq('story_id', storyId);
+  }
+
+  const { data } = await query;
 
   return data;
 };
