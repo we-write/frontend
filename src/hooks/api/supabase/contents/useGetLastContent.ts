@@ -6,9 +6,7 @@ interface UseGetLastContentParams {
   storyId: string;
 }
 
-const useGetLastContent = ({
-  storyId,
-}: UseGetLastContentParams) => {
+const useGetLastContent = ({ storyId }: UseGetLastContentParams) => {
   return useQuery({
     queryKey: [QUERY_KEY.GET_LAST_CONTENT, storyId],
     queryFn: () => getLastContent(storyId),
