@@ -2,12 +2,12 @@
 
 import { useParams } from 'next/navigation';
 import { useRef } from 'react';
-import PaginatedContentViewer from '@/app/library/detail/[id]/_components/PaginatedContentViewer';
-import { PaginationControl } from '@/app/library/detail/[id]/_components/PaginationControl';
+import PaginatedContentViewer from '@/app/library/detail/[storyId]/_components/PaginatedContentViewer';
+import { PaginationControl } from '@/app/library/detail/[storyId]/_components/PaginationControl';
 import { TeamUserRole } from '@/types/teamUserRole';
 import WritableUserModal from './_components/WritableUserModal';
 import { StoryWriteOrApproveModalProviders } from '@/providers/StoryWriteOrApproveModalProviders';
-import StoryModalTriggerButton from '@/app/library/detail/[id]/_components/StoryModalTriggerButton';
+import StoryModalTriggerButton from '@/app/library/detail/[storyId]/_components/StoryModalTriggerButton';
 import useGetUserRole from '@/hooks/api/supabase/story-collaborators/useGetUserRole';
 import ContentCover from './_components/ContentCover';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
@@ -16,27 +16,27 @@ import { useGetContent } from '@/hooks/api/supabase/contents/useGetContent';
 import { useSearchParams } from 'next/navigation';
 import SideButtonGroup from './_components/SideButtonGroup';
 import useCurrentViewPort from '@/hooks/useCurrentViewPort';
-import usePaginateContentsByViewport from '@/app/library/detail/[id]/hooks/usePaginateContentsByViewport';
+import usePaginateContentsByViewport from '@/app/library/detail/[storyId]/hooks/usePaginateContentsByViewport';
 
 const StoryDetail = () => {
-  const { id } = useParams();
-  const storyId = id as string;
+  const { storyId } = useParams();
+  const storyIdAsString = storyId as string;
 
   const searchParams = useSearchParams();
   const pageParam = searchParams.get('page');
   const storyPageNumber = pageParam ? parseInt(pageParam, 10) : 1;
 
-  const { data: story } = useGetStory(storyId);
+  const { data: story } = useGetStory(storyIdAsString);
   const { myInfo } = useAuth();
 
   const { data: userRoleData } = useGetUserRole({
     userId: myInfo?.id,
-    storyId: storyId,
+    storyId: storyIdAsString,
   });
   const currentUserRole = userRoleData ? userRoleData.role : 'GUEST';
 
   const { data: contents } = useGetContent({
-    storyId: storyId,
+    storyId: storyIdAsString,
   });
   const { viewportWidth: currentViewPortWidth } = useCurrentViewPort();
   const paginatedContents = usePaginateContentsByViewport({
@@ -54,9 +54,9 @@ const StoryDetail = () => {
       case 'MEMBER':
         return (
           <>
-            <StoryModalTriggerButton storyId={storyId} />
+            <StoryModalTriggerButton storyId={storyIdAsString} />
             <WritableUserModal
-              currentStoryId={storyId}
+              currentStoryId={storyIdAsString}
               {...(myInfo && { currentUserId: myInfo.id })}
               approvalPeriod={story?.approval_period ?? 0}
               approvedCount={story?.approved_count ?? 0}
@@ -88,7 +88,7 @@ const StoryDetail = () => {
         )}
 
         <PaginationControl
-          storyId={storyId}
+          storyId={storyIdAsString}
           title={story?.title}
           page={storyPageNumber}
           totalPage={paginatedContents.length}
