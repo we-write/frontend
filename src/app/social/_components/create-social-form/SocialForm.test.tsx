@@ -3,6 +3,7 @@ import { FormProvider, useForm } from 'react-hook-form';
 import SocialForm from './SocialForm';
 import '@testing-library/jest-dom';
 import { GenreType } from '@/api/social/type';
+import userEvent from '@testing-library/user-event';
 
 import {
   validateCapacity,
@@ -10,7 +11,6 @@ import {
   validateRegistrationEnd,
 } from '@/utils/validators/social';
 
-// 실제 SocialForm에서 사용하는 필드 타입 예시
 type SocialFieldsRequest = {
   title: string;
   genre: GenreType;
@@ -19,7 +19,6 @@ type SocialFieldsRequest = {
   capacity: number;
 };
 
-// 테스트용 wrapper
 const TestWrapper = () => {
   const methods = useForm<SocialFieldsRequest>({
     defaultValues: {
@@ -34,6 +33,9 @@ const TestWrapper = () => {
   return (
     <FormProvider {...methods}>
       <SocialForm methods={methods} />
+      <button type="submit" aria-label="모임생성">
+        모임생성
+      </button>
     </FormProvider>
   );
 };
@@ -55,6 +57,31 @@ describe('SocialForm 렌더링 테스트', () => {
     expect(
       screen.getByRole('button', { name: '파일 찾기' })
     ).toBeInTheDocument();
+  });
+});
+
+describe('SocialForm 동작 테스트', () => {
+  it('필수 입력값을 모두 채우고 제출하면 제출이 이루어진다', async () => {
+    render(<TestWrapper />);
+    // 필드 입력
+    fireEvent.change(screen.getByLabelText('스토리명'), {
+      target: { value: '테스트 스토리' },
+    });
+    fireEvent.change(screen.getByLabelText('장르'), {
+      target: { value: '판타지' },
+    });
+    fireEvent.change(screen.getByLabelText('모임 마감날짜'), {
+      target: { value: '2099-12-31' },
+    });
+    fireEvent.change(screen.getByLabelText('모집 정원'), {
+      target: { value: 5 },
+    });
+
+    const submitButton = screen.getByLabelText('모임생성');
+    await userEvent.click(submitButton);
+
+    expect(submitButton).not.toBeDisabled();
+    await userEvent.click(submitButton);
   });
 });
 
