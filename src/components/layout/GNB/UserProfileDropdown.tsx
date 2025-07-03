@@ -63,10 +63,6 @@ const UserProfileDropdown = ({
       setFocusedIndex(prevIndex);
       menuItemRef.current[prevIndex]?.focus();
     }
-
-    if (e.key === 'Escape') {
-      closeDropdown();
-    }
   };
 
   return (
