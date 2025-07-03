@@ -8,7 +8,8 @@ import Image from 'next/image';
 import { DefaultProfileImage } from '@public/assets/icons';
 import { usePostSignout } from '@/hooks/api/auth/usePostSignout';
 import Link from 'next/link';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, KeyboardEvent } from 'react';
+import useEscapeKey from '@/hooks/useEscapeKey';
 
 const UserProfileDropdown = ({
   isDropdownOpen,
@@ -23,6 +24,8 @@ const UserProfileDropdown = ({
   const [focusedIndex, setFocusedIndex] = useState(0);
   const { mutate: signOut } = usePostSignout();
 
+  useEscapeKey({ callback: () => closeDropdown(), active: isDropdownOpen });
+
   useEffect(() => {
     if (isDropdownOpen) {
       setFocusedIndex(0);
@@ -30,16 +33,6 @@ const UserProfileDropdown = ({
         menuItemRef.current[0]?.focus();
       }, 0);
     }
-  }, [isDropdownOpen]);
-
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape' && isDropdownOpen) {
-        closeDropdown();
-      }
-    };
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
   }, [isDropdownOpen]);
 
   const handleSignOut = () => {
@@ -52,7 +45,7 @@ const UserProfileDropdown = ({
     }
   };
 
-  const handleMenuKeyDown = (e: React.KeyboardEvent<HTMLUListElement>) => {
+  const handleMenuKeyDown = (e: KeyboardEvent<HTMLUListElement>) => {
     if (!isDropdownOpen) return;
 
     if (e.key === 'ArrowDown') {
