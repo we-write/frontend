@@ -3,11 +3,12 @@ import { Hanuman } from 'next/font/google';
 import type { Metadata, Viewport } from 'next';
 import '@/styles/globals.css';
 import QueryProviders from '@/providers/queryProviders';
-import { GNB } from '@/components/layout/GNB/GNB';
+import GNB from '@/components/layout/GNB/GNB';
 import LayoutWrapper from '@/components/layout/LayoutWrapper';
 import AuthProvider from '@/providers/auth-provider/AuthProvider';
 import { ReactNode } from 'react';
 import { ToastProvider } from '@/providers/ToastProvider';
+import SideDrawer from '@/components/layout/SideDrawer/SideDrawer';
 
 const pretendard = localFont({
   src: '../fonts/PretendardVariable.woff2',
@@ -45,13 +46,14 @@ const RootLayout = ({
         <ToastProvider>
           <QueryProviders>
             <AuthProvider>
-              <header>
+              <header className="fixed z-40 h-15 w-full">
                 <GNB />
               </header>
 
               <main>
                 <LayoutWrapper>{children}</LayoutWrapper>
               </main>
+              <SideDrawer />
             </AuthProvider>
           </QueryProviders>
         </ToastProvider>
