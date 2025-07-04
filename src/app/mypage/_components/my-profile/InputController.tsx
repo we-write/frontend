@@ -1,5 +1,3 @@
-'use client';
-
 import InputForm from '@/components/common/Form/InputForm';
 import { Control, Controller, FieldValues, Path } from 'react-hook-form';
 

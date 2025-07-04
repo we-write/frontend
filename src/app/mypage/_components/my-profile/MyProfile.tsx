@@ -3,9 +3,11 @@
 import Image from 'next/image';
 import useBoolean from '@/hooks/useBoolean';
 import { BtnEditLarge, DefaultProfileImage } from '@public/assets/icons';
-import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
 import EditMyProfileForm from './EditMyProfileForm';
 import MyProfileSkeleton from './MyProfileSkeleton';
+import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
+import { redirect } from 'next/navigation';
+import { APP_ROUTES } from '@/constants/appRoutes';
 
 const MyProfile = () => {
   const {
@@ -15,8 +17,8 @@ const MyProfile = () => {
   } = useBoolean();
 
   const { myInfo, isSignIn, queryMethods } = useAuth();
+  if (!isSignIn || !myInfo) return redirect(APP_ROUTES.signin);
 
-  if (!isSignIn || !myInfo) return;
   if (queryMethods.isLoading) return <MyProfileSkeleton />;
 
   return (

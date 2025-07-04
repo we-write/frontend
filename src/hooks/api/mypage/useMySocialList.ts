@@ -1,32 +1,34 @@
-import { getJoinedSocialList, getLikedStoryList } from '@/api/mypage/api';
-import { getSocialList } from '@/api/social/api';
 import { TabType } from '@/app/mypage/_components/my-social-list/type';
+import {
+  getMyCreatedSocialList,
+  getMyJoinedSocialList,
+} from '@/lib/supabase/repositories/story_collaborators';
+import { getMyLikedSocialList } from '@/lib/supabase/repositories/story_likes';
 import { useInfiniteQuery } from '@tanstack/react-query';
 
-const FETCH_LIMIT = 12;
+const FETCH_GET_ITEM_LIMIT = 12;
 
 export const useMySocialList = (activeTab: TabType, userId?: number) => {
   return useInfiniteQuery({
     queryKey: ['mySocialList', activeTab, userId],
     enabled: !!userId,
     queryFn: async ({ pageParam = 0 }) => {
-      const filter = {
-        limit: FETCH_LIMIT,
-        offset: pageParam,
-        ...(activeTab === 'created' && { createdBy: Number(userId) }),
-      };
+      if (!userId) return [];
 
-      return activeTab === 'joined'
-        ? await getJoinedSocialList(filter)
-        : activeTab === 'created'
-          ? await getSocialList(filter)
-          : await getLikedStoryList(Number(userId));
+      const params = { userId, offset: pageParam, limit: FETCH_GET_ITEM_LIMIT };
+
+      switch (activeTab) {
+        case 'joined':
+          return await getMyJoinedSocialList(params);
+        case 'created':
+          return await getMyCreatedSocialList(params);
+        case 'liked':
+        default:
+          return await getMyLikedSocialList(params);
+      }
     },
-
     getNextPageParam: (lastPage, allPages) =>
-      lastPage.length === FETCH_LIMIT
-        ? allPages.length * FETCH_LIMIT
-        : undefined,
+      lastPage.length < FETCH_GET_ITEM_LIMIT ? undefined : allPages.length,
     initialPageParam: 0,
   });
 };

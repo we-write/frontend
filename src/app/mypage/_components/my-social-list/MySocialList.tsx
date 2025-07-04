@@ -4,7 +4,7 @@ import Observer from '@/components/common/Observer/Observer';
 import { useEffect, useState } from 'react';
 import { useMySocialList } from '@/hooks/api/mypage/useMySocialList';
 import { useAuth } from '@/providers/auth-provider/AuthProvider.client';
-import { LikedStoryItem, SocialItem, TabType } from './type';
+import { LikedStoryResponse, MySocialResponse, TabType } from './type';
 import TabMenu from './TabMenu';
 import MySocialListCard from './MySocialListCard';
 
@@ -14,7 +14,7 @@ const MySocialList = () => {
   const userId = myInfo?.id;
 
   const { data, fetchNextPage, hasNextPage, isFetching, isLoading, refetch } =
-    useMySocialList(activeTab, userId);
+    useMySocialList(activeTab, userId as number);
 
   useEffect(() => {
     if (data) {
@@ -27,14 +27,13 @@ const MySocialList = () => {
   };
 
   const flattenedList = data?.pages.flat() || [];
-  const filteredList = flattenedList;
 
   return (
     <div className="mt-[30px] w-full border-t-2 border-gray-900 p-6">
       <TabMenu activeTab={activeTab} onTabChange={handleTabChange} />
 
       <div className="min-h-[50vh] w-full">
-        {!isLoading && filteredList.length === 0 && (
+        {!isLoading && flattenedList.length === 0 && (
           <p className="py-6 pt-[20vh] text-center text-gray-500">
             {activeTab === 'joined'
               ? '내가 참여한 모임이 아직 없어요'
@@ -44,12 +43,12 @@ const MySocialList = () => {
           </p>
         )}
 
-        {!isLoading && filteredList.length > 0 && (
+        {!isLoading && flattenedList.length > 0 && (
           <MySocialListCard
             list={
               activeTab === 'liked'
-                ? (filteredList as LikedStoryItem[])
-                : (filteredList as SocialItem[])
+                ? (flattenedList as LikedStoryResponse[])
+                : (flattenedList as MySocialResponse[])
             }
             activeTab={activeTab}
             refetch={refetch}
