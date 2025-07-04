@@ -1,6 +1,5 @@
 'use client';
 
-import { deleteCollaboratorFromSocial } from '@/api/mypage/api';
 import {
   LikedStoryResponse,
   MySocialListCardItemProps,
@@ -14,6 +13,7 @@ import { APP_ROUTES } from '@/constants/appRoutes';
 import { Heart } from 'lucide-react';
 import useLikeStory from '@/hooks/api/library/useLikeStory';
 import toast from '@/utils/toast';
+import { deleteCollaboratorFromSocial } from '@/lib/supabase/repositories/story_collaborators';
 
 const MySocialListCardItem = ({
   item,
@@ -22,8 +22,8 @@ const MySocialListCardItem = ({
 }: MySocialListCardItemProps) => {
   const router = useRouter();
   const { myInfo } = useAuth();
+  const userId = myInfo?.id ?? 0;
 
-  const userId = myInfo?.id;
   const isJoinedTab = activeTab === 'joined';
   const isLikedTab = activeTab === 'liked';
 
@@ -34,7 +34,7 @@ const MySocialListCardItem = ({
 
   const { handleLikeStory, isLiked, isPending } = useLikeStory({
     story_id: item.story_id,
-    user_id: myInfo?.id as number,
+    user_id: userId,
   });
 
   const handleClickLike = () => {
@@ -42,10 +42,16 @@ const MySocialListCardItem = ({
     handleLikeStory();
   };
 
+  if (!myInfo || !userId) {
+    toast.error('사용자 정보를 확인할 수 없습니다.');
+    router.push(APP_ROUTES.signin);
+    return null;
+  }
+
   const handleExitSocial = async (storyId: string) => {
     const confirmed = window.confirm(messages.confirm);
-    if (!confirmed || !userId) return;
-    await deleteCollaboratorFromSocial({ userId, storyId });
+    if (!confirmed) return;
+    await deleteCollaboratorFromSocial(userId, storyId);
     toast.success(messages.success);
     refetch();
   };
