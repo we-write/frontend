@@ -3,7 +3,7 @@ export interface SignUpFormData {
   email: string;
   password: string;
   passwordCheck: string;
-  companyName: string;
+  favorite: string;
 }
 
 export type SignUpRequest = Omit<SignUpFormData, 'passwordCheck'>;

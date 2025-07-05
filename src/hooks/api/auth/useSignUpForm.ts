@@ -19,7 +19,7 @@ const useSignUpForm = () => {
       name: data.name,
       email: data.email,
       password: data.password,
-      companyName: data.companyName,
+      favorite: data.favorite,
     };
 
     createUser(signUpData, {
