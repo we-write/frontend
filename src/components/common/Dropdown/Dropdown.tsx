@@ -22,9 +22,14 @@ export const DropdownContent = ({
 export const DropdownContainer = ({
   children,
   className = '',
+  ...rest
 }: DropdownContainerProps) => {
   const defaultOptionContainerStyle = `overflow-hidden rounded-md bg-white mt-2 ${className}`;
-  return <ul className={defaultOptionContainerStyle}>{children}</ul>;
+  return (
+    <ul className={defaultOptionContainerStyle} {...rest}>
+      {children}
+    </ul>
+  );
 };
 
 const Dropdown = ({
@@ -34,7 +39,7 @@ const Dropdown = ({
   className = '',
   onClose,
 }: DropdownProps) => {
-  const outSideRef = useClickOutside(() => {
+  const outSideRef = useClickOutside<HTMLDivElement>(() => {
     if (isOpen && onClose) {
       onClose();
     }
