@@ -1,9 +1,13 @@
 import { SigninRequest } from '@/api/auth/type';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import { usePostSignin } from './usePostSignin';
+
+import { signin } from '@/lib/supabase/repositories/users';
+import { useMutation } from '@tanstack/react-query';
 
 export const useSignInForm = () => {
-  const { mutate: signIn } = usePostSignin();
+  const { mutate: signIn } = useMutation({
+    mutationFn: (data: SigninRequest) => signin(data),
+  });
 
   const {
     register,

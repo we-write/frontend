@@ -1,5 +1,7 @@
-import { SignUpRequest } from '@/api/auth/type';
+'use server';
+import { SignUpRequest, SigninRequest } from '@/api/auth/type';
 import instanceBaaS from '@/api/instanceBaaS';
+import { cookies } from 'next/headers';
 
 export const createUser = async (user: SignUpRequest) => {
   const { data, error } = await instanceBaaS.auth.signUp({
@@ -18,6 +20,40 @@ export const createUser = async (user: SignUpRequest) => {
     favorite: user.favorite,
     image: null,
   });
+  if (error) {
+    throw new Error(error.message);
+  }
+  return data;
+};
+
+export const signin = async (user: SigninRequest) => {
+  const { data, error } = await instanceBaaS.auth.signInWithPassword({
+    email: user.email,
+    password: user.password,
+  });
+  if (error) {
+    throw new Error(error.message);
+  }
+  const cookieStore = await cookies();
+  cookieStore.set('access_token', data.session.access_token);
+  cookieStore.set('refresh_token', data.session.refresh_token);
+  return data;
+};
+
+export const signout = async () => {
+  const cookieStore = await cookies();
+  cookieStore.delete('access_token');
+  cookieStore.delete('refresh_token');
+};
+
+export const getUserInfo = async () => {
+  const cookieStore = await cookies();
+  const accessToken = cookieStore.get('access_token');
+  const refreshToken = cookieStore.get('refresh_token');
+  if (!accessToken || !refreshToken) {
+    return null;
+  }
+  const { data, error } = await instanceBaaS.auth.getUser(accessToken.value);
   if (error) {
     throw new Error(error.message);
   }
