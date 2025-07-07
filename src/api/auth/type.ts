@@ -13,6 +13,10 @@ export interface SigninRequest {
   email: string;
   password: string;
 }
+export interface SigninFormData extends SigninRequest {
+  isRememberEmail: boolean;
+}
+
 export interface MyInfoResponse {
   id: number;
   name: string;
