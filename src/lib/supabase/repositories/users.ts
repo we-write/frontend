@@ -54,8 +54,15 @@ export const getUserInfo = async () => {
     return null;
   }
   const { data, error } = await instanceBaaS.auth.getUser(accessToken.value);
+  const { data: user, error: userError } = await instanceBaaS
+    .from('users')
+    .select('*')
+    .eq('email', data.user?.email ?? '');
   if (error) {
     throw new Error(error.message);
   }
-  return data;
+  if (userError) {
+    throw new Error(userError.message);
+  }
+  return user;
 };
