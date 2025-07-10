@@ -45,9 +45,9 @@ npm run dev
 |              |                                                          |
 | :----------: | :------------------------------------------------------- |
 |     언어     | **TypeScript**                                           |
-|  프레임워크  | **Next.js15.3.2**                                        |
+|  프레임워크  | **Next.js15**                                        |
 |  라이브러리  | **React19**, **TailWindCSS**, **TipTap**, etc.           |
-|   상태관리   | **Context API**, **Tanstack Query**, **React Hook Form** |
+|   상태관리   | **Context API**, **Tanstack Query**, **React Hook Form**, **Zustand** |
 | 데이터베이스 | **Codeit API**, **Supabase**                             |
 |  협업 도구   | **Notion**, **StoryBook**, **Husky**                     |
 |    테스트    | **Jest**                                                 |
