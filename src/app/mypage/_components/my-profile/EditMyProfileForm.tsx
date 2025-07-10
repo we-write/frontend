@@ -1,5 +1,3 @@
-'use client';
-
 import Button from '@/components/common/Button/Button';
 import { MyInfoRequest } from '@/api/auth/type';
 import {
