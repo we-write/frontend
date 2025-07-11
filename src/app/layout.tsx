@@ -25,7 +25,7 @@ export const metadata: Metadata = {
   title: 'We Write',
   description: 'We Write',
   icons: {
-    icon: '/assets/icons/Favicon.svg',
+    icon: '/assets/icons/Favicon.ico',
   },
 };
 
