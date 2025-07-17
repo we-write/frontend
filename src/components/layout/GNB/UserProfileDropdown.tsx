@@ -41,7 +41,7 @@ const UserProfileDropdown = ({
     closeDropdown();
 
     if (pathname === APP_ROUTES.mypage) {
-      router.push(APP_ROUTES.signin);
+      router.push(APP_ROUTES.home);
     }
   };
 
