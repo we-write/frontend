@@ -1,4 +1,4 @@
-import ClientSideHandler from '@/components/logic/ClientSideHandler';
+import RedirectErrorToastHandler from '@/components/logic/RedirectErrorToastHandler';
 import MyProfile from './_components/my-profile/MyProfile';
 import MySocialList from './_components/my-social-list/MySocialList';
 
@@ -10,7 +10,7 @@ const MyPage = () => {
         <MyProfile />
         <MySocialList />
       </section>
-      <ClientSideHandler />
+      <RedirectErrorToastHandler />
     </>
   );
 };

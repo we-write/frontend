@@ -5,7 +5,7 @@ import { getQueryClient } from '@/lib/queryClinet';
 import SocialListContainer from './_components/SocialListContainer';
 import { BookOpen } from 'lucide-react';
 import type { Metadata } from 'next';
-import ClientSideHandler from '@/components/logic/ClientSideHandler';
+import RedirectErrorToastHandler from '@/components/logic/RedirectErrorToastHandler';
 
 export const metadata: Metadata = {
   title: '스토리그룹 - WeWrite',
@@ -54,7 +54,7 @@ const Social = async () => {
         </div>
         <SocialListContainer />
       </HydrationBoundary>
-      <ClientSideHandler />
+      <RedirectErrorToastHandler />
     </>
   );
 };

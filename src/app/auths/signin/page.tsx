@@ -1,7 +1,7 @@
 import SignInForm from './_components/SignInForm';
 import LinkToSignUp from './_components/LinkToSignUp';
 import type { Metadata } from 'next';
-import ClientSideHandler from '@/components/logic/ClientSideHandler';
+import RedirectErrorToastHandler from '@/components/logic/RedirectErrorToastHandler';
 
 export const metadata: Metadata = {
   title: '로그인 - WeWrite',
@@ -35,7 +35,7 @@ const SignIn = async () => {
         <SignInForm />
         <LinkToSignUp />
       </div>
-      <ClientSideHandler />
+      <RedirectErrorToastHandler />
     </div>
   );
 };

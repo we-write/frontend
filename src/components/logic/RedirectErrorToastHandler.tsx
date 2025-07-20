@@ -4,7 +4,7 @@ import toast from '@/utils/toast';
 import { useEffect } from 'react';
 import Cookies from 'js-cookie';
 
-const ClientSideHandler = () => {
+const RedirectErrorToastHandler = () => {
   useEffect(() => {
     const errorType = Cookies.get('redirect_error');
 
@@ -23,4 +23,4 @@ const ClientSideHandler = () => {
   return null;
 };
 
-export default ClientSideHandler;
+export default RedirectErrorToastHandler;
