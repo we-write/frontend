@@ -1,5 +1,9 @@
 'use server';
-import { SignUpRequest, SigninRequest } from '@/api/auth/type';
+import {
+  SignUpRequest,
+  SigninRequest,
+  UserInfoResponse,
+} from '@/api/auth/type';
 import instanceBaaS from '@/api/instanceBaaS';
 import { cookies } from 'next/headers';
 
@@ -46,7 +50,7 @@ export const signout = async () => {
   cookieStore.delete('refresh_token');
 };
 
-export const getUserInfo = async () => {
+export const getUserInfo = async (): Promise<UserInfoResponse | null> => {
   const cookieStore = await cookies();
   const accessToken = cookieStore.get('access_token');
   const refreshToken = cookieStore.get('refresh_token');
@@ -57,12 +61,19 @@ export const getUserInfo = async () => {
   const { data: user, error: userError } = await instanceBaaS
     .from('users')
     .select('*')
-    .eq('email', data.user?.email ?? '');
+    .eq('email', data.user?.email ?? '')
+    .single();
   if (error) {
     throw new Error(error.message);
   }
   if (userError) {
     throw new Error(userError.message);
   }
-  return user;
+  return {
+    id: user.id,
+    name: user.name,
+    email: user.email,
+    favorite: user.favorite,
+    image: user.image ?? '',
+  };
 };

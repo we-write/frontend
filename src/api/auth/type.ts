@@ -22,6 +22,13 @@ export interface MyInfoResponse {
   updatedAt: string;
   image: string;
 }
+export interface UserInfoResponse {
+  id: number;
+  name: string;
+  email: string;
+  favorite: string;
+  image: string;
+}
 export interface MyInfoRequest {
   image?: File | null;
   companyName: string;
