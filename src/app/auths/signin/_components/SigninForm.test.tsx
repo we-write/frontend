@@ -186,12 +186,12 @@ describe('SignInForm 제출 상태 테스트', () => {
         fn({
           email: 'test@email.com',
           password: 'password123',
-          rememberEmail: true,
+          isRememberEmail: true,
         } as SigninFormData),
       isSubmitting: false,
       errors: {},
-      onSubmit: ({ email, rememberEmail }: SigninFormData) => {
-        if (rememberEmail) {
+      onSubmit: ({ email, isRememberEmail }: SigninFormData) => {
+        if (isRememberEmail) {
           localStorage.setItem('rememberEmail', email);
         }
       },
