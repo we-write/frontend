@@ -14,6 +14,7 @@ export const TABLE_NAMES = {
   STORY_COLLABORATORS: 'story_collaborators',
   CONTENT_APPROVAL: 'ContentApproval',
   CONTENTS_DELETED_LOG: 'contents_deleted_log',
+  STORY_LIKES: 'story_likes',
 } as const;
 
 // ===== 컬럼명 상수 =====
@@ -60,5 +61,11 @@ export const COLUMN_NAMES = {
     STORY_ID: 'story_id',
     CREATED_AT: 'created_at',
     DELETED_AT: 'deleted_at',
+  },
+  STORY_LIKES: {
+    USER_ID: 'user_id',
+    STORY_ID: 'story_id',
+    LIKED_AT: 'liked_at',
+    ID: 'id',
   },
 } as const;

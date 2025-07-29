@@ -57,6 +57,7 @@ export interface ListCardProps {
   chip: ReactNode;
   textContent: ListCardTextContentProps;
   endDate: string | null;
+  endDateTitle: string;
   isCardDataLoading: boolean;
   isCompletedStory: boolean;
   isCanceled: boolean;

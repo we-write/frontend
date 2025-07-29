@@ -14,7 +14,7 @@ export const usePostSignin = () => {
     onSuccess: async () => {
       toast.success('로그인에 성공했습니다.');
       await queryClient.prefetchQuery({ queryKey: ['myInfo'] });
-      router.push(APP_ROUTES.social);
+      router.replace(APP_ROUTES.social);
     },
     onError: (error: Error) => {
       const errorData = JSON.parse(error.message);

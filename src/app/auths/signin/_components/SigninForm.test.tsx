@@ -3,8 +3,9 @@ import SignInForm from './SignInForm';
 import '@testing-library/jest-dom';
 import { FormEvent, FormEventHandler } from 'react';
 import { signInValidate } from '@/utils/validators/auth';
+import { SigninFormData } from '@/api/auth/type';
+import { SubmitHandler } from 'react-hook-form';
 
-// 하나의 모킹 객체로 통합
 const mockUseSignInForm = jest.fn();
 
 jest.mock('@/hooks/api/auth/useSignInForm', () => ({
@@ -19,17 +20,78 @@ describe('SignInForm 렌더링 테스트', () => {
       handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
       isSubmitting: false,
       errors: {},
-      onSubmit: jest.fn(), // 여기서 직접 jest.fn() 사용
+      onSubmit: jest.fn(),
+      setValue: jest.fn(),
     });
   });
 
   it('이메일과 비밀번호 입력 필드가 렌더링되어야 한다', () => {
     render(<SignInForm />);
-    expect(screen.getByLabelText('아이디')).toBeInTheDocument();
+    expect(screen.getByLabelText('이메일')).toBeInTheDocument();
     expect(screen.getByLabelText('비밀번호')).toBeInTheDocument();
     expect(screen.getByRole('button', { name: /로그인/i })).toBeInTheDocument();
   });
 
+  it('이메일 기억하기 체크박스가 렌더링되어야 한다', () => {
+    render(<SignInForm />);
+    expect(screen.getByLabelText('이메일 기억하기')).toBeInTheDocument();
+  });
+
+  it('이메일 기억하기 체크박스가 클릭되면 체크된다', () => {
+    render(<SignInForm />);
+    const rememberEmailCheckbox = screen.getByLabelText('이메일 기억하기');
+    fireEvent.click(rememberEmailCheckbox);
+    expect(rememberEmailCheckbox).toBeChecked();
+  });
+
+  it('저장된 이메일이 있으면 이메일 기억하기 체크박스가 체크된다', () => {
+    localStorage.setItem('rememberEmail', 'test@email.com');
+    const mockSetValue = jest.fn();
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn((name) => ({
+        name,
+        onChange: jest.fn(),
+        checked: name === 'rememberEmail' ? true : undefined,
+      })),
+      handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
+      isSubmitting: false,
+      errors: {},
+      onSubmit: jest.fn(),
+      setValue: mockSetValue,
+    });
+    render(<SignInForm />);
+
+    expect(mockSetValue).toHaveBeenCalledWith('email', 'test@email.com');
+    expect(mockSetValue).toHaveBeenCalledWith('rememberEmail', true);
+    localStorage.clear();
+  });
+  it('저장된 이메일이 있으면 이메일 필드에 저장된 이메일이 입력된다', async () => {
+    localStorage.setItem('rememberEmail', 'test@email.com');
+
+    const mockSetValue = jest.fn();
+
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn((name) => ({
+        name,
+        onChange: jest.fn(),
+        checked: name === 'rememberEmail' ? true : undefined,
+      })),
+      handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
+      isSubmitting: false,
+      errors: {},
+      onSubmit: jest.fn(),
+      setValue: mockSetValue,
+    });
+
+    render(<SignInForm />);
+
+    await waitFor(() => {
+      expect(mockSetValue).toHaveBeenCalledWith('email', 'test@email.com');
+      expect(mockSetValue).toHaveBeenCalledWith('rememberEmail', true);
+    });
+
+    localStorage.clear();
+  });
   it('비밀번호 토글 버튼을 클릭하면 입력 타입이 바뀐다', () => {
     render(<SignInForm />);
     const toggleButton = screen.getByRole('button', {
@@ -50,6 +112,7 @@ describe('SignInForm 렌더링 테스트', () => {
       isSubmitting: false,
       errors: {},
       onSubmit: mockSubmit,
+      setValue: jest.fn(),
     });
 
     render(<SignInForm />);
@@ -71,6 +134,7 @@ describe('SignInForm 에러 메시지 테스트', () => {
       isSubmitting: false,
       errors: { email: { message: '이메일을 입력해주세요' } },
       onSubmit: jest.fn(),
+      setValue: jest.fn(),
     });
   });
 
@@ -86,6 +150,7 @@ describe('SignInForm 에러 메시지 테스트', () => {
       isSubmitting: false,
       errors: { password: { message: '비밀번호를 입력해주세요' } },
       onSubmit: jest.fn(),
+      setValue: jest.fn(),
     });
 
     render(<SignInForm />);
@@ -95,12 +160,14 @@ describe('SignInForm 에러 메시지 테스트', () => {
 
 describe('SignInForm 제출 상태 테스트', () => {
   beforeEach(() => {
+    localStorage.clear();
     mockUseSignInForm.mockReturnValue({
       register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
       handleSubmit: (fn: FormEventHandler) => (e: FormEvent) => fn(e),
       isSubmitting: true,
       errors: {},
       onSubmit: jest.fn(),
+      setValue: jest.fn(),
     });
   });
 
@@ -110,6 +177,45 @@ describe('SignInForm 제출 상태 테스트', () => {
     expect(submitButton).toBeDisabled();
   });
 
+  it('이메일 기억하기 체크박스가 클릭된 상태에서 제출되면 이메일이 로컬스토리지에 저장된다', async () => {
+    localStorage.clear();
+
+    mockUseSignInForm.mockReturnValue({
+      register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
+      handleSubmit: (fn: SubmitHandler<SigninFormData>) => () =>
+        fn({
+          email: 'test@email.com',
+          password: 'password123',
+          rememberEmail: true,
+        } as SigninFormData),
+      isSubmitting: false,
+      errors: {},
+      onSubmit: ({ email, rememberEmail }: SigninFormData) => {
+        if (rememberEmail) {
+          localStorage.setItem('rememberEmail', email);
+        }
+      },
+    });
+
+    render(<SignInForm />);
+
+    fireEvent.change(screen.getByLabelText('이메일'), {
+      target: { value: 'test@email.com' },
+    });
+
+    fireEvent.change(screen.getByLabelText('비밀번호'), {
+      target: { value: 'password123' },
+    });
+
+    fireEvent.click(screen.getByLabelText('이메일 기억하기'));
+
+    fireEvent.click(screen.getByRole('button', { name: /로그인/i }));
+
+    await waitFor(() => {
+      expect(localStorage.getItem('rememberEmail')).toBe('test@email.com');
+    });
+  });
+
   it('에러가 있을 때 버튼이 비활성화된다', () => {
     mockUseSignInForm.mockReturnValue({
       register: jest.fn(() => ({ name: '', onChange: jest.fn() })),
@@ -117,6 +223,7 @@ describe('SignInForm 제출 상태 테스트', () => {
       isSubmitting: false,
       errors: { email: { message: '이메일을 입력해주세요' } },
       onSubmit: jest.fn(),
+      setValue: jest.fn(),
     });
 
     render(<SignInForm />);
