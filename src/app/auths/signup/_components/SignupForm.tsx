@@ -117,16 +117,16 @@ const SignupForm = () => {
       </div>
 
       <InputForm
-        name="companyName"
+        name="favorite"
         label="좋아하는 작품"
         placeholder="(ex. 위대한 개츠비,원피스)"
         register={{
-          ...register('companyName', {
-            validate: (value) => signUpValidate({ value, name: 'companyName' }),
+          ...register('favorite', {
+            validate: (value) => signUpValidate({ value, name: 'favorite' }),
           }),
         }}
-        hasError={!!errors.companyName}
-        helperText={errors.companyName?.message}
+        hasError={!!errors.favorite}
+        helperText={errors.favorite?.message}
       />
 
       <Button
@@ -138,7 +138,7 @@ const SignupForm = () => {
           errors.email ||
           errors.password ||
           errors.passwordCheck ||
-          errors.companyName
+          errors.favorite
             ? 'bg-gray-400'
             : 'bg-write-main'
         } font-bold text-white`}

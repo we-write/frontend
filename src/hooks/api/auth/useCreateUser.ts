@@ -1,4 +1,4 @@
-import { createUser } from '@/api/auth/api';
+import { createUser } from '@/lib/supabase/repositories/users';
 import { SignUpRequest } from '@/api/auth/type';
 import { useMutation } from '@tanstack/react-query';
 import toast from '@/utils/toast';

@@ -1,4 +1,4 @@
-﻿export type Json =
+export type Json =
   | string
   | number
   | boolean
@@ -101,7 +101,7 @@ export type Database = {
         Row: {
           approval_period: number | null;
           approved_count: number;
-          capacity: number | null;
+          capacity: number;
           cover_image_url: string | null;
           created_at: string;
           genre: string;
@@ -116,7 +116,7 @@ export type Database = {
         Insert: {
           approval_period?: number | null;
           approved_count: number;
-          capacity?: number | null;
+          capacity: number;
           cover_image_url?: string | null;
           created_at?: string;
           genre: string;
@@ -131,7 +131,7 @@ export type Database = {
         Update: {
           approval_period?: number | null;
           approved_count?: number;
-          capacity?: number | null;
+          capacity?: number;
           cover_image_url?: string | null;
           created_at?: string;
           genre?: string;
@@ -208,6 +208,39 @@ export type Database = {
             referencedColumns: ['story_id'];
           },
         ];
+      };
+      users: {
+        Row: {
+          created_at: string;
+          email: string;
+          favorite: string;
+          id: number;
+          image: string | null;
+          last_seen_at: string | null;
+          name: string;
+          updated_at: string | null;
+        };
+        Insert: {
+          created_at?: string;
+          email: string;
+          favorite: string;
+          id?: number;
+          image?: string | null;
+          last_seen_at?: string | null;
+          name: string;
+          updated_at?: string | null;
+        };
+        Update: {
+          created_at?: string;
+          email?: string;
+          favorite?: string;
+          id?: number;
+          image?: string | null;
+          last_seen_at?: string | null;
+          name?: string;
+          updated_at?: string | null;
+        };
+        Relationships: [];
       };
     };
     Views: {

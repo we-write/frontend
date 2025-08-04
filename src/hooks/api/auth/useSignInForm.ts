@@ -1,5 +1,6 @@
-import { SigninFormData } from '@/api/auth/type';
-import { SubmitHandler, useForm, UseFormProps } from 'react-hook-form';
+import { SigninRequest } from '@/api/auth/type';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
 import { usePostSignin } from './usePostSignin';
 
 export function useSignInForm(options: UseFormProps<SigninFormData>) {

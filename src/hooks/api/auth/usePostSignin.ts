@@ -1,5 +1,5 @@
 import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { postSignIn } from '@/api/auth/api';
+import { signin } from '@/lib/supabase/repositories/users';
 import { SigninRequest } from '@/api/auth/type';
 
 import { useRouter } from 'next/navigation';
@@ -10,7 +10,7 @@ export const usePostSignin = () => {
   const queryClient = useQueryClient();
   const router = useRouter();
   return useMutation({
-    mutationFn: (data: SigninRequest) => postSignIn(data),
+    mutationFn: (data: SigninRequest) => signin(data),
     onSuccess: async () => {
       toast.success('로그인에 성공했습니다.');
       await queryClient.prefetchQuery({ queryKey: ['myInfo'] });

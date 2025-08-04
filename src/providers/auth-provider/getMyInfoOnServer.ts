@@ -1,14 +1,15 @@
 import { getCookie } from '@/api/cookies';
-import { MyInfoResponse } from '@/api/auth/type';
+import { UserInfoResponse } from '@/api/auth/type';
 import { getQueryClient } from '@/lib/queryClinet';
 import { QUERY_KEY } from '@/constants/queryKey';
 import { AuthProviderServerState } from './type';
-import { getMyInfo } from '@/api/auth/api';
+
 import handleError from '@/utils/error';
+import { getUserInfo } from '@/lib/supabase/repositories/users';
 
 const getMyInfoOnServer = async () => {
   const queryClient = getQueryClient();
-  const accessToken = await getCookie('accessToken');
+  const accessToken = await getCookie('access_token');
 
   const initialState: AuthProviderServerState = {
     myInfo: undefined,
@@ -22,9 +23,16 @@ const getMyInfoOnServer = async () => {
   }
 
   try {
-    const data = await queryClient.fetchQuery<MyInfoResponse>({
+    const data = await queryClient.fetchQuery<UserInfoResponse>({
       queryKey: [QUERY_KEY.MY_INFO],
-      queryFn: () => getMyInfo(accessToken),
+      queryFn: async () => {
+        const data = await getUserInfo();
+        if (!data) {
+          throw new Error('User not found');
+        }
+        return data;
+      },
+      //getMyInfo(accessToken),
     });
     return {
       ...initialState,
