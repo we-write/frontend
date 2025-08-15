@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import LibraryListContainer from '@/app/library/_components/LibraryListContainer';
+import { LibraryListContainerProps } from '@/app/library/_components/type';
 
 interface Story {
   id: number;
@@ -36,12 +37,13 @@ jest.mock('@/components/common/Observer/Observer', () => ({
 
 import { useInfiniteStories } from '@/hooks/api/library/useInfiniteStories';
 import useCurrentViewPort from '@/hooks/useCurrentViewPort';
+import { VIEWPORT_BREAK_POINT } from '@/constants/viewportBreakPoint';
 
 describe('LibraryListContainer', () => {
   const mockUseInfiniteStories = useInfiniteStories as jest.Mock;
   const mockUseCurrentViewPort = useCurrentViewPort as jest.Mock;
 
-  const defaultProps = {
+  const defaultProps: LibraryListContainerProps = {
     keyword: '',
     searchType: '제목',
     genres: [],
@@ -49,42 +51,41 @@ describe('LibraryListContainer', () => {
 
   beforeEach(() => {
     jest.clearAllMocks();
-    mockUseCurrentViewPort.mockReturnValue({ viewportWidth: 1200 });
+    mockUseCurrentViewPort.mockReturnValue({
+      viewportWidth: (VIEWPORT_BREAK_POINT.LG + VIEWPORT_BREAK_POINT.XL) / 2,
+    });
   });
 
-  it('로딩 상태일 때 Skeleton을 렌더링한다', () => {
+  const setup = (
+    storyData?: Story[],
+    options?: Partial<ReturnType<typeof useInfiniteStories>>
+  ) => {
     mockUseInfiniteStories.mockReturnValue({
-      data: undefined,
+      data: storyData ? { pages: [storyData] } : { pages: [[]] },
       fetchNextPage: jest.fn(),
       hasNextPage: false,
       isFetchingNextPage: false,
-      isLoading: true,
+      isLoading: !storyData,
+      ...options,
     });
 
-    render(
-      <LibraryListContainer {...defaultProps} searchType={'제목' as const} />
-    );
+    return render(<LibraryListContainer {...defaultProps} />);
+  };
 
+  it('로딩 상태일 때 Skeleton을 렌더링한다', () => {
+    setup(undefined, { isLoading: true });
     expect(screen.getByTestId('skeleton')).toBeInTheDocument();
   });
 
   it('스토리가 없고 keyword가 빈 문자열이면 "아직 스토리가 없어요" 메시지를 표시한다', () => {
-    mockUseInfiniteStories.mockReturnValue({
-      data: { pages: [[]] },
-      fetchNextPage: jest.fn(),
-      hasNextPage: false,
-      isFetchingNextPage: false,
-      isLoading: false,
-    });
-
-    render(
-      <LibraryListContainer {...defaultProps} searchType={'제목' as const} />
-    );
-
+    setup([]);
     expect(screen.getByText('아직 스토리가 없어요')).toBeInTheDocument();
   });
 
   it('스토리가 없고 keyword가 있으면 "검색된 스토리가 없어요" 메시지를 표시한다', () => {
+    render(
+      <LibraryListContainer keyword="테스트" searchType="제목" genres={[]} />
+    );
     mockUseInfiniteStories.mockReturnValue({
       data: { pages: [[]] },
       fetchNextPage: jest.fn(),
@@ -92,47 +93,19 @@ describe('LibraryListContainer', () => {
       isFetchingNextPage: false,
       isLoading: false,
     });
-
-    render(
-      <LibraryListContainer keyword="테스트" searchType="제목" genres={[]} />
-    );
 
     expect(screen.getByText('검색된 스토리가 없어요')).toBeInTheDocument();
   });
 
   it('스토리가 있으면 LibraryListGrid와 Observer를 렌더링한다', () => {
-    const stories = [{ id: 1, title: 'Story 1' }];
-    mockUseInfiniteStories.mockReturnValue({
-      data: { pages: [stories] },
-      fetchNextPage: jest.fn(),
-      hasNextPage: true,
-      isFetchingNextPage: false,
-      isLoading: false,
-    });
-
-    render(
-      <LibraryListContainer {...defaultProps} searchType={'제목' as const} />
-    );
-
+    setup([{ id: 1, title: 'Story 1' }], { hasNextPage: true });
     expect(screen.getByTestId('library-list-grid')).toBeInTheDocument();
     expect(screen.getByTestId('observer')).toHaveTextContent('enabled');
     expect(screen.getByText('Story 1')).toBeInTheDocument();
   });
 
   it('hasNextPage가 false이면 Observer가 disabled 상태로 렌더링된다', () => {
-    const stories = [{ id: 1, title: 'Story 1' }];
-    mockUseInfiniteStories.mockReturnValue({
-      data: { pages: [stories] },
-      fetchNextPage: jest.fn(),
-      hasNextPage: false,
-      isFetchingNextPage: false,
-      isLoading: false,
-    });
-
-    render(
-      <LibraryListContainer {...defaultProps} searchType={'제목' as const} />
-    );
-
+    setup([{ id: 1, title: 'Story 1' }], { hasNextPage: false });
     expect(screen.getByTestId('observer')).toHaveTextContent('disabled');
   });
 });
