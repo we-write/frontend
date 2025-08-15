@@ -3,7 +3,7 @@ import { GenreBadgeProps, GenreTypeWithAll } from './type';
 
 export const GENRE_ALL = '전체';
 
-const GENRES = [
+export const GENRES = [
   GENRE_ALL,
   ...Object.keys(GENRE_LOCATION_MAP),
 ] as GenreTypeWithAll[];
@@ -30,6 +30,8 @@ const GenreBadge = ({
           <button
             type="button"
             key={genre}
+            name={genre}
+            aria-pressed={selectedGenres.includes(genre)}
             onClick={() => updateSelectedGenre(genre)}
             className={`flex-center rounded-md px-2 py-1 text-xs transition-all sm:text-sm ${
               isActive ? 'bg-black text-white' : 'bg-gray-200 text-black'
